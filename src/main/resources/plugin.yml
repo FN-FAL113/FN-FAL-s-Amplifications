@@ -1,0 +1,11 @@
+name: FNAmplifications
+version: '${project.version}'
+main: ne.fnfal113.fnamplifications.FNAmplifications
+api-version: 1.17
+authors: [ FN_FAL113 ]
+description: Custom Addon that includes my other addons for slimefun
+website: https://github.com/FN-FAL113
+depend: [Slimefun]
+softdepend:
+  - LiteXpansion
+  - SimpleMaterialGenerators
