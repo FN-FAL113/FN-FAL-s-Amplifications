@@ -1,8 +1,8 @@
 package ne.fnfal113.fnamplifications.PowerGenerators;
 
-import dev.j3fftw.extrautils.interfaces.InventoryBlock;
-import dev.j3fftw.extrautils.utils.Utils;
 import dev.j3fftw.litexpansion.Items;
+import dev.j3fftw.litexpansion.extrautils.interfaces.InventoryBlock;
+import dev.j3fftw.litexpansion.extrautils.utils.Utils;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;

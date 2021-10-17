@@ -1,11 +1,10 @@
 package ne.fnfal113.fnamplifications.Items;
 
-import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
+import dev.j3fftw.litexpansion.extrautils.utils.LoreBuilderDynamic;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -15,10 +14,8 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 
 
 public class FNAmpItems {
@@ -126,7 +123,7 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_XPANSION_POWER_R7 = new SlimefunItemStack(
             "FN_POWER_XPANSION_POWER_R7",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode(
-                    "1d5a09884cb83ef5c908dddd385f246fefdee221712c010177f54376da238fdd")),
+                    "f7e541dfb4ba1f7dc28b548e347abbdc987ebe0e61c49fa87111ef1b2dcb2218")),
             "&d&lFN Power Xpansion R7",
             "&9This works at Night!",
             "&9Place and right click",
@@ -140,7 +137,7 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_XPANSION_POWER_R8 = new SlimefunItemStack(
             "FN_POWER_XPANSION_POWER_R8",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode(
-                    "7ab4c4d6ee69bc24bba2b8faf67b9f704a06b01aa93f3efa6aef7a9696c4feef")),
+                    "de31efefdd9551af8a4349d3d21e5ec8f37e53c801eb25b14279d6a89fe0c01e")),
             "&d&lFN Power Xpansion R8",
             "&9This works at Night!",
             "&9Place and right click",
