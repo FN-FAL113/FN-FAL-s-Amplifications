@@ -47,7 +47,7 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>dev.j3fftw.ExtraUtils</pattern>
+                            <pattern>dev.j3fftw.extrautils</pattern>
                             <shadedPattern>ne.fnfal113.fnamplifications.ExtraUtils</shadedPattern>
                         </relocation>
                     </relocations>
@@ -116,10 +116,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Slimefun-Addon-Community</groupId>
+            <groupId>com.github.slimefun-addon-community</groupId>
             <artifactId>extrautils</artifactId>
             <version>73e76ac06c</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
