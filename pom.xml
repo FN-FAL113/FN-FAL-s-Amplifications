@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>1.7-Relocation</version>
+    <version>1.8-Relocation</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -47,7 +47,7 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>com.github.Slimefun-Addon-Community.ExtraUtils</pattern>
+                            <pattern>dev.j3fftw.ExtraUtils</pattern>
                             <shadedPattern>ne.fnfal113.fnamplifications.ExtraUtils</shadedPattern>
                         </relocation>
                     </relocations>
