@@ -16,6 +16,8 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getLogger().info("*         FN Amplifications - Created by FN_FAL113         *");
         getLogger().info("* Credits to Jeff(LiteXpansion) and Walshy(SF) for letting *");
         getLogger().info("*            me use their utils and resources              *");
+        getLogger().info("*         Add me on discord if there are any issues        *");
+        getLogger().info("*                       FN_FAL#7779                        *");
         getLogger().info("************************************************************");
 
         FNAmpItemSetup.INSTANCE.init();

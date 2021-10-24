@@ -1,8 +1,8 @@
 package ne.fnfal113.fnamplifications.Items;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
@@ -13,8 +13,6 @@ public final class FNAmpItemSetup {
     public static final FNAmpItemSetup INSTANCE = new FNAmpItemSetup();
     private final SlimefunAddon plugin = FNAmplifications.getInstance();
     private boolean initialised;
-
-    static ReturnConfValue value = new ReturnConfValue();
 
     private FNAmpItemSetup() {
     }
@@ -29,6 +27,12 @@ public final class FNAmpItemSetup {
         registerPowerGens();
         registerMaterialGens();
         registerSolarGens();
+        registerTransformers();
+        registerCompressors();
+        registerCondensers();
+        registerRecyclers();
+        registerDowngrader();
+        registerRecipeItems();
     }
 
     private void registerPowerGens() {
@@ -56,5 +60,39 @@ public final class FNAmpItemSetup {
         FNSolarGenerators.setup();
     }
 
+    private void registerCompressors() {
+
+        ElectricCompressor.setup();
+
+    }
+
+    private void registerCondensers() {
+
+        ElectricIngotCondenser.setup();
+
+    }
+
+    private void registerDowngrader() {
+
+        ElectricMachineDowngrader.setup();
+
+    }
+
+    private void registerRecyclers() {
+
+        ElectricRecycler.setup();
+
+    }
+
+    private void registerTransformers() {
+
+        ElectricTransformer.setup();
+
+    }
+
+    private void registerRecipeItems() {
+
+        FnItemRecipes.setup();
+    }
 
 }
