@@ -1,4 +1,4 @@
-# FN_FAL113's Amplifications
+# FN_FAL's Amplifications
 A merge of my 4 addons in a one addon for Slimefun which adds Power Generators, Material Generators, Machineries with Recipe Items and Solar Generators
 
 Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
