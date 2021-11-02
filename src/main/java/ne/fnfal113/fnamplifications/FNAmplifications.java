@@ -1,6 +1,7 @@
 package ne.fnfal113.fnamplifications;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,9 +25,13 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
         FNAmpItemSetup.INSTANCE.init();
 
-
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+
+        if (getConfig().getBoolean("auto-update", true) && getDescription().getVersion().startsWith("DEV - ")) {
+            new GitHubBuildsUpdater(this, getFile(), "FN-FAL113/FN-FAL-s-Amplifications/main").start();
+        }
+
     }
 
 

@@ -1,3 +1,7 @@
+# Boolean toggle whether you want to receive new updates everytime your server restart if a new update is released.
+# If set to "false" you will not receive new updates and need to manually update it yourself.
+auto-update: true
+
 # Slimefun Custom addon by FN_FAL113, huge thanks to Walshy and Jeff (LiteXpansion) for letting me use their utils
 # You can change the values here, it requires server restart to take effect.
 
@@ -74,7 +78,7 @@ FN-Xpansion-Rank12-Output: 2880
 FN-Xpansion-Rank12-Capacity: 12000000
 
 
-# This is where you can configure tick rates for each Solar Generator
+# This is where you can configure tick rates for each Material Generator
 # This is a custom addon for slimefun by FN_FAL113 based on SMG addon by waleks
 
 # Rate for Clay Generator
