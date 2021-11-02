@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
@@ -11,6 +12,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     @Override
     public void onEnable() {
         setInstance(this);
+        new Metrics(this, 13219);
 
         getLogger().info("************************************************************");
         getLogger().info("*         FN Amplifications - Created by FN_FAL113         *");

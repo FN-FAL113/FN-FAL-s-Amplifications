@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>2.1-Merge</version>
+    <version>2.2-Metrics</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -46,6 +46,10 @@
                 </executions>
                 <configuration>
                     <relocations>
+                        <relocation>
+                        <pattern>org.bstats</pattern>
+                        <shadedPattern>ne.fnfal113.fnamplifications.bstats</shadedPattern>
+                        </relocation>
                         <relocation>
                             <pattern>dev.j3fftw.extrautils</pattern>
                             <shadedPattern>ne.fnfal113.fnamplifications.ExtraUtils</shadedPattern>
@@ -126,6 +130,13 @@
             <artifactId>SMG</artifactId>
             <version>cce3ce31e7</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>2.2.1</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

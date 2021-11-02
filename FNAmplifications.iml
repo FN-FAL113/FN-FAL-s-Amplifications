@@ -33,5 +33,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.Slimefun-Addon-Community:LiteXpansion:f200d7e520" level="project" />
     <orderEntry type="library" name="Maven: com.github.slimefun-addon-community:extrautils:73e76ac06c" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.github.Sefiraat:SMG:cce3ce31e7" level="project" />
+    <orderEntry type="library" name="Maven: org.bstats:bstats-bukkit:2.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.bstats:bstats-base:2.2.1" level="project" />
   </component>
 </module>
