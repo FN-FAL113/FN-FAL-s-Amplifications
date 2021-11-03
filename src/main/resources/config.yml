@@ -79,7 +79,7 @@ FN-Xpansion-Rank12-Capacity: 12000000
 
 
 # This is where you can configure tick rates for each Material Generator
-# This is a custom addon for slimefun by FN_FAL113 based on SMG addon by waleks
+# This is a custom addon for slimefun by FN_FAL113 based on SMG addon by waleks (addon dev)
 
 # Rate for Clay Generator
 FN_CLAY-TickRate: 32

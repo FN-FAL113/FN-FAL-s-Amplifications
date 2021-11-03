@@ -218,15 +218,34 @@ public class FNAmpItems {
             "",
             "&dBuild any of this addon's",
             "&dgenerators like this.",
-            "&aThey will only output to a chest",
-            "&adirectly above it."
+            "&aThey will only output to a chest placed above",
+            "&athe actual generators."
     );
+
+    public static final SlimefunItemStack FMG_GENERATOR_CLAY_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_CLAY_BROKEN",
+            Material.CLAY,
+            "&3FN_FAL's Clay Generator &8(Broken)",
+            "&8Needs to be repaired",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
 
     public static SlimefunItemStack FMG_GENERATOR_FNFAL_CLAY = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_CLAY",
             Material.CLAY,
             "&3FN_FAL's Clay Generator",
             "&6Generates Clay at a certain rate",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_WARPED_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_WARPED_BROKEN",
+            Material.WARPED_NYLIUM,
+            "&4FN_FAL's Warped Nylium Generator &8(Broken)",
+            "&8Needs to be repaired",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -240,11 +259,29 @@ public class FNAmpItems {
             "&5&oFN_Fal's Material Generators"
     );
 
+    public static final SlimefunItemStack FMG_GENERATOR_TERRACOTTA_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_TERRACOTTA_BROKEN",
+            Material.TERRACOTTA,
+            "&4FN_FAL's Terracotta Generator &8(Broken)",
+            "&8Needs to be repaired",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_TERRACOTTA = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_TERRACOTTA",
             Material.TERRACOTTA,
             "&4FN_FAL's Terracotta Generator",
             "&6Generates Terracotta at a certain rate",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_BONE_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_BONE_BROKEN",
+            Material.BONE_BLOCK,
+            "&fFN_FAL's Bone Generator &8(Broken)",
+            "&8Needs to be repaired",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -258,11 +295,29 @@ public class FNAmpItems {
             "&5&oFN_Fal's Material Generators"
     );
 
+    public static final SlimefunItemStack FMG_GENERATOR_DIAMOND_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_DIAMOND_BROKEN",
+            Material.DIAMOND_BLOCK,
+            "&bFN_FAL's Diamond Generator &8(Broken)",
+            "&8Needs to be repaired",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_DIAMOND = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_DIAMOND",
             Material.DIAMOND_BLOCK,
             "&bFN_FAL's Diamond Generator",
             "&6Generates Diamond at a certain rate",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_EMERALD_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_EMERALD_BROKEN",
+            Material.EMERALD_BLOCK,
+            "&aFN_FAL's Emerald Generator &8(Broken)",
+            "&8Needs to be repaired",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -276,11 +331,29 @@ public class FNAmpItems {
             "&5&oFN_Fal's Material Generators"
     );
 
+    public static final SlimefunItemStack FMG_GENERATOR_DIRT_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_DIRT_BROKEN",
+            Material.DIRT,
+            "&fFN_FAL's Dirt Generator &8(Broken)",
+            "&8Needs to be repaired",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_DIRT = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_DIRT",
             Material.DIRT,
             "&fFN_FAL's Dirt Generator",
             "&6Generates Dirt at a certain rate",
+            "",
+            "&5&oFN_Fal's Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_HONEYCOMB_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_HONEYCOMB_BROKEN",
+            Material.HONEYCOMB_BLOCK,
+            "&6FN_FAL's Honey Comb Generator &8(Broken)",
+            "&8Needs to be repaired",
             "",
             "&5&oFN_Fal's Material Generators"
     );

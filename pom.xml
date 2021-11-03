@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>2.3-AutoUpdate</version>
+    <version>2.4-MatGenRecipe</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -132,13 +132,6 @@
             <groupId>com.github.slimefun-addon-community</groupId>
             <artifactId>extrautils</artifactId>
             <version>73e76ac06c</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.Sefiraat</groupId>
-            <artifactId>SMG</artifactId>
-            <version>cce3ce31e7</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
