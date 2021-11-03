@@ -5,6 +5,10 @@ Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator metho
 
 Credits to waleks for the SMG based gens
 
+For the meantime SMG is required to be installed along with these addon to work properly
+
+https://github.com/Sefiraat/SMG
+
 ## The addon as shown in the Slimefun Guide
 ![guide](https://user-images.githubusercontent.com/88238718/136697193-5c52d89f-2f01-40e6-b5b7-6f730a17bbd0.png)
 
