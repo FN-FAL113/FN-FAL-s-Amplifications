@@ -2,9 +2,11 @@ package ne.fnfal113.fnamplifications;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
-import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
+
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
 

@@ -1,19 +1,22 @@
 package ne.fnfal113.fnamplifications.Machines;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
 
@@ -77,10 +80,9 @@ public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 1)});
         registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 1)});
-
     }
 
-    public static void setup(){
+    public static void setup() {
         new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.FUNNEL_PART, FNAmpItems.RECYCLER_PART, FNAmpItems.COMPRESSOR_PART,
                 FNAmpItems.THREAD_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
@@ -98,11 +100,7 @@ public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
                 FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_FAL_TRANSFORMER_1
         }).setCapacity(1536).setEnergyConsumption(336).setProcessingSpeed(4).register(plugin);
-
-
-
     }
-
 
     @Override
     public String getMachineIdentifier() {

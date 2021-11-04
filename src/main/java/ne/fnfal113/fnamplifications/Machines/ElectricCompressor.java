@@ -1,5 +1,13 @@
 package ne.fnfal113.fnamplifications.Machines;
 
+import javax.annotation.Nonnull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -8,15 +16,12 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectricCompressor extends AContainer implements RecipeDisplayItem {
 
@@ -26,6 +31,7 @@ public class ElectricCompressor extends AContainer implements RecipeDisplayItem 
         super(itemGroup, item, recipeType, recipe);
     }
 
+    @Nonnull
     @Override
     public List<ItemStack> getDisplayRecipes() {
         List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 4);
@@ -65,33 +71,29 @@ public class ElectricCompressor extends AContainer implements RecipeDisplayItem 
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NEPTUNIUM, 1)});
         registerRecipe(16, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.MAGNESIUM_INGOT, 4)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.SALT, 6)});
-
     }
 
-    public static void setup(){
+    public static void setup() {
         new ElectricCompressor(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_COMPRESSOR_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.THREAD_PART, FNAmpItems.MOTOR_SWITCH,
                 FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.GEAR_PART,
-                FNAmpItems.CONDENSER_PART, FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT
-        }).setCapacity(1536).setEnergyConsumption(64).setProcessingSpeed(1).register(plugin);
+                FNAmpItems.CONDENSER_PART, FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT})
+        .setCapacity(1536).setEnergyConsumption(64).setProcessingSpeed(1).register(plugin);
 
         new ElectricCompressor(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_COMPRESSOR_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.THREAD_PART, FNAmpItems.MOTOR_SWITCH,
                 FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.FN_FAL_COMPRESSOR_1,
-                FNAmpItems.CONDENSER_PART, FNAmpItems.DIAMOND_PLATING, FNAmpItems.POWER_COMPONENT
-        }).setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(2).register(plugin);
+                FNAmpItems.CONDENSER_PART, FNAmpItems.DIAMOND_PLATING, FNAmpItems.POWER_COMPONENT})
+        .setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(2).register(plugin);
 
         new ElectricCompressor(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_COMPRESSOR_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.MOTOR_SWITCH,
                 FNAmpItems.FN_FAL_COMPRESSOR_2, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_FAL_COMPRESSOR_2,
-                FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.POWER_COMPONENT
-        }).setCapacity(1536).setEnergyConsumption(256).setProcessingSpeed(4).register(plugin);
-
-
-
+                FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.POWER_COMPONENT})
+        .setCapacity(1536).setEnergyConsumption(256).setProcessingSpeed(4).register(plugin);
     }
 
-
+    @Nonnull
     @Override
     public String getMachineIdentifier() {
         return "ELECTRIC_COMPRESSOR";

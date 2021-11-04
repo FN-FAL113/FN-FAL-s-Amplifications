@@ -1,5 +1,13 @@
 package ne.fnfal113.fnamplifications.Machines;
 
+import javax.annotation.Nonnull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -8,15 +16,12 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
+
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectricTransformer extends AContainer implements RecipeDisplayItem {
 
@@ -26,6 +31,7 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
         super(itemGroup, item, recipeType, recipe);
     }
 
+    @Nonnull
     @Override
     public List<ItemStack> getDisplayRecipes() {
         List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 4);
@@ -50,16 +56,16 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
     @Override
     protected void registerDefaultRecipes() {
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_ENCHANTER, 1),
-                        new SlimefunItemStack(SlimefunItems.CARBONADO,5)},
+                        new SlimefunItemStack(SlimefunItems.CARBONADO, 5)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_ENCHANTER_2, 1)});
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_DISENCHANTER, 1),
-                        new SlimefunItemStack(SlimefunItems.CARBONADO,12)},
+                        new SlimefunItemStack(SlimefunItems.CARBONADO, 12)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_DISENCHANTER_2, 1)});
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_ANVIL, 1),
-                        new SlimefunItemStack(SlimefunItems.ELECTRIC_MOTOR,16)},
+                        new SlimefunItemStack(SlimefunItems.ELECTRIC_MOTOR, 16)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.AUTO_ANVIL_2, 1)});
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ELECTRO_MAGNET, 2),
-                        new SlimefunItemStack(SlimefunItems.ELECTRIC_MOTOR,4)},
+                        new SlimefunItemStack(SlimefunItems.ELECTRIC_MOTOR, 4)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CARGO_CONNECTOR_NODE, 2)});
         registerRecipe(8, new ItemStack[]{new SlimefunItemStack(SlimefunItems.CARGO_CONNECTOR_NODE, 2),
                         new ItemStack(Material.HOPPER, 2)},
@@ -73,11 +79,9 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.PROGRAMMABLE_ANDROID_2, 1),
                         new SlimefunItemStack(SlimefunItems.ANDROID_MEMORY_CORE, 16)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.PROGRAMMABLE_ANDROID_3, 1)});
-
-
     }
 
-    public static void setup(){
+    public static void setup() {
         new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.FUNNEL_PART, FNAmpItems.THREAD_PART, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.GEAR_PART,
@@ -95,12 +99,9 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
                 FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_FAL_TRANSFORMER_1,
                 FNAmpItems.COMPONENT_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.CONDENSER_PART
         }).setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(plugin);
-
-
-
     }
 
-
+    @Nonnull
     @Override
     public String getMachineIdentifier() {
         return "ELECTRIC_TRANSFORMER";

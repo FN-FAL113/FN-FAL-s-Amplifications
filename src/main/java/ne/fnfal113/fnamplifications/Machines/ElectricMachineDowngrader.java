@@ -1,19 +1,24 @@
 package ne.fnfal113.fnamplifications.Machines;
 
+import javax.annotation.Nonnull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.inventory.ItemStack;
+
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ElectricMachineDowngrader extends AContainer implements RecipeDisplayItem {
 
@@ -23,6 +28,7 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
         super(itemGroup, item, recipeType, recipe);
     }
 
+    @Nonnull
     @Override
     public List<ItemStack> getDisplayRecipes() {
         List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 4);
@@ -79,10 +85,9 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.COAL_GENERATOR, 1)});
         registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ELECTRIC_PRESS_2, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ELECTRIC_PRESS, 1)});
-
     }
 
-    public static void setup(){
+    public static void setup() {
         new ElectricMachineDowngrader(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_DOWNGRADER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.DOWNGRADER_PART, FNAmpItems.RECYCLER_PART,
                 FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
@@ -90,7 +95,7 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
         }).setCapacity(4024).setEnergyConsumption(750).setProcessingSpeed(2).register(plugin);
     }
 
-
+    @Nonnull
     @Override
     public String getMachineIdentifier() {
         return "ELECTRIC_MACHINE_DOWNGRADER";
