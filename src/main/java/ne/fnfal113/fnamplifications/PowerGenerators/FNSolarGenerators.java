@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.PowerGenerators;
 
-
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;

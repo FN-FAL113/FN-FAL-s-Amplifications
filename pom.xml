@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>2.5.1-RecipeChange</version>
+    <version>2.5.2-RecipeChangePower</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -118,13 +118,6 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.Slimefun-Addon-Community</groupId>
-            <artifactId>LiteXpansion</artifactId>
-            <version>f200d7e520</version>
             <scope>provided</scope>
         </dependency>
 

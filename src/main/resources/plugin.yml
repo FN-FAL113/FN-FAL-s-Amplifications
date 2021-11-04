@@ -6,5 +6,3 @@ authors: [ FN_FAL113 ]
 description: Custom Addon that includes my other addons for slimefun
 website: https://github.com/FN-FAL113
 depend: [Slimefun]
-softdepend:
-  - LiteXpansion

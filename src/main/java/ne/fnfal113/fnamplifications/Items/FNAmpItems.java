@@ -1,6 +1,6 @@
 package ne.fnfal113.fnamplifications.Items;
 
-import dev.j3fftw.litexpansion.extrautils.utils.LoreBuilderDynamic;
+import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
@@ -628,7 +628,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_POWER_COMPONENT",
                     PlayerHead.getItemStack(PlayerSkin.fromHashCode("25ba8456e92f0790222c19c06f61180a195af1008569ed352b93a3c6d9ec7a98")),
                     "&dPower Component",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -636,7 +637,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_GEAR_PART",
                     PlayerHead.getItemStack(PlayerSkin.fromHashCode("faf0c95ceba34c7fe6d33404feb87b4184ccce143978622c1647feaed2b63274")),
                     "&dGear Part",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -692,7 +694,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_DIAMOND_PLATING",
                     Material.LIGHT_BLUE_CARPET,
                     "&dDiamond Plating",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -700,7 +703,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_ALUMINUM_PLATING",
                     Material.WHITE_CARPET,
                     "&dAluminum Plating",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -708,7 +712,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_GOLD_PLATING",
                     Material.YELLOW_CARPET,
                     "&dGold Plating",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -716,7 +721,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_BRASS_PLATING",
                     Material.BROWN_CARPET,
                     "&dBrass Plating",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -724,7 +730,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_REINFORCED_CASING",
                     Material.LIGHT_GRAY_CARPET,
                     "&dReinforced Casing",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -732,7 +739,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_BASIC_MACHINE_BLOCK",
                     PlayerHead.getItemStack(PlayerSkin.fromHashCode("883dd0f90df05fe6a09aaccaf54bc043e455e1c865bda1fd272e3f47fb9bb910")),
                     "&dBasic Machine Block",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
@@ -740,7 +748,8 @@ public class FNAmpItems {
             new SlimefunItemStack("FN_MACHINERY_HIGHTECH_MACHINE_BLOCK",
                     PlayerHead.getItemStack(PlayerSkin.fromHashCode("5a7b3b16e5d0c4cfd21c4eb9133e969aad7cc7303ccdf317512e26a4879b51")),
                     "&dHigh Tech Machine Block",
-                    "&fEssential Part for FN Machinery",
+                    "&fEssential Part for FN Machinery"
+                    ,"&fand Power Xpansion",
                     "",
                     "&d&oFN Machinery Items");
 
