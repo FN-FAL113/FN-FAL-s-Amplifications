@@ -85,15 +85,15 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
         }).setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(1).register(plugin);
 
         new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 4), new SlimefunItemStack(FNAmpItems.THREAD_PART, 6), new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 4),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 4), FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.GEAR_PART, 4),
-                new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 6), new SlimefunItemStack(FNAmpItems.ALUMINUM_PLATING, 7), new SlimefunItemStack(FNAmpItems.CONDENSER_PART, 6)
+                FNAmpItems.FUNNEL_PART, FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.POWER_COMPONENT,
+                FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.GEAR_PART,
+                FNAmpItems.THREAD_PART, FNAmpItems.ALUMINUM_PLATING, FNAmpItems.CONDENSER_PART
         }).setCapacity(1536).setEnergyConsumption(192).setProcessingSpeed(2).register(plugin);
 
         new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 8), new SlimefunItemStack(FNAmpItems.THREAD_PART, 12), new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 8),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 8), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.GEAR_PART, 8),
-                new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 12), new SlimefunItemStack(FNAmpItems.REINFORCED_CASING, 14), new SlimefunItemStack(FNAmpItems.CONDENSER_PART, 12)
+                FNAmpItems.FUNNEL_PART, FNAmpItems.FN_FAL_TRANSFORMER_2, FNAmpItems.POWER_COMPONENT,
+                FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_FAL_TRANSFORMER_1,
+                FNAmpItems.COMPONENT_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.CONDENSER_PART
         }).setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(plugin);
 
 

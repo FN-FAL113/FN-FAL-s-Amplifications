@@ -1,10 +1,12 @@
 package ne.fnfal113.fnamplifications.Machines;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
@@ -21,6 +23,17 @@ import java.util.List;
 public class ElectricIngotCondenser extends AContainer implements RecipeDisplayItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    public static final ItemStack VERSIONED_ITEMSTACK_COPPER;
+
+    static {
+        if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
+            VERSIONED_ITEMSTACK_COPPER = new ItemStack(Material.COPPER_INGOT, 2);
+        }
+        else{
+            VERSIONED_ITEMSTACK_COPPER = new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 2);
+        }
+    }
 
     public ElectricIngotCondenser(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -49,6 +62,7 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
 
     @Override
     protected void registerDefaultRecipes() {
+
         registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT, 3),
                         new SlimefunItemStack(SlimefunItems.CARBONADO,3)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1)});
@@ -62,16 +76,16 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
                         new SlimefunItemStack(SlimefunItems.CARBON,10)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 2)});
         registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 4),
-                        new ItemStack(Material.COPPER_INGOT, 2)},
+                        VERSIONED_ITEMSTACK_COPPER},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CORINTHIAN_BRONZE_INGOT, 1)});
         registerRecipe(12, new ItemStack[]{new ItemStack(Material.IRON_INGOT, 1),
-                        new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 1)},
-                new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 4)});
-        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 1),
-                        new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 1)},
+                        VERSIONED_ITEMSTACK_COPPER},
+                new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 2)});
+        registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 1),
+                        VERSIONED_ITEMSTACK_COPPER},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.COBALT_INGOT, 1)});
-        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ALUMINUM_INGOT, 1),
-                        new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 1)},
+        registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.ALUMINUM_INGOT, 1),
+                        VERSIONED_ITEMSTACK_COPPER},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.DURALUMIN_INGOT, 1)});
         registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ALUMINUM_INGOT, 1),
                         new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 1)},
@@ -91,15 +105,15 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
         }).setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(1).register(plugin);
 
         new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.MOTOR_SWITCH, 4), new SlimefunItemStack(FNAmpItems.THREAD_PART, 5), new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 4),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2),
-                new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 3), new SlimefunItemStack(FNAmpItems.DIAMOND_PLATING, 6), new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 3)
+                FNAmpItems.MOTOR_SWITCH, FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FUNNEL_PART,
+                FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+                FNAmpItems.THREAD_PART, FNAmpItems.DIAMOND_PLATING, FNAmpItems.COMPONENT_PART
         }).setCapacity(1536).setEnergyConsumption(192).setProcessingSpeed(2).register(plugin);
 
         new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 8), new SlimefunItemStack(FNAmpItems.THREAD_PART, 10), new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 8),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 16), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 16),
-                new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 10), new SlimefunItemStack(FNAmpItems.REINFORCED_CASING, 12), new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 10)
+                FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FN_FAL_CONDENSER_2, FNAmpItems.FN_FAL_CONDENSER_1,
+                FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+                FNAmpItems.THREAD_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.COMPONENT_PART
         }).setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(plugin);
 
 

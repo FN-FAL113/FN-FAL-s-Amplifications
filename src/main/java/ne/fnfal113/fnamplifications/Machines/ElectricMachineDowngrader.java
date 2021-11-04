@@ -84,7 +84,7 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
 
     public static void setup(){
         new ElectricMachineDowngrader(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_DOWNGRADER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                FNAmpItems.COMPRESSOR_PART, FNAmpItems.DOWNGRADER_PART, FNAmpItems.COMPRESSOR_PART,
+                FNAmpItems.COMPRESSOR_PART, FNAmpItems.DOWNGRADER_PART, FNAmpItems.RECYCLER_PART,
                 FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.MOTOR_SWITCH
         }).setCapacity(4024).setEnergyConsumption(750).setProcessingSpeed(2).register(plugin);

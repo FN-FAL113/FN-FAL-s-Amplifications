@@ -76,15 +76,15 @@ public class ElectricCompressor extends AContainer implements RecipeDisplayItem 
         }).setCapacity(1536).setEnergyConsumption(64).setProcessingSpeed(1).register(plugin);
 
         new ElectricCompressor(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_COMPRESSOR_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.COMPRESSOR_PART, 3), new SlimefunItemStack(FNAmpItems.THREAD_PART, 8), new SlimefunItemStack(FNAmpItems.MOTOR_SWITCH, 3),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 8), FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.GEAR_PART, 8),
-                new SlimefunItemStack(FNAmpItems.CONDENSER_PART, 4), new SlimefunItemStack(FNAmpItems.DIAMOND_PLATING, 7), new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 4)
+                FNAmpItems.COMPRESSOR_PART, FNAmpItems.THREAD_PART, FNAmpItems.MOTOR_SWITCH,
+                FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.FN_FAL_COMPRESSOR_1,
+                FNAmpItems.CONDENSER_PART, FNAmpItems.DIAMOND_PLATING, FNAmpItems.POWER_COMPONENT
         }).setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(2).register(plugin);
 
         new ElectricCompressor(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_COMPRESSOR_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.COMPRESSOR_PART, 6), new SlimefunItemStack(FNAmpItems.COMPONENT_PART, 8), new SlimefunItemStack(FNAmpItems.MOTOR_SWITCH, 6),
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 16), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.GEAR_PART, 16),
-                new SlimefunItemStack(FNAmpItems.CONDENSER_PART, 8), new SlimefunItemStack(FNAmpItems.REINFORCED_CASING, 12), new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 8)
+                FNAmpItems.COMPRESSOR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.MOTOR_SWITCH,
+                FNAmpItems.FN_FAL_COMPRESSOR_2, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_FAL_COMPRESSOR_2,
+                FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.POWER_COMPONENT
         }).setCapacity(1536).setEnergyConsumption(256).setProcessingSpeed(4).register(plugin);
 
 
