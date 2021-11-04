@@ -29,4 +29,7 @@ Credits to waleks for the SMG based gens
 
 Huge thanks to Slimefun for making their work open-source and free to use.
 
-Discord: FN_FAL113###7779
+Addon is now part of Slimefun Community Addons! Go check out others addon here:
+https://github.com/Slimefun/Slimefun4/wiki/Addons
+
+Discord: FN_FAL113#7779
