@@ -163,7 +163,9 @@ public class ReturnConfValue {
         return config.getInt("FN-Xpansion-Rank10-Capacity");
     }
 
-    public int rank10dayrate() {return config.getInt("FN-Xpansion-Rank10-Dayrate"); }
+    public int rank10dayrate() {
+        return config.getInt("FN-Xpansion-Rank10-Dayrate");
+    }
 
     public int rank10nightrate() {
         return config.getInt("FN-Xpansion-Rank10-Nightrate");
