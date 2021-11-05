@@ -28,7 +28,7 @@ public class ReturnConfValue {
     }
 
     public int rank1output() {
-        return config.getInt("FN-Xpansion-Rank1-Nightrate");
+        return config.getInt("FN-Xpansion-Rank1-Output");
     }
 
     public int rank2capacity() {
@@ -44,7 +44,7 @@ public class ReturnConfValue {
     }
 
     public int rank2output() {
-        return config.getInt("FN-Xpansion-Rank2-Nightrate");
+        return config.getInt("FN-Xpansion-Rank2-Output");
     }
 
     public int rank3capacity() {
@@ -60,7 +60,7 @@ public class ReturnConfValue {
     }
 
     public int rank3output() {
-        return config.getInt("FN-Xpansion-Rank3-Nightrate");
+        return config.getInt("FN-Xpansion-Rank3-Output");
     }
 
     public int rank4capacity() {
@@ -76,7 +76,7 @@ public class ReturnConfValue {
     }
 
     public int rank4output() {
-        return config.getInt("FN-Xpansion-Rank4-Nightrate");
+        return config.getInt("FN-Xpansion-Rank4-Output");
     }
 
     public int rank5capacity() {
@@ -92,7 +92,7 @@ public class ReturnConfValue {
     }
 
     public int rank5output() {
-        return config.getInt("FN-Xpansion-Rank5-Nightrate");
+        return config.getInt("FN-Xpansion-Rank5-Output");
     }
 
     public int rank6capacity() {
@@ -108,7 +108,7 @@ public class ReturnConfValue {
     }
 
     public int rank6output() {
-        return config.getInt("FN-Xpansion-Rank6-Nightrate");
+        return config.getInt("FN-Xpansion-Rank6-Output");
     }
 
     public int rank7capacity() {
@@ -124,7 +124,7 @@ public class ReturnConfValue {
     }
 
     public int rank7output() {
-        return config.getInt("FN-Xpansion-Rank7-Nightrate");
+        return config.getInt("FN-Xpansion-Rank7-Output");
     }
 
     public int rank8capacity() {
@@ -140,7 +140,7 @@ public class ReturnConfValue {
     }
 
     public int rank8output() {
-        return config.getInt("FN-Xpansion-Rank8-Nightrate");
+        return config.getInt("FN-Xpansion-Rank8-Output");
     }
 
     public int rank9capacity() {
@@ -156,23 +156,21 @@ public class ReturnConfValue {
     }
 
     public int rank9output() {
-        return config.getInt("FN-Xpansion-Rank9-Nightrate");
+        return config.getInt("FN-Xpansion-Rank9-Output");
     }
 
     public int rank10capacity() {
         return config.getInt("FN-Xpansion-Rank10-Capacity");
     }
 
-    public int rank10dayrate() {
-        return config.getInt("FN-Xpansion-Rank10-Dayrate");
-    }
+    public int rank10dayrate() {return config.getInt("FN-Xpansion-Rank10-Dayrate"); }
 
     public int rank10nightrate() {
         return config.getInt("FN-Xpansion-Rank10-Nightrate");
     }
 
     public int rank10output() {
-        return config.getInt("FN-Xpansion-Rank10-Nightrate");
+        return config.getInt("FN-Xpansion-Rank10-Output");
     }
 
     public int rank11capacity() {
@@ -188,7 +186,7 @@ public class ReturnConfValue {
     }
 
     public int rank11output() {
-        return config.getInt("FN-Xpansion-Rank11-Nightrate");
+        return config.getInt("FN-Xpansion-Rank11-Output");
     }
 
     public int rank12capacity() {
@@ -204,7 +202,7 @@ public class ReturnConfValue {
     }
 
     public int rank12output() {
-        return config.getInt("FN-Xpansion-Rank12-Nightrate");
+        return config.getInt("FN-Xpansion-Rank12-Output");
     }
 
 

@@ -37,7 +37,7 @@ public class FNAmpItems {
             FN_ITEMS,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "ecb316f7a227a8c59d58ae0dd6768fe4fa546d55b9cfdd56cfe40b6586d81c24")),
-            "&eFN_Fal's Power Xpansion"));
+            "&eFN_FAL's Power Xpansion"));
 
     public static final SubItemGroup MATERIAL_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MATERIAL_GENERATORS"),
