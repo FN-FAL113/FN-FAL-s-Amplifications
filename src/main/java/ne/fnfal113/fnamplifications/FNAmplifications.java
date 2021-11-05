@@ -1,10 +1,14 @@
 package ne.fnfal113.fnamplifications;
 
+import javax.annotation.Nonnull;
+
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
-import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
+
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
 
@@ -31,10 +35,9 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         if (getConfig().getBoolean("auto-update", true) && getDescription().getVersion().startsWith("DEV - ")) {
             new GitHubBuildsUpdater(this, getFile(), "FN-FAL113/FN-FAL-s-Amplifications/main").start();
         }
-
     }
 
-
+    @Nonnull
     @Override
     public JavaPlugin getJavaPlugin() {
         return this;
@@ -42,7 +45,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
     @Override
     public String getBugTrackerURL() {
-        return null;
+        return "https://github.com/FN-FAL113/FN-FAL-s-Amplifications/issues";
     }
 
     private static void setInstance(FNAmplifications ins) {
