@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -88,9 +89,9 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
     }
 
     public static void setup() {
-        new ElectricMachineDowngrader(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_DOWNGRADER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+        new ElectricMachineDowngrader(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_DOWNGRADER, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.DOWNGRADER_PART, FNAmpItems.RECYCLER_PART,
-                FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2),
                 FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.MOTOR_SWITCH
         }).setCapacity(4024).setEnergyConsumption(750).setProcessingSpeed(2).register(plugin);
     }

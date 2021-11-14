@@ -5,6 +5,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,15 +53,11 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
         for (MachineRecipe recipe : recipes) {
             displayRecipes.add(recipe.getInput()[0]);
             displayRecipes.add(recipe.getInput()[1]);
-            displayRecipes.add(new ItemStack(Material.AIR));
+            displayRecipes.add(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE, "&eIndicator", "&fArrow below point towards the output of 2 vertical inputs"));
             displayRecipes.add(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "682ad1b9cb4dd21259c0d75aa315ff389c3cef752be3949338164bac84a96e")));
-            displayRecipes.add(new ItemStack(Material.AIR));
+            displayRecipes.add(new CustomItemStack(Material.PINK_STAINED_GLASS_PANE, "&eIndicator", "&fNext item beside this glass is", "&fa 2 input recipe vertical 1 output horizontal"));
             displayRecipes.add(recipe.getOutput()[0]);
-            displayRecipes.add(new ItemStack(Material.AIR));
-            displayRecipes.add(new ItemStack(Material.AIR));
-            displayRecipes.add(new ItemStack(Material.AIR));
-            displayRecipes.add(new ItemStack(Material.AIR));
         }
 
         return displayRecipes;
@@ -69,16 +67,16 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
     protected void registerDefaultRecipes() {
         registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.GOLD_10K, 1), new SlimefunItemStack(SlimefunItems.GOLD_14K, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.GOLD_24K, 1)});
-        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT, 3), new SlimefunItemStack(SlimefunItems.CARBONADO, 3)},
+        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT, 1), new SlimefunItemStack(SlimefunItems.URANIUM, 9)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1)});
-        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 6), new SlimefunItemStack(SlimefunItems.COMPRESSED_CARBON, 8)},
+        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 2), new SlimefunItemStack(SlimefunItems.COMPRESSED_CARBON, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.HARDENED_METAL_INGOT, 1)});
-        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.STEEL_INGOT, 4), new SlimefunItemStack(SlimefunItems.CARBON, 10)},
+        registerRecipe(12, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.STEEL_INGOT, 2), new SlimefunItemStack(SlimefunItems.CARBON, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 2)});
-        registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 4), VERSIONED_ITEMSTACK_COPPER},
+        registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 1), VERSIONED_ITEMSTACK_COPPER},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CORINTHIAN_BRONZE_INGOT, 1)});
         registerRecipe(12, new ItemStack[]{new ItemStack(Material.IRON_INGOT, 1), VERSIONED_ITEMSTACK_COPPER},
-                new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 2)});
+                new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 1)});
         registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.NICKEL_INGOT, 1), VERSIONED_ITEMSTACK_COPPER},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.COBALT_INGOT, 1)});
         registerRecipe(12, new ItemStack[]{new SlimefunItemStack(SlimefunItems.ALUMINUM_INGOT, 1), VERSIONED_ITEMSTACK_COPPER},
@@ -90,21 +88,21 @@ public class ElectricIngotCondenser extends AContainer implements RecipeDisplayI
     }
 
     public static void setup() {
-        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.MOTOR_SWITCH, FNAmpItems.THREAD_PART, FNAmpItems.FUNNEL_PART,
                 FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.COMPRESSOR_PART, FNAmpItems.GOLD_PLATING, FNAmpItems.COMPRESSOR_PART})
         .setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(1).register(plugin);
 
-        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.MOTOR_SWITCH, FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FUNNEL_PART,
-                FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2),
                 FNAmpItems.THREAD_PART, FNAmpItems.DIAMOND_PLATING, FNAmpItems.COMPONENT_PART})
         .setCapacity(1536).setEnergyConsumption(192).setProcessingSpeed(2).register(plugin);
 
-        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+        new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FN_FAL_CONDENSER_2, FNAmpItems.FN_FAL_CONDENSER_1,
-                FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+                new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 3),
                 FNAmpItems.THREAD_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.COMPONENT_PART})
         .setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(plugin);
     }

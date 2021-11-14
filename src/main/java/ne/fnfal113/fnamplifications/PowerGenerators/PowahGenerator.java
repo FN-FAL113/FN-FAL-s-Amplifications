@@ -7,7 +7,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -16,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -130,9 +131,8 @@ public class PowahGenerator extends SlimefunItem implements InventoryBlock, Ener
     public static final int FN_POWERGEN_RANK_XII_STORAGE = value.rank12capacity();
     private final Type type;
 
-
     public PowahGenerator(Type type) {
-        super(FNAmpItems.POWER_GENERATORS, type.getItem(), RecipeType.ENHANCED_CRAFTING_TABLE, type.getRecipe());
+        super(FNAmpItems.POWER_GENERATORS, type.getItem(), FnAssemblyStation.RECIPE_TYPE, type.getRecipe());
         this.type = type;
 
         createPreset(this, type.getItem().getItemMetaSnapshot().getDisplayName().orElse("&eFN Power Xpansion"),
@@ -234,13 +234,44 @@ public class PowahGenerator extends SlimefunItem implements InventoryBlock, Ener
         return new int[0];
     }
 
+    public static ItemStack LITEX_ITEMSTACK_TIN = SlimefunItems.TIN_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_SOLDER = SlimefunItems.SOLDER_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_BRONZE = SlimefunItems.BRONZE_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_DURALUMIN = SlimefunItems.DURALUMIN_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_BRASS = SlimefunItems.ALUMINUM_BRASS_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_CORINTHIAN = SlimefunItems.CORINTHIAN_BRONZE_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_STEEL = SlimefunItems.STEEL_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_DAMASCUS = SlimefunItems.DAMASCUS_STEEL_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_HARDENED = SlimefunItems.HARDENED_METAL_INGOT;
+    public static ItemStack LITEX_ITEMSTACK_REINFORCED = SlimefunItems.REINFORCED_ALLOY_INGOT;
+
+    static {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("LiteXpansion")) {
+            SlimefunItem iridium = SlimefunItem.getById("IRIDIUM");
+            SlimefunItem uu_matter = SlimefunItem.getById("UU_MATTER");
+            if (iridium != null && uu_matter != null && !iridium.isDisabled() && !uu_matter.isDisabled()) {
+                LITEX_ITEMSTACK_TIN = iridium.getItem().clone();
+                LITEX_ITEMSTACK_SOLDER = iridium.getItem().clone();
+                LITEX_ITEMSTACK_BRONZE = iridium.getItem().clone();
+                LITEX_ITEMSTACK_DURALUMIN = iridium.getItem().clone();
+                LITEX_ITEMSTACK_BRASS = iridium.getItem().clone();
+                LITEX_ITEMSTACK_CORINTHIAN = iridium.getItem().clone();
+                LITEX_ITEMSTACK_STEEL = iridium.getItem().clone();
+                LITEX_ITEMSTACK_HARDENED = iridium.getItem().clone();
+                LITEX_ITEMSTACK_DAMASCUS = iridium.getItem().clone();
+                LITEX_ITEMSTACK_HARDENED = iridium.getItem().clone();
+                LITEX_ITEMSTACK_REINFORCED = iridium.getItem().clone();
+            }
+        }
+    }
+
     @Getter
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public enum Type {
 
         RANK1(FNAmpItems.FN_XPANSION_POWER_R1, FN_POWERGEN_RANK_I_DAYRATE, FN_POWERGEN_RANK_I_NIGHTRATE, FN_POWERGEN_RANK_I_OUTPUT,
                 FN_POWERGEN_RANK_I_STORAGE, new ItemStack[]{
-                FNAmpItems.POWER_COMPONENT, SlimefunItems.TIN_INGOT, FNAmpItems.POWER_COMPONENT,
+                FNAmpItems.POWER_COMPONENT, new CustomItemStack(LITEX_ITEMSTACK_TIN, 3), FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.SOLAR_GENERATOR_4, FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
         }),
@@ -248,79 +279,80 @@ public class PowahGenerator extends SlimefunItem implements InventoryBlock, Ener
         RANK2(FNAmpItems.FN_XPANSION_POWER_R2, FN_POWERGEN_RANK_II_DAYRATE, FN_POWERGEN_RANK_II_NIGHTRATE, FN_POWERGEN_RANK_II_OUTPUT,
                 FN_POWERGEN_RANK_II_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R1, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.SOLDER_INGOT, FNAmpItems.BASIC_MACHINE_BLOCK,
+                FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_SOLDER, 6), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
         }),
 
         RANK3(FNAmpItems.FN_XPANSION_POWER_R3, FN_POWERGEN_RANK_III_DAYRATE, FN_POWERGEN_RANK_III_NIGHTRATE, FN_POWERGEN_RANK_III_OUTPUT,
                 FN_POWERGEN_RANK_III_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R2, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.BRONZE_INGOT, FNAmpItems.BASIC_MACHINE_BLOCK,
+                FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_BRONZE, 9), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
         }),
 
         RANK4(FNAmpItems.FN_XPANSION_POWER_R4, FN_POWERGEN_RANK_IV_DAYRATE, FN_POWERGEN_RANK_IV_NIGHTRATE, FN_POWERGEN_RANK_IV_OUTPUT,
                 FN_POWERGEN_RANK_IV_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R3, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.DURALUMIN_INGOT, FNAmpItems.BASIC_MACHINE_BLOCK,
+                FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_DURALUMIN, 12), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.ADVANCED_CIRCUIT_BOARD, FNAmpItems.GOLD_PLATING, SlimefunItems.ADVANCED_CIRCUIT_BOARD
         }),
 
         RANK5(FNAmpItems.FN_XPANSION_POWER_R5, FN_POWERGEN_RANK_V_DAYRATE, FN_POWERGEN_RANK_V_NIGHTRATE, FN_POWERGEN_RANK_V_OUTPUT,
                 FN_POWERGEN_RANK_V_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R4, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.HIGHTECH_MACHINE_BLOCK, SlimefunItems.ALUMINUM_BRASS_INGOT, FNAmpItems.HIGHTECH_MACHINE_BLOCK,
+                FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_BRASS, 15), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER1, FNAmpItems.GOLD_PLATING, SlimefunItems.ADVANCED_CIRCUIT_BOARD
         }),
 
         RANK6(FNAmpItems.FN_XPANSION_POWER_R6, FN_POWERGEN_RANK_VI_DAYRATE, FN_POWERGEN_RANK_VI_NIGHTRATE, FN_POWERGEN_RANK_VI_OUTPUT,
                 FN_POWERGEN_RANK_VI_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R5, FNAmpItems.GEAR_PART,
-                FNAmpItems.HIGHTECH_MACHINE_BLOCK, SlimefunItems.CORINTHIAN_BRONZE_INGOT, FNAmpItems.HIGHTECH_MACHINE_BLOCK,
+                FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_CORINTHIAN, 18), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER2, FNAmpItems.GOLD_PLATING, SlimefunItems.REINFORCED_ALLOY_INGOT
         }),
 
         RANK7(FNAmpItems.FN_XPANSION_POWER_R7, FN_POWERGEN_RANK_VII_DAYRATE, FN_POWERGEN_RANK_VII_NIGHTRATE, FN_POWERGEN_RANK_VII_OUTPUT,
                 FN_POWERGEN_RANK_VII_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R6, FNAmpItems.GEAR_PART,
-                FNAmpItems.HIGHTECH_MACHINE_BLOCK, SlimefunItems.STEEL_INGOT, FNAmpItems.HIGHTECH_MACHINE_BLOCK,
+                FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_STEEL, 21), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER3, FNAmpItems.BRASS_PLATING, SlimefunItems.BLISTERING_INGOT
         }),
 
         RANK8(FNAmpItems.FN_XPANSION_POWER_R8, FN_POWERGEN_RANK_VIII_DAYRATE, FN_POWERGEN_RANK_VIII_NIGHTRATE, FN_POWERGEN_RANK_VIII_OUTPUT,
                 FN_POWERGEN_RANK_VIII_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R7, FNAmpItems.GEAR_PART,
-                FNAmpItems.HIGHTECH_MACHINE_BLOCK, SlimefunItems.HARDENED_METAL_INGOT, FNAmpItems.HIGHTECH_MACHINE_BLOCK,
+                FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_DAMASCUS, 24), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER4, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.BLISTERING_INGOT_2
         }),
 
         RANK9(FNAmpItems.FN_XPANSION_POWER_R9, FN_POWERGEN_RANK_IX_DAYRATE, FN_POWERGEN_RANK_IX_NIGHTRATE, FN_POWERGEN_RANK_IX_OUTPUT,
                 FN_POWERGEN_RANK_IX_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R8, FNAmpItems.GEAR_PART,
-                FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.DIAMOND_PLATING, FNAmpItems.HIGHTECH_MACHINE_BLOCK,
+                FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 27), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER5, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.REINFORCED_ALLOY_INGOT
         }),
 
         RANK10(FNAmpItems.FN_XPANSION_POWER_R10, FN_POWERGEN_RANK_X_DAYRATE, FN_POWERGEN_RANK_X_NIGHTRATE, FN_POWERGEN_RANK_X_OUTPUT,
                 FN_POWERGEN_RANK_X_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R9, FNAmpItems.GEAR_PART,
-                SlimefunItems.ENERGIZED_CAPACITOR, FNAmpItems.DIAMOND_PLATING, SlimefunItems.ENERGIZED_CAPACITOR,
+                SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 32), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.FN_FAL_GENERATOR_TIER6, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.URANIUM
         }),
 
         RANK11(FNAmpItems.FN_XPANSION_POWER_R11, FN_POWERGEN_RANK_XI_DAYRATE, FN_POWERGEN_RANK_XI_NIGHTRATE, FN_POWERGEN_RANK_XI_OUTPUT,
                 FN_POWERGEN_RANK_XI_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R10, FNAmpItems.GEAR_PART,
-                SlimefunItems.ENERGIZED_CAPACITOR, FNAmpItems.REINFORCED_CASING, SlimefunItems.ENERGIZED_CAPACITOR,
+                SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 36), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.FN_FAL_GENERATOR_TIER7, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.NEPTUNIUM
         }),
 
         RANK12(FNAmpItems.FN_XPANSION_POWER_R12, FN_POWERGEN_RANK_XII_DAYRATE, FN_POWERGEN_RANK_XII_NIGHTRATE, FN_POWERGEN_RANK_XII_OUTPUT,
                 FN_POWERGEN_RANK_XII_STORAGE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R11, FNAmpItems.GEAR_PART,
-                SlimefunItems.ENERGIZED_CAPACITOR, FNAmpItems.FN_FAL_GENERATOR_TIER8, SlimefunItems.ENERGIZED_CAPACITOR,
+                SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 40), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_XPANSION_POWER_R7, SlimefunItems.BOOSTED_URANIUM
         });
+
 
         @Nonnull
         private final SlimefunItemStack item;

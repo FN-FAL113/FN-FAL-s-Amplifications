@@ -66,6 +66,13 @@ public class FNAmpItems {
                     "8245a1c3e8d7c3d59d05e3634b04af4cbf8d11b70e2a40e2e6364386db49e737")),
             "&eFN_FAL'S Machinery Items"));
 
+    public static final SubItemGroup MULTIBLOCK = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "MULTIBLOCK"),
+            FN_ITEMS,
+            new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
+                    "550c3306bb11522fec380ea248eb6a5b180f4a7ab8843d635d14d4a778d6351")),
+            "&eFN_FAL'S Multiblocks"));
+
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -790,4 +797,11 @@ public class FNAmpItems {
             , "&fand Power Xpansion",
             "",
             "&d&oFN Machinery Items");
+
+    public static final SlimefunItemStack FN_ASSEMBLY_STATION = new SlimefunItemStack(
+            "FN_ASSEMBLY_STATION",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("583150f055935058634576185977ffba49ff4679faa03ad0008feaa0161865b3")),
+            "&dFN Assembly Station"
+    );
+
 }

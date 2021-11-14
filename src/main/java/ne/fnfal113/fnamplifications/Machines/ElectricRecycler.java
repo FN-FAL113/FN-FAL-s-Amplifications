@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.Machines;
 import java.util.ArrayList;
 import java.util.List;
 
+import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -83,21 +84,21 @@ public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
     }
 
     public static void setup() {
-        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.FUNNEL_PART, FNAmpItems.RECYCLER_PART, FNAmpItems.COMPRESSOR_PART,
                 FNAmpItems.THREAD_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.CONDENSER_PART, FNAmpItems.BRASS_PLATING, FNAmpItems.MOTOR_SWITCH
         }).setCapacity(1536).setEnergyConsumption(84).setProcessingSpeed(1).register(plugin);
 
-        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_2, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                FNAmpItems.FUNNEL_PART, FNAmpItems.RECYCLER_PART, FNAmpItems.COMPRESSOR_PART,
-                FNAmpItems.THREAD_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 2), FNAmpItems.RECYCLER_PART, FNAmpItems.COMPRESSOR_PART,
+                FNAmpItems.THREAD_PART, FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2),
                 FNAmpItems.FN_FAL_RECYCLER_1, FNAmpItems.ALUMINUM_PLATING, FNAmpItems.MOTOR_SWITCH
         }).setCapacity(1536).setEnergyConsumption(168).setProcessingSpeed(2).register(plugin);
 
-        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_3, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
-                FNAmpItems.RECYCLER_PART, FNAmpItems.FN_FAL_TRANSFORMER_2, FNAmpItems.COMPRESSOR_PART,
-                FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.POWER_COMPONENT,
+        new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(FNAmpItems.RECYCLER_PART, 3), FNAmpItems.FN_FAL_TRANSFORMER_2, FNAmpItems.COMPRESSOR_PART,
+                FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 3),
                 FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_FAL_TRANSFORMER_1
         }).setCapacity(1536).setEnergyConsumption(336).setProcessingSpeed(4).register(plugin);
     }

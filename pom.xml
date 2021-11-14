@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>2.5.3-PowerOutput</version>
+    <version>2.5.4-Revamp</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -132,6 +132,20 @@
             <artifactId>bstats-bukkit</artifactId>
             <version>2.2.1</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.J3fftw1</groupId>
+            <artifactId>LiteXpansion</artifactId>
+            <version>aa4b0106b0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.Sefiraat</groupId>
+            <artifactId>SMG</artifactId>
+            <version>cce3ce31e7</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
