@@ -3,7 +3,9 @@ A merge of my 4 addons in a one addon for Slimefun which adds Power Generators, 
 
 Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
 
-Credits to waleks for the SMG based gens
+Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
+
+Addon support 1.15.x, 1.16.x and 1.17.x minecraft version
 
 
 ## The addon as shown in the Slimefun Guide
