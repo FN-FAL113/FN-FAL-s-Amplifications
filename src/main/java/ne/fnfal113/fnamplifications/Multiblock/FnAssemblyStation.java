@@ -1,17 +1,17 @@
 package ne.fnfal113.fnamplifications.Multiblock;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.multiblocks.MultiBlockMachine;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.implementation.items.backpacks.SlimefunBackpack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.inventory.InvUtils;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class FnAssemblyStation extends MultiBlockMachine {
@@ -51,53 +52,70 @@ public class FnAssemblyStation extends MultiBlockMachine {
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
             for (int i = 0; i < inputs.size(); i++) {
-                if (canCraft(inv, inputs, i)) {
+                if (canCraft(inv, inputs.get(i))) {
                     ItemStack output = RecipeType.getRecipeOutputList(this, inputs.get(i)).clone();
 
                     if (SlimefunUtils.canPlayerUseItem(p, output, true)) {
-                        Inventory outputInv = findOutputInventory(output, dispBlock, inv);
-
-                        if (outputInv != null) {
-                            craft(p, b, inv, inputs.get(i), output, outputInv);
-                        } else {
-                            Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-                        }
+                            craft(dispBlock, p, b, inv, inputs.get(i), output);
                     }
 
                     return;
                 }
             }
 
-            Slimefun.getLocalization().sendMessage(p, "machines.unknown-material", true);
+            if (SlimefunUtils.isInventoryEmpty(inv)) {
+                Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
+            } else {
+                Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
+            }
         }
     }
 
-    private boolean canCraft(Inventory inv, List<ItemStack[]> inputs, int i) {
-        for (ItemStack expectedInput : inputs.get(i)) {
-            if (expectedInput != null) {
-                for (int j = 0; j < inv.getContents().length; j++) {
-                    if (j == (inv.getContents().length - 1) && !SlimefunUtils.isItemSimilar(inv.getContents()[j], expectedInput, true)) {
-                        return false;
-                    } else if (SlimefunUtils.isItemSimilar(inv.getContents()[j], expectedInput, true)) {
-                        break;
-                    }
-                }
+    private boolean canCraft(Inventory inv, ItemStack[] recipe) {
+        for (int j = 0; j < inv.getContents().length; j++) {
+            if (!SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
+                return false;
             }
         }
 
         return true;
     }
 
-    protected void craft(Player p, Block b, Inventory inv, ItemStack[] recipe, ItemStack output, Inventory outputInv) {
-        for (ItemStack removing : recipe) {
-            if (removing != null) {
-                InvUtils.removeItem(inv, removing.getAmount(), true, stack -> SlimefunUtils.isItemSimilar(stack, removing, true));
+    protected void craft(Block dispenser, Player p, Block b, Inventory inv, ItemStack[] recipe, ItemStack output) {
+        Inventory fakeInv = createVirtualInventory(inv);
+        Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
+
+        if (outputInv != null) {
+            for (ItemStack removing : recipe) {
+                if (removing != null) {
+                    InvUtils.removeItem(inv, removing.getAmount(), true, stack -> SlimefunUtils.isItemSimilar(stack, removing, true));
+                }
             }
+
+            outputInv.addItem(output);
+            p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+            p.getWorld().playEffect(b.getLocation(), Effect.SMOKE, 1);
+        } else {
+            Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
+        }
+    }
+
+    protected @Nonnull
+    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+        Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
+
+        for (int j = 0; j < inv.getContents().length; j++) {
+            ItemStack stack = inv.getContents()[j];
+
+            if (stack != null) {
+                stack = stack.clone();
+                ItemUtils.consumeItem(stack, true);
+            }
+
+            fakeInv.setItem(j, stack);
         }
 
-        outputInv.addItem(output);
-        p.getWorld().playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
-        p.getWorld().playEffect(b.getLocation(), Effect.SMOKE, 1);
+        return fakeInv;
     }
 
 
