@@ -1,4 +1,4 @@
-# FN_FAL's Amplifications
+# FN_FAL'S Amplifications
 A merge of my 4 addons in a one addon for Slimefun which adds Power Generators, Material Generators, Machineries with Recipe Items and Solar Generators
 
 Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
@@ -6,6 +6,10 @@ Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator metho
 Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
 
 Addon support 1.15.x, 1.16.x and 1.17.x minecraft version
+
+## Download from build page with auto updates
+### [Download Official Jar](https://thebusybiscuit.github.io/builds/FN-FAL113/FN-FAL-s-Amplifications/main)
+[![Build Status](https://thebusybiscuit.github.io/builds/FN-FAL113/FN-FAL-s-Amplifications/main/badge.svg)](https://thebusybiscuit.github.io/builds/FN-FAL113/FN-FAL-s-Amplifications/main)
 
 
 ## The addon as shown in the Slimefun Guide
@@ -24,8 +28,8 @@ Addon support 1.15.x, 1.16.x and 1.17.x minecraft version
 ![Machinery Category](https://user-images.githubusercontent.com/88238718/138582199-7b18befb-dfd6-42b7-8962-e538a1535b41.png)![Machinery Items Category](https://user-images.githubusercontent.com/88238718/138582200-9995884a-39a5-406f-9f55-598698e3c767.png)
 
 ## Everything is configurable in terms of Power Rates, Buffer, Capacity, Tick Rates and Lores
-![config1](https://user-images.githubusercontent.com/88238718/136697369-229a4243-7059-4185-bb7a-4d512652ca5e.png)
-![config2](https://user-images.githubusercontent.com/88238718/136697385-04621e49-b530-4399-9cbe-0a52795b799f.png)
+![config1](https://user-images.githubusercontent.com/88238718/142844553-2b141c58-e0f8-4595-8e29-3099d690fadd.png)
+![config2](https://user-images.githubusercontent.com/88238718/142844555-64fb0203-3d3a-4a32-8c22-ca4123fe31c5.png)
 ![config3](https://user-images.githubusercontent.com/88238718/136697386-a52bc1d3-2897-4524-bea4-b64c308065ed.png)
 
 
