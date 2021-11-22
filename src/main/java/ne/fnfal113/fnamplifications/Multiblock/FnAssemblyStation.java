@@ -86,9 +86,11 @@ public class FnAssemblyStation extends MultiBlockMachine {
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
         if (outputInv != null) {
-            for (ItemStack removing : recipe) {
-                if (removing != null) {
-                    InvUtils.removeItem(inv, removing.getAmount(), true, stack -> SlimefunUtils.isItemSimilar(stack, removing, true));
+            for (int j = 0; j < 9; j++) {
+                ItemStack item = inv.getContents()[j];
+
+                if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
+                    ItemUtils.consumeItem(item, recipe[j].getAmount(),true);
                 }
             }
 
