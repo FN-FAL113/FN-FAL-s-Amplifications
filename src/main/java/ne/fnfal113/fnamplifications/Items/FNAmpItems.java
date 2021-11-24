@@ -73,6 +73,13 @@ public class FNAmpItems {
                     "550c3306bb11522fec380ea248eb6a5b180f4a7ab8843d635d14d4a778d6351")),
             "&eFN_FAL'S Multiblocks"));
 
+    public static final SubItemGroup METAL_SCRAP_RECIPES = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "METAL_SCRAP_RECIPES"),
+            FN_ITEMS,
+            new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
+                    "3ff0bee591e5f0000ef16f966b949adcb5c2f409a14ccfc5b91222fd925045db")),
+            "&eMetal Scrap Recipes"));
+
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -653,6 +660,12 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items");
 
+    public static final SlimefunItemStack MACHINE_PART_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_MACHINE_PART_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("6ddd4a12da1cc2c9f9d6cd49fc778e3a11f3757de6dd312d70a0d47885189c0")),
+            "&dMachine Part",
+            "&fCraft using metal scraps");
+
     public static final SlimefunItemStack COMPONENT_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPONENT_PART",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("74657e89167b17ed581e87ce4215ce8d47145ab34038202d5ccefb0a9bd0d8f4")),
@@ -661,6 +674,12 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items");
 
+    public static final SlimefunItemStack COMPONENT_PART_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_COMPONENT_PART_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("74657e89167b17ed581e87ce4215ce8d47145ab34038202d5ccefb0a9bd0d8f4")),
+            "&dComponent Part",
+            "&fCraft using metal scraps");
+
     public static final SlimefunItemStack MOTOR_SWITCH = new SlimefunItemStack(
             "FN_MACHINERY_MOTOR_SWITCH",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("48748ce96cedbfecaa463966d8fb1ac83c408feea89bd60d76d6024d3befe")),
@@ -668,6 +687,12 @@ public class FNAmpItems {
             "&fEssential Part for FN Machinery",
             "",
             "&d&oFN Machinery Items");
+
+    public static final SlimefunItemStack MOTOR_SWITCH_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_MOTOR_SWITCH_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("48748ce96cedbfecaa463966d8fb1ac83c408feea89bd60d76d6024d3befe")),
+            "&dMotor Switch",
+            "&fCraft using metal scraps");
 
     public static final SlimefunItemStack POWER_COMPONENT = new SlimefunItemStack(
             "FN_MACHINERY_POWER_COMPONENT",
@@ -678,6 +703,12 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items");
 
+    public static final SlimefunItemStack POWER_COMPONENT_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_POWER_COMPONENT_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("25ba8456e92f0790222c19c06f61180a195af1008569ed352b93a3c6d9ec7a98")),
+            "&dPower Component",
+            "&fCraft using metal scraps");
+
     public static final SlimefunItemStack GEAR_PART = new SlimefunItemStack(
             "FN_MACHINERY_GEAR_PART",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("faf0c95ceba34c7fe6d33404feb87b4184ccce143978622c1647feaed2b63274")),
@@ -687,6 +718,12 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items");
 
+    public static final SlimefunItemStack GEAR_PART_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_GEAR_PART_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("faf0c95ceba34c7fe6d33404feb87b4184ccce143978622c1647feaed2b63274")),
+            "&dGear Part",
+            "&fCraft using metal scraps");
+
     public static final SlimefunItemStack THREAD_PART = new SlimefunItemStack(
             "FN_MACHINERY_THREAD_PART",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("87ec65d6649ac1bf7b282575cef299f8601e51d8418d6e546e4fc71b218f7")),
@@ -694,6 +731,12 @@ public class FNAmpItems {
             "&fEssential Part for FN Machinery",
             "",
             "&d&oFN Machinery Items");
+
+    public static final SlimefunItemStack THREAD_PART_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_THREAD_PART_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("87ec65d6649ac1bf7b282575cef299f8601e51d8418d6e546e4fc71b218f7")),
+            "&dThread Part",
+            "&fCraft using metal scraps");
 
     public static final SlimefunItemStack COMPRESSOR_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPRESSOR_PART",
@@ -734,6 +777,12 @@ public class FNAmpItems {
             "&fEssential Part for FN Machinery",
             "",
             "&d&oFN Machinery Items");
+
+    public static final SlimefunItemStack FUNNEL_PART_SCRAP = new SlimefunItemStack(
+            "FN_MACHINERY_FUNNEL_PART_SCRAP",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("bb2abd66939f4cb7257a88cf52fbc6fdceec1433ec2a6ef16d62e34f6238781")),
+            "&dFunnel Part",
+            "&fCraft using metal scraps");
 
     public static final SlimefunItemStack DIAMOND_PLATING = new SlimefunItemStack(
             "FN_MACHINERY_DIAMOND_PLATING",
@@ -802,6 +851,22 @@ public class FNAmpItems {
             "FN_ASSEMBLY_STATION",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("583150f055935058634576185977ffba49ff4679faa03ad0008feaa0161865b3")),
             "&dFN Assembly Station"
+    );
+
+    public static final SlimefunItemStack FN_SCRAP_RECYCLER = new SlimefunItemStack(
+            "FN_SCRAP_RECYCLER",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("656634b556caf5382de65038a10e4d79c7c18695048599df74f9c67c1e1e8736")),
+            "&dFN Scrap Recycler"
+    );
+
+    public static final SlimefunItemStack FN_METAL_SCRAPS = new SlimefunItemStack(
+            "FN_METAL_SCRAPS",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("3ff0bee591e5f0000ef16f966b949adcb5c2f409a14ccfc5b91222fd925045db")),
+            "&dMetal Scrap",
+            "&fLeftover from downgrading machines"
+            , "&fcan be used to craft FN Machinery Items",
+            "",
+            "&d&oFN Machinery Items"
     );
 
 }

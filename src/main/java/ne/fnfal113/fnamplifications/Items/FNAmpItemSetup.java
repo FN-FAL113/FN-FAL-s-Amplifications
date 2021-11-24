@@ -10,6 +10,7 @@ import ne.fnfal113.fnamplifications.Machines.ElectricRecycler;
 import ne.fnfal113.fnamplifications.Machines.ElectricTransformer;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
 
@@ -38,6 +39,7 @@ public final class FNAmpItemSetup {
         registerDowngrader();
         registerRecipeItems();
         registerMultiBlock();
+        registerScrapRecipes();
     }
 
     private void registerPowerGens() {
@@ -89,5 +91,13 @@ public final class FNAmpItemSetup {
 
     private void registerMultiBlock() {
         new FnAssemblyStation().register(FNAmplifications.getInstance());
+        new FnScrapRecycler().register(FNAmplifications.getInstance());
     }
+
+
+    private void registerScrapRecipes() {
+        FnScrapRecipes.setup();
+    }
+
+
 }

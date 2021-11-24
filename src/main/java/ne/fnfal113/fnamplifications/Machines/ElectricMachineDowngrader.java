@@ -4,26 +4,43 @@ import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.operations.CraftingOperation;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+
+import ne.fnfal113.fnamplifications.Machines.Abstracts.CMachine;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
-import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-
-public class ElectricMachineDowngrader extends AContainer implements RecipeDisplayItem {
+public class ElectricMachineDowngrader extends CMachine implements RecipeDisplayItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    public static final RecipeType RECIPE_TYPE = new RecipeType(
+            new NamespacedKey(FNAmplifications.getInstance(), "fn_fal_downgrader"),
+            FNAmpItems.FN_FAL_DOWNGRADER,
+            "&fGet metal scraps from downgrading a",
+            "&fmachine using Machine Downgrader",
+            "&bYields metal scraps at certain chance"
+    );
 
     public ElectricMachineDowngrader(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -40,6 +57,42 @@ public class ElectricMachineDowngrader extends AContainer implements RecipeDispl
         }
 
         return displayRecipes;
+    }
+
+    @Override
+    public void tick(Block b) {
+        BlockMenu inv = BlockStorage.getInventory(b);
+        CraftingOperation currentOperation = processor.getOperation(b);
+
+        if (currentOperation != null) {
+            if (takeCharge(b.getLocation())) {
+
+                if (!currentOperation.isFinished()) {
+                    processor.updateProgressBar(inv, 22, currentOperation);
+                    currentOperation.addProgress(1);
+                } else {
+                    inv.replaceExistingItem(22, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
+
+                    for (ItemStack output : currentOperation.getResults()) {
+                        if (ThreadLocalRandom.current().nextInt(100) < 33) {
+                            inv.pushItem(output.clone(), getOutputSlots());
+                            inv.pushItem(new CustomItemStack(FNAmpItems.FN_METAL_SCRAPS.clone(), 3), getOutputSlots());
+                        }
+                        else{
+                            inv.pushItem(output.clone(), getOutputSlots());
+                        }
+                    }
+
+                    processor.endOperation(b);
+                }
+            }
+        } else {
+            MachineRecipe next = findNextRecipe(inv);
+
+            if (next != null) {
+                getMachineProcessor().startOperation(b, new CraftingOperation(next));
+            }
+        }
     }
 
     @Override

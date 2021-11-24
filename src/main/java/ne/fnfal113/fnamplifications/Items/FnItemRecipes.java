@@ -1,5 +1,7 @@
 package ne.fnfal113.fnamplifications.Items;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import ne.fnfal113.fnamplifications.Machines.ElectricMachineDowngrader;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -153,5 +155,12 @@ public class FnItemRecipes {
                 FNAmpItems.REINFORCED_CASING, FNAmpItems.MACHINE_PART, FNAmpItems.BRASS_PLATING,
                 FNAmpItems.COMPONENT_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.COMPONENT_PART})
                 .register(plugin);
+
+        new UnplaceableBlock(FNAmpItems.ITEMS, FNAmpItems.FN_METAL_SCRAPS, ElectricMachineDowngrader.RECIPE_TYPE, new ItemStack[]{
+                null, null, null,
+                null, null, null,
+                null, null, null})
+                .register(plugin);
+
     }
 }
