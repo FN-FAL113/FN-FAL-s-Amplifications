@@ -29,7 +29,7 @@ public class FNMaterialGenerators {
     public static ItemStack SMG_ITEMSTACK_SOUL_SAND = FNAmpItems.FMG_GENERATOR_FNFAL_CLAY;
 
     static {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("SimpleMaterialGenerators")) {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("SimpleMaterialGenerators") && value.smgRecipe()) {
             SlimefunItem smg_gravel = SlimefunItem.getById("SMG_GENERATOR_GRAVEL");
             SlimefunItem smg_cobble = SlimefunItem.getById("SMG_GENERATOR_COBBLESTONE");
             SlimefunItem smg_netherrack = SlimefunItem.getById("SMG_GENERATOR_NETHERRACK");

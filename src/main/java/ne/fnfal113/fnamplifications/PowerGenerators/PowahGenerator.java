@@ -246,7 +246,7 @@ public class PowahGenerator extends SlimefunItem implements InventoryBlock, Ener
     public static ItemStack LITEX_ITEMSTACK_REINFORCED = SlimefunItems.REINFORCED_ALLOY_INGOT;
 
     static {
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("LiteXpansion")) {
+        if (Bukkit.getServer().getPluginManager().isPluginEnabled("LiteXpansion") && value.liteXpansionRecipe()) {
             SlimefunItem iridium = SlimefunItem.getById("IRIDIUM");
             SlimefunItem uu_matter = SlimefunItem.getById("UU_MATTER");
             if (iridium != null && uu_matter != null && !iridium.isDisabled() && !uu_matter.isDisabled()) {

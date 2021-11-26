@@ -368,4 +368,16 @@ public class ReturnConfValue {
     public String tier8Lore() {
         return config.getString("Tier8-Lore");
     }
+
+    public boolean liteXpansionRecipe() {
+        return config.getBoolean("LiteX-Recipe-Integration");
+    }
+
+    public boolean smgRecipe() {
+        return config.getBoolean("SMG-Recipe-Integration");
+    }
+
+    public boolean latestMcVersionRecipe() {
+        return config.getBoolean("New-Recipe-Integration");
+    }
 }
