@@ -153,7 +153,6 @@ public abstract class CMachine extends SlimefunItem implements InventoryBlock, E
         return getItemName();
     }
 
-
     public abstract ItemStack getProgressBar();
 
     @Override
