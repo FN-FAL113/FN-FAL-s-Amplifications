@@ -3,11 +3,7 @@ package ne.fnfal113.fnamplifications.Items;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Machines.ElectricCompressor;
-import ne.fnfal113.fnamplifications.Machines.ElectricIngotCondenser;
-import ne.fnfal113.fnamplifications.Machines.ElectricMachineDowngrader;
-import ne.fnfal113.fnamplifications.Machines.ElectricRecycler;
-import ne.fnfal113.fnamplifications.Machines.ElectricTransformer;
+import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
@@ -40,6 +36,7 @@ public final class FNAmpItemSetup {
         registerRecipeItems();
         registerMultiBlock();
         registerScrapRecipes();
+        registerBlockBreaker();
     }
 
     private void registerPowerGens() {
@@ -94,9 +91,12 @@ public final class FNAmpItemSetup {
         new FnScrapRecycler().register(FNAmplifications.getInstance());
     }
 
-
     private void registerScrapRecipes() {
         FnScrapRecipes.setup();
+    }
+
+    private void registerBlockBreaker() {
+        ElectricBlockBreaker.setup();
     }
 
 
