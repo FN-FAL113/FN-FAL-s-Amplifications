@@ -135,7 +135,7 @@ public class PowahGenerator extends SlimefunItem implements InventoryBlock, Ener
         super(FNAmpItems.POWER_GENERATORS, type.getItem(), FnAssemblyStation.RECIPE_TYPE, type.getRecipe());
         this.type = type;
 
-        createPreset(this, type.getItem().getItemMetaSnapshot().getDisplayName().orElse("&eFN Material Generator"),
+        createPreset(this, type.getItem().getItemMetaSnapshot().getDisplayName().orElse("&eFN Power Xpansion"),
                 blockMenuPreset -> {
                     for (int i = 0; i < 18; i++) {
                         blockMenuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());

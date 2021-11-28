@@ -380,4 +380,16 @@ public class ReturnConfValue {
     public boolean latestMcVersionRecipe() {
         return config.getBoolean("New-Recipe-Integration");
     }
+
+    public int blockBreaker1Ticks() {
+        return config.getInt("E-block-breaker1-tickRate");
+    }
+
+    public int blockBreaker2Ticks() {
+        return config.getInt("E-block-breaker2-tickRate");
+    }
+
+    public int blockBreaker3Ticks() {
+        return config.getInt("E-block-breaker3-tickRate");
+    }
 }
