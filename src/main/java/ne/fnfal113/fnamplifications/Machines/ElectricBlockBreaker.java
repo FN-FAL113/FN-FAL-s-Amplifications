@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications.Machines;
 
 import dev.j3fftw.extrautils.interfaces.InventoryBlock;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
@@ -12,6 +13,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
@@ -57,6 +59,16 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     protected static final Map<Location, Boolean> mode = new HashMap<>();
 
     protected static final Map<Location, Boolean> toggleOnOff = new HashMap<>();
+
+    private static final ItemStack VERSIONED_AMETHYST;
+
+    static {
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)){
+            VERSIONED_AMETHYST = new ItemStack(Material.BUDDING_AMETHYST);
+        } else {
+            VERSIONED_AMETHYST = new ItemStack(Material.BEDROCK);
+        }
+    }
 
     private static final CustomItemStack notOperating = new CustomItemStack(Material.ORANGE_STAINED_GLASS_PANE,
             "&cNot Operating...",
@@ -175,7 +187,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         if(getCharge(b.getLocation()) > 0 && toggleOnOff.get(b.getLocation())) {
             invMenu.replaceExistingItem(4, notOperating);
             if (!targetBlock.getType().equals(Material.AIR)) {
-                if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !targetBlock.getType().equals(Material.BEDROCK)) {
+                if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !targetBlock.getType().equals(Material.BEDROCK) && !targetBlock.getType().equals(Material.END_PORTAL_FRAME) && !targetBlock.getType().equals(Material.FROSTED_ICE)) {
                     final BlockPosition pos = new BlockPosition(b);
                     int progress = breakerProgress.getOrDefault(pos, 0);
 
@@ -201,7 +213,11 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
                                 targetBlock.setType(Material.AIR);
                             } else {
                                 ItemStack vanilla = new ItemStack(targetBlock.getType());
-                                location.dropItemNaturally(targetBlock.getLocation(), vanilla.clone());
+                                if(vanilla.isSimilar(VERSIONED_AMETHYST)) {
+                                    targetBlock.setType(Material.AIR);
+                                } else {
+                                    location.dropItemNaturally(targetBlock.getLocation(), vanilla.clone());
+                                }
                                 targetBlock.setType(Material.AIR);
                             }
                         }
