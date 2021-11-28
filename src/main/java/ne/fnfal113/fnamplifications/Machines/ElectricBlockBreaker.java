@@ -36,13 +36,17 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 
 import org.bukkit.block.data.type.Dispenser;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
 
@@ -179,6 +183,11 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         onNewInstance(invMenu, b);
         onNewInstanceToggle(invMenu, b);
 
+        ItemStack stack = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemMeta meta = stack.getItemMeta();
+        meta.addEnchant(Enchantment.SILK_TOUCH, 1, true);
+        stack.setItemMeta(meta);
+
         if(invMenu == null){
             return;
         }
@@ -187,7 +196,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         if(getCharge(b.getLocation()) > 0 && toggleOnOff.get(b.getLocation())) {
             invMenu.replaceExistingItem(4, notOperating);
             if (!targetBlock.getType().equals(Material.AIR)) {
-                if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !targetBlock.getType().equals(Material.BEDROCK) && !targetBlock.getType().equals(Material.END_PORTAL_FRAME) && !targetBlock.getType().equals(Material.FROSTED_ICE)) {
+                if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
                     final BlockPosition pos = new BlockPosition(b);
                     int progress = breakerProgress.getOrDefault(pos, 0);
 
@@ -199,12 +208,12 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
 
                     if (progress >= this.rate) {
                         progress = 0;
-                        if (mode.containsValue(true)) {
+                        if (mode.get(b.getLocation())) {
                             if (BlockStorage.hasBlockInfo(targetBlock) || BlockStorage.hasInventory(targetBlock)) {
                                 location.dropItemNaturally(targetBlock.getLocation(), BlockStorage.retrieve(targetBlock));
                                 targetBlock.setType(Material.AIR);
                             } else {
-                                targetBlock.breakNaturally();
+                                targetBlock.breakNaturally(new ItemStack(Material.DIAMOND_PICKAXE));
                                 BlockStorage.clearBlockInfo(targetBlock.getLocation(), true);
                             }
                         } else {
@@ -216,9 +225,8 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
                                 if(vanilla.isSimilar(VERSIONED_AMETHYST)) {
                                     targetBlock.setType(Material.AIR);
                                 } else {
-                                    location.dropItemNaturally(targetBlock.getLocation(), vanilla.clone());
+                                    targetBlock.breakNaturally(stack);
                                 }
-                                targetBlock.setType(Material.AIR);
                             }
                         }
                             location.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.UI_STONECUTTER_TAKE_RESULT, 1, 1);
@@ -233,6 +241,11 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             }
         }
     }
+
+    private static final Set<Material> ILLEGAL = EnumSet.of(
+            Material.BEDROCK, Material.END_PORTAL_FRAME, Material.FROSTED_ICE,
+            Material.BARRIER, Material.END_GATEWAY
+    );
 
     private boolean isBed(Block targetBlock) {
         return targetBlock.getBlockData() instanceof org.bukkit.block.data.type.Bed;
