@@ -183,6 +183,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         onNewInstance(invMenu, b);
         onNewInstanceToggle(invMenu, b);
 
+        ItemStack stack2 = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemStack stack = new ItemStack(Material.DIAMOND_PICKAXE);
         ItemMeta meta = stack.getItemMeta();
         meta.addEnchant(Enchantment.SILK_TOUCH, 1, true);
@@ -192,51 +193,52 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             return;
         }
 
-        invMenu.replaceExistingItem(4, notRunning);
-        if(getCharge(b.getLocation()) > 0 && toggleOnOff.get(b.getLocation())) {
-            invMenu.replaceExistingItem(4, notOperating);
-            if (!targetBlock.getType().equals(Material.AIR)) {
-                if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
-                    final BlockPosition pos = new BlockPosition(b);
-                    int progress = breakerProgress.getOrDefault(pos, 0);
+        if(getCharge(b.getLocation()) > 0) {
+            invMenu.replaceExistingItem(4, notRunning);
+            if (toggleOnOff.get(b.getLocation())) {
+                invMenu.replaceExistingItem(4, notOperating);
+                if (!targetBlock.getType().equals(Material.AIR)) {
+                    if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
+                        final BlockPosition pos = new BlockPosition(b);
+                        int progress = breakerProgress.getOrDefault(pos, 0);
 
-                    if (invMenu.toInventory() != null && !invMenu.toInventory().getViewers().isEmpty()) {
+                        if (invMenu.toInventory() != null && !invMenu.toInventory().getViewers().isEmpty()) {
                             invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aOperating!",
-                                    "","&bRate: " + this.rate + " Block per tick", "&2Breaking block at rate: " + progress
+                                    "", "&bRate: " + this.rate + " Block per tick", "&2Breaking block at rate: " + progress
                                     + "/" + this.rate));
-                    }
+                        }
 
-                    if (progress >= this.rate) {
-                        progress = 0;
-                        if (mode.get(b.getLocation())) {
-                            if (BlockStorage.hasBlockInfo(targetBlock) || BlockStorage.hasInventory(targetBlock)) {
-                                location.dropItemNaturally(targetBlock.getLocation(), BlockStorage.retrieve(targetBlock));
-                                targetBlock.setType(Material.AIR);
-                            } else {
-                                targetBlock.breakNaturally(new ItemStack(Material.DIAMOND_PICKAXE));
-                                BlockStorage.clearBlockInfo(targetBlock.getLocation(), true);
-                            }
-                        } else {
-                            if (BlockStorage.hasBlockInfo(targetBlock) || BlockStorage.hasInventory(targetBlock)) {
-                                location.dropItemNaturally(targetBlock.getLocation(), BlockStorage.retrieve(targetBlock));
-                                targetBlock.setType(Material.AIR);
-                            } else {
-                                ItemStack vanilla = new ItemStack(targetBlock.getType());
-                                if(vanilla.isSimilar(VERSIONED_AMETHYST)) {
+                        if (progress >= this.rate) {
+                            progress = 0;
+                            if (mode.get(b.getLocation())) {
+                                if (BlockStorage.hasBlockInfo(targetBlock) || BlockStorage.hasInventory(targetBlock)) {
+                                    location.dropItemNaturally(targetBlock.getLocation(), BlockStorage.retrieve(targetBlock));
                                     targetBlock.setType(Material.AIR);
                                 } else {
-                                    targetBlock.breakNaturally(stack);
+                                    targetBlock.breakNaturally(stack2);
+                                }
+                            } else {
+                                if (BlockStorage.hasBlockInfo(targetBlock) || BlockStorage.hasInventory(targetBlock)) {
+                                    location.dropItemNaturally(targetBlock.getLocation(), BlockStorage.retrieve(targetBlock));
+                                    targetBlock.setType(Material.AIR);
+                                } else {
+                                    ItemStack vanilla = new ItemStack(targetBlock.getType());
+                                    if (vanilla.isSimilar(VERSIONED_AMETHYST)) {
+                                        targetBlock.setType(Material.AIR);
+                                    } else {
+                                        targetBlock.breakNaturally(stack);
+                                    }
                                 }
                             }
-                        }
                             location.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.UI_STONECUTTER_TAKE_RESULT, 1, 1);
                             b.getWorld().spawnParticle(Particle.SMOKE_LARGE, b.getLocation().add(1, 1, 1), 2, 0.1, 0.1, 0.1);
-                    } else {
-                        progress++;
+                        } else {
+                            progress++;
+                            location.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.BLOCK_STONE_HIT, 1, 1);
+                        }
+                        breakerProgress.put(pos, progress);
                         takeCharge(b.getLocation());
-                        location.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.BLOCK_STONE_HIT, 1, 1);
                     }
-                    breakerProgress.put(pos, progress);
                 }
             }
         }
