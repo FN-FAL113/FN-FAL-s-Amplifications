@@ -11,12 +11,15 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
@@ -37,16 +40,16 @@ import org.bukkit.block.Block;
 
 import org.bukkit.block.data.type.Dispenser;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
 
@@ -130,35 +133,6 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         });
     }
 
-    public static void setup(){
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.GEAR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.GEAR_PART,
-                new ItemStack(Material.IRON_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
-                FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING})
-                .setRate(value.blockBreaker1Ticks())
-                .setCapacity(512)
-                .setEnergyConsumption(32)
-                .register(plugin);
-
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
-                new ItemStack(Material.DIAMOND_PICKAXE), new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.DIAMOND_PICKAXE),
-                FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING})
-                .setRate(value.blockBreaker2Ticks())
-                .setCapacity(1024)
-                .setEnergyConsumption(64)
-                .register(plugin);
-
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 3),
-                new ItemStack(Material.NETHERITE_PICKAXE), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new ItemStack(Material.NETHERITE_PICKAXE),
-                FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING})
-                .setRate(value.blockBreaker3Ticks())
-                .setCapacity(2048)
-                .setEnergyConsumption(128)
-                .register(plugin);
-    }
-
     @Override
     public void preRegister() {
         addItemHandler(new BlockTicker() {
@@ -174,6 +148,37 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
                 return true;
             }
         });
+
+        addItemHandler(new BlockPlaceHandler(false) {
+
+            @Override
+            public void onPlayerPlace(@Nonnull BlockPlaceEvent e) {
+                Player p = e.getPlayer();
+                Block b = e.getBlock();
+
+                BlockStorage.addBlockInfo(b, "owner", p.getUniqueId().toString());
+            }
+        });
+
+        addItemHandler(new BlockBreakHandler(false, false) {
+
+            @Override
+            @ParametersAreNonnullByDefault
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops){
+                BlockStorage.clearBlockInfo(e.getBlock(), true);
+            }
+        });
+    }
+
+    private boolean hasPermission(Block block, Block target) {
+        String owner = BlockStorage.getLocationInfo(block.getLocation(), "owner");
+
+        if (owner == null) {
+            return true;
+        }
+
+        OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(owner));
+        return Slimefun.getProtectionManager().hasPermission(player, target, Interaction.BREAK_BLOCK);
     }
 
     public void tick(@Nonnull Block b) {
@@ -198,7 +203,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             if (toggleOnOff.get(b.getLocation())) {
                 invMenu.replaceExistingItem(4, notOperating);
                 if (!targetBlock.getType().equals(Material.AIR)) {
-                    if (targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
+                    if (hasPermission(b, targetBlock)  && targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
                         final BlockPosition pos = new BlockPosition(b);
                         int progress = breakerProgress.getOrDefault(pos, 0);
 
@@ -374,5 +379,34 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         } else {
             return true;
         }
+    }
+
+    public static void setup(){
+        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.GEAR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.GEAR_PART,
+                new ItemStack(Material.IRON_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
+                FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING})
+                .setRate(value.blockBreaker1Ticks())
+                .setCapacity(512)
+                .setEnergyConsumption(32)
+                .register(plugin);
+
+        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
+                new ItemStack(Material.DIAMOND_PICKAXE), new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.DIAMOND_PICKAXE),
+                FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING})
+                .setRate(value.blockBreaker2Ticks())
+                .setCapacity(1024)
+                .setEnergyConsumption(64)
+                .register(plugin);
+
+        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 3),
+                new ItemStack(Material.NETHERITE_PICKAXE), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new ItemStack(Material.NETHERITE_PICKAXE),
+                FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING})
+                .setRate(value.blockBreaker3Ticks())
+                .setCapacity(2048)
+                .setEnergyConsumption(128)
+                .register(plugin);
     }
 }
