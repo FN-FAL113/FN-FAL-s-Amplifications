@@ -203,7 +203,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             if (toggleOnOff.get(b.getLocation())) {
                 invMenu.replaceExistingItem(4, notOperating);
                 if (!targetBlock.getType().equals(Material.AIR)) {
-                    if (hasPermission(b, targetBlock)  && targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
+                    if (hasPermission(b, targetBlock) && targetBlock.getType().isBlock() && targetBlock.getType().isSolid() && !isBed(targetBlock) && !isDoor(targetBlock) && !ILLEGAL.contains(targetBlock.getType())) {
                         final BlockPosition pos = new BlockPosition(b);
                         int progress = breakerProgress.getOrDefault(pos, 0);
 
