@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -25,6 +26,7 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -35,16 +37,18 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Dispenser;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
+import java.util.UUID;
 
 public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
 
@@ -133,27 +137,32 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        addItemHandler(new BlockTicker() {
-            @Override
-            public boolean isSynchronized() {
-                return true;
-            }
-
-            @Override
-            @ParametersAreNonnullByDefault
-            public void tick(Block block, SlimefunItem slimefunItem, Config data) {
-                onTick(block);
-            }
-        });
-
-        createPreset(this, getInventoryTitle(), new Consumer<BlockMenuPreset>() {
-            @Override
-            public void accept(BlockMenuPreset blockMenuPreset) {
-                for (int i = 0; i < 9; i++) {
-                    blockMenuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
+        addItemHandler(
+            new BlockTicker() {
+                @Override
+                public boolean isSynchronized() {
+                    return true;
                 }
-                blockMenuPreset.addItem(4, NO_POWER);
+
+                @Override
+                @ParametersAreNonnullByDefault
+                public void tick(Block block, SlimefunItem slimefunItem, Config data) {
+                    onTick(block);
+                }
+            },
+            new BlockPlaceHandler(false) {
+                @Override
+                public void onPlayerPlace(@Nonnull BlockPlaceEvent event) {
+                    BlockStorage.addBlockInfo(event.getBlock(), "owner", event.getPlayer().getUniqueId().toString());
+                }
             }
+        );
+
+        createPreset(this, getInventoryTitle(), blockMenuPreset -> {
+            for (int i = 0; i < 9; i++) {
+                blockMenuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
+            }
+            blockMenuPreset.addItem(4, NO_POWER);
         });
     }
 
@@ -209,9 +218,9 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
 
             @Override
             public void newInstance(@Nonnull BlockMenu menu, @Nonnull Block b) {
-                String progressString = BlockStorage.getLocationInfo(menu.getLocation(), "progress");
                 String breakMode = BlockStorage.getLocationInfo(b.getLocation(), "breakBlockNaturally");
                 String isRunning = BlockStorage.getLocationInfo(b.getLocation(), "toggled_On");
+                String owner = BlockStorage.getLocationInfo(b.getLocation(), "owner");
 
                 // Mode
                 boolean currentMode = false;
@@ -237,7 +246,13 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
                     return false;
                 });
 
-                BlockBreakerCache cache = new BlockBreakerCache(0, currentMode, isOn);
+                // owner
+                UUID ownerUUID = null;
+                if (owner != null) {
+                    ownerUUID = UUID.fromString(owner);
+                }
+
+                BlockBreakerCache cache = new BlockBreakerCache(0, currentMode, isOn, ownerUUID);
                 CACHE_MAP.put(menu.getLocation(), cache);
 
             }
@@ -249,13 +264,25 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         Block targetBlock = b.getRelative(((Dispenser) b.getState().getBlockData()).getFacing());
         World targetLocation = targetBlock.getWorld();
 
+
         BlockBreakerCache cache = CACHE_MAP.get(b.getLocation());
 
         if (getCharge(b.getLocation()) > 0) {
             invMenu.replaceExistingItem(4, NOT_RUNNING);
             if (cache.isOn) {
                 invMenu.replaceExistingItem(4, NOT_OPERATING);
+
+
                 if (targetBlock.getType().isSolid() && !ILLEGAL.contains(targetBlock.getType())) {
+
+                    if (!Slimefun.getProtectionManager().hasPermission(
+                        Bukkit.getOfflinePlayer(cache.owner),
+                        targetBlock,
+                        Interaction.BREAK_BLOCK)
+                    ) {
+                        return;
+                    }
+
                     int progress = cache.progress;
 
                     if (invMenu.hasViewer()) {
@@ -392,15 +419,17 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         }
     }
 
-    public static class BlockBreakerCache {
-        private int progress;
-        private boolean breakNaturally;
-        private boolean isOn;
+public static class BlockBreakerCache {
+    private int progress;
+    private boolean breakNaturally;
+    private boolean isOn;
+    private final UUID owner;
 
-        public BlockBreakerCache(int progress, boolean breakNaturally, boolean isOn) {
-            this.progress = progress;
-            this.breakNaturally = breakNaturally;
-            this.isOn = isOn;
-        }
+    public BlockBreakerCache(int progress, boolean breakNaturally, boolean isOn, @Nullable UUID owner) {
+        this.progress = progress;
+        this.breakNaturally = breakNaturally;
+        this.isOn = isOn;
+        this.owner = owner;
     }
+}
 }
