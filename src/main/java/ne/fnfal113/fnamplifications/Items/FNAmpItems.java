@@ -740,7 +740,7 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack COMPRESSOR_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPRESSOR_PART",
-            PlayerHead.getItemStack(PlayerSkin.fromHashCode("e48337f7ede15c3b2f8dc6a63bd92874cdf74ec862b4118c7e35559ce8b4d")),
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2986794521869e8327ef81dbc35c9856bc4051df9888d81eab212442b176a82f")),
             "&dCompressor Part",
             "&fEssential Part for FN Machinery",
             "",
