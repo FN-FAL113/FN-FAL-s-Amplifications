@@ -36,7 +36,6 @@ public final class FNAmpItemSetup {
         registerRecipeItems();
         registerMultiBlock();
         registerScrapRecipes();
-        registerBlockBreaker();
     }
 
     private void registerPowerGens() {
@@ -94,10 +93,5 @@ public final class FNAmpItemSetup {
     private void registerScrapRecipes() {
         FnScrapRecipes.setup();
     }
-
-    private void registerBlockBreaker() {
-        ElectricBlockBreaker.setup();
-    }
-
 
 }
