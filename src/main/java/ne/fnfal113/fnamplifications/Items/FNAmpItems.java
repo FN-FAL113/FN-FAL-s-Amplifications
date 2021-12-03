@@ -740,7 +740,7 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack COMPRESSOR_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPRESSOR_PART",
-            PlayerHead.getItemStack(PlayerSkin.fromHashCode("e48337f7ede15c3b2f8dc6a63bd92874cdf74ec862b4118c7e35559ce8b4d")),
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2986794521869e8327ef81dbc35c9856bc4051df9888d81eab212442b176a82f")),
             "&dCompressor Part",
             "&fEssential Part for FN Machinery",
             "",
@@ -868,53 +868,4 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items"
     );
-
-    public static final SlimefunItemStack FN_BLOCK_BREAKER_1 = new SlimefunItemStack(
-            "FN_BLOCK_BREAKER_I",
-            Material.DISPENSER,
-            "&4Electric Block Breaker I",
-            "",
-            "&6Place block in front",
-            "&6of the dispenser to break",
-            "",
-            "&eRate: " + value.blockBreaker1Ticks() + " ticks",
-            "",
-            "&d&oFN Machinery",
-            LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
-            LoreBuilder.powerBuffer(512),
-            LoreBuilderDynamic.powerPerTick(32)
-    );
-
-    public static final SlimefunItemStack FN_BLOCK_BREAKER_2 = new SlimefunItemStack(
-            "FN_BLOCK_BREAKER_II",
-            Material.DISPENSER,
-            "&4Electric Block Breaker II",
-            "",
-            "&6Place block in front",
-            "&6of the dispenser to break",
-            "",
-            "&eRate: " + value.blockBreaker2Ticks() + " ticks",
-            "",
-            "&d&oFN Machinery",
-            LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
-            LoreBuilder.powerBuffer(1024),
-            LoreBuilderDynamic.powerPerTick(64)
-    );
-
-    public static final SlimefunItemStack FN_BLOCK_BREAKER_3 = new SlimefunItemStack(
-            "FN_BLOCK_BREAKER_III",
-            Material.DISPENSER,
-            "&4Electric Block Breaker III",
-            "",
-            "&6Place block in front",
-            "&6of the dispenser to break",
-            "",
-            "&eRate: " + value.blockBreaker3Ticks() + " ticks",
-            "",
-            "&d&oFN Machinery",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
-            LoreBuilder.powerBuffer(2048),
-            LoreBuilderDynamic.powerPerTick(128)
-    );
-
 }
