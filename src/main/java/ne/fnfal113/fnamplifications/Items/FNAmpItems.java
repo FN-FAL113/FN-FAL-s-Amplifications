@@ -19,12 +19,25 @@ import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class FNAmpItems {
 
     static ReturnConfValue value = new ReturnConfValue();
 
     private FNAmpItems() {}
+
+    public static final ItemStack STICK = new ItemStack(Material.STICK);
+
+    static{
+        ItemMeta meta = STICK.getItemMeta();
+        meta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        STICK.setItemMeta(meta);
+    }
 
     public static final NestedItemGroup FN_ITEMS = new NestedItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_ITEMS"),
@@ -79,6 +92,12 @@ public class FNAmpItems {
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "3ff0bee591e5f0000ef16f966b949adcb5c2f409a14ccfc5b91222fd925045db")),
             "&eMetal Scrap Recipes"));
+
+    public static final SubItemGroup MYSTERY_STICKS = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "MYSTERY_STICKS"),
+            FN_ITEMS,
+            new CustomItemStack(STICK,
+                    "&eMystery Sticks (PVP/PVE)"));
 
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
@@ -740,7 +759,7 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack COMPRESSOR_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPRESSOR_PART",
-            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2986794521869e8327ef81dbc35c9856bc4051df9888d81eab212442b176a82f")),
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("e48337f7ede15c3b2f8dc6a63bd92874cdf74ec862b4118c7e35559ce8b4d")),
             "&dCompressor Part",
             "&fEssential Part for FN Machinery",
             "",
@@ -867,5 +886,99 @@ public class FNAmpItems {
             , "&fcan be used to craft FN Machinery Items",
             "",
             "&d&oFN Machinery Items"
+    );
+
+    public static final SlimefunItemStack FN_BLOCK_BREAKER_1 = new SlimefunItemStack(
+            "FN_BLOCK_BREAKER_I",
+            Material.DISPENSER,
+            "&4Electric Block Breaker I",
+            "",
+            "&6Place block in front",
+            "&6of the dispenser to break",
+            "&d(Vanilla)",
+            "",
+            "&eRate: " + value.blockBreaker1Ticks() + " ticks",
+            "",
+            "&d&oFN Machinery",
+            LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
+            LoreBuilder.powerBuffer(512),
+            LoreBuilderDynamic.powerPerTick(32)
+    );
+
+    public static final SlimefunItemStack FN_BLOCK_BREAKER_2 = new SlimefunItemStack(
+            "FN_BLOCK_BREAKER_II",
+            Material.DISPENSER,
+            "&4Electric Block Breaker II",
+            "",
+            "&6Place block in front",
+            "&6of the dispenser to break",
+            "&d(Vanilla)",
+            "",
+            "&eRate: " + value.blockBreaker2Ticks() + " ticks",
+            "",
+            "&d&oFN Machinery",
+            LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
+            LoreBuilder.powerBuffer(1024),
+            LoreBuilderDynamic.powerPerTick(64)
+    );
+
+    public static final SlimefunItemStack FN_BLOCK_BREAKER_3 = new SlimefunItemStack(
+            "FN_BLOCK_BREAKER_III",
+            Material.DISPENSER,
+            "&4Electric Block Breaker III",
+            "",
+            "&6Place block in front",
+            "&6of the dispenser to break",
+            "&d(Vanilla)",
+            "",
+            "&eRate: " + value.blockBreaker3Ticks() + " ticks",
+            "",
+            "&d&oFN Machinery",
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
+            LoreBuilder.powerBuffer(2048),
+            LoreBuilderDynamic.powerPerTick(128)
+    );
+
+    public static final SlimefunItemStack FN_STICK = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_1",
+            Material.STICK,
+            "&cMysterious Stick",
+            "&fI wonder what this stick does"
+    );
+
+
+    public static final SlimefunItemStack FN_STICK_2 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_2",
+            Material.STICK,
+            "&cMysterious Stick II",
+            "&fAnother stick of no matter what is it"
+    );
+
+    public static final SlimefunItemStack FN_STICK_3 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_3",
+            Material.STICK,
+            "&cMysterious Stick III",
+            "&fI feel coordinated when holding this stick"
+    );
+
+    public static final SlimefunItemStack FN_STICK_4 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_4",
+            Material.STICK,
+            "&cMysterious Stick IV",
+            "&fDid I use this before or maybe not"
+    );
+
+    public static final SlimefunItemStack FN_STICK_5 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_5",
+            Material.STICK,
+            "&cMysterious Stick V",
+            "&fI know you are tired of this stick thing"
+    );
+
+    public static final SlimefunItemStack FN_STICK_6 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_6",
+            Material.STICK,
+            "&cMysterious Stick VI",
+            "&fMay the force and accuracy be with you"
     );
 }

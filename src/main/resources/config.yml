@@ -170,3 +170,9 @@ Tier8-power8: 12288
 Tier8-power8-night: 0
 Buffer8: 196608
 Tier8-Lore: "&eGenerator works during Day only"
+
+# Tick rate settings for the Electric Block Breaker
+# Lower ticks the faster it breaks a block
+E-block-breaker1-tickRate: 12
+E-block-breaker2-tickRate: 6
+E-block-breaker3-tickRate: 2
