@@ -7,6 +7,7 @@ import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
+import ne.fnfal113.fnamplifications.MysteriousItems.*;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
 
@@ -36,6 +37,8 @@ public final class FNAmpItemSetup {
         registerRecipeItems();
         registerMultiBlock();
         registerScrapRecipes();
+        registerBlockBreaker();
+        registerStick();
     }
 
     private void registerPowerGens() {
@@ -94,4 +97,16 @@ public final class FNAmpItemSetup {
         FnScrapRecipes.setup();
     }
 
+    private void registerBlockBreaker() {
+        ElectricBlockBreaker.setup();
+    }
+
+    private void registerStick() {
+        MysteryStick.setup();
+        MysteryStick2.setup();
+        MysteryStick3.setup();
+        MysteryStick4.setup();
+        MysteryStick5.setup();
+        MysteryStick6.setup();
+    }
 }

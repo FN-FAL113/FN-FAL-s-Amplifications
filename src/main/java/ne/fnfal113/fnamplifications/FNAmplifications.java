@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
 import ne.fnfal113.fnamplifications.ConfigUpdater.ConfigUpdater;
+import ne.fnfal113.fnamplifications.MysteriousItems.Listeners.MysteryStickListener;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,6 +34,8 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getLogger().info("************************************************************");
 
         FNAmpItemSetup.INSTANCE.init();
+
+        getServer().getPluginManager().registerEvents(new MysteryStickListener(), this);
 
         getConfig().options().copyDefaults();
         saveDefaultConfig();
