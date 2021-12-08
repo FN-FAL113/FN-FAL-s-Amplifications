@@ -981,4 +981,25 @@ public class FNAmpItems {
             "&cMysterious Stick VI",
             "&fMay the force and accuracy be with you"
     );
+
+    public static final SlimefunItemStack FN_STICK_7 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_7",
+            Material.STICK,
+            "&cMysterious Stick VII",
+            "&fThe aura on this stick is mesmerizing"
+    );
+
+    public static final SlimefunItemStack FN_STICK_8 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_8",
+            Material.STICK,
+            "&cMysterious Stick VIII",
+            "&fThis stick is kinda heavy"
+    );
+
+    public static final SlimefunItemStack FN_STICK_9 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_9",
+            Material.STICK,
+            "&cMysterious Stick IX",
+            "&fYou need more mana when using this"
+    );
 }
