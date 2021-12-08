@@ -82,6 +82,29 @@ public class MysteryStickListener implements Listener {
             }
         }
 
+        if(stick instanceof MysteryStick7 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
+            if(p.getLevel() >= 5 && checkStick(stick)) {
+                ((MysteryStick7) stick).interact(e);
+            } else {
+                blindPlayer(p);
+            }
+        }
+
+        if(stick instanceof MysteryStick8 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
+            if(p.getLevel() >= 5 && checkStick(stick)) {
+                ((MysteryStick8) stick).interact(e);
+            } else {
+                blindPlayer(p);
+            }
+        }
+
+        if(stick instanceof MysteryStick9 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
+            if(p.getLevel() >= 5 && checkStick(stick)) {
+                ((MysteryStick9) stick).interact(e);
+            } else {
+                blindPlayer(p);
+            }
+        }
 
     }
 
@@ -126,7 +149,17 @@ public class MysteryStickListener implements Listener {
                 } else {
                     blindPlayer(player);
                 }
-            } else{
+            } else if (stickBow instanceof MysteryStick9) {
+                if (player.getLevel() >= 5) {
+                    if (ThreadLocalRandom.current().nextInt(100) < 55) {
+                        player.setLevel(player.getLevel() - 6);
+                    }
+                    ((MysteryStick9) stickBow).onSwing(e);
+                    player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
+                } else {
+                    blindPlayer(player);
+                }
+            } else {
                 return;
             }
         }
@@ -150,6 +183,10 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick4) stick).onSwing(e);
         } else if (stick instanceof MysteryStick5) {
             ((MysteryStick5) stick).onSwing(e);
+        } else if (stick instanceof MysteryStick7) {
+            ((MysteryStick7) stick).onSwing(e);
+        } else if (stick instanceof MysteryStick8) {
+            ((MysteryStick8) stick).onSwing(e);
         } else {
             return;
         }
@@ -177,6 +214,12 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick5) stick).LevelChange(event);
         } else if (stick instanceof MysteryStick6) {
             ((MysteryStick6) stick).LevelChange(event);
+        } else if (stick instanceof MysteryStick7) {
+            ((MysteryStick7) stick).LevelChange(event);
+        } else if (stick instanceof MysteryStick8) {
+            ((MysteryStick8) stick).LevelChange(event);
+        } else if (stick instanceof MysteryStick9) {
+            ((MysteryStick9) stick).LevelChange(event);
         } else {
             return;
         }
