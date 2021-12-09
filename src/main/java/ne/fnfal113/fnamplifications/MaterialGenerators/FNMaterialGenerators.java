@@ -20,7 +20,7 @@ import ne.fnfal113.fnamplifications.MaterialGenerators.Methods.CustomMaterialGen
 public class FNMaterialGenerators {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
-    static ReturnConfValue value = new ReturnConfValue();
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     public static ItemStack SMG_ITEMSTACK_GRAVEL = new ItemStack(Material.DIAMOND_PICKAXE);
     public static ItemStack SMG_ITEMSTACK_COBBLE = SlimefunItems.DAMASCUS_STEEL_INGOT;

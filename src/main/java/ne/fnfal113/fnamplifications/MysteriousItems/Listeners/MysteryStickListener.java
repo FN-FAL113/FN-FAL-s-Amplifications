@@ -25,8 +25,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MysteryStickListener implements Listener {
 
+    private int level;
+
     @EventHandler
     public void onClick(PlayerInteractEvent e) {
+        MysteryStickListener click = new MysteryStickListener();
         Player p = e.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
@@ -35,74 +38,92 @@ public class MysteryStickListener implements Listener {
         }
 
         if(stick instanceof MysteryStick && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(5);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick2 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(5);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick2) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick3 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(5);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick3) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick4 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(15);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick4) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick5 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(15);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick5) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick6 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(15);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick6) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick7 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(20);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick7) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick8 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(20);
+            if(p.getLevel() >= click.getLevelReq() && checkStick(stick)) {
                 ((MysteryStick8) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
         if(stick instanceof MysteryStick9 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
-            if(p.getLevel() >= 5 && checkStick(stick)) {
+            click.setLevelReq(20);
+            if(p.getLevel() >= click.getLevelReq()  && checkStick(stick)) {
                 ((MysteryStick9) stick).interact(e);
             } else {
-                blindPlayer(p);
+                blindPlayer(p, click.getLevelReq());
+            }
+        }
+
+        if(stick instanceof MysteryStick10 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
+            click.setLevelReq(25);
+            if(p.getLevel() >= click.getLevelReq()  && checkStick(stick)) {
+                ((MysteryStick10) stick).interact(e);
+            } else {
+                blindPlayer(p, click.getLevelReq());
             }
         }
 
@@ -113,14 +134,15 @@ public class MysteryStickListener implements Listener {
                 && !(stick.getItem().getType() == Material.DIAMOND_AXE) && !(stick.getItem().getType() == Material.BOW);
     }
 
-    public void blindPlayer(Player p){
-        p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 180, 1, false, false));
-        p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 5");
+    public void blindPlayer(Player p, int levelReq){
+        p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
+        p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than " + levelReq);
         p.sendTitle(ChatColor.DARK_RED + " Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 15, 40, 45);
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onClick(EntityDamageByEntityEvent e) {
+        MysteryStickListener level = new MysteryStickListener();
         if (e.getDamager() instanceof Arrow) {
             Arrow arrow = (Arrow) e.getDamager();
 
@@ -130,34 +152,37 @@ public class MysteryStickListener implements Listener {
             Player player = ((Player) arrow.getShooter());
             SlimefunItem stickBow = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
             if(stickBow instanceof MysteryStick3) {
-                if (player.getLevel() >= 5) {
+                level.setLevelReq(5);
+                if (player.getLevel() >= level.getLevelReq()) {
                     if (ThreadLocalRandom.current().nextInt(100) < 35) {
                         player.setLevel(player.getLevel() - 3);
                     }
                     ((MysteryStick3) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player);
+                    blindPlayer(player, level.getLevelReq());
                 }
             } else if (stickBow instanceof MysteryStick6) {
-                if (player.getLevel() >= 5) {
+                level.setLevelReq(15);
+                if (player.getLevel() >= level.getLevelReq()) {
                     if (ThreadLocalRandom.current().nextInt(100) < 50) {
                         player.setLevel(player.getLevel() - 5);
                     }
                     ((MysteryStick6) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player);
+                    blindPlayer(player, level.getLevelReq());
                 }
             } else if (stickBow instanceof MysteryStick9) {
-                if (player.getLevel() >= 5) {
+                level.setLevelReq(20);
+                if (player.getLevel() >= level.getLevelReq()) {
                     if (ThreadLocalRandom.current().nextInt(100) < 55) {
                         player.setLevel(player.getLevel() - 6);
                     }
                     ((MysteryStick9) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player);
+                    blindPlayer(player, level.getLevelReq());
                 }
             } else {
                 return;
@@ -187,6 +212,8 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick7) stick).onSwing(e);
         } else if (stick instanceof MysteryStick8) {
             ((MysteryStick8) stick).onSwing(e);
+        } else if (stick instanceof MysteryStick10) {
+            ((MysteryStick10) stick).onSwing(e);
         } else {
             return;
         }
@@ -194,7 +221,7 @@ public class MysteryStickListener implements Listener {
     }
 
     @EventHandler
-    public void onExpConsume(PlayerLevelChangeEvent event){
+    public void onExpConsume(PlayerLevelChangeEvent event) {
         Player p = event.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
@@ -220,11 +247,21 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick8) stick).LevelChange(event);
         } else if (stick instanceof MysteryStick9) {
             ((MysteryStick9) stick).LevelChange(event);
+        } else if (stick instanceof MysteryStick10) {
+            ((MysteryStick10) stick).LevelChange(event);
         } else {
             return;
         }
 
     }
 
+    public void setLevelReq(int level) {
+        this.level = level;
+
+    }
+
+    public int getLevelReq() {
+        return this.level;
+    }
 
 }

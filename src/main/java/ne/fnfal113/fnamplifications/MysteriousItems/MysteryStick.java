@@ -115,15 +115,16 @@ public class MysteryStick extends SlimefunItem {
             return;
         }
 
-        if(player.getLevel() >=  5)  {
+        if(player.getLevel() >= 5)  {
             if(ThreadLocalRandom.current().nextInt(100) < 35) {
                 player.setLevel(player.getLevel() - 1);
             }
             event.getDamager().getWorld().playEffect(event.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
         }
         else{
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 180, 1, false, false));
-            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 15, 40, 45);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000, 2, false, false));
+            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
+            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 5");
         }
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key2 = getStorageKey2();

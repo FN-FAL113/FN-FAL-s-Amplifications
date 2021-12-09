@@ -169,7 +169,7 @@ public class MysteryStick9 extends SlimefunItem {
                     meta.setLore(lore);
                     item.setItemMeta(meta);
                 }
-                if (stripColor(line).startsWith("I wonder if Elves possess this relic") && p.getLevel() <= 5) {
+                if (stripColor(line).startsWith("I wonder if Elves possess this relic") && p.getLevel() <= 20) {
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);

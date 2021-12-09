@@ -38,7 +38,7 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 
 public class PowahGenerator extends SlimefunItem implements InventoryBlock, EnergyNetProvider {
 
-    static ReturnConfValue value = new ReturnConfValue();
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private static final int PROGRESS_SLOT = 4;
     private static final int INFO_SLOT = 9;

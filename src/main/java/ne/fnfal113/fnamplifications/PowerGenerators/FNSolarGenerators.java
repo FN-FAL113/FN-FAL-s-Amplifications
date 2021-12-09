@@ -13,7 +13,7 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 public class FNSolarGenerators {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
-    static ReturnConfValue value = new ReturnConfValue();
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     public static void setup() {
         new CustomSolarGen(FNAmpItems.SOLAR_GENERATORS, value.tier1Power(), value.tier1PowerNight(), FNAmpItems.FN_FAL_GENERATOR_TIER1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
