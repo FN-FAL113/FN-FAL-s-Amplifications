@@ -26,11 +26,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class FNAmpItems {
 
-    static ReturnConfValue value = new ReturnConfValue();
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private FNAmpItems() {}
 
-    public static final ItemStack STICK = new ItemStack(Material.STICK);
+    private static final ItemStack STICK = new ItemStack(Material.STICK);
 
     static{
         ItemMeta meta = STICK.getItemMeta();
@@ -1001,5 +1001,12 @@ public class FNAmpItems {
             Material.STICK,
             "&cMysterious Stick IX",
             "&fYou need more mana when using this"
+    );
+
+    public static final SlimefunItemStack FN_STICK_10 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_10",
+            Material.STICK,
+            "&cMysterious Stick X",
+            "&fDeadly or creepy stick"
     );
 }

@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.Items;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.Machines.ElectricMachineDowngrader;
 import org.bukkit.Material;
@@ -18,7 +17,7 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 public class FnItemRecipes {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
-    static ReturnConfValue value = new ReturnConfValue();
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     public static final ItemStack VERSIONED_ITEMSTACK_COPPER;
     public static final ItemStack VERSIONED_ITEMSTACK_COPPER_BATTERY;

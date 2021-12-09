@@ -124,7 +124,7 @@ public class MysteryStick8 extends SlimefunItem {
             return;
         }
 
-        if(player.getLevel() >=  5)  {
+        if(player.getLevel() >= 20)  {
             if(ThreadLocalRandom.current().nextInt(100) < 55) {
                 player.setLevel(player.getLevel() - 6);
             }
@@ -145,8 +145,9 @@ public class MysteryStick8 extends SlimefunItem {
             }
         }
         else{
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 180, 1, false ,false));
-            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 15, 40, 45);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000, 2, false, false));
+            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
+            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 20");
         }
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key2 = getStorageKey2();
@@ -188,7 +189,7 @@ public class MysteryStick8 extends SlimefunItem {
                     meta.setLore(lore);
                     item.setItemMeta(meta);
                 }
-                if (stripColor(line).startsWith("I'm out of words using this") && p.getLevel() <= 5) {
+                if (stripColor(line).startsWith("I'm out of words using this") && p.getLevel() <= 20) {
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);

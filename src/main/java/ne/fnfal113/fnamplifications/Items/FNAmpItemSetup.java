@@ -111,5 +111,6 @@ public final class FNAmpItemSetup {
         MysteryStick7.setup();
         MysteryStick8.setup();
         MysteryStick9.setup();
+        MysteryStick10.setup();
     }
 }
