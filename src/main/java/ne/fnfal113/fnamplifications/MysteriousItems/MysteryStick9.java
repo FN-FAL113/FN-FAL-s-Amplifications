@@ -117,6 +117,11 @@ public class MysteryStick9 extends SlimefunItem {
         Arrow arrow = (Arrow) event.getDamager();
         Player player = ((Player) arrow.getShooter());
         ItemStack item = player.getInventory().getItemInMainHand();
+
+        if(item.getType() != Material.BOW) {
+            return;
+        }
+
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
@@ -147,11 +152,24 @@ public class MysteryStick9 extends SlimefunItem {
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1, false, true));
             }
         }
+
+        if(player.getLevel() <= 20) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
+            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
+            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 20");
+            transformWeapon(player, item);
+        }
     }
 
     public void LevelChange(PlayerLevelChangeEvent event){
         Player p = event.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
+        if(event.getOldLevel() > event.getNewLevel() && p.getLevel() > 20) {
+            transformWeapon(p, item);
+        }
+    }
+
+    public void transformWeapon(Player p, ItemStack item) {
         CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_9);
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
@@ -188,8 +206,6 @@ public class MysteryStick9 extends SlimefunItem {
                 }
             }
         }
-
-
     }
 
     @Override
