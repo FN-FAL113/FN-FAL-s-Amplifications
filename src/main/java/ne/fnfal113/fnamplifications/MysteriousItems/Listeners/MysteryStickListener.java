@@ -160,7 +160,7 @@ public class MysteryStickListener implements Listener {
                     ((MysteryStick3) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player, level.getLevelReq());
+                    ((MysteryStick3) stickBow).onSwing(e);
                 }
             } else if (stickBow instanceof MysteryStick6) {
                 level.setLevelReq(15);
@@ -171,7 +171,7 @@ public class MysteryStickListener implements Listener {
                     ((MysteryStick6) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player, level.getLevelReq());
+                    ((MysteryStick6) stickBow).onSwing(e);
                 }
             } else if (stickBow instanceof MysteryStick9) {
                 level.setLevelReq(20);
@@ -182,7 +182,7 @@ public class MysteryStickListener implements Listener {
                     ((MysteryStick9) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
-                    blindPlayer(player, level.getLevelReq());
+                    ((MysteryStick9) stickBow).onSwing(e);
                 }
             } else {
                 return;
@@ -214,8 +214,6 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick8) stick).onSwing(e);
         } else if (stick instanceof MysteryStick10) {
             ((MysteryStick10) stick).onSwing(e);
-        } else {
-            return;
         }
 
     }
@@ -249,8 +247,6 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick9) stick).LevelChange(event);
         } else if (stick instanceof MysteryStick10) {
             ((MysteryStick10) stick).LevelChange(event);
-        } else {
-            return;
         }
 
     }

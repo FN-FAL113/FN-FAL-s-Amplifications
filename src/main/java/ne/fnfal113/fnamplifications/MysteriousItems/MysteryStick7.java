@@ -146,9 +146,10 @@ public class MysteryStick7 extends SlimefunItem {
             }
         }
         else{
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000, 2, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
             player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 20");
+            transformWeapon(player, item);
         }
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key2 = getStorageKey2();
@@ -173,6 +174,12 @@ public class MysteryStick7 extends SlimefunItem {
     public void LevelChange(PlayerLevelChangeEvent event){
         Player p = event.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
+        if(event.getOldLevel() > event.getNewLevel()) {
+            transformWeapon(p, item);
+        }
+    }
+
+    public void transformWeapon(Player p, ItemStack item) {
         CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_7);
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
@@ -208,11 +215,8 @@ public class MysteryStick7 extends SlimefunItem {
                     item.setItemMeta(meta);
                     item.setType(item2.getType());
                 }
-
             }
         }
-
-
     }
 
     @Override
