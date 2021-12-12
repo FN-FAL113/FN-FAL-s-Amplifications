@@ -127,6 +127,15 @@ public class MysteryStickListener implements Listener {
             }
         }
 
+        if(stick instanceof MysteryStick11 && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
+            click.setLevelReq(25);
+            if(p.getLevel() >= click.getLevelReq()  && checkStick(stick)) {
+                ((MysteryStick11) stick).interact(e);
+            } else {
+                blindPlayer(p, click.getLevelReq());
+            }
+        }
+
     }
 
     public boolean checkStick(SlimefunItem stick){
@@ -154,8 +163,8 @@ public class MysteryStickListener implements Listener {
             if(stickBow instanceof MysteryStick3) {
                 level.setLevelReq(5);
                 if (player.getLevel() >= level.getLevelReq()) {
-                    if (ThreadLocalRandom.current().nextInt(100) < 35) {
-                        player.setLevel(player.getLevel() - 3);
+                    if (ThreadLocalRandom.current().nextInt(100) < 20) {
+                        player.setLevel(player.getLevel() - 1);
                     }
                     ((MysteryStick3) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
@@ -165,8 +174,8 @@ public class MysteryStickListener implements Listener {
             } else if (stickBow instanceof MysteryStick6) {
                 level.setLevelReq(15);
                 if (player.getLevel() >= level.getLevelReq()) {
-                    if (ThreadLocalRandom.current().nextInt(100) < 50) {
-                        player.setLevel(player.getLevel() - 5);
+                    if (ThreadLocalRandom.current().nextInt(100) < 25) {
+                        player.setLevel(player.getLevel() - 2);
                     }
                     ((MysteryStick6) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
@@ -176,8 +185,8 @@ public class MysteryStickListener implements Listener {
             } else if (stickBow instanceof MysteryStick9) {
                 level.setLevelReq(20);
                 if (player.getLevel() >= level.getLevelReq()) {
-                    if (ThreadLocalRandom.current().nextInt(100) < 55) {
-                        player.setLevel(player.getLevel() - 6);
+                    if (ThreadLocalRandom.current().nextInt(100) < 30) {
+                        player.setLevel(player.getLevel() - 3);
                     }
                     ((MysteryStick9) stickBow).onSwing(e);
                     player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
@@ -214,6 +223,8 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick8) stick).onSwing(e);
         } else if (stick instanceof MysteryStick10) {
             ((MysteryStick10) stick).onSwing(e);
+        } else if (stick instanceof MysteryStick11) {
+            ((MysteryStick11) stick).onSwing(e);
         }
 
     }
@@ -247,6 +258,8 @@ public class MysteryStickListener implements Listener {
             ((MysteryStick9) stick).LevelChange(event);
         } else if (stick instanceof MysteryStick10) {
             ((MysteryStick10) stick).LevelChange(event);
+        } else if (stick instanceof MysteryStick11) {
+            ((MysteryStick11) stick).LevelChange(event);
         }
 
     }

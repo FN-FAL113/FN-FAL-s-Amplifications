@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -65,9 +66,9 @@ public class MysteryStick extends SlimefunItem {
         lore.add(ChatColor.GOLD + "What is this sorcery?");
         lore.add(ChatColor.YELLOW + "Exp Levels Consumed:");
         lore.add(ChatColor.YELLOW + "Total Damage inflicted:");
-        meta.addEnchant(Enchantment.SWEEPING_EDGE, 5, true);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 6, true);
-        meta.addEnchant(Enchantment.FIRE_ASPECT, 4, true);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE, 3, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 4, true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT, 2, true);
         meta.setLore(lore);
         meta.setUnbreakable(true);
         item1.setItemMeta(meta);
@@ -116,7 +117,7 @@ public class MysteryStick extends SlimefunItem {
         }
 
         if(player.getLevel() >= 5)  {
-            if(ThreadLocalRandom.current().nextInt(100) < 35) {
+            if(ThreadLocalRandom.current().nextInt(100) < 20) {
                 player.setLevel(player.getLevel() - 1);
             }
             event.getDamager().getWorld().playEffect(event.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
@@ -202,10 +203,10 @@ public class MysteryStick extends SlimefunItem {
     }
 
     public static void setup(){
-        new MysteryStick(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ENDER_LUMP_1, SlimefunItems.ENDER_LUMP_1,
+        new MysteryStick(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2),
                 SlimefunItems.BLANK_RUNE, new ItemStack(Material.STICK), SlimefunItems.BLANK_RUNE,
-                SlimefunItems.MAGIC_LUMP_1, SlimefunItems.MAGIC_LUMP_1, SlimefunItems.ENDER_LUMP_1})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2)})
                 .register(plugin);
     }
 }

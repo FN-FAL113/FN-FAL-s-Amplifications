@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
@@ -71,10 +72,10 @@ public class MysteryStick8 extends SlimefunItem {
         lore.add(ChatColor.BLUE +"◆ 30% Chance 3s Weakness");
         lore.add(ChatColor.BLUE +"◆ 25% Chance 4s Hunger");
         lore.add(ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 20, true);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 25, true);
-        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 20, true);
-        meta.addEnchant(Enchantment.KNOCKBACK, 15, true);
+        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 15, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 13, true);
+        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 13, true);
+        meta.addEnchant(Enchantment.KNOCKBACK, 10, true);
         meta.setLore(lore);
         meta.setUnbreakable(true);
         item1.setItemMeta(meta);
@@ -125,8 +126,8 @@ public class MysteryStick8 extends SlimefunItem {
         }
 
         if(player.getLevel() >= 20)  {
-            if(ThreadLocalRandom.current().nextInt(100) < 55) {
-                player.setLevel(player.getLevel() - 6);
+            if(ThreadLocalRandom.current().nextInt(100) < 30) {
+                player.setLevel(player.getLevel() - 3);
             }
             event.getDamager().getWorld().playEffect(event.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
             if(event.getEntity() instanceof LivingEntity) {
@@ -184,7 +185,7 @@ public class MysteryStick8 extends SlimefunItem {
         NamespacedKey key = getStorageKey();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
-        int amount = ++xpamount + 5;
+        int amount = ++xpamount + 2;
         expUsed.set(key, PersistentDataType.INTEGER, amount);
         List<String> lore = meta.getLore();
 
@@ -233,10 +234,10 @@ public class MysteryStick8 extends SlimefunItem {
     }
 
     public static void setup(){
-        new MysteryStick8(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_8, RecipeType.MAGIC_WORKBENCH, new ItemStack[]{
-                SlimefunItems.ENDER_RUNE, SlimefunItems.ESSENCE_OF_AFTERLIFE, SlimefunItems.FIRE_RUNE,
-                SlimefunItems.ESSENCE_OF_AFTERLIFE, FNAmpItems.FN_STICK_5, SlimefunItems.ESSENCE_OF_AFTERLIFE,
-                SlimefunItems.EARTH_RUNE, SlimefunItems.ESSENCE_OF_AFTERLIFE, SlimefunItems.AIR_RUNE})
+        new MysteryStick8(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_8, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 18), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 20), new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 18),
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 20), FNAmpItems.FN_STICK_5, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 20),
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 18), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 20), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 18)})
                 .register(plugin);
     }
 }

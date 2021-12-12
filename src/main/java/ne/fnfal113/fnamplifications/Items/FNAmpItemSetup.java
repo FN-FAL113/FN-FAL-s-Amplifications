@@ -6,6 +6,7 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
 import ne.fnfal113.fnamplifications.MysteriousItems.*;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
@@ -91,6 +92,7 @@ public final class FNAmpItemSetup {
     private void registerMultiBlock() {
         new FnAssemblyStation().register(FNAmplifications.getInstance());
         new FnScrapRecycler().register(FNAmplifications.getInstance());
+        new FnMysteryStickAltar().register(FNAmplifications.getInstance());
     }
 
     private void registerScrapRecipes() {
@@ -112,5 +114,6 @@ public final class FNAmpItemSetup {
         MysteryStick8.setup();
         MysteryStick9.setup();
         MysteryStick10.setup();
+        MysteryStick11.setup();
     }
 }
