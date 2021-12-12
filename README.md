@@ -35,10 +35,15 @@ Addon support 1.15.x, 1.16.x and 1.17.x minecraft version
 ![config2](https://user-images.githubusercontent.com/88238718/142844555-64fb0203-3d3a-4a32-8c22-ca4123fe31c5.png)
 ![config3](https://user-images.githubusercontent.com/88238718/136697386-a52bc1d3-2897-4524-bea4-b64c308065ed.png)
 
-
-Huge thanks to Slimefun for making their work open-source and free to use.
+### Head to my addon channel at SF Addon Community Server for feedbacks 
+<p>
+  <a href="https://discord.gg/slimefun">
+    <img src="https://discordapp.com/api/guilds/565557184348422174/widget.png?style=banner3" alt="Discord Invite"/>
+  </a>
+  <a href="https://discord.gg/SqD3gg5SAU">
+    <img src="https://discordapp.com/api/guilds/809178621424041997/widget.png?style=banner3" alt="Discord Invite"/>
+  </a>
+</p>
 
 Addon is now part of Slimefun Community Addons! Go check out others addon here:
 https://github.com/Slimefun/Slimefun4/wiki/Addons
-
-Discord: FN_FAL113#7779
