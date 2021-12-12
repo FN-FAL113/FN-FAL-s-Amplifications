@@ -12,7 +12,6 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -33,7 +32,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static org.bukkit.ChatColor.stripColor;
 
-public class MysteryStick9 extends SlimefunItem {
+public class MysteryStick11 extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -41,11 +40,11 @@ public class MysteryStick9 extends SlimefunItem {
     private final NamespacedKey defaultUsageKey2;
 
     @ParametersAreNonnullByDefault
-    public MysteryStick9(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public MysteryStick11(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "bowexp_xpfinal");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "bowdamage_damagefinal");
+        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "axeexp_xpfinalfn");
+        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "axeexpdamage_damagefinalfn");
     }
 
     protected @Nonnull
@@ -64,19 +63,19 @@ public class MysteryStick9 extends SlimefunItem {
 
         ItemMeta meta = item1.getItemMeta();
         ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "I wonder if Elves possess this relic");
+        lore.add(ChatColor.GOLD + "Behind your enemies awaits danger");
         lore.add(ChatColor.YELLOW + "Exp Levels Consumed:");
         lore.add(ChatColor.YELLOW + "Total Damage inflicted:");
         lore.add("");
         lore.add(ChatColor.RED + "◢◤◢◤◢◤◢◤| "+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Effects " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        lore.add(ChatColor.BLUE +"◆ 35% Chance 3s Levitation");
-        lore.add(ChatColor.BLUE +"◆ 30% Chance 4s Harm");
-        lore.add(ChatColor.BLUE +"◆ 20% Chance 3s Blindness");
+        lore.add(ChatColor.BLUE +"◆ 35% Chance 5s Slow");
+        lore.add(ChatColor.BLUE +"◆ 40% Chance 4s Weakness");
+        lore.add(ChatColor.BLUE +"◆ 30% Chance 5s Hunger");
+        lore.add(ChatColor.BLUE +"◆ 25% Chance tp behind opponent");
         lore.add(ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        meta.addEnchant(Enchantment.ARROW_DAMAGE, 15, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 12, true);
-        meta.addEnchant(Enchantment.ARROW_FIRE, 12, true);
-        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 14, true);
+        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 20, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 18, true);
+        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 18, true);
         meta.setLore(lore);
         meta.setUnbreakable(true);
         item1.setItemMeta(meta);
@@ -104,8 +103,8 @@ public class MysteryStick9 extends SlimefunItem {
             }
         }
 
-        if(!(item1.getType() == Material.BOW)) {
-            item1.setType(Material.BOW);
+        if(!(item1.getType() == Material.DIAMOND_AXE)) {
+            item1.setType(Material.DIAMOND_AXE);
             player.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1, 1);
             player.getWorld().playEffect(player.getLocation().add(0.3, 0.4, 0.45), Effect.ENDER_SIGNAL, 1);
             player.getWorld().spawnParticle(Particle.FLASH, player.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
@@ -114,15 +113,59 @@ public class MysteryStick9 extends SlimefunItem {
 
     }
 
+
     public void onSwing(EntityDamageByEntityEvent event){
-        Arrow arrow = (Arrow) event.getDamager();
-        Player player = ((Player) arrow.getShooter());
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
+        Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != Material.BOW) {
+        if(item.getType() != Material.DIAMOND_AXE){
             return;
         }
 
+        if(player.getLevel() >= 25)  {
+            if(ThreadLocalRandom.current().nextInt(100) < 35) {
+                player.setLevel(player.getLevel() - 4);
+            }
+            event.getDamager().getWorld().playEffect(event.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
+            if(event.getEntity() instanceof LivingEntity) {
+                LivingEntity victim = (LivingEntity) event.getEntity();
+                if(ThreadLocalRandom.current().nextInt(100) < 35){
+                    victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false, true));
+                }
+                if(ThreadLocalRandom.current().nextInt(100) < 40){
+                    victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 1, false, true));
+                }
+                if(ThreadLocalRandom.current().nextInt(100) < 30){
+                    victim.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 1, false, true));
+                }
+                if(ThreadLocalRandom.current().nextInt(100) < 25){
+                    double nX;
+                    double nZ;
+                    float nang = victim.getLocation().getYaw() + 90;
+
+                    if(nang < 0) nang += 360;
+
+                    nX = Math.cos(Math.toRadians(nang));
+                    nZ = Math.sin(Math.toRadians(nang));
+
+                    Location newDamagerLoc = new Location(player.getWorld(), victim.getLocation().getX() - nX,
+                            victim.getLocation().getY(), victim.getLocation().getZ() - nZ, victim.getLocation().getYaw(), victim.getLocation().getPitch());
+                    player.teleport(newDamagerLoc);
+                    victim.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Behind you awaits danger");
+                }
+            } else {
+                return;
+            }
+        }
+        else{
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
+            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
+            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 25");
+            transformWeapon(player, item);
+        }
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
@@ -141,42 +184,23 @@ public class MysteryStick9 extends SlimefunItem {
             }
         }
 
-        if(event.getEntity() instanceof LivingEntity) {
-            LivingEntity victim = (LivingEntity) event.getEntity();
-            if(ThreadLocalRandom.current().nextInt(100) < 35){
-                victim.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 1, false, true));
-            }
-            if(ThreadLocalRandom.current().nextInt(100) < 30){
-                victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 80, 1, false, true));
-            }
-            if(ThreadLocalRandom.current().nextInt(100) < 20){
-                victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1, false, true));
-            }
-        }
-
-        if(player.getLevel() <= 20) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
-            player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 45, 120, 135);
-            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 20");
-            transformWeapon(player, item);
-        }
     }
 
     public void LevelChange(PlayerLevelChangeEvent event){
         Player p = event.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
-        if(event.getOldLevel() > event.getNewLevel() && p.getLevel() > 20) {
+        if(event.getOldLevel() > event.getNewLevel()) {
             transformWeapon(p, item);
         }
     }
 
     public void transformWeapon(Player p, ItemStack item) {
-        CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_9);
+        CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_11);
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
-        int amount = ++xpamount + 2;
+        int amount = ++xpamount + 3;
         expUsed.set(key, PersistentDataType.INTEGER, amount);
         List<String> lore = meta.getLore();
 
@@ -188,20 +212,20 @@ public class MysteryStick9 extends SlimefunItem {
                     meta.setLore(lore);
                     item.setItemMeta(meta);
                 }
-                if (stripColor(line).startsWith("I wonder if Elves possess this relic") && p.getLevel() <= 20) {
+                if (stripColor(line).startsWith("Behind your enemies awaits danger") && p.getLevel() <= 25) {
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);
                     lore.remove(3);
-                    lore.set(index, ChatColor.WHITE + "You need more mana when using this");
+                    lore.remove(3);
+                    lore.set(index, ChatColor.WHITE + "The stick of the nords");
                     lore.set(index+1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
                     meta.setLore(lore);
-                    meta.removeEnchant(Enchantment.ARROW_DAMAGE);
-                    meta.removeEnchant(Enchantment.ARROW_INFINITE);
-                    meta.removeEnchant(Enchantment.ARROW_FIRE);
-                    meta.removeEnchant(Enchantment.ARROW_KNOCKBACK);
+                    meta.removeEnchant(Enchantment.DAMAGE_ARTHROPODS);
+                    meta.removeEnchant(Enchantment.DAMAGE_ALL);
+                    meta.removeEnchant(Enchantment.DAMAGE_UNDEAD);
                     item.setItemMeta(meta);
                     item.setType(item2.getType());
                 }
@@ -225,10 +249,10 @@ public class MysteryStick9 extends SlimefunItem {
     }
 
     public static void setup(){
-        new MysteryStick9(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_9, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28), SlimefunItems.AIR_RUNE, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28),
-                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 20), FNAmpItems.FN_STICK_6, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 20),
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 20), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28)})
+        new MysteryStick11(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_11, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.FN_STICK_2, SlimefunItems.ESSENCE_OF_AFTERLIFE, FNAmpItems.FN_STICK_8,
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 32), FNAmpItems.FN_STICK_5, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 32),
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 32), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 32), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 32)})
                 .register(plugin);
     }
 }

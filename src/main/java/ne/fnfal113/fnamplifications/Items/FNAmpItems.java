@@ -50,7 +50,7 @@ public class FNAmpItems {
             FN_ITEMS,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "ecb316f7a227a8c59d58ae0dd6768fe4fa546d55b9cfdd56cfe40b6586d81c24")),
-            "&eFN_FAL's Power Xpansion"));
+            "&eFN_FAL'S Power Xpansion"));
 
     public static final SubItemGroup MATERIAL_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MATERIAL_GENERATORS"),
@@ -97,7 +97,7 @@ public class FNAmpItems {
             new NamespacedKey(FNAmplifications.getInstance(), "MYSTERY_STICKS"),
             FN_ITEMS,
             new CustomItemStack(STICK,
-                    "&eMystery Sticks (PVP/PVE)"));
+                    "&eFN_FAL'S Mystery PVP/PVE Sticks"));
 
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
@@ -1008,5 +1008,18 @@ public class FNAmpItems {
             Material.STICK,
             "&cMysterious Stick X",
             "&fDeadly or creepy stick"
+    );
+
+    public static final SlimefunItemStack FN_STICK_11 = new SlimefunItemStack(
+            "FN_MYSTERY_STICK_11",
+            Material.STICK,
+            "&cMysterious Stick XI",
+            "&fThe stick of the nords"
+    );
+
+    public static final SlimefunItemStack FN_STICK_ALTAR = new SlimefunItemStack(
+            "FN_STICK_ALTAR",
+            Material.ENCHANTING_TABLE,
+            "&dFN Mystery Stick Altar"
     );
 }
