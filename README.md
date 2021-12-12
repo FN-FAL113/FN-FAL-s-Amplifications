@@ -27,6 +27,9 @@ Addon support 1.15.x, 1.16.x and 1.17.x minecraft version
 #### Machinery and Items Category
 ![Machinery Category](https://user-images.githubusercontent.com/88238718/138582199-7b18befb-dfd6-42b7-8962-e538a1535b41.png)![Machinery Items Category](https://user-images.githubusercontent.com/88238718/138582200-9995884a-39a5-406f-9f55-598698e3c767.png)
 
+#### Mystery Sticks Category
+![MysterySticks](https://user-images.githubusercontent.com/88238718/145703147-d8c55904-81d4-4509-9eb6-af84ca038ae4.png)
+
 ## Everything is configurable in terms of Power Rates, Buffer, Capacity, Tick Rates and Lores
 ![config1](https://user-images.githubusercontent.com/88238718/142844553-2b141c58-e0f8-4595-8e29-3099d690fadd.png)
 ![config2](https://user-images.githubusercontent.com/88238718/142844555-64fb0203-3d3a-4a32-8c22-ca4123fe31c5.png)
