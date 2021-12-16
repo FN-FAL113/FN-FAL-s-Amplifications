@@ -167,7 +167,6 @@ public class MysteryStickListener implements Listener {
                         player.setLevel(player.getLevel() - 1);
                     }
                     ((MysteryStick3) stickBow).onSwing(e);
-                    player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
                     ((MysteryStick3) stickBow).onSwing(e);
                 }
@@ -178,7 +177,6 @@ public class MysteryStickListener implements Listener {
                         player.setLevel(player.getLevel() - 2);
                     }
                     ((MysteryStick6) stickBow).onSwing(e);
-                    player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
                     ((MysteryStick6) stickBow).onSwing(e);
                 }
@@ -189,7 +187,6 @@ public class MysteryStickListener implements Listener {
                         player.setLevel(player.getLevel() - 3);
                     }
                     ((MysteryStick9) stickBow).onSwing(e);
-                    player.getWorld().playEffect(e.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
                 } else {
                     ((MysteryStick9) stickBow).onSwing(e);
                 }

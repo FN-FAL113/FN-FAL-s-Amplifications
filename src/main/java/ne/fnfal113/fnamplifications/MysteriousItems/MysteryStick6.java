@@ -29,8 +29,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bukkit.ChatColor.stripColor;
-
 public class MysteryStick6 extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
@@ -61,17 +59,6 @@ public class MysteryStick6 extends SlimefunItem {
         ItemStack item1 = player.getInventory().getItemInMainHand();
 
         ItemMeta meta = item1.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "Make them take an arrow to the knee");
-        lore.add(ChatColor.YELLOW + "Exp Levels Consumed:");
-        lore.add(ChatColor.YELLOW + "Total Damage inflicted:");
-        meta.addEnchant(Enchantment.ARROW_DAMAGE, 7, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 5, true);
-        meta.addEnchant(Enchantment.ARROW_FIRE, 6, true);
-        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 7, true);
-        meta.setLore(lore);
-        meta.setUnbreakable(true);
-        item1.setItemMeta(meta);
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
@@ -79,22 +66,14 @@ public class MysteryStick6 extends SlimefunItem {
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
         int damageAll = damageAmount.getOrDefault(key2, PersistentDataType.INTEGER, 0);
 
-        List<String> lore2 = meta.getLore();
-        if (lore2 != null && !lore2.isEmpty()) {
-            for (int index = 0; index < lore2.size(); index++) {
-                String line = lore2.get(index);
-                if (stripColor(line).startsWith("Exp Levels Consumed:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
-                    meta.setLore(lore2);
-                    item1.setItemMeta(meta);
-                }
-                if (stripColor(line).startsWith("Total Damage inflicted:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageAll);
-                    meta.setLore(lore2);
-                    item1.setItemMeta(meta);
-                }
-            }
-        }
+        List<String> lore2 = new ArrayList<>();
+        meta.addEnchant(Enchantment.ARROW_DAMAGE, 7, true);
+        meta.addEnchant(Enchantment.ARROW_INFINITE, 5, true);
+        meta.addEnchant(Enchantment.ARROW_FIRE, 6, true);
+        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 7, true);
+        meta.setUnbreakable(true);
+        meta.setLore(loreUpdate(lore2, damageAll, xpamount));
+        item1.setItemMeta(meta);
 
         if(!(item1.getType() == Material.BOW)) {
             item1.setType(Material.BOW);
@@ -115,22 +94,18 @@ public class MysteryStick6 extends SlimefunItem {
         }
 
         ItemMeta meta = item.getItemMeta();
+        NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
+        PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
         int damageamount = damage.getOrDefault(key2, PersistentDataType.INTEGER, 0);
         int get_Damage = (int) event.getDamage() + damageamount;
+        int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
         damage.set(key2, PersistentDataType.INTEGER, get_Damage);
-        List<String> lore2 = meta.getLore();
-        if (lore2 != null && !lore2.isEmpty()) {
-            for (int index = 0; index < lore2.size(); index++) {
-                String line = lore2.get(index);
-                if (stripColor(line).startsWith("Total Damage inflicted:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
-                    meta.setLore(lore2);
-                    item.setItemMeta(meta);
-                }
-            }
-        }
+
+        List<String> lore2 = new ArrayList<>();
+        meta.setLore(loreUpdate(lore2, get_Damage, xpamount));
+        item.setItemMeta(meta);
 
         if(player.getLevel() <= 15) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
@@ -139,6 +114,13 @@ public class MysteryStick6 extends SlimefunItem {
             transformWeapon(player, item);
         }
 
+    }
+
+    public List<String> loreUpdate(List<String> lore2, int get_Damage, int xpamount){
+        lore2.add(0,ChatColor.GOLD + "Make them take an arrow to the knee");
+        lore2.add(1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
+        lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
+        return lore2;
     }
 
     public void LevelChange(PlayerLevelChangeEvent event){
@@ -153,33 +135,31 @@ public class MysteryStick6 extends SlimefunItem {
         CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_6);
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
+        NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
+        PersistentDataContainer damage = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
+        int damageamount = damage.getOrDefault(key2, PersistentDataType.INTEGER, 0);
         int amount = ++xpamount + 1;
         expUsed.set(key, PersistentDataType.INTEGER, amount);
-        List<String> lore = meta.getLore();
 
-        if (lore != null && !lore.isEmpty()) {
-            for (int index = 0; index < lore.size(); index++) {
-                String line = lore.get(index);
-                if (stripColor(line).startsWith("Exp Levels Consumed:")) {
-                    lore.set(index, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
-                    meta.setLore(lore);
-                    item.setItemMeta(meta);
-                }
-                if (stripColor(line).startsWith("Make them take an arrow to the knee") && p.getLevel() <= 15) {
-                    lore.set(index, ChatColor.WHITE + "May the force and accuracy be with you");
-                    lore.set(index+1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
-                    meta.setLore(lore);
-                    meta.removeEnchant(Enchantment.ARROW_DAMAGE);
-                    meta.removeEnchant(Enchantment.ARROW_INFINITE);
-                    meta.removeEnchant(Enchantment.ARROW_FIRE);
-                    meta.removeEnchant(Enchantment.ARROW_KNOCKBACK);
-                    item.setItemMeta(meta);
-                    item.setType(item2.getType());
-                }
-            }
+        List<String> lore = new ArrayList<>();
+        meta.setLore(loreUpdate(lore, damageamount, amount));
+        item.setItemMeta(meta);
+
+        if (p.getLevel() <= 15) {
+            lore.set(0, ChatColor.WHITE + "May the force and accuracy be with you");
+            lore.set(1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
+            lore.set(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageamount);
+            meta.setLore(lore);
+            meta.removeEnchant(Enchantment.ARROW_DAMAGE);
+            meta.removeEnchant(Enchantment.ARROW_INFINITE);
+            meta.removeEnchant(Enchantment.ARROW_FIRE);
+            meta.removeEnchant(Enchantment.ARROW_KNOCKBACK);
+            item.setItemMeta(meta);
+            item.setType(item2.getType());
         }
+
     }
 
     @Override

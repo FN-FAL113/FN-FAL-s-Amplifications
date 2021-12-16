@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static org.bukkit.ChatColor.stripColor;
-
 public class MysteryStick11 extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
@@ -62,23 +60,6 @@ public class MysteryStick11 extends SlimefunItem {
         ItemStack item1 = player.getInventory().getItemInMainHand();
 
         ItemMeta meta = item1.getItemMeta();
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(ChatColor.GOLD + "Behind your enemies awaits danger");
-        lore.add(ChatColor.YELLOW + "Exp Levels Consumed:");
-        lore.add(ChatColor.YELLOW + "Total Damage inflicted:");
-        lore.add("");
-        lore.add(ChatColor.RED + "◢◤◢◤◢◤◢◤| "+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Effects " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        lore.add(ChatColor.BLUE +"◆ 35% Chance 5s Slow");
-        lore.add(ChatColor.BLUE +"◆ 40% Chance 4s Weakness");
-        lore.add(ChatColor.BLUE +"◆ 30% Chance 5s Hunger");
-        lore.add(ChatColor.BLUE +"◆ 25% Chance tp behind opponent");
-        lore.add(ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 20, true);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 18, true);
-        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 18, true);
-        meta.setLore(lore);
-        meta.setUnbreakable(true);
-        item1.setItemMeta(meta);
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
@@ -86,22 +67,13 @@ public class MysteryStick11 extends SlimefunItem {
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
         int damageAll = damageAmount.getOrDefault(key2, PersistentDataType.INTEGER, 0);
 
-        List<String> lore2 = meta.getLore();
-        if (lore2 != null && !lore2.isEmpty()) {
-            for (int index = 0; index < lore2.size(); index++) {
-                String line = lore2.get(index);
-                if (stripColor(line).startsWith("Exp Levels Consumed:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
-                    meta.setLore(lore2);
-                    item1.setItemMeta(meta);
-                }
-                if (stripColor(line).startsWith("Total Damage inflicted:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageAll);
-                    meta.setLore(lore2);
-                    item1.setItemMeta(meta);
-                }
-            }
-        }
+        List<String> lore2 = new ArrayList<>();
+        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 20, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 18, true);
+        meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 18, true);
+        meta.setUnbreakable(true);
+        meta.setLore(loreUpdate(lore2, damageAll, xpamount));
+        item1.setItemMeta(meta);
 
         if(!(item1.getType() == Material.DIAMOND_AXE)) {
             item1.setType(Material.DIAMOND_AXE);
@@ -129,19 +101,18 @@ public class MysteryStick11 extends SlimefunItem {
             if(ThreadLocalRandom.current().nextInt(100) < 35) {
                 player.setLevel(player.getLevel() - 4);
             }
-            event.getDamager().getWorld().playEffect(event.getEntity().getLocation(), Effect.MOBSPAWNER_FLAMES, 1);
             if(event.getEntity() instanceof LivingEntity) {
                 LivingEntity victim = (LivingEntity) event.getEntity();
-                if(ThreadLocalRandom.current().nextInt(100) < 35){
+                if(ThreadLocalRandom.current().nextInt(100) < 35 && !(victim.hasPotionEffect(PotionEffectType.SLOW))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 40){
+                if(ThreadLocalRandom.current().nextInt(100) < 40 && !(victim.hasPotionEffect(PotionEffectType.WEAKNESS))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 1, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 30){
+                if(ThreadLocalRandom.current().nextInt(100) < 30 && !(victim.hasPotionEffect(PotionEffectType.HUNGER))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 1, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 25){
+                if(ThreadLocalRandom.current().nextInt(100) < 10){
                     double nX;
                     double nZ;
                     float nang = victim.getLocation().getYaw() + 90;
@@ -166,24 +137,35 @@ public class MysteryStick11 extends SlimefunItem {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than 25");
             transformWeapon(player, item);
         }
+
         ItemMeta meta = item.getItemMeta();
+        NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
+        PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
         int damageamount = damage.getOrDefault(key2, PersistentDataType.INTEGER, 0);
         int get_Damage = (int) event.getDamage() + damageamount;
+        int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
         damage.set(key2, PersistentDataType.INTEGER, get_Damage);
-        List<String> lore2 = meta.getLore();
-        if (lore2 != null && !lore2.isEmpty()) {
-            for (int index = 0; index < lore2.size(); index++) {
-                String line = lore2.get(index);
-                if (stripColor(line).startsWith("Total Damage inflicted:")) {
-                    lore2.set(index, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
-                    meta.setLore(lore2);
-                    item.setItemMeta(meta);
-                }
-            }
-        }
 
+        List<String> lore2 = new ArrayList<>();
+        meta.setLore(loreUpdate(lore2, get_Damage, xpamount));
+        item.setItemMeta(meta);
+
+    }
+
+    public List<String> loreUpdate(List<String> lore2, int get_Damage, int xpamount){
+        lore2.add(0,ChatColor.GOLD + "Behind your enemies awaits danger");
+        lore2.add(1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
+        lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
+        lore2.add(3, "");
+        lore2.add(4, ChatColor.RED + "◢◤◢◤◢◤◢◤| "+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Effects " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
+        lore2.add(5, ChatColor.BLUE +"◆ 35% Chance 5s Slow");
+        lore2.add(6, ChatColor.BLUE +"◆ 40% Chance 4s Weakness");
+        lore2.add(7, ChatColor.BLUE +"◆ 30% Chance 5s Hunger");
+        lore2.add(8, ChatColor.BLUE +"◆ 10% Chance tp behind opponent");
+        lore2.add(9, ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
+        return lore2;
     }
 
     public void LevelChange(PlayerLevelChangeEvent event){
@@ -198,39 +180,37 @@ public class MysteryStick11 extends SlimefunItem {
         CustomItemStack item2 = new CustomItemStack(FNAmpItems.FN_STICK_11);
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
+        NamespacedKey key2 = getStorageKey2();
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
+        PersistentDataContainer damage = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
+        int damageamount = damage.getOrDefault(key2, PersistentDataType.INTEGER, 0);
         int amount = ++xpamount + 3;
         expUsed.set(key, PersistentDataType.INTEGER, amount);
-        List<String> lore = meta.getLore();
 
-        if (lore != null && !lore.isEmpty()) {
-            for (int index = 0; index < lore.size(); index++) {
-                String line = lore.get(index);
-                if (stripColor(line).startsWith("Exp Levels Consumed:")) {
-                    lore.set(index, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
-                    meta.setLore(lore);
-                    item.setItemMeta(meta);
-                }
-                if (stripColor(line).startsWith("Behind your enemies awaits danger") && p.getLevel() <= 25) {
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.remove(3);
-                    lore.set(index, ChatColor.WHITE + "The stick of the nords");
-                    lore.set(index+1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
-                    meta.setLore(lore);
-                    meta.removeEnchant(Enchantment.DAMAGE_ARTHROPODS);
-                    meta.removeEnchant(Enchantment.DAMAGE_ALL);
-                    meta.removeEnchant(Enchantment.DAMAGE_UNDEAD);
-                    item.setItemMeta(meta);
-                    item.setType(item2.getType());
-                }
-            }
+        List<String> lore = new ArrayList<>();
+        meta.setLore(loreUpdate(lore, damageamount, amount));
+        item.setItemMeta(meta);
+
+        if (p.getLevel() <= 25) {
+            lore.remove(3);
+            lore.remove(3);
+            lore.remove(3);
+            lore.remove(3);
+            lore.remove(3);
+            lore.remove(3);
+            lore.remove(3);
+            lore.set(0, ChatColor.WHITE + "The stick of the nords");
+            lore.set(1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + amount);
+            lore.set(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageamount);
+            meta.setLore(lore);
+            meta.removeEnchant(Enchantment.DAMAGE_ARTHROPODS);
+            meta.removeEnchant(Enchantment.DAMAGE_ALL);
+            meta.removeEnchant(Enchantment.DAMAGE_UNDEAD);
+            item.setItemMeta(meta);
+            item.setType(item2.getType());
         }
+
     }
 
     @Override
