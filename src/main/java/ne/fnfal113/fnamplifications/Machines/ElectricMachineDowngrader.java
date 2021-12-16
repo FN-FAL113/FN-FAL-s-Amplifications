@@ -74,7 +74,7 @@ public class ElectricMachineDowngrader extends CMachine implements RecipeDisplay
                     inv.replaceExistingItem(22, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
 
                     for (ItemStack output : currentOperation.getResults()) {
-                        if (ThreadLocalRandom.current().nextInt(100) < 33) {
+                        if (ThreadLocalRandom.current().nextInt(100) < 20) {
                             inv.pushItem(output.clone(), getOutputSlots());
                             inv.pushItem(new CustomItemStack(FNAmpItems.FN_METAL_SCRAPS.clone(), 3), getOutputSlots());
                         }

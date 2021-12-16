@@ -3,6 +3,10 @@ package ne.fnfal113.fnamplifications.Items;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Gears.FnBoots;
+import ne.fnfal113.fnamplifications.Gears.FnChestPlate;
+import ne.fnfal113.fnamplifications.Gears.FnHelmet;
+import ne.fnfal113.fnamplifications.Gears.FnLeggings;
 import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -40,6 +44,7 @@ public final class FNAmpItemSetup {
         registerScrapRecipes();
         registerBlockBreaker();
         registerStick();
+        registerGear();
     }
 
     private void registerPowerGens() {
@@ -115,5 +120,12 @@ public final class FNAmpItemSetup {
         MysteryStick9.setup();
         MysteryStick10.setup();
         MysteryStick11.setup();
+    }
+
+    private void registerGear(){
+        FnChestPlate.setup();
+        FnLeggings.setup();
+        FnHelmet.setup();
+        FnBoots.setup();
     }
 }

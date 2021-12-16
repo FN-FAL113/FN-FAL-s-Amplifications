@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.Items;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
@@ -32,11 +33,18 @@ public class FNAmpItems {
 
     private static final ItemStack STICK = new ItemStack(Material.STICK);
 
+    private static final ItemStack ARMOR = new ItemStack(Material.NETHERITE_CHESTPLATE);
+
     static{
         ItemMeta meta = STICK.getItemMeta();
         meta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         STICK.setItemMeta(meta);
+
+        ItemMeta armorMeta = ARMOR.getItemMeta();
+        armorMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+        armorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        ARMOR.setItemMeta(armorMeta);
     }
 
     public static final NestedItemGroup FN_ITEMS = new NestedItemGroup(
@@ -98,6 +106,12 @@ public class FNAmpItems {
             FN_ITEMS,
             new CustomItemStack(STICK,
                     "&eFN_FAL'S Mystery PVP/PVE Sticks"));
+
+    public static final SubItemGroup FN_GEARS = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "FN_GEARS"),
+            FN_ITEMS,
+            new CustomItemStack(ARMOR,
+                    "&eFN_FAL'S Gears of Friction"));
 
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
@@ -1021,5 +1035,73 @@ public class FNAmpItems {
             "FN_STICK_ALTAR",
             Material.ENCHANTING_TABLE,
             "&dFN Mystery Stick Altar"
+    );
+
+    public static final SlimefunItemStack FN_GEAR_HELMET = new SlimefunItemStack(
+            "FN_GEAR_HELMET",
+            Material.NETHERITE_HELMET,
+            "&cFN's Field Tested Helmet",
+            "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
+            "",
+            "&fWear this helmet in the name of FN and",
+            "&fevery battle should make it become more",
+            "&fstronger with bonus attributes and enchants",
+            "",
+            "&c◈◈◈◈◈◈| &d&lStats &6|◈◈◈◈◈◈",
+            ChatColor.YELLOW + "Helmet Level: 0",
+            ChatColor.YELLOW + "Progress:",
+            ChatColor.GRAY + "[" + "■■■■■■■■■■" + ChatColor.GRAY + "]"
+
+    );
+
+    public static final SlimefunItemStack FN_GEAR_CHESTPLATE = new SlimefunItemStack(
+            "FN_GEAR_CHESTPLATE",
+            Material.NETHERITE_CHESTPLATE,
+            "&cFN's Battle Scarred Chestplate",
+            "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
+            "",
+            "&fThe armor from the past brought to life",
+            "&fonce again. It becomes more powerful during",
+            "&ftimes of war and conflict",
+            "",
+            "&c◈◈◈◈◈◈| &d&lStats &6|◈◈◈◈◈◈",
+            ChatColor.YELLOW + "Armor Level: 0",
+            ChatColor.YELLOW + "Progress:",
+            ChatColor.GRAY + "[" + "■■■■■■■■■■" + ChatColor.GRAY + "]"
+
+    );
+
+    public static final SlimefunItemStack FN_GEAR_LEGGINGS = new SlimefunItemStack(
+            "FN_GEAR_LEGGINGS",
+            Material.NETHERITE_LEGGINGS,
+            "&cFN's Chausses of Eminence",
+            "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
+            "",
+            "&fGlorious leggings worn by FN during war",
+            "&fand was glorified on every victory against",
+            "&fhis foes",
+            "",
+            "&c◈◈◈◈◈◈| &d&lStats &6|◈◈◈◈◈◈",
+            ChatColor.YELLOW + "Leggings Level: 0",
+            ChatColor.YELLOW + "Progress:",
+            ChatColor.GRAY + "[" + "■■■■■■■■■■" + ChatColor.GRAY + "]"
+
+    );
+
+    public static final SlimefunItemStack FN_GEAR_BOOTS = new SlimefunItemStack(
+            "FN_GEAR_BOOTS",
+            Material.NETHERITE_BOOTS,
+            "&cFN's Expedition Combat Boots",
+            "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
+            "",
+            "&fSoldiers from FN's army only wants to posses",
+            "&fthis historical boots but it was kept",
+            "&fhidden under the hands of the zion people",
+            "",
+            "&c◈◈◈◈◈◈| &d&lStats &6|◈◈◈◈◈◈",
+            ChatColor.YELLOW + "Boots Level: 0",
+            ChatColor.YELLOW + "Progress:",
+            ChatColor.GRAY + "[" + "■■■■■■■■■■" + ChatColor.GRAY + "]"
+
     );
 }
