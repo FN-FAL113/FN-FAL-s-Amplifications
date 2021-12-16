@@ -262,6 +262,7 @@ public class FnLeggings extends SlimefunItem{
             levelUp(p);
         } else if (level == 24) {
             meta.addEnchant(Enchantment.PROTECTION_EXPLOSIONS, 20, true);
+            armor.setItemMeta(meta);
             levelUp(p);
         } else if (level == 25) {
             meta.addEnchant(Enchantment.PROTECTION_FIRE, 20, true);
