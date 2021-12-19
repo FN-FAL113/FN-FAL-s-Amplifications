@@ -15,6 +15,7 @@ import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -74,7 +75,7 @@ public class ElectricMachineDowngrader extends CMachine implements RecipeDisplay
                     inv.replaceExistingItem(22, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
 
                     for (ItemStack output : currentOperation.getResults()) {
-                        if (ThreadLocalRandom.current().nextInt(100) < 5) {
+                        if (ThreadLocalRandom.current().nextInt(100) < 10 && inv.hasViewer()) {
                             inv.pushItem(output.clone(), getOutputSlots());
                             inv.pushItem(new CustomItemStack(FNAmpItems.FN_METAL_SCRAPS.clone(), 1), getOutputSlots());
                         }
