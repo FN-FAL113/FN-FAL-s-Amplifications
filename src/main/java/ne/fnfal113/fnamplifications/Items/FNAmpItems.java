@@ -113,6 +113,12 @@ public class FNAmpItems {
             new CustomItemStack(ARMOR,
                     "&eFN_FAL'S Gears of Friction"));
 
+    public static final SubItemGroup FN_STAFFS = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "FN_STAFFS"),
+            FN_ITEMS,
+            new CustomItemStack(Material.BLAZE_ROD,
+                    "&eFN_FAL'S Staffs"));
+
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -1104,4 +1110,39 @@ public class FNAmpItems {
             ChatColor.GRAY + "[" + "■■■■■■■■■■" + ChatColor.GRAY + "]"
 
     );
+
+
+    public static final SlimefunItemStack FN_STAFF_TP = new SlimefunItemStack(
+            "FN_STAFF_TP",
+            Material.BLAZE_ROD,
+            "&cStaff of Teleportation",
+            "",
+            "&dTeleport to a target block by",
+            "&dright clicking it",
+            "",
+            "&eUses left: 10"
+    );
+
+    public static final SlimefunItemStack FN_STAFF_INVI = new SlimefunItemStack(
+            "FN_STAFF_INVI",
+            Material.BLAZE_ROD,
+            "&cStaff of Invisibility",
+            "",
+            "&d6 seconds of invisibility",
+            "&deven your armor and name is hidden",
+            "",
+            "&eUses left: 10"
+    );
+
+    public static final SlimefunItemStack FN_STAFF_LOCOMOTION = new SlimefunItemStack(
+            "FN_STAFF_LOCOMOTION",
+            Material.BLAZE_ROD,
+            "&cStaff of Locomotion",
+            "",
+            "&dMove entities to a target location by right",
+            "&dclicking to select and left click to move",
+            "",
+            "&eUses left: 10"
+    );
+
 }

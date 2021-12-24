@@ -15,6 +15,9 @@ import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
 import ne.fnfal113.fnamplifications.MysteriousItems.*;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
+import ne.fnfal113.fnamplifications.Staffs.StaffOfLocomotion;
+import ne.fnfal113.fnamplifications.Staffs.StaffOfInvisibility;
+import ne.fnfal113.fnamplifications.Staffs.StaffOfTeleportation;
 
 public final class FNAmpItemSetup {
 
@@ -45,6 +48,7 @@ public final class FNAmpItemSetup {
         registerBlockBreaker();
         registerStick();
         registerGear();
+        registerStaff();
     }
 
     private void registerPowerGens() {
@@ -127,5 +131,11 @@ public final class FNAmpItemSetup {
         FnLeggings.setup();
         FnHelmet.setup();
         FnBoots.setup();
+    }
+
+    private void registerStaff(){
+        StaffOfTeleportation.setup();
+        StaffOfInvisibility.setup();
+        StaffOfLocomotion.setup();
     }
 }
