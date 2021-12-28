@@ -392,4 +392,16 @@ public class ReturnConfValue {
     public int blockBreaker3Ticks() {
         return config.getInt("E-block-breaker3-tickRate");
     }
+
+    public int staffOfLocomotion() {
+        return config.getInt("Staff-of-Locomotion");
+    }
+
+    public int staffOfInvisibility() {
+        return config.getInt("Staff-of-Invisibility");
+    }
+
+    public int staffOfTeleportation() {
+        return config.getInt("Staff-of-Teleportation");
+    }
 }

@@ -8,13 +8,12 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +30,8 @@ import java.util.Objects;
 public class StaffOfTeleportation extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -80,7 +81,7 @@ public class StaffOfTeleportation extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, 10);
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfTeleportation());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();
@@ -111,7 +112,6 @@ public class StaffOfTeleportation extends SlimefunItem {
             ALT_RECIPE = alt_recipe.getItem().clone();
         }
     }
-
 
     public static void setup(){
         new StaffOfTeleportation(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_TP, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{

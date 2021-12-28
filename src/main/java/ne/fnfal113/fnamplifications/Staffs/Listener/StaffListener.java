@@ -59,7 +59,7 @@ public class StaffListener implements Listener {
             return;
         }
 
-        if (stick instanceof StaffOfLocomotion && e.getHand().equals(EquipmentSlot.HAND)) {
+        if (stick instanceof StaffOfLocomotion && e.getHand() == EquipmentSlot.HAND) {
             if (e.getRightClicked() instanceof LivingEntity && !(e.getRightClicked() instanceof Player)) {
                 ((StaffOfLocomotion) stick).onRightClick(e);
             } else {

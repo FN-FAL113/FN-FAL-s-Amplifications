@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -30,6 +31,8 @@ public class StaffOfLocomotion extends SlimefunItem {
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -66,7 +69,7 @@ public class StaffOfLocomotion extends SlimefunItem {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
 
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, 10);
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfLocomotion());
 
         List<String> lore = new ArrayList<>();
 
@@ -145,7 +148,7 @@ public class StaffOfLocomotion extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, 10);
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfLocomotion());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();
