@@ -6,14 +6,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -28,6 +27,8 @@ import java.util.*;
 public class StaffOfInvisibility extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -57,8 +58,8 @@ public class StaffOfInvisibility extends SlimefunItem {
 
         for(Player online : Bukkit.getOnlinePlayers()){
             online.hidePlayer((Plugin) plugin, player);
-            PotionEffect effect = new PotionEffect(PotionEffectType.GLOWING,110,1, false, false);
-            PotionEffect effect2 = new PotionEffect(PotionEffectType.INVISIBILITY,110,1, false, false);
+            PotionEffect effect = new PotionEffect(PotionEffectType.GLOWING,115,1, false, false);
+            PotionEffect effect2 = new PotionEffect(PotionEffectType.INVISIBILITY,115,1, false, false);
             player.addPotionEffect(effect);
             player.addPotionEffect(effect2);
         }
@@ -78,7 +79,7 @@ public class StaffOfInvisibility extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, 10);
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfInvisibility());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();

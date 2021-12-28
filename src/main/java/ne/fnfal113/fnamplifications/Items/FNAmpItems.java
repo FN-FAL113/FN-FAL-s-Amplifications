@@ -1111,7 +1111,6 @@ public class FNAmpItems {
 
     );
 
-
     public static final SlimefunItemStack FN_STAFF_TP = new SlimefunItemStack(
             "FN_STAFF_TP",
             Material.BLAZE_ROD,
@@ -1120,7 +1119,7 @@ public class FNAmpItems {
             "&dTeleport to a target block by",
             "&dright clicking it",
             "",
-            "&eUses left: 10"
+            "&eUses left: " + value.staffOfTeleportation()
     );
 
     public static final SlimefunItemStack FN_STAFF_INVI = new SlimefunItemStack(
@@ -1131,7 +1130,7 @@ public class FNAmpItems {
             "&d6 seconds of invisibility",
             "&deven your armor and name is hidden",
             "",
-            "&eUses left: 10"
+            "&eUses left: "  + value.staffOfInvisibility()
     );
 
     public static final SlimefunItemStack FN_STAFF_LOCOMOTION = new SlimefunItemStack(
@@ -1142,7 +1141,7 @@ public class FNAmpItems {
             "&dMove entities to a target location by right",
             "&dclicking to select and left click to move",
             "",
-            "&eUses left: 10"
+            "&eUses left: " + value.staffOfLocomotion()
     );
 
 }
