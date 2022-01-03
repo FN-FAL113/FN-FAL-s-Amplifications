@@ -119,6 +119,12 @@ public class FNAmpItems {
             new CustomItemStack(Material.BLAZE_ROD,
                     "&eFN_FAL'S Staffs"));
 
+    public static final SubItemGroup FN_MISC = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "FN_MISC"),
+            FN_ITEMS,
+            new CustomItemStack(Material.CHEST,
+                    "&eFN_FAL'S Miscellaneous"));
+
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -1142,6 +1148,62 @@ public class FNAmpItems {
             "&dclicking to select and left click to move",
             "",
             "&eUses left: " + value.staffOfLocomotion()
+    );
+
+    public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
+            "FN_QUIVER",
+            Material.LEATHER,
+            "&bBow Quiver (Normal)",
+            "",
+            "&dStore inside the quiver",
+            "&dby right clicking arrows or",
+            "&dshift click quiver to withdraw",
+            "",
+            "&eLeft/Right click to change state",
+            "&eSize: 128 Arrows",
+            "&eArrows: " + ChatColor.WHITE + "0"
+    );
+
+    public static final SlimefunItemStack FN_SPECTRAL_QUIVER = new SlimefunItemStack(
+            "FN_SPECTRAL_QUIVER",
+            Material.LEATHER,
+            "&aBow Quiver (Spectral)",
+            "",
+            "&dStore inside the quiver by",
+            "&dright clicking spectral arrows or",
+            "&dshift click quiver to withdraw",
+            "",
+            "&eLeft/Right click to change state",
+            "&eSize: 128 Spectral Arrows",
+            "&eArrows: " + ChatColor.WHITE + "0"
+    );
+
+    public static final SlimefunItemStack FN_UPGRADED_QUIVER = new SlimefunItemStack(
+            "FN_UPGRADED_QUIVER",
+            Material.LEATHER,
+            "&6Upgraded Bow Quiver (Normal)",
+            "",
+            "&dStore inside the quiver",
+            "&dby right clicking arrows or",
+            "&dshift click to withdraw",
+            "",
+            "&eLeft/Right click to change state",
+            "&eSize: 192 Arrows",
+            "&eArrows: " + ChatColor.WHITE + "0"
+    );
+
+    public static final SlimefunItemStack FN_UPGRADED_SPECTRAL_QUIVER = new SlimefunItemStack(
+            "FN_UPGRADED_SPECTRAL_QUIVER",
+            Material.LEATHER,
+            "&cUpgraded Bow Quiver (Spectral)",
+            "",
+            "&dStore inside the quiver",
+            "&dby right clicking spectral arrows or",
+            "&dshift click quiver to withdraw",
+            "",
+            "&eLeft/Right click to change state",
+            "&eSize: 192 Arrows",
+            "&eArrows: " + ChatColor.WHITE + "0"
     );
 
 }

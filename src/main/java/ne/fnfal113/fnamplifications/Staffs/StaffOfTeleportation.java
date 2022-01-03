@@ -35,7 +35,7 @@ public class StaffOfTeleportation extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
-    protected StaffOfTeleportation(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public StaffOfTeleportation(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "tpstaff");

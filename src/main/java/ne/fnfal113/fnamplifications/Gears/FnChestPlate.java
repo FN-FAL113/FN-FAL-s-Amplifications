@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -28,13 +29,12 @@ import org.bukkit.persistence.PersistentDataType;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static org.bukkit.ChatColor.stripColor;
 
 public class FnChestPlate extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
@@ -72,8 +72,15 @@ public class FnChestPlate extends SlimefunItem {
         }
 
         Player p = ((Player) event.getEntity()).getPlayer();
+
+        if(p == null){
+            return;
+        }
         ItemStack itemStack = p.getInventory().getChestplate();
 
+        if(itemStack == null){
+            return;
+        }
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -92,7 +99,7 @@ public class FnChestPlate extends SlimefunItem {
         int total = amount + 1;
         progress.set(key, PersistentDataType.INTEGER, total);
 
-        List<String> lore = new ArrayList<>();;
+        List<String> lore = new ArrayList<>();
 
         if (total >= 0) {
             lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
@@ -265,7 +272,7 @@ public class FnChestPlate extends SlimefunItem {
             armor.setItemMeta(meta);
             levelUp(p);
         } else if (level == 25){
-            meta.addEnchant(Enchantment.THORNS, 20, true);
+            meta.addEnchant(Enchantment.PROTECTION_FIRE, 20, true);
             meta.removeAttributeModifier(EquipmentSlot.CHEST);
             armor.setItemMeta(meta);
             meta.addAttributeModifier(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armorBonus.chest", 12.0, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
@@ -309,12 +316,22 @@ public class FnChestPlate extends SlimefunItem {
         return false;
     }
 
+    public final FnChestPlate setUnbreakable(boolean unbreakable) {
+        ItemMeta meta = this.getItem().getItemMeta();
+        if(meta == null){
+            return this;
+        }
+        meta.setUnbreakable(unbreakable);
+        this.getItem().setItemMeta(meta);
+        return this;
+    }
+
     public static void setup(){
         new FnChestPlate(FNAmpItems.FN_GEARS, FNAmpItems.FN_GEAR_CHESTPLATE, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2), new ItemStack(Material.IRON_CHESTPLATE), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2),
                 SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 4), SlimefunItems.ENCHANTMENT_RUNE,
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4), new ItemStack(Material.DIAMOND_CHESTPLATE), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4)})
-                .register(plugin);
+                .setUnbreakable(value.fnChestPlateUnbreakable()).register(plugin);
     }
 
 }

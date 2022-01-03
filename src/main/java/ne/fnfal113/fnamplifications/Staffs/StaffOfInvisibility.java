@@ -32,7 +32,7 @@ public class StaffOfInvisibility extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
-    protected StaffOfInvisibility(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public StaffOfInvisibility(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "invistaff");
