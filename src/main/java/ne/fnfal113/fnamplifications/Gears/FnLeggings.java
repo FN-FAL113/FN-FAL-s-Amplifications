@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -30,13 +31,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static org.bukkit.ChatColor.stripColor;
 
 public class FnLeggings extends SlimefunItem{
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
@@ -74,8 +74,15 @@ public class FnLeggings extends SlimefunItem{
         }
 
         Player p = ((Player) event.getEntity()).getPlayer();
+
+        if(p == null){
+            return;
+        }
         ItemStack itemStack = p.getInventory().getLeggings();
 
+        if(itemStack == null){
+            return;
+        }
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -310,11 +317,21 @@ public class FnLeggings extends SlimefunItem{
         return false;
     }
 
+    public final FnLeggings setUnbreakable(boolean unbreakable) {
+        ItemMeta meta = this.getItem().getItemMeta();
+        if(meta == null){
+            return this;
+        }
+        meta.setUnbreakable(unbreakable);
+        this.getItem().setItemMeta(meta);
+        return this;
+    }
+
     public static void setup() {
         new FnLeggings(FNAmpItems.FN_GEARS, FNAmpItems.FN_GEAR_LEGGINGS, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2), new ItemStack(Material.IRON_LEGGINGS), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2),
                 SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 3), SlimefunItems.ENCHANTMENT_RUNE,
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 3), new ItemStack(Material.DIAMOND_LEGGINGS), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 3)})
-                .register(plugin);
+                .setUnbreakable(value.fnLeggingsUnbreakable()).register(plugin);
     }
 }

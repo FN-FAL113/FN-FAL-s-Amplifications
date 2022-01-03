@@ -404,4 +404,21 @@ public class ReturnConfValue {
     public int staffOfTeleportation() {
         return config.getInt("Staff-of-Teleportation");
     }
+
+    public boolean fnHelmetUnbreakable(){
+        return config.getBoolean("FN-Helmet-Unbreakable");
+    }
+
+    public boolean fnChestPlateUnbreakable(){
+        return config.getBoolean("FN-Chestplate-Unbreakable");
+    }
+
+    public boolean fnLeggingsUnbreakable(){
+        return config.getBoolean("FN-Leggings-Unbreakable");
+    }
+
+    public boolean fnBootsUnbreakable(){
+        return config.getBoolean("FN-boots-Unbreakable");
+    }
+
 }

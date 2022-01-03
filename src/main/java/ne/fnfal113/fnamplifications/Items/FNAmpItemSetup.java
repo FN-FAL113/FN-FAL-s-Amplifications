@@ -15,6 +15,10 @@ import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
 import ne.fnfal113.fnamplifications.MysteriousItems.*;
 import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
+import ne.fnfal113.fnamplifications.Quiver.Quiver;
+import ne.fnfal113.fnamplifications.Quiver.SpectralQuiver;
+import ne.fnfal113.fnamplifications.Quiver.UpgradedQuiver;
+import ne.fnfal113.fnamplifications.Quiver.UpgradedSpectralQuiver;
 import ne.fnfal113.fnamplifications.Staffs.StaffOfLocomotion;
 import ne.fnfal113.fnamplifications.Staffs.StaffOfInvisibility;
 import ne.fnfal113.fnamplifications.Staffs.StaffOfTeleportation;
@@ -49,6 +53,7 @@ public final class FNAmpItemSetup {
         registerStick();
         registerGear();
         registerStaff();
+        registerQuiver();
     }
 
     private void registerPowerGens() {
@@ -137,5 +142,12 @@ public final class FNAmpItemSetup {
         StaffOfTeleportation.setup();
         StaffOfInvisibility.setup();
         StaffOfLocomotion.setup();
+    }
+
+    public void registerQuiver(){
+        Quiver.setup();
+        SpectralQuiver.setup();
+        UpgradedQuiver.setup();
+        UpgradedSpectralQuiver.setup();
     }
 }

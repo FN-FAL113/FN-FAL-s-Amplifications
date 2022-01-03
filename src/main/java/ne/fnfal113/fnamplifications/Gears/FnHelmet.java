@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -30,13 +31,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static org.bukkit.ChatColor.stripColor;
 
 public class FnHelmet extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
+
+    private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
@@ -73,10 +73,16 @@ public class FnHelmet extends SlimefunItem {
             return;
         }
 
-
         Player p = ((Player) event.getEntity()).getPlayer();
+
+        if(p == null){
+            return;
+        }
         ItemStack itemStack = p.getInventory().getHelmet();
 
+        if(itemStack == null){
+            return;
+        }
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta == null) {
@@ -336,12 +342,22 @@ public class FnHelmet extends SlimefunItem {
         return false;
     }
 
+    public final FnHelmet setUnbreakable(boolean unbreakable) {
+        ItemMeta meta = this.getItem().getItemMeta();
+        if(meta == null){
+            return this;
+        }
+        meta.setUnbreakable(unbreakable);
+        this.getItem().setItemMeta(meta);
+        return this;
+    }
+
     public static void setup(){
         new FnHelmet(FNAmpItems.FN_GEARS, FNAmpItems.FN_GEAR_HELMET, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 4), new ItemStack(Material.IRON_HELMET), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 4),
                 SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 5), SlimefunItems.ENCHANTMENT_RUNE,
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new ItemStack(Material.DIAMOND_HELMET), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
-                .register(plugin);
+                .setUnbreakable(value.fnHelmetUnbreakable()).register(plugin);
     }
 
 }
