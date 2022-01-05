@@ -37,14 +37,19 @@ public class FNAmpItems {
 
     static{
         ItemMeta meta = STICK.getItemMeta();
-        meta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        STICK.setItemMeta(meta);
+        if(meta != null) {
+            meta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            STICK.setItemMeta(meta);
+        }
 
         ItemMeta armorMeta = ARMOR.getItemMeta();
-        armorMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
-        armorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        ARMOR.setItemMeta(armorMeta);
+        if(armorMeta != null) {
+            armorMeta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
+            armorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            ARMOR.setItemMeta(armorMeta);
+        }
+
     }
 
     public static final NestedItemGroup FN_ITEMS = new NestedItemGroup(
@@ -1148,6 +1153,30 @@ public class FNAmpItems {
             "&dclicking to select and left click to move",
             "",
             "&eUses left: " + value.staffOfLocomotion()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_HELLFIRE = new SlimefunItemStack(
+            "FN_STAFF_HELLFIRE",
+            Material.BLAZE_ROD,
+            "&cStaff of Hellfire",
+            "",
+            "&dSpawn an area of effect cloud",
+            "&dwhere entities are set on fire",
+            "&dif inside the radius for 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfHellFire()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_DEEPFREEZE = new SlimefunItemStack(
+            "FN_STAFF_DEEPFREEZE",
+            Material.BLAZE_ROD,
+            "&cStaff of Deep-Freeze",
+            "",
+            "&dSpawn an area of effect cloud where",
+            "&dentities are being slowed by the freezing",
+            "&dcold if inside the radius for 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfDeepFreeze()
     );
 
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(

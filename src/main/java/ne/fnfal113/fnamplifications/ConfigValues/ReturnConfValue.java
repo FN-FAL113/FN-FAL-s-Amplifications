@@ -405,6 +405,14 @@ public class ReturnConfValue {
         return config.getInt("Staff-of-Teleportation");
     }
 
+    public int staffOfHellFire() {
+        return config.getInt("Staff-of-HellFire");
+    }
+
+    public int staffOfDeepFreeze() {
+        return config.getInt("Staff-of-DeepFreeze");
+    }
+
     public boolean fnHelmetUnbreakable(){
         return config.getBoolean("FN-Helmet-Unbreakable");
     }

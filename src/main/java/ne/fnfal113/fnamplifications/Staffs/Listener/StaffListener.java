@@ -1,9 +1,7 @@
 package ne.fnfal113.fnamplifications.Staffs.Listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfLocomotion;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfInvisibility;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfTeleportation;
+import ne.fnfal113.fnamplifications.Staffs.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,18 +18,20 @@ public class StaffListener implements Listener {
     public void onClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
+        boolean actionRight = (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK);
+        boolean actionLeft = (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK);
 
         if (stick == null) {
             return;
         }
 
-        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfTeleportation) {
                 ((StaffOfTeleportation) stick).onRightClick(e);
             }
         }
 
-        if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfInvisibility) {
                 if (!p.isInvisible()) {
                     ((StaffOfInvisibility) stick).onRightClick(e);
@@ -41,9 +41,21 @@ public class StaffListener implements Listener {
             }
         }
 
-        if ((e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK) && e.getHand() == EquipmentSlot.HAND) {
+        if (actionLeft && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfLocomotion) {
                 ((StaffOfLocomotion) stick).onLeftClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfHellFire) {
+                ((StaffOfHellFire) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfDeepFreeze) {
+                ((StaffOfDeepFreeze) stick).onRightClick(e);
             }
         }
 

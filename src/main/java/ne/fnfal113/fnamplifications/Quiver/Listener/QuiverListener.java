@@ -105,8 +105,10 @@ public class QuiverListener implements Listener {
         Player player = event.getPlayer();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         int length = player.getInventory().getContents().length;
+        boolean actionRight = (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK);
+        boolean actionLeft = (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK);
 
-        if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if(actionRight) {
             if (itemStack.getType() == Material.CROSSBOW) {
                 for (int i = 0; i < length; i++) {
                     ItemStack itemStack1 = player.getInventory().getItem(i);
@@ -132,8 +134,7 @@ public class QuiverListener implements Listener {
             } // crossbow
         } // event
 
-        if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK ||
-                event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+        if(actionRight || actionLeft) {
 
             if(itemStack.getType() == Material.LEATHER || itemStack.getType() == Material.ARROW || itemStack.getType() == Material.SPECTRAL_ARROW) {
                 for (int i = 0; i < length; i++) {
