@@ -19,9 +19,7 @@ import ne.fnfal113.fnamplifications.Quiver.Quiver;
 import ne.fnfal113.fnamplifications.Quiver.SpectralQuiver;
 import ne.fnfal113.fnamplifications.Quiver.UpgradedQuiver;
 import ne.fnfal113.fnamplifications.Quiver.UpgradedSpectralQuiver;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfLocomotion;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfInvisibility;
-import ne.fnfal113.fnamplifications.Staffs.StaffOfTeleportation;
+import ne.fnfal113.fnamplifications.Staffs.*;
 
 public final class FNAmpItemSetup {
 
@@ -142,6 +140,8 @@ public final class FNAmpItemSetup {
         StaffOfTeleportation.setup();
         StaffOfInvisibility.setup();
         StaffOfLocomotion.setup();
+        StaffOfHellFire.setup();
+        StaffOfDeepFreeze.setup();
     }
 
     public void registerQuiver(){

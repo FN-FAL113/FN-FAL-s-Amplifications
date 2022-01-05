@@ -56,8 +56,11 @@ public class UpgradedQuiver extends SlimefunItem {
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
         SlimefunItem sfCheck = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
-        boolean instance = sfCheck instanceof UpgradedQuiver;
         ItemStack itemState = player.getInventory().getItemInMainHand();
+        boolean instance = sfCheck instanceof UpgradedQuiver;
+        boolean instance2 = sfCheck instanceof Quiver;
+        boolean actionRight = (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK);
+        boolean actionLeft = (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK);
 
         List<String> lore = new ArrayList<>();
 
@@ -70,7 +73,7 @@ public class UpgradedQuiver extends SlimefunItem {
         int arrowsCheckPDC = arrows_Check.getOrDefault(key, PersistentDataType.INTEGER, 0);
         boolean pdcCheck = arrowsCheckPDC != 0;
 
-        if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if(actionRight) {
             if (pdcCheck && instance && itemState.getType() == Material.LEATHER) {
 
                 if(player.isSneaking()) {
@@ -93,7 +96,7 @@ public class UpgradedQuiver extends SlimefunItem {
             }
         }
 
-        if(event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+        if(actionLeft) {
             if (pdcCheck && instance && itemState.getType() == Material.ARROW) {
 
                 if(player.isSneaking()) {
@@ -117,9 +120,9 @@ public class UpgradedQuiver extends SlimefunItem {
             }
         }
 
-        if(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if(actionRight) {
 
-            if(itemState.getType() == Material.ARROW && !(instance)) {
+            if(itemState.getType() == Material.ARROW && !(instance) && !(instance2)) {
                 for (int i = 0; i < player.getInventory().getContents().length; i++) {
                     SlimefunItem sfItem = SlimefunItem.getByItem(player.getInventory().getItem(i));
                     ItemStack item = player.getInventory().getItem(i);
@@ -148,7 +151,7 @@ public class UpgradedQuiver extends SlimefunItem {
                     } // instance check
 
                 } // loop
-            }
+            } // instance and material type check
         } // event action
 
     }
@@ -182,7 +185,6 @@ public class UpgradedQuiver extends SlimefunItem {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         PersistentDataContainer arrow_Left = meta.getPersistentDataContainer();
         int arrows = arrow_Left.getOrDefault(key, PersistentDataType.INTEGER, 0);
-        int random = ThreadLocalRandom.current().nextInt(1, 999999 + 1);
         int increment = arrows + 1;
 
         List<String> lore = new ArrayList<>();
@@ -200,6 +202,7 @@ public class UpgradedQuiver extends SlimefunItem {
             lore.add(8, ChatColor.YELLOW + "State: Open Quiver");
             meta.setLore(lore);
             if(increment <= 2) {
+                int random = ThreadLocalRandom.current().nextInt(1, 999999 + 1);
                 meta.getPersistentDataContainer().set(key2, PersistentDataType.INTEGER, random);
             }
             item.setItemMeta(meta);
