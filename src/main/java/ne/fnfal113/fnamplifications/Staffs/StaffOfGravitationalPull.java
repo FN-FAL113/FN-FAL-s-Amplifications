@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfConfusion extends SlimefunItem {
+public class StaffOfGravitationalPull extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -38,10 +38,10 @@ public class StaffOfConfusion extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
-    public StaffOfConfusion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public StaffOfGravitationalPull(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "confusionstaff");
+        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "gravitystaff");
     }
 
     protected @Nonnull
@@ -64,7 +64,7 @@ public class StaffOfConfusion extends SlimefunItem {
                 block,
                 Interaction.BREAK_BLOCK)
         ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast confusion there!");
+            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast gravitational pull there!");
             return;
         }
 
@@ -77,10 +77,10 @@ public class StaffOfConfusion extends SlimefunItem {
         updateMeta(item, meta, key, player);
 
         AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
-        effectCloud.setParticle(Particle.CLOUD);
+        effectCloud.setParticle(Particle.FALLING_OBSIDIAN_TEAR);
         effectCloud.setDuration(160);
         effectCloud.setRadius(2.85F);
-        effectCloud.setCustomName("FN_CONFUSION");
+        effectCloud.setCustomName("FN_GRAVITY");
         effectCloud.setCustomNameVisible(false);
         effectCloud.setReapplicationDelay(0);
         effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0 , 0, false, false, false), true);
@@ -91,7 +91,7 @@ public class StaffOfConfusion extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfConfusion());
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfGravity());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();
@@ -100,15 +100,15 @@ public class StaffOfConfusion extends SlimefunItem {
             max_Uses.set(key, PersistentDataType.INTEGER, decrement);
             lore.add(0, "");
             lore.add(1, ChatColor.LIGHT_PURPLE + "Spawn an area of effect cloud");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "entities are confused of their direction");
-            lore.add(3, ChatColor.LIGHT_PURPLE + "if inside the radius for 8 seconds");
+            lore.add(2, ChatColor.LIGHT_PURPLE + "entities are being pulled by the gravitational");
+            lore.add(3, ChatColor.LIGHT_PURPLE + "force if inside the radius for 8 seconds");
             lore.add(4, "");
             lore.add(5, ChatColor.YELLOW + "Uses left: " + decrement);
             meta.setLore(lore);
             item.setItemMeta(meta);
         } else {
             player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lConfusion staff has reached max uses!"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lGravitational staff has reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
 
@@ -116,10 +116,10 @@ public class StaffOfConfusion extends SlimefunItem {
     }
 
     public static void setup(){
-        new StaffOfConfusion(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_CONFUSION, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+        new StaffOfGravitationalPull(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_GRAVITY, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8), new ItemStack(Material.LINGERING_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
-                SlimefunItems.MAGICAL_GLASS, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGICAL_BOOK_COVER,
-                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.RAINBOW_RUNE, 3)})
+                SlimefunItems.MAGICAL_BOOK_COVER, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGIC_EYE_OF_ENDER,
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 4)})
                 .register(plugin);
     }
 }

@@ -48,6 +48,12 @@ public class StaffListener implements Listener {
             }
         }
 
+        if (Objects.equals(event.getEntity().getCustomName(), "FN_GRAVITY")){
+            for(LivingEntity entity : event.getAffectedEntities()){
+                entity.setVelocity(entity.getVelocity().clone().add(event.getEntity().getLocation().clone().toVector().subtract(entity.getLocation().clone().toVector()).multiply(0.800)));
+            }
+        }
+
     }
 
     @EventHandler
@@ -98,6 +104,12 @@ public class StaffListener implements Listener {
         if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfConfusion) {
                 ((StaffOfConfusion) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfGravitationalPull) {
+                ((StaffOfGravitationalPull) stick).onRightClick(e);
             }
         }
 

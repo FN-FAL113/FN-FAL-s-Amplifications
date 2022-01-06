@@ -143,6 +143,7 @@ public final class FNAmpItemSetup {
         StaffOfHellFire.setup();
         StaffOfDeepFreeze.setup();
         StaffOfConfusion.setup();
+        StaffOfGravitationalPull.setup();
     }
 
     public void registerQuiver(){
