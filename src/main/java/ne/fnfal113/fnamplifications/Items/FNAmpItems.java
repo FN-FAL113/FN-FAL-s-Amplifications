@@ -1191,6 +1191,18 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfConfusion()
     );
 
+    public static final SlimefunItemStack FN_STAFF_GRAVITY = new SlimefunItemStack(
+            "FN_STAFF_GRAVITY",
+            Material.BLAZE_ROD,
+            "&cStaff of Gravitational Pull",
+            "",
+            "&dSpawn an area of effect cloud where",
+            "&dentities are being pulled by the gravitational",
+            "&dforce if inside the radius for 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfGravity()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
