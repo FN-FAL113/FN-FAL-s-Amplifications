@@ -20,21 +20,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class StaffOfDeepFreeze extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private static final ReturnConfValue value = new ReturnConfValue();
-
-    private BukkitTask taskID;
 
     private final NamespacedKey defaultUsageKey;
 
@@ -80,8 +78,12 @@ public class StaffOfDeepFreeze extends SlimefunItem {
         effectCloud.setParticle(Particle.SNOWFLAKE);
         effectCloud.setDuration(160);
         effectCloud.setRadius(2.85F);
+        effectCloud.setCustomName("FN_DEEP_FREEZE");
+        effectCloud.setCustomNameVisible(false);
+        effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0, 0, false, false, false), true);
 
-        World world = player.getWorld();
+        // Commented out in favor of AreaCloudEffectApply Event
+        /*World world = player.getWorld();
         AtomicInteger i = new AtomicInteger(8);
         taskID = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
             for (Entity e : world.getNearbyEntities(effectCloud.getLocation(), 2.85F, 2, 2.85F)) {
@@ -99,7 +101,7 @@ public class StaffOfDeepFreeze extends SlimefunItem {
             }
             i.getAndDecrement();
 
-        }, 0, 20L);
+        }, 0, 20L);*/
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
@@ -135,7 +137,7 @@ public class StaffOfDeepFreeze extends SlimefunItem {
         new StaffOfDeepFreeze(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_DEEPFREEZE, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8), new ItemStack(Material.LINGERING_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
                 SlimefunItems.MAGICAL_BOOK_COVER, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGICAL_BOOK_COVER,
-                SlimefunItems.WATER_RUNE, SlimefunItems.MAGIC_SUGAR, SlimefunItems.AIR_RUNE})
+                new SlimefunItemStack(SlimefunItems.WATER_RUNE, 3), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3)})
                 .register(plugin);
     }
 }

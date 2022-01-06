@@ -413,6 +413,10 @@ public class ReturnConfValue {
         return config.getInt("Staff-of-DeepFreeze");
     }
 
+    public int staffOfConfusion() {
+        return config.getInt("Staff-of-Confusion");
+    }
+
     public boolean fnHelmetUnbreakable(){
         return config.getBoolean("FN-Helmet-Unbreakable");
     }

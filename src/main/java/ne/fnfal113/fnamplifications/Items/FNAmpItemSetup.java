@@ -142,6 +142,7 @@ public final class FNAmpItemSetup {
         StaffOfLocomotion.setup();
         StaffOfHellFire.setup();
         StaffOfDeepFreeze.setup();
+        StaffOfConfusion.setup();
     }
 
     public void registerQuiver(){

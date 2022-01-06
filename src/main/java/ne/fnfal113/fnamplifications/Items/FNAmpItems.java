@@ -1179,6 +1179,18 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfDeepFreeze()
     );
 
+    public static final SlimefunItemStack FN_STAFF_CONFUSION = new SlimefunItemStack(
+            "FN_STAFF_CONFUSION",
+            Material.BLAZE_ROD,
+            "&cStaff of Confusion",
+            "",
+            "&dSpawn an area of effect cloud where",
+            "&dentities are confused of their direction",
+            "&dif inside the radius for 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfConfusion()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,

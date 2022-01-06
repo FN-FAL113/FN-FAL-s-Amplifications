@@ -183,6 +183,7 @@ Staff-of-Invisibility: 10
 Staff-of-Teleportation: 10
 Staff-of-HellFire: 10
 Staff-of-DeepFreeze: 10
+Staff-of-Confusion: 10
 
 # FN Gears of Friction (Unbreakability)
 # Default is set to false (if set to true, will apply only on newly crafted gears)
