@@ -1,18 +1,23 @@
 package ne.fnfal113.fnamplifications.Staffs.Listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Staffs.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SkeletonHorse;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Objects;
@@ -112,6 +117,38 @@ public class StaffListener implements Listener {
                 ((StaffOfGravitationalPull) stick).onRightClick(e);
             }
         }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfStallion) {
+                ((StaffOfStallion) stick).onRightClick(e);
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerDismount(VehicleExitEvent event){
+        if(event.getExited() instanceof Player){
+            if(event.getVehicle() instanceof SkeletonHorse){
+                SkeletonHorse skeletonHorse = (SkeletonHorse) event.getVehicle();
+                if(skeletonHorse.getCustomName() != null && !skeletonHorse.getPersistentDataContainer().isEmpty()) {
+                    if (skeletonHorse.getCustomName().equals("FN_SKELETON_HORSE")) {
+                        skeletonHorse.remove();
+                        skeletonHorse.getPersistentDataContainer().remove(new NamespacedKey(FNAmplifications.getInstance(), "Horsey"));
+                    }
+                }
+            } // instanceof SkeletonHorse
+        } // instanceof Player
+
+    }
+
+    @EventHandler
+    public void horseInventory(InventoryOpenEvent event){
+        if(event.getInventory().getHolder() instanceof SkeletonHorse) {
+            if (event.getView().getTitle().equals("FN_SKELETON_HORSE")) {
+                event.setCancelled(true);
+            } // check view/inventory title
+        } // check InventoryHolder
 
     }
 

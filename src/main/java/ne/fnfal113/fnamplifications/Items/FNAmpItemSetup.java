@@ -144,6 +144,7 @@ public final class FNAmpItemSetup {
         StaffOfDeepFreeze.setup();
         StaffOfConfusion.setup();
         StaffOfGravitationalPull.setup();
+        StaffOfStallion.setup();
     }
 
     public void registerQuiver(){
