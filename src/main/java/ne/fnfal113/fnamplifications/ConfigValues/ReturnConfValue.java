@@ -421,6 +421,10 @@ public class ReturnConfValue {
         return config.getInt("Staff-of-Gravity");
     }
 
+    public int staffOfStallion() {
+        return config.getInt("Staff-of-Stallion");
+    }
+
     public boolean fnHelmetUnbreakable(){
         return config.getBoolean("FN-Helmet-Unbreakable");
     }

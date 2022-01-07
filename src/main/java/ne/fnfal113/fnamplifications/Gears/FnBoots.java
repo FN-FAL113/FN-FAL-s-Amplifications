@@ -178,7 +178,7 @@ public class FnBoots extends SlimefunItem {
             armor.setItemMeta(meta);
             levelUp(p);
         } else if(level == 6){
-            meta.addEnchant(Enchantment.FROST_WALKER, 3, true);
+            meta.addEnchant(Enchantment.DURABILITY, 3, true);
             armor.setItemMeta(meta);
             levelUp(p);
         } else if(level == 7){

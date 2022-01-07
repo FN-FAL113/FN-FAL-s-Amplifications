@@ -1203,6 +1203,17 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfGravity()
     );
 
+    public static final SlimefunItemStack FN_STAFF_STALLION = new SlimefunItemStack(
+            "FN_STAFF_STALLION",
+            Material.BLAZE_ROD,
+            "&cStaff of Stallion",
+            "",
+            "&dSpawns a skeleton horse that is",
+            "&drideable until passenger dismount",
+            "",
+            "&eUses left: " + value.staffOfStallion()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
