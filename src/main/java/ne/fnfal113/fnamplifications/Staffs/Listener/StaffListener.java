@@ -3,10 +3,7 @@ package ne.fnfal113.fnamplifications.Staffs.Listener;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Staffs.*;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SkeletonHorse;
@@ -21,7 +18,7 @@ import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Objects;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class StaffListener implements Listener {
 
@@ -42,10 +39,9 @@ public class StaffListener implements Listener {
 
         if (Objects.equals(event.getEntity().getCustomName(), "FN_CONFUSION")){
             for(LivingEntity entity : event.getAffectedEntities()){
-                Random random = new Random();
                 World world = entity.getWorld();
-                int pitch = random.nextInt(180 + 1 + 180) - 180;
-                int yaw = random.nextInt(180 + 1 + 180) - 180;
+                int pitch = ThreadLocalRandom.current().nextInt(180 + 1 + 180) - 180;
+                int yaw = ThreadLocalRandom.current().nextInt(180 + 1 + 180) - 180;
                 Location loc = new Location(world, entity.getLocation().getX(),
                         entity.getLocation().getY(),
                         entity.getLocation().getZ(), pitch, yaw);
@@ -56,6 +52,18 @@ public class StaffListener implements Listener {
         if (Objects.equals(event.getEntity().getCustomName(), "FN_GRAVITY")){
             for(LivingEntity entity : event.getAffectedEntities()){
                 entity.setVelocity(entity.getVelocity().clone().add(event.getEntity().getLocation().clone().toVector().subtract(entity.getLocation().clone().toVector()).multiply(0.800)));
+            }
+        }
+
+        if (Objects.equals(event.getEntity().getCustomName(), "FN_FORCE")){
+            for(LivingEntity entity : event.getAffectedEntities()){
+               entity.setVelocity(entity.getLocation().clone().getDirection().multiply(8).setY(0));
+            }
+        }
+
+        if (Objects.equals(event.getEntity().getCustomName(), "FN_BACKWARD_FORCE")){
+            for(LivingEntity entity : event.getAffectedEntities()){
+                entity.setVelocity(entity.getLocation().clone().getDirection().multiply(-8).setY(0));
             }
         }
 
@@ -121,6 +129,12 @@ public class StaffListener implements Listener {
         if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfStallion) {
                 ((StaffOfStallion) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfForce) {
+                ((StaffOfForce) stick).onRightClick(e);
             }
         }
 

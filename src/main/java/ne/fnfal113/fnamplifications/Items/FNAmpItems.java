@@ -1214,6 +1214,19 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfStallion()
     );
 
+    public static final SlimefunItemStack FN_STAFF_FORCE = new SlimefunItemStack(
+            "FN_STAFF_FORCE",
+            Material.BLAZE_ROD,
+            "&cStaff of Force",
+            "",
+            "&dRight click to spawn a cloud of effect",
+            "&dthat gives a force push forward or",
+            "&dshift-right-click to spawn a different cloud",
+            "&dof effect that gives a backward force",
+            "",
+            "&eUses left: " + value.staffOfForce()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
