@@ -14,7 +14,9 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
+import org.bukkit.entity.AreaEffectCloud;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfDeepFreeze extends SlimefunItem {
+public class StaffOfForce extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -36,10 +38,10 @@ public class StaffOfDeepFreeze extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
-    public StaffOfDeepFreeze(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public StaffOfForce(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "deepfreezestaff");
+        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "forcestaff");
     }
 
     protected @Nonnull
@@ -62,7 +64,7 @@ public class StaffOfDeepFreeze extends SlimefunItem {
                 block,
                 Interaction.BREAK_BLOCK)
         ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast deep-freeze there!");
+            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast force cloud there!");
             return;
         }
 
@@ -74,34 +76,25 @@ public class StaffOfDeepFreeze extends SlimefunItem {
 
         updateMeta(item, meta, key, player);
 
-        AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
-        effectCloud.setParticle(Particle.SNOWFLAKE);
-        effectCloud.setDuration(160);
-        effectCloud.setRadius(2.85F);
-        effectCloud.setCustomName("FN_DEEP_FREEZE");
-        effectCloud.setCustomNameVisible(false);
-        effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0, 0, false, false, false), true);
-
-        // Commented out in favor of AreaCloudEffectApply Event
-        /*World world = player.getWorld();
-        AtomicInteger i = new AtomicInteger(8);
-        taskID = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
-            for (Entity e : world.getNearbyEntities(effectCloud.getLocation(), 2.85F, 2, 2.85F)) {
-
-                if (e instanceof LivingEntity) {
-                    if (e.getLocation().distance(effectCloud.getLocation()) <= 2.85F) {
-                        e.setFreezeTicks(210);
-                    }
-
-                }
-            }
-
-            if (i.get() == 0) {
-                taskID.cancel();
-            }
-            i.getAndDecrement();
-
-        }, 0, 20L);*/
+        if(player.isSneaking()) {
+            AreaEffectCloud effectCloudBack = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5), EntityType.AREA_EFFECT_CLOUD);
+            effectCloudBack.setParticle(Particle.END_ROD);
+            effectCloudBack.setDuration(160);
+            effectCloudBack.setRadius(2.85F);
+            effectCloudBack.setCustomName("FN_BACKWARD_FORCE");
+            effectCloudBack.setCustomNameVisible(false);
+            effectCloudBack.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0, 0, false, false, false), true);
+            player.sendMessage(ChatColor.RED  + "You spawned a cloud effect with backward force");
+        } else {
+            AreaEffectCloud effectCloudForward = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5), EntityType.AREA_EFFECT_CLOUD);
+            effectCloudForward.setParticle(Particle.ELECTRIC_SPARK);
+            effectCloudForward.setDuration(160);
+            effectCloudForward.setRadius(2.85F);
+            effectCloudForward.setCustomName("FN_FORCE");
+            effectCloudForward.setCustomNameVisible(false);
+            effectCloudForward.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0, 0, false, false, false), true);
+            player.sendMessage(ChatColor.GREEN + "You spawned a cloud effect with forward force");
+        }
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
@@ -109,7 +102,7 @@ public class StaffOfDeepFreeze extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfDeepFreeze());
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfForce());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();
@@ -117,16 +110,17 @@ public class StaffOfDeepFreeze extends SlimefunItem {
         if(decrement > 0) {
             max_Uses.set(key, PersistentDataType.INTEGER, decrement);
             lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Spawn an area of effect cloud where");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "entities are being slowed by the freezing");
-            lore.add(3, ChatColor.LIGHT_PURPLE + "cold if inside the radius for 8 seconds");
-            lore.add(4, "");
-            lore.add(5, ChatColor.YELLOW + "Uses left: " + decrement);
+            lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to spawn a cloud of effect");
+            lore.add(2, ChatColor.LIGHT_PURPLE + "that gives a force push forward or");
+            lore.add(3, ChatColor.LIGHT_PURPLE + "shift-right-click to spawn a different cloud");
+            lore.add(4, ChatColor.LIGHT_PURPLE + "of effect that gives a backward force");
+            lore.add(5, "");
+            lore.add(6, ChatColor.YELLOW + "Uses left: " + decrement);
             meta.setLore(lore);
             item.setItemMeta(meta);
         } else {
             player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lDeep-Freeze staff has reached max uses!"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lForce staff has reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
 
@@ -134,10 +128,10 @@ public class StaffOfDeepFreeze extends SlimefunItem {
     }
 
     public static void setup(){
-        new StaffOfDeepFreeze(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_DEEPFREEZE, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8), new ItemStack(Material.LINGERING_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
-                SlimefunItems.MAGICAL_BOOK_COVER, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGICAL_BOOK_COVER,
-                new SlimefunItemStack(SlimefunItems.WATER_RUNE, 3), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3)})
+        new StaffOfForce(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_FORCE, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 24), new ItemStack(Material.FEATHER, 12), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 24),
+                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3), new ItemStack(Material.BLAZE_ROD),  new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3),
+                new ItemStack(Material.BLAZE_POWDER, 12), SlimefunItems.MAGIC_SUGAR, new ItemStack(Material.BLAZE_POWDER, 12)})
                 .register(plugin);
     }
 }
