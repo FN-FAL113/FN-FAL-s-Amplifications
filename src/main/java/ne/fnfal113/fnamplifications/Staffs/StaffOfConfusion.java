@@ -53,7 +53,7 @@ public class StaffOfConfusion extends SlimefunItem {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         NamespacedKey key = getStorageKey();
-        Block block = event.getPlayer().getTargetBlockExact(7);
+        Block block = event.getPlayer().getTargetBlockExact(50);
 
         if(block == null || item.getType() == Material.AIR){
             return;
