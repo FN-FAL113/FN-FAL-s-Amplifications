@@ -34,7 +34,7 @@ public class GearListener implements Listener {
 
             Player p = (Player) event.getEntity();
 
-            if(ThreadLocalRandom.current().nextInt(100) < 28) {
+            if(ThreadLocalRandom.current().nextInt(100) < 10) {
                 SlimefunItem armor = SlimefunItem.getByItem(p.getInventory().getChestplate());
                 if(armor != null) {
                     if (armor instanceof FnChestPlate) {
@@ -43,7 +43,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 30) {
+            if(ThreadLocalRandom.current().nextInt(100) < 12) {
                 SlimefunItem leggings = SlimefunItem.getByItem(p.getInventory().getLeggings());
                 if (leggings != null) {
                     if (leggings instanceof FnLeggings) {
@@ -52,7 +52,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 32) {
+            if(ThreadLocalRandom.current().nextInt(100) < 11) {
                 SlimefunItem helmet = SlimefunItem.getByItem(p.getInventory().getHelmet());
                 if (helmet != null) {
                     if (helmet instanceof FnHelmet) {
@@ -61,7 +61,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 33) {
+            if(ThreadLocalRandom.current().nextInt(100) < 12) {
                 SlimefunItem boots = SlimefunItem.getByItem(p.getInventory().getBoots());
                 if (boots != null) {
                     if (boots instanceof FnBoots) {
@@ -80,7 +80,7 @@ public class GearListener implements Listener {
 
             Player p = (Player) event.getEntity();
 
-            if(ThreadLocalRandom.current().nextInt(100) < 25) {
+            if(ThreadLocalRandom.current().nextInt(100) < 30) {
                 SlimefunItem armor = SlimefunItem.getByItem(p.getInventory().getChestplate());
                 if(armor != null) {
                     if (armor instanceof FnChestPlate) {
@@ -89,7 +89,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 27) {
+            if(ThreadLocalRandom.current().nextInt(100) < 31) {
                 SlimefunItem leggings = SlimefunItem.getByItem(p.getInventory().getLeggings());
                 if (leggings != null) {
                     if (leggings instanceof FnLeggings) {
@@ -98,7 +98,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 31) {
+            if(ThreadLocalRandom.current().nextInt(100) < 34) {
                 SlimefunItem helmet = SlimefunItem.getByItem(p.getInventory().getHelmet());
                 if (helmet != null) {
                     if (helmet instanceof FnHelmet) {
@@ -107,7 +107,7 @@ public class GearListener implements Listener {
                 }
             }
 
-            if(ThreadLocalRandom.current().nextInt(100) < 33) {
+            if(ThreadLocalRandom.current().nextInt(100) < 35) {
                 SlimefunItem boots = SlimefunItem.getByItem(p.getInventory().getBoots());
                 if (boots != null) {
                     if (boots instanceof FnBoots) {

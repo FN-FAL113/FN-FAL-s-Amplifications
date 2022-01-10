@@ -14,8 +14,12 @@ SMG-Recipe-Integration: true
 # This will only work if server is running 1.17 and value is set to true
 New-Recipe-Integration: true
 
+# Armor Effects Update, the time to update the armor effects in seconds (i.e FN Gears of Friction permanent effects)
+armor-update-period: 10
+
 # Slimefun Custom addon by FN_FAL113, huge thanks to Walshy and Jeff (LiteXpansion) for letting me use their utils
 # You can change the values here, it requires server restart to take effect.
+
 
 # FN Power Xpansion Rank 1
 FN-Xpansion-Rank1-Dayrate: 236
