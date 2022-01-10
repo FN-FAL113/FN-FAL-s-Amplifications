@@ -114,6 +114,14 @@ public class FnChestPlate extends SlimefunItem {
             lore.add(7, ChatColor.YELLOW + "Armor Level: " + armorLevel);
             lore.add(8, ChatColor.YELLOW + "Progress:");
             lore.add(9, ChatColor.GRAY + "[" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + ChatColor.GRAY + "]");
+
+            if(armorLevel >= 30) {
+                lore.add(10,"");
+                lore.add(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""
+                        + ChatColor.BOLD + "Effects " + ChatColor.GOLD + "|◬◬◬◬◬◬");
+                lore.add(12, ChatColor.GREEN + "Permanent Saturation");
+            }
+
             meta.setLore(lore);
             itemStack.setItemMeta(meta);
         }
@@ -134,6 +142,14 @@ public class FnChestPlate extends SlimefunItem {
             lore.set(7, ChatColor.YELLOW + "Armor Level: " + totalLevel);
             lore.set(8, ChatColor.YELLOW + "Progress:");
             lore.set(9, ChatColor.GRAY + "[" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + ChatColor.GRAY + "]");
+
+            if(armorLevel >= 30) {
+                lore.set(10, "");
+                lore.set(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""
+                        + ChatColor.BOLD + "Effects " + ChatColor.GOLD + "|◬◬◬◬◬◬");
+                lore.set(12, ChatColor.GREEN + "Permanent Saturation");
+            }
+
             max.set(key3, PersistentDataType.INTEGER, maxReq + 120);
             meta.setLore(lore);
             itemStack.setItemMeta(meta);
