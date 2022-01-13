@@ -117,9 +117,9 @@ public class StaffOfHealing extends SlimefunItem {
 
     public static void setup(){
         new StaffOfHealing(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_HEALING, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8), new ItemStack(Material.LINGERING_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
-                SlimefunItems.MAGICAL_GLASS, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGICAL_BOOK_COVER,
-                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.RAINBOW_RUNE, 3)})
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 8), new ItemStack(Material.SPLASH_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
+                new SlimefunItemStack(SlimefunItems.BANDAGE, 8), new ItemStack(Material.BLAZE_ROD), new SlimefunItemStack(SlimefunItems.BANDAGE, 8),
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1)})
                 .register(plugin);
     }
 }
