@@ -62,6 +62,10 @@ public class MysteryStick8 extends SlimefunItem {
         ItemMeta meta = item1.getItemMeta();
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
+        if(meta == null){
+            return;
+        }
+
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         PersistentDataContainer damageAmount = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);
@@ -127,6 +131,10 @@ public class MysteryStick8 extends SlimefunItem {
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
+        if(meta == null){
+            return;
+        }
+
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
         int damageamount = damage.getOrDefault(key2, PersistentDataType.INTEGER, 0);
@@ -166,6 +174,10 @@ public class MysteryStick8 extends SlimefunItem {
         ItemMeta meta = item.getItemMeta();
         NamespacedKey key = getStorageKey();
         NamespacedKey key2 = getStorageKey2();
+        if(meta == null){
+            return;
+        }
+
         PersistentDataContainer expUsed = meta.getPersistentDataContainer();
         PersistentDataContainer damage = meta.getPersistentDataContainer();
         int xpamount = expUsed.getOrDefault(key, PersistentDataType.INTEGER, 0);

@@ -1227,6 +1227,30 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfForce()
     );
 
+    public static final SlimefunItemStack FN_STAFF_HEALING = new SlimefunItemStack(
+            "FN_STAFF_HEALING",
+            Material.BLAZE_ROD,
+            "&cStaff of Healing",
+            "",
+            "&dRight click to spawn a cloud of effect",
+            "&dthat heals entities inside the radius",
+            "&dfor 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfHealing()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_INVULNERABILITY = new SlimefunItemStack(
+            "FN_STAFF_INVULNERABILITY",
+            Material.BLAZE_ROD,
+            "&cStaff of Invulnerability",
+            "",
+            "&dRight click to spawn a cloud of effect",
+            "&dthat protects entities inside the radius",
+            "&dfrom damage for 8 seconds",
+            "",
+            "&eUses left: " + value.staffOfInvulnerable()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,

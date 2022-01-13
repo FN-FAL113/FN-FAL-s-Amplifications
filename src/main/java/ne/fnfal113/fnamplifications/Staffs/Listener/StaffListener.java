@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Staffs.*;
 import org.bukkit.*;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SkeletonHorse;
@@ -64,6 +65,24 @@ public class StaffListener implements Listener {
         if (Objects.equals(event.getEntity().getCustomName(), "FN_BACKWARD_FORCE")){
             for(LivingEntity entity : event.getAffectedEntities()){
                 entity.setVelocity(entity.getLocation().clone().getDirection().multiply(-8).setY(0));
+            }
+        }
+
+        if (Objects.equals(event.getEntity().getCustomName(), "FN_HEALING")){
+            for(LivingEntity entity : event.getAffectedEntities()){
+                boolean health = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH) != null;
+                if(health) {
+                    double maxHealth = Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
+                    if (entity.getHealth() < maxHealth - 2) {
+                        entity.setHealth(entity.getHealth() + 2);
+                    }
+                }
+            }
+        }
+
+        if (Objects.equals(event.getEntity().getCustomName(), "FN_INVULNERABILITY")){
+            for(LivingEntity entity : event.getAffectedEntities()){
+                entity.setNoDamageTicks(40);
             }
         }
 
@@ -135,6 +154,18 @@ public class StaffListener implements Listener {
         if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfForce) {
                 ((StaffOfForce) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfHealing) {
+                ((StaffOfHealing) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfInvulnerability) {
+                ((StaffOfInvulnerability) stick).onRightClick(e);
             }
         }
 

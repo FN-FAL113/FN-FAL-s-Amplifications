@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 
 import ne.fnfal113.fnamplifications.MysteriousItems.*;
 import org.bukkit.ChatColor;
-import org.bukkit.Effect;
 
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -263,7 +262,6 @@ public class MysteryStickListener implements Listener {
 
     public void setLevelReq(int level) {
         this.level = level;
-
     }
 
     public int getLevelReq() {

@@ -146,6 +146,8 @@ public final class FNAmpItemSetup {
         StaffOfGravitationalPull.setup();
         StaffOfStallion.setup();
         StaffOfForce.setup();
+        StaffOfHealing.setup();
+        StaffOfInvulnerability.setup();
     }
 
     public void registerQuiver(){
