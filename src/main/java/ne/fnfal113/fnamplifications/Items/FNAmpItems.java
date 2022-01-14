@@ -1233,8 +1233,8 @@ public class FNAmpItems {
             "&cStaff of Healing",
             "",
             "&dRight click to spawn a cloud of effect",
-            "&dthat heals entities inside the radius",
-            "&dfor 8 seconds",
+            "&dthat heals the caster only if inside the",
+            "&dradius for 8 seconds",
             "",
             "&eUses left: " + value.staffOfHealing()
     );
@@ -1249,6 +1249,29 @@ public class FNAmpItems {
             "&dfrom damage for 8 seconds",
             "",
             "&eUses left: " + value.staffOfInvulnerable()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_EXPLOSION = new SlimefunItemStack(
+            "FN_STAFF_EXPLOSION",
+            Material.BLAZE_ROD,
+            "&cStaff of Explosion",
+            "",
+            "&dRight click a target block to",
+            "&dyield an explosion causing damage",
+            "",
+            "&eUses left: " + value.staffOfExplosion()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_MUSTER = new SlimefunItemStack(
+            "FN_STAFF_MUSTER",
+            Material.BLAZE_ROD,
+            "&cStaff of Muster",
+            "",
+            "&dRight click a target block to teleport",
+            "&dnearby entities that are on ground",
+            "&dwithin 50 block radius",
+            "",
+            "&eUses left: " + value.staffOfMuster()
     );
 
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(

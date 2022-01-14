@@ -14,46 +14,35 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.AreaEffectCloud;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfHealing extends SlimefunItem {
+public class StaffOfExplosion extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private static final ReturnConfValue value = new ReturnConfValue();
 
     private final NamespacedKey defaultUsageKey;
-    private final NamespacedKey defaultUsageKey2;
 
-    public StaffOfHealing(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public StaffOfExplosion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "healingstaff");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "cloudfn");
+        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "explosionstaff");
     }
 
     protected @Nonnull
     NamespacedKey getStorageKey() {
         return defaultUsageKey;
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey2() {
-        return defaultUsageKey2;
     }
 
     public void onRightClick(PlayerInteractEvent event){
@@ -71,7 +60,7 @@ public class StaffOfHealing extends SlimefunItem {
                 block,
                 Interaction.BREAK_BLOCK)
         ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast healing there!");
+            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast explosion there!");
             return;
         }
 
@@ -79,19 +68,11 @@ public class StaffOfHealing extends SlimefunItem {
             return;
         }
 
+        block.getWorld().createExplosion(block.getLocation().clone().add(0.5, 1, 0.5), 2, false, false);
+
         ItemMeta meta = item.getItemMeta();
 
         updateMeta(item, meta, key, player);
-
-        AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
-        effectCloud.setParticle(Particle.HEART);
-        effectCloud.setDuration(160);
-        effectCloud.setRadius(2.85F);
-        effectCloud.setCustomName("FN_HEALING");
-        effectCloud.setCustomNameVisible(false);
-        effectCloud.setReapplicationDelay(0);
-        effectCloud.getPersistentDataContainer().set(getStorageKey2(), PersistentDataType.STRING, player.getName());
-        effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0 , 0, false, false, false), true);
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
@@ -99,7 +80,7 @@ public class StaffOfHealing extends SlimefunItem {
 
     public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfHealing());
+        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfExplosion());
         int decrement = uses_Left - 1;
 
         List<String> lore = new ArrayList<>();
@@ -107,16 +88,15 @@ public class StaffOfHealing extends SlimefunItem {
         if(decrement > 0) {
             max_Uses.set(key, PersistentDataType.INTEGER, decrement);
             lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to spawn a cloud of effect");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "that heals the caster only if inside the");
-            lore.add(3, ChatColor.LIGHT_PURPLE + "radius for 8 seconds");
-            lore.add(4, "");
-            lore.add(5, ChatColor.YELLOW + "Uses left: " + decrement);
+            lore.add(1, ChatColor.LIGHT_PURPLE + "Right click a target block to");
+            lore.add(2, ChatColor.LIGHT_PURPLE + "yield an explosion causing damage");
+            lore.add(3, "");
+            lore.add(4, ChatColor.YELLOW + "Uses left: " + decrement);
             meta.setLore(lore);
             item.setItemMeta(meta);
         } else {
             player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lHealing staff has reached max uses!"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lExplosion staff has reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
 
@@ -124,10 +104,11 @@ public class StaffOfHealing extends SlimefunItem {
     }
 
     public static void setup(){
-        new StaffOfHealing(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_HEALING, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 8), new ItemStack(Material.SPLASH_POTION), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 8),
-                new SlimefunItemStack(SlimefunItems.BANDAGE, 8), new ItemStack(Material.BLAZE_ROD), new SlimefunItemStack(SlimefunItems.BANDAGE, 8),
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1)})
+        new StaffOfExplosion(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_EXPLOSION, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3), new ItemStack(Material.TNT, 8), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3),
+                SlimefunItems.MAGIC_SUGAR, new ItemStack(Material.BLAZE_ROD), SlimefunItems.MAGIC_SUGAR,
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 12), new ItemStack(Material.GUNPOWDER, 16), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 12)})
                 .register(plugin);
     }
+
 }
