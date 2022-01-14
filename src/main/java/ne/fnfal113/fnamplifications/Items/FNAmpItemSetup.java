@@ -148,6 +148,8 @@ public final class FNAmpItemSetup {
         StaffOfForce.setup();
         StaffOfHealing.setup();
         StaffOfInvulnerability.setup();
+        StaffOfExplosion.setup();
+        StaffOfMuster.setup();
     }
 
     public void registerQuiver(){

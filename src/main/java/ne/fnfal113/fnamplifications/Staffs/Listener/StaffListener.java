@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -69,12 +70,15 @@ public class StaffListener implements Listener {
         }
 
         if (Objects.equals(event.getEntity().getCustomName(), "FN_HEALING")){
+            String playerCaster = event.getEntity().getPersistentDataContainer().get(new NamespacedKey(FNAmplifications.getInstance(), "cloudfn"), PersistentDataType.STRING);
             for(LivingEntity entity : event.getAffectedEntities()){
                 boolean health = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH) != null;
-                if(health) {
-                    double maxHealth = Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
-                    if (entity.getHealth() < maxHealth - 2) {
-                        entity.setHealth(entity.getHealth() + 2);
+                if(entity instanceof Player) {
+                    if (entity.getName().equals(playerCaster) && health) {
+                        double maxHealth = Objects.requireNonNull(entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
+                        if (entity.getHealth() < maxHealth - 2) {
+                            entity.setHealth(entity.getHealth() + 2);
+                        }
                     }
                 }
             }
@@ -166,6 +170,18 @@ public class StaffListener implements Listener {
         if (actionRight && e.getHand() == EquipmentSlot.HAND) {
             if (stick instanceof StaffOfInvulnerability) {
                 ((StaffOfInvulnerability) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfExplosion) {
+                ((StaffOfExplosion) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfMuster) {
+                ((StaffOfMuster) stick).onRightClick(e);
             }
         }
 
