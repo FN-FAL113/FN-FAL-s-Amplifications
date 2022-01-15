@@ -1274,6 +1274,30 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfMuster()
     );
 
+    public static final SlimefunItemStack FN_STAFF_AWARENESS = new SlimefunItemStack(
+            "FN_STAFF_AWARENESS",
+            Material.BLAZE_ROD,
+            "&cStaff of Awareness",
+            "",
+            "&dRight click to receive information",
+            "&dregarding the nearest players around",
+            "&d50 block radius",
+            "",
+            "&eUses left: " + value.staffOfAwareness()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_MINERALS = new SlimefunItemStack(
+            "FN_STAFF_MINERALS",
+            Material.BLAZE_ROD,
+            "&cStaff of Minerals",
+            "",
+            "&dRight click to receive mythical",
+            "&dinformation that awaits upon using",
+            "&dthe staff",
+            "",
+            "&eUses left: " + value.staffOfMinerals()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
@@ -1284,7 +1308,7 @@ public class FNAmpItems {
             "&dshift click quiver to withdraw",
             "",
             "&eLeft/Right click to change state",
-            "&eSize: 128 Arrows",
+            "&eSize: 192 Arrows",
             "&eArrows: " + ChatColor.WHITE + "0"
     );
 
@@ -1298,7 +1322,7 @@ public class FNAmpItems {
             "&dshift click quiver to withdraw",
             "",
             "&eLeft/Right click to change state",
-            "&eSize: 128 Spectral Arrows",
+            "&eSize: 192 Spectral Arrows",
             "&eArrows: " + ChatColor.WHITE + "0"
     );
 
@@ -1312,7 +1336,7 @@ public class FNAmpItems {
             "&dshift click to withdraw",
             "",
             "&eLeft/Right click to change state",
-            "&eSize: 192 Arrows",
+            "&eSize: 288 Arrows",
             "&eArrows: " + ChatColor.WHITE + "0"
     );
 
@@ -1326,7 +1350,7 @@ public class FNAmpItems {
             "&dshift click quiver to withdraw",
             "",
             "&eLeft/Right click to change state",
-            "&eSize: 192 Arrows",
+            "&eSize: 288 Arrows",
             "&eArrows: " + ChatColor.WHITE + "0"
     );
 

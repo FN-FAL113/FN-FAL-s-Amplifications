@@ -87,7 +87,7 @@ public class SpectralQuiver extends SlimefunItem {
                 lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
                 lore.add(4, "");
                 lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-                lore.add(6, ChatColor.YELLOW + "Size: 128 Spectral Arrows");
+                lore.add(6, ChatColor.YELLOW + "Size: 192 Spectral Arrows");
                 lore.add(7, ChatColor.YELLOW + "Arrows: " + ChatColor.WHITE + arrowsCheckPDC);
                 lore.add(8,  ChatColor.YELLOW + "State: Open Quiver");
                 arrowMeta.setLore(lore);
@@ -110,7 +110,7 @@ public class SpectralQuiver extends SlimefunItem {
                 lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
                 lore.add(4, "");
                 lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-                lore.add(6, ChatColor.YELLOW + "Size: 128 Spectral Arrows");
+                lore.add(6, ChatColor.YELLOW + "Size: 192 Spectral Arrows");
                 lore.add(7, ChatColor.YELLOW + "Arrows: " + ChatColor.WHITE + arrowsCheckPDC);
                 lore.add(8, ChatColor.YELLOW + "State: Closed Quiver");
                 arrowMeta.setLore(lore);
@@ -141,7 +141,7 @@ public class SpectralQuiver extends SlimefunItem {
                             PersistentDataContainer arrow_Left = meta.getPersistentDataContainer();
                             int arrows = arrow_Left.getOrDefault(key, PersistentDataType.INTEGER, 0);
 
-                            if (arrows != 128) {
+                            if (arrows != 192) {
                                 updateMetaArrows(itemStack, meta, key, key2, player);
                                 break;
                             }
@@ -165,11 +165,12 @@ public class SpectralQuiver extends SlimefunItem {
         lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
         lore.add(4, "");
         lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-        lore.add(6, ChatColor.YELLOW + "Size: 128 Spectral Arrows");
+        lore.add(6, ChatColor.YELLOW + "Size: 192 Spectral Arrows");
         lore.add(7, ChatColor.YELLOW + "Arrows: " + ChatColor.WHITE + amount);
         if(amount == 0){
             lore.add(8, ChatColor.YELLOW + "State: Closed Quiver (Empty)");
             itemState.setType(Material.LEATHER);
+            player.sendMessage(ChatColor.GOLD + "Spectral Quiver is now empty");
         } else if (itemState.getType() == Material.SPECTRAL_ARROW){
             lore.add(8, ChatColor.YELLOW + "State: Open Quiver");
         } else {
@@ -188,7 +189,7 @@ public class SpectralQuiver extends SlimefunItem {
 
         List<String> lore = new ArrayList<>();
 
-        if (increment != 129) {
+        if (increment != 193) {
             arrow_Left.set(key, PersistentDataType.INTEGER, increment);
             lore.add(0, "");
             lore.add(1, ChatColor.LIGHT_PURPLE + "Store inside the quiver by");
@@ -196,7 +197,7 @@ public class SpectralQuiver extends SlimefunItem {
             lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
             lore.add(4, "");
             lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-            lore.add(6, ChatColor.YELLOW + "Size: 128 Spectral Arrows");
+            lore.add(6, ChatColor.YELLOW + "Size: 192 Spectral Arrows");
             lore.add(7, ChatColor.YELLOW + "Arrows: " + ChatColor.WHITE + increment);
             lore.add(8, ChatColor.YELLOW + "State: Open Quiver");
             meta.setLore(lore);
@@ -208,7 +209,7 @@ public class SpectralQuiver extends SlimefunItem {
             item.setType(Material.SPECTRAL_ARROW);
             itemStack.setAmount(itemStack.getAmount() - 1);
 
-            if(increment == 128){
+            if(increment == 192){
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lQuiver (Spectral) is full!"));
             }
 
@@ -249,7 +250,7 @@ public class SpectralQuiver extends SlimefunItem {
                 lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
                 lore.add(4, "");
                 lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-                lore.add(6, ChatColor.YELLOW + "Size: 128 Spectral Arrows");
+                lore.add(6, ChatColor.YELLOW + "Size: 192 Spectral Arrows");
                 lore.add(7, ChatColor.YELLOW + "Arrows: " + ChatColor.WHITE + decrement);
                 lore.add(8, ChatColor.YELLOW + "State: Open Quiver");
                 meta.setLore(lore);
@@ -260,6 +261,7 @@ public class SpectralQuiver extends SlimefunItem {
                     lore.set(8, ChatColor.YELLOW + "State: Closed Quiver (Empty)");
                     meta.setLore(lore);
                     itemStack.setItemMeta(meta);
+                    player.sendMessage(ChatColor.GOLD + "Spectral Quiver is now empty");
                 }
             }
 
