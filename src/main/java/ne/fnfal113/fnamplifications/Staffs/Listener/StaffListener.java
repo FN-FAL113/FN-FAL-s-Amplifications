@@ -185,7 +185,28 @@ public class StaffListener implements Listener {
             }
         }
 
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfAwareness) {
+                ((StaffOfAwareness) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfMinerals) {
+                ((StaffOfMinerals) stick).onRightClick(e);
+            }
+        }
+
     }
+
+    // For Staff of Minerals, removed in favor of written book
+    /*@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onInteract(InventoryClickEvent event){
+        InventoryView inventoryView = event.getView();
+        if(inventoryView.getTitle().equals("Staff of Minerals")){
+            event.setCancelled(true);
+        }
+    }*/
 
     @EventHandler
     public void onPlayerDismount(VehicleExitEvent event){
