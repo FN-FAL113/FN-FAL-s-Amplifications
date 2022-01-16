@@ -197,6 +197,18 @@ public class StaffListener implements Listener {
             }
         }
 
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfFangs) {
+                ((StaffOfFangs) stick).onRightClick(e);
+            }
+        }
+
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfSkulls) {
+                ((StaffOfSkulls) stick).onRightClick(e);
+            }
+        }
+
     }
 
     // For Staff of Minerals, removed in favor of written book

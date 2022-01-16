@@ -1298,6 +1298,29 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfMinerals()
     );
 
+    public static final SlimefunItemStack FN_STAFF_FANGS = new SlimefunItemStack(
+            "FN_STAFF_FANGS",
+            Material.BLAZE_ROD,
+            "&cStaff of Fangs",
+            "",
+            "&dRight click a target block to",
+            "&dspawn evoker fangs that causes",
+            "&ddamage to entities",
+            "",
+            "&eUses left: " + value.staffOfFangs()
+    );
+
+    public static final SlimefunItemStack FN_STAFF_SKULLS = new SlimefunItemStack(
+            "FN_STAFF_SKULLS",
+            Material.BLAZE_ROD,
+            "&cStaff of Skulls",
+            "",
+            "&dRight click to launch",
+            "&dwither skull projectiles",
+            "",
+            "&eUses left: " + value.staffOfSkulls()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
