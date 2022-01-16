@@ -453,6 +453,14 @@ public class ReturnConfValue {
         return config.getInt("Staff-of-Minerals");
     }
 
+    public int staffOfFangs() {
+        return config.getInt("Staff-of-Fangs");
+    }
+
+    public int staffOfSkulls() {
+        return config.getInt("Staff-of-Skulls");
+    }
+
     public boolean fnHelmetUnbreakable(){
         return config.getBoolean("FN-Helmet-Unbreakable");
     }

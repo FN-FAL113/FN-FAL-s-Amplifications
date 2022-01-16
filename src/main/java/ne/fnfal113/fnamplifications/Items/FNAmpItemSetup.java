@@ -152,6 +152,8 @@ public final class FNAmpItemSetup {
         StaffOfMuster.setup();
         StaffOfAwareness.setup();
         StaffOfMinerals.setup();
+        StaffOfFangs.setup();
+        StaffOfSkulls.setup();
     }
 
     public void registerQuiver(){
