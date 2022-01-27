@@ -10,8 +10,8 @@ import ne.fnfal113.fnamplifications.Gears.Runnables.ArmorEquipRunnable;
 import ne.fnfal113.fnamplifications.MysteriousItems.Listeners.MysteryStickListener;
 import ne.fnfal113.fnamplifications.Quiver.Listener.QuiverListener;
 import ne.fnfal113.fnamplifications.Staffs.Listener.StaffListener;
+import ne.fnfal113.fnamplifications.Tools.Listener.HoeListener;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
@@ -39,6 +39,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new GearListener(), this);
         getServer().getPluginManager().registerEvents(new StaffListener(), this);
         getServer().getPluginManager().registerEvents(new QuiverListener(), this);
+        getServer().getPluginManager().registerEvents(new HoeListener(), this);
         getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
         getConfig().options().copyDefaults();

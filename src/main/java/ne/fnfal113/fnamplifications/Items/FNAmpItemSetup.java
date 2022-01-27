@@ -20,6 +20,7 @@ import ne.fnfal113.fnamplifications.Quiver.SpectralQuiver;
 import ne.fnfal113.fnamplifications.Quiver.UpgradedQuiver;
 import ne.fnfal113.fnamplifications.Quiver.UpgradedSpectralQuiver;
 import ne.fnfal113.fnamplifications.Staffs.*;
+import ne.fnfal113.fnamplifications.Tools.FnHoe;
 
 public final class FNAmpItemSetup {
 
@@ -52,6 +53,7 @@ public final class FNAmpItemSetup {
         registerGear();
         registerStaff();
         registerQuiver();
+        registerTools();
     }
 
     private void registerPowerGens() {
@@ -161,5 +163,9 @@ public final class FNAmpItemSetup {
         SpectralQuiver.setup();
         UpgradedQuiver.setup();
         UpgradedSpectralQuiver.setup();
+    }
+
+    public void registerTools(){
+        FnHoe.setup();
     }
 }
