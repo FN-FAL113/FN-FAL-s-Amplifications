@@ -199,6 +199,7 @@ Staff-of-Awareness: 10
 Staff-of-Minerals: 10
 Staff-of-Fangs: 10
 Staff-of-Skulls: 10
+Staff-of-AirStrider: 10
 
 # FN Gears of Friction (Unbreakability)
 # Default is set to false (if set to true, will apply only on newly crafted gears)

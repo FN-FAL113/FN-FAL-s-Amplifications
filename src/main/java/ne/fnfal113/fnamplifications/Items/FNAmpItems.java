@@ -1321,6 +1321,17 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfSkulls()
     );
 
+    public static final SlimefunItemStack FN_STAFF_AIR_STRIDER = new SlimefunItemStack(
+            "FN_STAFF_AIR_STRIDER",
+            Material.BLAZE_ROD,
+            "&cStaff of Air Strider",
+            "",
+            "&dRight click to gain the ability to",
+            "&dwalk on the air for 10 seconds",
+            "",
+            "&eUses left: " + value.staffOfAirStrider()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,

@@ -156,6 +156,7 @@ public final class FNAmpItemSetup {
         StaffOfMinerals.setup();
         StaffOfFangs.setup();
         StaffOfSkulls.setup();
+        StaffOfAirStrider.setup();
     }
 
     public void registerQuiver(){

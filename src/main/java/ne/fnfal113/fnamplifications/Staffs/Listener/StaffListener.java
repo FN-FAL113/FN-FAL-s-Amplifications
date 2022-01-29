@@ -1,10 +1,13 @@
 package ne.fnfal113.fnamplifications.Staffs.Listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Staffs.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SkeletonHorse;
@@ -15,14 +18,21 @@ import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class StaffListener implements Listener {
+
+    private final Map<UUID, Block> blockMap = new HashMap<>();
+    private final Map<UUID, Long> cooldown = new HashMap<>();
 
     @EventHandler
     public void onApply(AreaEffectCloudApplyEvent event){
@@ -209,6 +219,53 @@ public class StaffListener implements Listener {
             }
         }
 
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfAirStrider) {
+                if(cooldown.containsKey(p.getUniqueId())) {
+                    long diff = (System.currentTimeMillis() - cooldown.get(p.getUniqueId())) / 1000;
+                    if(diff < 10) {
+                        p.sendMessage(ChatColor.GOLD + "in cooldown! please wait: " + ChatColor.YELLOW + (10 - diff)
+                               + ChatColor.GOLD + " seconds to use the staff again");
+                    }
+                } else{
+                    if(Slimefun.getProtectionManager().hasPermission
+                            (Bukkit.getOfflinePlayer(p.getUniqueId()), p.getLocation(), Interaction.PLACE_BLOCK)) {
+                        ((StaffOfAirStrider) stick).onRightClick(e);
+                        p.sendMessage(ChatColor.LIGHT_PURPLE + "You can now walk on the air for 10 seconds");
+                        cooldown.put(p.getUniqueId(), System.currentTimeMillis());
+                    } else{
+                        p.sendMessage(ChatColor.RED  + "You have no permission to cast air strider on this land claim!");
+                    }
+                }
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event){
+        Player player = event.getPlayer();
+        if(cooldown.containsKey(player.getUniqueId())){
+            long diff = (System.currentTimeMillis() - cooldown.get(player.getUniqueId())) / 1000;
+            if(diff < 10) {
+                if (blockMap.containsKey(player.getUniqueId())) {
+                    Block block = blockMap.get(player.getUniqueId());
+                    block.setType(Material.AIR);
+                    blockMap.remove(player.getUniqueId());
+                } // remove the last block saved from the hashmap
+                Block newBlock = player.getLocation().getBlock().getRelative(0, -1, 0);
+                if (newBlock.getType() == Material.AIR) {
+                    newBlock.setType(Material.BARRIER);
+                    blockMap.put(player.getUniqueId(), newBlock);
+                }// check if relative block below the player is air}
+            } // cooldown check
+            else {
+                Block block = blockMap.get(player.getUniqueId());
+                block.setType(Material.AIR);
+                cooldown.remove(player.getUniqueId());
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Air Strider has expired!");
+            }
+        } // cooldown map key check
     }
 
     // For Staff of Minerals, removed in favor of written book
