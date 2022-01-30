@@ -224,8 +224,8 @@ public class StaffListener implements Listener {
                 if(cooldown.containsKey(p.getUniqueId())) {
                     long diff = (System.currentTimeMillis() - cooldown.get(p.getUniqueId())) / 1000;
                     if(diff < 10) {
-                        p.sendMessage(ChatColor.GOLD + "in cooldown! please wait: " + ChatColor.YELLOW + (10 - diff)
-                               + ChatColor.GOLD + " seconds to use the staff again");
+                        p.sendMessage(ChatColor.GOLD + "Air strider will expire in " + ChatColor.YELLOW + (10 - diff)
+                               + ChatColor.GOLD + " seconds, after that you can use the staff again");
                     }
                 } else{
                     if(Slimefun.getProtectionManager().hasPermission
@@ -250,18 +250,22 @@ public class StaffListener implements Listener {
             if(diff < 10) {
                 if (blockMap.containsKey(player.getUniqueId())) {
                     Block block = blockMap.get(player.getUniqueId());
-                    block.setType(Material.AIR);
+                    if(block != null) {
+                        block.setType(Material.AIR);
+                    }
                     blockMap.remove(player.getUniqueId());
                 } // remove the last block saved from the hashmap
                 Block newBlock = player.getLocation().getBlock().getRelative(0, -1, 0);
                 if (newBlock.getType() == Material.AIR) {
                     newBlock.setType(Material.BARRIER);
                     blockMap.put(player.getUniqueId(), newBlock);
-                }// check if relative block below the player is air}
+                }// check if relative block below the player is air
             } // cooldown check
             else {
                 Block block = blockMap.get(player.getUniqueId());
-                block.setType(Material.AIR);
+                if(block != null) {
+                    block.setType(Material.AIR);
+                }
                 cooldown.remove(player.getUniqueId());
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Air Strider has expired!");
             }

@@ -3,10 +3,10 @@ package ne.fnfal113.fnamplifications.Tools.Listener;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Tools.FnHoe;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
@@ -26,6 +26,13 @@ public class HoeListener implements Listener {
             Material.DIRT,
             Material.DIRT_PATH,
             Material.GRASS_BLOCK
+    );
+
+    private final Set<Material> grass = EnumSet.of(
+            Material.GRASS,
+            Material.FERN,
+            Material.LARGE_FERN,
+            Material.TALL_GRASS
     );
 
     @EventHandler
@@ -50,7 +57,6 @@ public class HoeListener implements Listener {
                     int x = 0, z = 0, i = 0, j = 0;
 
                     if(yaw > -135 && yaw < -45){
-                        x = 0;
                         i = 5;
                         z = -2;
                         j = 3;
@@ -76,18 +82,21 @@ public class HoeListener implements Listener {
                     if(checkBlock && rightClick){
                         for (int a = x; a < i; a++) {
                             for (int b = z; b < j; b++) {
-                                int finalA = a;
-                                int finalB = b;
-                                Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                                    if (dirtBlocks.contains(clickedBlock.getRelative(finalA, 0, finalB).getType())){
-                                        if(Slimefun.getProtectionManager().hasPermission
-                                                (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(finalA, 0, finalB), Interaction.INTERACT_BLOCK)){
+                                if (dirtBlocks.contains(clickedBlock.getRelative(a, 0, b).getType())){
+                                    if(Slimefun.getProtectionManager().hasPermission
+                                            (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.INTERACT_BLOCK)){
 
-                                            clickedBlock.getRelative(finalA, 0, finalB).setType(Material.FARMLAND);
-                                        } // perm check
-                                    } // check the necessary block
-                                }, 2L);
+                                        clickedBlock.getRelative(a, 0, b).setType(Material.FARMLAND);
+                                         if(grass.contains(clickedBlock.getRelative(a, 1, b).getType()) ||
+                                                 Tag.FLOWERS.isTagged(clickedBlock.getRelative(a, 1, b).getType()) ||
+                                                 Tag.SMALL_FLOWERS.isTagged(clickedBlock.getRelative(a, 1, b).getType()) ||
+                                                 Tag.TALL_FLOWERS.isTagged(clickedBlock.getRelative(a, 1, b).getType()) ||
+                                                 Tag.SAPLINGS.isTagged(clickedBlock.getRelative(a, 1, b).getType())){
 
+                                             clickedBlock.getRelative(a, 1, b).breakNaturally();
+                                         } // check if grass above the farmland exist
+                                    } // perm check
+                                } // check the necessary block
                             } // z axis loop
                         } // x axis loop
 
@@ -96,19 +105,14 @@ public class HoeListener implements Listener {
                     if(leftClick && checkBlockLeftClick && clickedBlock.getBlockData() instanceof Ageable){
                         for (int a = x; a < i; a++) {
                             for (int b = z; b < j; b++) {
-                                int finalA = a;
-                                int finalB = b;
-                                Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                                    if (clickedBlock.getRelative(finalA, 0, finalB).getBlockData() instanceof Ageable){
-                                        if(Slimefun.getProtectionManager().hasPermission
-                                                (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(finalA, 0, finalB), Interaction.BREAK_BLOCK)){
+                                if (Tag.CROPS.isTagged(clickedBlock.getRelative(a, 0, b).getType()) &&
+                                        clickedBlock.getRelative(a, 0, b).getBlockData() instanceof Ageable){
+                                    if(Slimefun.getProtectionManager().hasPermission
+                                            (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.BREAK_BLOCK)){
 
-                                            clickedBlock.getRelative(finalA, 0, finalB).getLocation().
-                                                    setDirection(player.getLocation().getDirection()).getBlock().breakNaturally();
-                                        } // perm check
-                                    } // check if block is a crop
-                                }, 2L);
-
+                                        clickedBlock.getRelative(a, 0, b).breakNaturally();
+                                    } // perm check
+                                } // check if block is a crop
                             } // z axis loop
                         } // x axis loop
                     }
