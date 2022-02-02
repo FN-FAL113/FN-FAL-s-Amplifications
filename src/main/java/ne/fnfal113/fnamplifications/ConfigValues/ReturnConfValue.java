@@ -465,6 +465,10 @@ public class ReturnConfValue {
         return config.getInt("Staff-of-AirStrider");
     }
 
+    public int staffOfCobWebs() {
+        return config.getInt("Staff-of-Cobwebs");
+    }
+
     public boolean fnHelmetUnbreakable(){
         return config.getBoolean("FN-Helmet-Unbreakable");
     }

@@ -285,7 +285,7 @@ public class UpgradedQuiver extends SlimefunItem {
 
     public static void setup() {
         new UpgradedQuiver(FNAmpItems.FN_MISC, FNAmpItems.FN_UPGRADED_QUIVER, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.LEAD_INGOT, 5), FNAmpItems.FN_UPGRADED_QUIVER, new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 5),
+                new SlimefunItemStack(SlimefunItems.LEAD_INGOT, 5), FNAmpItems.FN_QUIVER, new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 5),
                 new ItemStack(Material.STRING, 32), new ItemStack(Material.STICK, 48),  new ItemStack(Material.STRING, 32),
                 new SlimefunItemStack(SlimefunItems.LEAD_INGOT, 5), new ItemStack(Material.LEATHER, 32), new SlimefunItemStack(SlimefunItems.BRONZE_INGOT, 5)})
                 .register(plugin);
