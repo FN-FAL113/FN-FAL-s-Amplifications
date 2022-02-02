@@ -12,19 +12,19 @@ import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class FnHoe extends SlimefunItem {
+public class FnHoeAutoPlant extends SlimefunItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    public FnHoe(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public FnHoeAutoPlant(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
     }
 
     public static void setup(){
-        new FnHoe(FNAmpItems.FN_MISC, FNAmpItems.FN_HOE_5X5, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 4), SlimefunItems.COMMON_TALISMAN,
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3),
-                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new SlimefunItemStack(SlimefunItems.CARBON, 4), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
+        new FnHoeAutoPlant(FNAmpItems.FN_MISC, FNAmpItems.FN_HOE_5X5_AUTO_PLANT, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 6), SlimefunItems.COMMON_TALISMAN,
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7),
+                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14), new SlimefunItemStack(SlimefunItems.CARBON, 6), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14)})
                 .register(plugin);
     }
 }

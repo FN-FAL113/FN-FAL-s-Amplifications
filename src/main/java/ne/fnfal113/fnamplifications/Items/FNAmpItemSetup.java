@@ -21,6 +21,7 @@ import ne.fnfal113.fnamplifications.Quiver.UpgradedQuiver;
 import ne.fnfal113.fnamplifications.Quiver.UpgradedSpectralQuiver;
 import ne.fnfal113.fnamplifications.Staffs.*;
 import ne.fnfal113.fnamplifications.Tools.FnHoe;
+import ne.fnfal113.fnamplifications.Tools.FnHoeAutoPlant;
 
 public final class FNAmpItemSetup {
 
@@ -157,6 +158,7 @@ public final class FNAmpItemSetup {
         StaffOfFangs.setup();
         StaffOfSkulls.setup();
         StaffOfAirStrider.setup();
+        StaffOfWebs.setup();
     }
 
     public void registerQuiver(){
@@ -168,5 +170,6 @@ public final class FNAmpItemSetup {
 
     public void registerTools(){
         FnHoe.setup();
+        FnHoeAutoPlant.setup();
     }
 }

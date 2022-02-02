@@ -240,6 +240,12 @@ public class StaffListener implements Listener {
             }
         }
 
+        if (actionRight && e.getHand() == EquipmentSlot.HAND) {
+            if (stick instanceof StaffOfWebs) {
+                ((StaffOfWebs) stick).onRightClick(e);
+            }
+        }
+
     }
 
     @EventHandler

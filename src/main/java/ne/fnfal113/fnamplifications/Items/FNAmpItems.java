@@ -1332,6 +1332,17 @@ public class FNAmpItems {
             "&eUses left: " + value.staffOfAirStrider()
     );
 
+    public static final SlimefunItemStack FN_STAFF_COBWEB = new SlimefunItemStack(
+            "FN_STAFF_COBWEB",
+            Material.BLAZE_ROD,
+            "&cStaff of Cobweb",
+            "",
+            "&dRight click a target block",
+            "&dto spawn a wall of cobwebs",
+            "",
+            "&eUses left: " + value.staffOfCobWebs()
+    );
+
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
             "FN_QUIVER",
             Material.LEATHER,
@@ -1395,6 +1406,18 @@ public class FNAmpItems {
             "",
             "&dCan soil/till land and harvest",
             "&dcrops in a 5x5 square area"
+    );
+
+    public static final SlimefunItemStack FN_HOE_5X5_AUTO_PLANT = new SlimefunItemStack(
+            "FN_HOE_5X5_AUTO_PLANT",
+            Material.DIAMOND_HOE,
+            "&cFN's Reseeding Hoe",
+            "",
+            "&dCan soil/till land and harvest",
+            "&dcrops in a 5x5 square area",
+            "",
+            "&dAuto plants if the crops are",
+            "&dharvested at maximum age"
     );
 
 }

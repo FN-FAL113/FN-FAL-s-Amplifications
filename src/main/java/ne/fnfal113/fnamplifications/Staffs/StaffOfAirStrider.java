@@ -77,7 +77,7 @@ public class StaffOfAirStrider extends SlimefunItem {
             item.setItemMeta(meta);
         } else {
             player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lAir Strider staff has reached max uses!"));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lAir strider staff has reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
 
