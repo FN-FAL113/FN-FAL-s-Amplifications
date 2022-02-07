@@ -71,10 +71,10 @@ public class MysteryStick6 extends SlimefunItem {
         int damageAll = damageAmount.getOrDefault(key2, PersistentDataType.INTEGER, 0);
 
         List<String> lore2 = new ArrayList<>();
-        meta.addEnchant(Enchantment.ARROW_DAMAGE, 7, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 5, true);
+        meta.addEnchant(Enchantment.ARROW_DAMAGE, 8, true);
+        meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
         meta.addEnchant(Enchantment.ARROW_FIRE, 6, true);
-        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 7, true);
+        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 5, true);
         meta.setUnbreakable(true);
         meta.setLore(loreUpdate(lore2, damageAll, xpamount));
         item1.setItemMeta(meta);
@@ -194,9 +194,9 @@ public class MysteryStick6 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick6(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_6, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 6), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4),
-                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 6), FNAmpItems.FN_STICK_3, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 6),
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 24), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 6), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 24)})
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2),
+                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 4), FNAmpItems.FN_STICK_3, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4),
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 24), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 3), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 24)})
                 .register(plugin);
     }
 }

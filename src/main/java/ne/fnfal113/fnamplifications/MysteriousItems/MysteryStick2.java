@@ -99,7 +99,7 @@ public class MysteryStick2 extends SlimefunItem {
         }
 
         if(player.getLevel() >= 5)  {
-            if(ThreadLocalRandom.current().nextInt(100) < 20) {
+            if(ThreadLocalRandom.current().nextInt(100) < 15) {
                 player.setLevel(player.getLevel() - 1);
             }
         }
@@ -195,9 +195,9 @@ public class MysteryStick2 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick2(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_2, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 5), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 4),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 10), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 10),
                 SlimefunItems.BLANK_RUNE, new ItemStack(Material.STICK), SlimefunItems.BLANK_RUNE,
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 4), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 5)})
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8)})
                 .register(plugin);
     }
 }

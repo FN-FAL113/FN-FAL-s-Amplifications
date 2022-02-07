@@ -74,7 +74,7 @@ public class MysteryStick5 extends SlimefunItem {
         meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 6, true);
         meta.addEnchant(Enchantment.DAMAGE_ALL, 5, true);
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 5, true);
-        meta.addEnchant(Enchantment.KNOCKBACK, 4, true);
+        meta.addEnchant(Enchantment.KNOCKBACK, 3, true);
         meta.setUnbreakable(true);
         meta.setLore(loreUpdate(lore2, damageAll, xpamount));
         item1.setItemMeta(meta);
@@ -101,7 +101,7 @@ public class MysteryStick5 extends SlimefunItem {
         }
 
         if(player.getLevel() >= 15)  {
-            if(ThreadLocalRandom.current().nextInt(100) < 25) {
+            if(ThreadLocalRandom.current().nextInt(100) < 30) {
                 player.setLevel(player.getLevel() - 2);
             }
         }
@@ -198,9 +198,9 @@ public class MysteryStick5 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick5(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_5, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 14), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 16),
-                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 6), FNAmpItems.FN_STICK_2, new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 6),
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 16), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 14)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 18), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 18),
+                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3), FNAmpItems.FN_STICK_2, new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 3),
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 18), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 18)})
                 .register(plugin);
     }
 }

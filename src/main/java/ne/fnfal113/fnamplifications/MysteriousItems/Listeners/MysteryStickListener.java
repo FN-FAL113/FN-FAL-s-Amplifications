@@ -162,7 +162,7 @@ public class MysteryStickListener implements Listener {
             if(stickBow instanceof MysteryStick3) {
                 level.setLevelReq(5);
                 if (player.getLevel() >= level.getLevelReq()) {
-                    if (ThreadLocalRandom.current().nextInt(100) < 20) {
+                    if (ThreadLocalRandom.current().nextInt(100) < 15) {
                         player.setLevel(player.getLevel() - 1);
                     }
                     ((MysteryStick3) stickBow).onSwing(e);
@@ -182,7 +182,7 @@ public class MysteryStickListener implements Listener {
             } else if (stickBow instanceof MysteryStick9) {
                 level.setLevelReq(20);
                 if (player.getLevel() >= level.getLevelReq()) {
-                    if (ThreadLocalRandom.current().nextInt(100) < 30) {
+                    if (ThreadLocalRandom.current().nextInt(100) < 35) {
                         player.setLevel(player.getLevel() - 3);
                     }
                     ((MysteryStick9) stickBow).onSwing(e);

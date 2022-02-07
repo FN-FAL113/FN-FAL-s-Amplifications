@@ -208,3 +208,12 @@ FN-Helmet-Unbreakable: false
 FN-Chestplate-Unbreakable: false
 FN-Leggings-Unbreakable: false
 FN-boots-Unbreakable: false
+
+# Gem chances of taking effect
+# Requires server restart
+Gem-Armor-Impair: 15
+Gem-Inferno: 16
+Gem-Thunderbolt: 10
+Gem-Hasty: 16
+Gem-ThornAway: 13
+Gem-Impostor: 14

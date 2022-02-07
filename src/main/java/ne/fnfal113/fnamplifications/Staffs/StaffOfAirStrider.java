@@ -10,6 +10,7 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -22,6 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StaffOfAirStrider extends SlimefunItem {
 
@@ -54,6 +56,17 @@ public class StaffOfAirStrider extends SlimefunItem {
         ItemMeta meta = item.getItemMeta();
 
         updateMeta(item, meta, key, player);
+
+        AtomicInteger i = new AtomicInteger(10);
+        Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
+            if(i.get() <= 5){
+                player.sendMessage(Utils.colorTranslator("&dAir strider will expire in ") + i + " seconds");
+            }
+            if(i.get() == 0){
+                task.cancel();
+            }
+            i.getAndDecrement();
+        },0L, 20L);
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 

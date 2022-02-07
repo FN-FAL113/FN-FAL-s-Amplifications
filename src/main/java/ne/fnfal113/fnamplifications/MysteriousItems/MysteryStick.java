@@ -194,9 +194,9 @@ public class MysteryStick extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8),
                 SlimefunItems.BLANK_RUNE, new ItemStack(Material.STICK), SlimefunItems.BLANK_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 6), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8)})
                 .register(plugin);
     }
 }

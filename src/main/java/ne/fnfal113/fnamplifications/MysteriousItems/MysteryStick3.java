@@ -72,7 +72,7 @@ public class MysteryStick3 extends SlimefunItem {
 
         List<String> lore2 = new ArrayList<>();
         meta.addEnchant(Enchantment.ARROW_DAMAGE, 3, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 4, true);
+        meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
         meta.setUnbreakable(true);
         meta.setLore(loreUpdate(lore2, damageAll, xpamount));
         item1.setItemMeta(meta);
@@ -189,9 +189,9 @@ public class MysteryStick3 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick3(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_3, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 3), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 3),
+                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1),
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 8), new ItemStack(Material.STICK), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 8),
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6), new ItemStack(Material.LEAD), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6)})
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 10), new ItemStack(Material.LEAD), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 10)})
                 .register(plugin);
     }
 }

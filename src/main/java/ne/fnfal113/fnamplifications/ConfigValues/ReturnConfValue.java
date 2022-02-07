@@ -485,4 +485,28 @@ public class ReturnConfValue {
         return config.getBoolean("FN-boots-Unbreakable");
     }
 
+    public int armorImpairGem() {
+        return config.getInt("Gem-Armor-Impair");
+    }
+
+    public int infernoGem() {
+        return config.getInt("Gem-Inferno");
+    }
+
+    public int thunderBoltGem() {
+        return config.getInt("Gem-Thunderbolt");
+    }
+
+    public int hastyGem() {
+        return config.getInt("Gem-Hasty");
+    }
+
+    public int thornAwayGem() {
+        return config.getInt("Gem-ThornAway");
+    }
+
+    public int impostorGem() {
+        return config.getInt("Gem-Impostor");
+    }
+
 }
