@@ -79,7 +79,6 @@ public class ThornAwayGem extends SlimefunItem implements GemImpl {
         }
 
         if(ThreadLocalRandom.current().nextInt(100) < value.thornAwayGem()){
-            event.getEntity().sendMessage("Thorn away took effect");
             event.setCancelled(true);
         }
 
