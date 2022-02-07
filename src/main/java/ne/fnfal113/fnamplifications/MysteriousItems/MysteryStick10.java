@@ -107,21 +107,21 @@ public class MysteryStick10 extends SlimefunItem {
         }
 
         if(player.getLevel() >= 25) {
-            if(ThreadLocalRandom.current().nextInt(100) < 35) {
+            if(ThreadLocalRandom.current().nextInt(100) < 47) {
                 player.setLevel(player.getLevel() - 4);
             }
             if(event.getEntity() instanceof LivingEntity) {
                 LivingEntity victim = (LivingEntity) event.getEntity();
-                if(ThreadLocalRandom.current().nextInt(100) < 40 && !(victim.hasPotionEffect(PotionEffectType.POISON))){
+                if(ThreadLocalRandom.current().nextInt(100) < 15 && !(victim.hasPotionEffect(PotionEffectType.POISON))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 3, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 35 && !(victim.hasPotionEffect(PotionEffectType.WITHER))){
+                if(ThreadLocalRandom.current().nextInt(100) < 13 && !(victim.hasPotionEffect(PotionEffectType.WITHER))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 3, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 30 && !(victim.hasPotionEffect(PotionEffectType.WEAKNESS))){
+                if(ThreadLocalRandom.current().nextInt(100) < 13 && !(victim.hasPotionEffect(PotionEffectType.WEAKNESS))){
                     victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 3, false, true));
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 25){
+                if(ThreadLocalRandom.current().nextInt(100) < 6){
                     int playerDefaultHealth = (int) Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
                     if(player.getHealth() < playerDefaultHealth - 2)  {
                         player.setHealth(player.getHealth() + 2);
@@ -130,7 +130,7 @@ public class MysteryStick10 extends SlimefunItem {
                         player.sendMessage(ChatColor.RED + "Make sure your hp points is below 18 for Lifesteal to proc!");
                     }
                 }
-                if(ThreadLocalRandom.current().nextInt(100) < 20){
+                if(ThreadLocalRandom.current().nextInt(100) < 8){
                     Location loc = victim.getLocation();
                     loc.setYaw(loc.getYaw() + 180);
                     victim.teleport(loc);
@@ -173,11 +173,11 @@ public class MysteryStick10 extends SlimefunItem {
         lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
         lore2.add(3, "");
         lore2.add(4, ChatColor.RED + "◢◤◢◤◢◤◢◤| "+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Effects " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        lore2.add(5, ChatColor.BLUE +"◆ 40% Chance 5s Poison");
-        lore2.add(6, ChatColor.BLUE +"◆ 35% Chance 5s Wither");
-        lore2.add(7, ChatColor.BLUE +"◆ 30% Chance 4s Weakness");
-        lore2.add(8, ChatColor.BLUE +"◆ 25% Chance ♡ Lifesteal");
-        lore2.add(9, ChatColor.BLUE +"◆ 20% Chance 180° rotation");
+        lore2.add(5, ChatColor.BLUE +"◆ 15% Chance 5s Poison");
+        lore2.add(6, ChatColor.BLUE +"◆ 13% Chance 5s Wither");
+        lore2.add(7, ChatColor.BLUE +"◆ 13% Chance 4s Weakness");
+        lore2.add(8, ChatColor.BLUE +"◆ 6% Chance ♡ Lifesteal");
+        lore2.add(9, ChatColor.BLUE +"◆ 8% Chance 180° rotation");
         lore2.add(10,ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
         return lore2;
     }
@@ -252,9 +252,9 @@ public class MysteryStick10 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick10(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_10, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 32), FNAmpItems.FN_STICK_4, new SlimefunItemStack(SlimefunItems.ENCHANTMENT_RUNE, 28),
-                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 28), FNAmpItems.FN_STICK_7, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 28),
-                new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 28), FNAmpItems.FN_STICK, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 32)})
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 5), FNAmpItems.FN_STICK_4, new SlimefunItemStack(SlimefunItems.ENCHANTMENT_RUNE, 16),
+                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 16), FNAmpItems.FN_STICK_7, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 16),
+                new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 16), FNAmpItems.FN_STICK, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 5)})
                 .register(plugin);
     }
 }

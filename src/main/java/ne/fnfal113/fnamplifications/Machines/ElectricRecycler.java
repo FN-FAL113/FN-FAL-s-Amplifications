@@ -19,6 +19,8 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecip
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 
+import javax.annotation.Nonnull;
+
 public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
@@ -27,6 +29,7 @@ public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
         super(itemGroup, item, recipeType, recipe);
     }
 
+    @Nonnull
     @Override
     public List<ItemStack> getDisplayRecipes() {
         List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 4);
@@ -103,6 +106,7 @@ public class ElectricRecycler extends AContainer implements RecipeDisplayItem {
         }).setCapacity(1536).setEnergyConsumption(336).setProcessingSpeed(4).register(plugin);
     }
 
+    @Nonnull
     @Override
     public String getMachineIdentifier() {
         return "ELECTRIC_RECYCLER";

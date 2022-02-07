@@ -74,10 +74,10 @@ public class MysteryStick4 extends SlimefunItem {
         lore2.add(0,ChatColor.GOLD + "It was indeed a magical improvement");
         lore2.add(1, ChatColor.YELLOW + "Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
         lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageAll);
-        meta.addEnchant(Enchantment.SWEEPING_EDGE, 7, true);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 8, true);
-        meta.addEnchant(Enchantment.FIRE_ASPECT, 5, true);
-        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 6, true);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE, 6, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 7, true);
+        meta.addEnchant(Enchantment.FIRE_ASPECT, 4, true);
+        meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 5, true);
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 6, true);
         meta.setUnbreakable(true);
         meta.setLore(lore2);
@@ -105,7 +105,7 @@ public class MysteryStick4 extends SlimefunItem {
         }
 
         if(player.getLevel() >= 15)  {
-            if(ThreadLocalRandom.current().nextInt(100) < 25) {
+            if(ThreadLocalRandom.current().nextInt(100) < 30) {
                 player.setLevel(player.getLevel() - 2);
             }
         }
@@ -203,9 +203,9 @@ public class MysteryStick4 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick4(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_4, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 12),
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 16),
                 new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 4), FNAmpItems.FN_STICK, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 4),
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 12), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 4), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4)})
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 16), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 4), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1)})
                 .register(plugin);
     }
 }

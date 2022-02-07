@@ -7,9 +7,11 @@ import ne.fnfal113.fnamplifications.Gears.FnBoots;
 import ne.fnfal113.fnamplifications.Gears.FnChestPlate;
 import ne.fnfal113.fnamplifications.Gears.FnHelmet;
 import ne.fnfal113.fnamplifications.Gears.FnLeggings;
+import ne.fnfal113.fnamplifications.Gems.*;
 import ne.fnfal113.fnamplifications.Machines.*;
 import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
 import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
 import ne.fnfal113.fnamplifications.MysteriousItems.*;
@@ -55,6 +57,7 @@ public final class FNAmpItemSetup {
         registerStaff();
         registerQuiver();
         registerTools();
+        registerGems();
     }
 
     private void registerPowerGens() {
@@ -108,6 +111,7 @@ public final class FNAmpItemSetup {
         new FnAssemblyStation().register(FNAmplifications.getInstance());
         new FnScrapRecycler().register(FNAmplifications.getInstance());
         new FnMysteryStickAltar().register(FNAmplifications.getInstance());
+        new FnGemAltar().register(FNAmplifications.getInstance());
     }
 
     private void registerScrapRecipes() {
@@ -166,6 +170,16 @@ public final class FNAmpItemSetup {
         SpectralQuiver.setup();
         UpgradedQuiver.setup();
         UpgradedSpectralQuiver.setup();
+    }
+
+    public void registerGems(){
+        InfernoGem.setup();
+        ArmorImpairGem.setup();
+        TelepathyGem.setup();
+        ThunderBoltGem.setup();
+        HastyGem.setup();
+        ThornAwayGem.setup();
+        ImpostorGem.setup();
     }
 
     public void registerTools(){

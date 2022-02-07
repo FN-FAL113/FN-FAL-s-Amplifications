@@ -105,13 +105,17 @@ public class StaffOfWebs extends SlimefunItem {
         if(isX){
             for(int y = 1; y <= 3; y++){
                 for(int a = x; a <= i; a++){
-                    loc.getBlock().getRelative(a, y, 0).setType(Material.COBWEB);
+                    if(loc.getBlock().getRelative(a, y, 0).getType() == Material.AIR){
+                        loc.getBlock().getRelative(a, y, 0).setType(Material.COBWEB);
+                    }
                 }
             }
         } else {
             for(int y = 1; y <= 3; y++){
                 for(int b = z; b <= j; b++){
-                    loc.getBlock().getRelative(0, y, b).setType(Material.COBWEB);
+                    if(loc.getBlock().getRelative(0, y, b).getType() == Material.AIR) {
+                        loc.getBlock().getRelative(0, y, b).setType(Material.COBWEB);
+                    }
                 }
             }
         }

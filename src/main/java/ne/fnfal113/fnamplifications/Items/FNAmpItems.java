@@ -130,6 +130,12 @@ public class FNAmpItems {
             new CustomItemStack(Material.CHEST,
                     "&eFN_FAL'S Miscellaneous"));
 
+    public static final SubItemGroup FN_GEMS = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "FN_GEMS"),
+            FN_ITEMS,
+            new CustomItemStack(Material.EMERALD,
+                    "&eFN_FAL'S Gems"));
+
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -1054,6 +1060,12 @@ public class FNAmpItems {
             "&dFN Mystery Stick Altar"
     );
 
+    public static final SlimefunItemStack FN_GEM_ALTAR = new SlimefunItemStack(
+            "FN_GEM_ALTAR",
+            Material.SMITHING_TABLE,
+            "&dFN Gem Altar"
+    );
+
     public static final SlimefunItemStack FN_GEAR_HELMET = new SlimefunItemStack(
             "FN_GEAR_HELMET",
             Material.NETHERITE_HELMET,
@@ -1418,6 +1430,90 @@ public class FNAmpItems {
             "",
             "&dAuto plants if the crops are",
             "&dharvested at maximum age"
+    );
+
+    public static final SlimefunItemStack FN_GEM_INFERNO = new SlimefunItemStack(
+            "FN_GEM_INFERNO",
+            Material.EMERALD,
+            "&cInferno Gem",
+            "",
+            "&e" + value.infernoGem() +"&e% chance to set enemies in a",
+            "&e7 block radius on fire",
+            "",
+            "&dDrag and drop on a sword",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_ARMOR_IMPAIR = new SlimefunItemStack(
+            "FN_GEM_ARMOR_IMPAIR",
+            Material.EMERALD,
+            "&cArmor Impair Gem",
+            "",
+            "&e" + value.armorImpairGem() + "&e% chance to deal extra durability",
+            "&edamage to all enemy armor at proc",
+            "",
+            "&dDrag and drop on a sword or axe",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_TELEPATHY = new SlimefunItemStack(
+            "FN_GEM_TELEPATHY",
+            Material.EMERALD,
+            "&cTelepathy Gem",
+            "",
+            "&eAutomatically places blocks broken by",
+            "&ethe tool in the player's inventory",
+            "",
+            "&dDrag and drop on a tool",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_THUNDER = new SlimefunItemStack(
+            "FN_GEM_THUNDER",
+            Material.EMERALD,
+            "&cThunderbolt Gem",
+            "",
+            "&e" + value.thunderBoltGem() + "&e% chance to strike",
+            "&elightning to enemies",
+            "",
+            "&dDrag and drop on a sword or axe",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_HASTY = new SlimefunItemStack(
+            "FN_GEM_HASTY",
+            Material.EMERALD,
+            "&cHasty Gem",
+            "",
+            "&e" + value.hastyGem() +"&e% chance to receive 4 seconds",
+            "&eof haste when mining ores",
+            "",
+            "&dDrag and drop on a tool",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_THORN_AWAY = new SlimefunItemStack(
+            "FN_GEM_THORN_AWAY",
+            Material.EMERALD,
+            "&cThorn Away Gem",
+            "",
+            "&e" + value.thornAwayGem() +"&e% chance to negate",
+            "&eall thorn damage",
+            "",
+            "&dDrag and drop on a chestplate",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_IMPOSTOR = new SlimefunItemStack(
+            "FN_GEM_IMPOSTOR",
+            Material.EMERALD,
+            "&cImpostor Gem",
+            "",
+            "&e" + value.impostorGem() +"&e% chance to teleport behind",
+            "&ethe player that is hitting you",
+            "",
+            "&dDrag and drop on a helmet",
+            "&dto bind this gem"
     );
 
 }

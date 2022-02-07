@@ -73,10 +73,10 @@ public class MysteryStick9 extends SlimefunItem {
         int damageAll = damageAmount.getOrDefault(key2, PersistentDataType.INTEGER, 0);
 
         List<String> lore2 = new ArrayList<>();
-        meta.addEnchant(Enchantment.ARROW_DAMAGE, 15, true);
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 12, true);
-        meta.addEnchant(Enchantment.ARROW_FIRE, 12, true);
-        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 14, true);
+        meta.addEnchant(Enchantment.ARROW_DAMAGE, 13, true);
+        meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+        meta.addEnchant(Enchantment.ARROW_FIRE, 10, true);
+        meta.addEnchant(Enchantment.ARROW_KNOCKBACK, 7, true);
         meta.setUnbreakable(true);
         meta.setLore(loreUpdate(lore2, damageAll, xpamount));
         item1.setItemMeta(meta);
@@ -123,13 +123,13 @@ public class MysteryStick9 extends SlimefunItem {
 
         if(event.getEntity() instanceof LivingEntity) {
             LivingEntity victim = (LivingEntity) event.getEntity();
-            if(ThreadLocalRandom.current().nextInt(100) < 35 && !(victim.hasPotionEffect(PotionEffectType.LEVITATION))){
+            if(ThreadLocalRandom.current().nextInt(100) < 9 && !(victim.hasPotionEffect(PotionEffectType.LEVITATION))){
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 1, false, true));
             }
-            if(ThreadLocalRandom.current().nextInt(100) < 30 && !(victim.hasPotionEffect(PotionEffectType.HARM))){
+            if(ThreadLocalRandom.current().nextInt(100) < 8 && !(victim.hasPotionEffect(PotionEffectType.HARM))){
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 80, 1, false, true));
             }
-            if(ThreadLocalRandom.current().nextInt(100) < 20 && !(victim.hasPotionEffect(PotionEffectType.BLINDNESS))){
+            if(ThreadLocalRandom.current().nextInt(100) < 8 && !(victim.hasPotionEffect(PotionEffectType.BLINDNESS))){
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 1, false, true));
             }
         }
@@ -148,9 +148,9 @@ public class MysteryStick9 extends SlimefunItem {
         lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
         lore2.add(3, "");
         lore2.add(4, ChatColor.RED + "◢◤◢◤◢◤◢◤| "+ ChatColor.DARK_RED + "" + ChatColor.BOLD + "Effects " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
-        lore2.add(5, ChatColor.BLUE +"◆ 35% Chance 3s Levitation");
-        lore2.add(6, ChatColor.BLUE +"◆ 30% Chance 4s Harm");
-        lore2.add(7, ChatColor.BLUE +"◆ 20% Chance 3s Blindness");
+        lore2.add(5, ChatColor.BLUE +"◆ 9% Chance 3s Levitation");
+        lore2.add(6, ChatColor.BLUE +"◆ 8% Chance 4s Harm");
+        lore2.add(7, ChatColor.BLUE +"◆ 8% Chance 3s Blindness");
         lore2.add(8, ChatColor.RED + "◢◤◢◤◢◤◢◤| " + ChatColor.DARK_RED + "  ◢◤◤◥◤◥◥◣   " + ChatColor.WHITE + "|◥◣◥◣◥◣◥◣");
         return lore2;
     }
@@ -222,9 +222,9 @@ public class MysteryStick9 extends SlimefunItem {
 
     public static void setup(){
         new MysteryStick9(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_9, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28), SlimefunItems.AIR_RUNE, new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28),
-                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 20), FNAmpItems.FN_STICK_6, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 20),
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 20), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 28)})
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 10), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4),
+                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 8), FNAmpItems.FN_STICK_6, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 8),
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 10), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 4)})
                 .register(plugin);
     }
 }
