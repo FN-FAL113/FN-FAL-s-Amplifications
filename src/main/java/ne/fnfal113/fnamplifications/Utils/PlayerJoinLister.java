@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.Utils;
 
+import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,9 +16,15 @@ public class PlayerJoinLister implements Listener {
 
     private final List<UUID> players = new ArrayList<>();
 
+    private static final ReturnConfValue value = new ReturnConfValue();
+
     @EventHandler
     public void onFirstJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+
+        if(!value.changelogEnable()){
+            return;
+        }
 
         if(players.contains(player.getUniqueId())){
            return;
@@ -38,15 +45,12 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &dAdded 7 new gems!"),
-                Utils.colorTranslator("     &d&l- &r&dThis gems can be crafted in the Fn Gem Altar"),
-                Utils.colorTranslator("     &d&l- &r&dand can be bounded to tools, weapons and gears."),
-                Utils.colorTranslator("     &d&l- &r&dGems that works by chance can be configured in"),
-                Utils.colorTranslator("     &d&l- &r&dthe config.yml to increase or decrease the chance."),
-                Utils.colorTranslator("     &d&l- &r&dMore gems are coming soon!"),
-                Utils.colorTranslator("&d&l• &r&dFixed issue report #43 - Staff of Cobweb bug"),
-                Utils.colorTranslator("&d&l• &r&dRebalanced Mysterious sticks"),
-                Utils.colorTranslator("&d&l• &r&dAdded countdown to Staff of Air Strider"),
+                Utils.colorTranslator("&d&l• &dAdded 3 new gems!"),
+                Utils.colorTranslator("     &e&l- &r&ePsychokinesis Gem"),
+                Utils.colorTranslator("     &e&l- &r&eAxe throwie Gem"),
+                Utils.colorTranslator("     &e&l- &r&eBlind bind Gem"),
+                Utils.colorTranslator("&d&l• &r&dSome code chores"),
+                Utils.colorTranslator("&d&l• &r&dConfig option to toggle off chat changelog"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

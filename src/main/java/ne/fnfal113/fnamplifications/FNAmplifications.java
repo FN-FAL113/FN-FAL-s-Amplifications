@@ -14,9 +14,14 @@ import ne.fnfal113.fnamplifications.Staffs.Listener.StaffListener;
 import ne.fnfal113.fnamplifications.Tools.Listener.HoeListener;
 import ne.fnfal113.fnamplifications.Utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.AdvancedPie;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Callable;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
 
@@ -25,7 +30,9 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     @Override
     public void onEnable() {
         setInstance(this);
-        new Metrics(this, 13219);
+
+        Metrics metrics = new Metrics(this, 13219);
+        addPieChartMatGen(metrics);
 
         getLogger().info("************************************************************");
         getLogger().info("*         FN Amplifications - Created by FN_FAL113         *");
@@ -72,4 +79,22 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     public static FNAmplifications getInstance() {
         return instance;
     }
+
+    public void addPieChartMatGen(Metrics metrics){
+        metrics.addCustomChart(new AdvancedPie("material_gen_tickrates", new Callable<Map<String, Integer>>() {
+            @Override
+            public Map<String, Integer> call() {
+                Map<String, Integer> matGens = new HashMap<>();
+                for(Map.Entry<String, Object> config: getConfig().getValues(true).entrySet()){
+                    if(config.getKey().startsWith("FN_")){
+                        matGens.put(config.getKey() + ": " + config.getValue().toString(),
+                                matGens.getOrDefault(config.getKey() + ": " + config.getValue().toString(), 0) + 1);
+                    }
+                }
+
+                return matGens;
+            }
+        }));
+    }
+
 }

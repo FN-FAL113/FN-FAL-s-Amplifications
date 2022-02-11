@@ -509,4 +509,16 @@ public class ReturnConfValue {
         return config.getInt("Gem-Impostor");
     }
 
+    public int psychoKinesisGem() {
+        return config.getInt("Gem-Psychokinesis");
+    }
+
+    public int blindBindGem() {
+        return config.getInt("Gem-Blindbind");
+    }
+
+    public boolean changelogEnable(){
+        return config.getBoolean("Enable-One-Time-Chat-Changelog");
+    }
+
 }
