@@ -30,6 +30,9 @@ public class MysteryStickListener implements Listener {
     public void onClick(PlayerInteractEvent e) {
         MysteryStickListener click = new MysteryStickListener();
         Player p = e.getPlayer();
+        if(p.getInventory().getItemInMainHand().getType() == Material.AIR){
+            return;
+        }
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
         if (stick == null){
@@ -158,6 +161,9 @@ public class MysteryStickListener implements Listener {
                 return;
             }
             Player player = ((Player) arrow.getShooter());
+            if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+                return;
+            }
             SlimefunItem stickBow = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
             if(stickBow instanceof MysteryStick3) {
                 level.setLevelReq(5);
@@ -199,6 +205,9 @@ public class MysteryStickListener implements Listener {
         }
 
         Player p = (Player) e.getDamager();
+        if(p.getInventory().getItemInMainHand().getType() == Material.AIR){
+            return;
+        }
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
         if (stick == null) {
@@ -228,6 +237,9 @@ public class MysteryStickListener implements Listener {
     @EventHandler
     public void onExpConsume(PlayerLevelChangeEvent event) {
         Player p = event.getPlayer();
+        if(p.getInventory().getItemInMainHand().getType() == Material.AIR){
+            return;
+        }
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
         if (stick == null){

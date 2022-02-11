@@ -180,6 +180,9 @@ public final class FNAmpItemSetup {
         HastyGem.setup();
         ThornAwayGem.setup();
         ImpostorGem.setup();
+        PsychokinesisGem.setup();
+        AxeThrowieGem.setup();
+        BlindBindGem.setup();
     }
 
     public void registerTools(){

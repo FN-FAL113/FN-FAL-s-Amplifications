@@ -1516,4 +1516,40 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_PSYCHOKINESIS = new SlimefunItemStack(
+            "FN_GEM_PSYCHOKINESIS",
+            Material.EMERALD,
+            "&cPsychokinesis Gem",
+            "",
+            "&e" + value.psychoKinesisGem() +"&e% chance to move enemies towards",
+            "&eyou when got hit by your arrow",
+            "",
+            "&dDrag and drop on a bow",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_AXETHROWIE = new SlimefunItemStack(
+            "FN_GEM_AXETHROWIE",
+            Material.EMERALD,
+            "&cAxe throwie Gem",
+            "",
+            "&eGives you the ability to throw axes",
+            "&ethat can hit entities and damage them",
+            "",
+            "&dDrag and drop on an axe",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_BLINDBIND = new SlimefunItemStack(
+            "FN_GEM_BLINDBIND",
+            Material.EMERALD,
+            "&cBlind bind Gem",
+            "",
+            "&e" + value.blindBindGem() +"&e% chance to blind enemies for",
+            "&e4 seconds when got hit by your arrow",
+            "",
+            "&dDrag and drop on a bow",
+            "&dto bind this gem"
+    );
+
 }

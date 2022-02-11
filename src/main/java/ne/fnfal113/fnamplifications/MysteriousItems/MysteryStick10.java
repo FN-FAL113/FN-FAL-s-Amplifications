@@ -74,8 +74,8 @@ public class MysteryStick10 extends SlimefunItem {
         int damageAll = damageAmount.getOrDefault(key2, PersistentDataType.INTEGER, 0);
 
         List<String> lore2 = new ArrayList<>();
-        meta.addEnchant(Enchantment.SWEEPING_EDGE, 20, true);
-        meta.addEnchant(Enchantment.DAMAGE_ALL, 22, true);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE, 18, true);
+        meta.addEnchant(Enchantment.DAMAGE_ALL, 20, true);
         meta.addEnchant(Enchantment.FIRE_ASPECT, 15, true);
         meta.addEnchant(Enchantment.DAMAGE_ARTHROPODS, 17, true);
         meta.addEnchant(Enchantment.DAMAGE_UNDEAD, 17, true);
@@ -127,7 +127,7 @@ public class MysteryStick10 extends SlimefunItem {
                         player.setHealth(player.getHealth() + 2);
                         victim.setHealth(victim.getHealth() - 2);
                     } else {
-                        player.sendMessage(ChatColor.RED + "Make sure your hp points is below 18 for Lifesteal to proc!");
+                        player.sendMessage(ChatColor.RED + "Make sure your hearts are not full for Lifesteal to proc!");
                     }
                 }
                 if(ThreadLocalRandom.current().nextInt(100) < 8){

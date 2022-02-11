@@ -12,11 +12,9 @@ import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.*;
+import org.bukkit.entity.*;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,18 +23,19 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ThornAwayGem extends SlimefunItem implements GemImpl {
+public class PsychokinesisGem extends SlimefunItem implements GemImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private static final ReturnConfValue value = new ReturnConfValue();
 
-    public ThornAwayGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public PsychokinesisGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
     }
 
     @Override
     public void onDrag(InventoryClickEvent event, Player player){
+
         if(event.getCursor() == null){
             return;
         }
@@ -44,7 +43,7 @@ public class ThornAwayGem extends SlimefunItem implements GemImpl {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null && CHESTPLATE.contains(currentItem.getType())){
+        if(slimefunItem != null && currentItem != null && currentItem.getType() == Material.BOW){
             ItemMeta meta = currentItem.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
@@ -56,12 +55,11 @@ public class ThornAwayGem extends SlimefunItem implements GemImpl {
                 } else{
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
-                event.setCancelled(true);
             } else {
                 player.sendMessage(Utils.colorTranslator("&eOnly 3 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
-                event.setCancelled(true);
             }
+            event.setCancelled(true);
         }
 
     }
@@ -73,22 +71,23 @@ public class ThornAwayGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onDamage(EntityDamageEvent event){
-        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS){
+    public void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity, Arrow arrow){
+        if(event.isCancelled()){
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < value.thornAwayGem()){
-            event.setCancelled(true);
+        if(ThreadLocalRandom.current().nextInt(100) < value.psychoKinesisGem()){
+            player.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
+            entity.teleport(player);
         }
 
     }
 
     public static void setup(){
-        new ThornAwayGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_THORN_AWAY, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 3), new ItemStack(Material.BLAZE_POWDER, 8), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 3),
+        new PsychokinesisGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_PSYCHOKINESIS, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.TALISMAN_TRAVELLER, new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 4), SlimefunItems.TALISMAN_TRAVELLER,
                 new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 4), new ItemStack(Material.BLAZE_POWDER, 8), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 4)})
+                SlimefunItems.TALISMAN_TRAVELLER, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), SlimefunItems.TALISMAN_TRAVELLER})
                 .register(plugin);
     }
 }

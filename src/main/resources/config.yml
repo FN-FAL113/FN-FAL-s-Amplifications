@@ -17,9 +17,12 @@ New-Recipe-Integration: true
 # Armor Effects Update, the time to update the armor effects in seconds (i.e FN Gears of Friction permanent effects)
 armor-update-period: 10
 
+# Enable or disable chat changelogs, this changelog get sent only when players join the server for the first time after server restart
+# If disabled no more changelogs will be sent, requires server restart
+Enable-One-Time-Chat-Changelog: true
+
 # Slimefun Custom addon by FN_FAL113, huge thanks to Walshy and Jeff (LiteXpansion) for letting me use their utils
 # You can change the values here, it requires server restart to take effect.
-
 
 # FN Power Xpansion Rank 1
 FN-Xpansion-Rank1-Dayrate: 236
@@ -217,3 +220,5 @@ Gem-Thunderbolt: 10
 Gem-Hasty: 16
 Gem-ThornAway: 13
 Gem-Impostor: 14
+Gem-Psychokinesis: 17
+Gem-Blindbind: 13
