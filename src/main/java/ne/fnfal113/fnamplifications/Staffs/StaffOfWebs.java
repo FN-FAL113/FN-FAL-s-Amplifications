@@ -14,6 +14,7 @@ import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -77,25 +78,24 @@ public class StaffOfWebs extends SlimefunItem {
 
         updateMeta(item, meta, key, player);
 
-        float yaw = player.getLocation().getYaw();
         int x = 0, z = 0, i = 0, j = 0;
         boolean isX = true;
 
-        if(yaw > -135 && yaw < -45){
+        if(player.getFacing() == BlockFace.EAST){
             z = -1;
             j = 1;
             isX = false;
         } // positive x
-        else if(yaw < 45 && yaw > -45){
+        else if(player.getFacing() == BlockFace.SOUTH){
             x = -1;
             i = 1;
         } // positive z
-        else if(yaw < 135 && yaw > 45){
+        else if(player.getFacing() == BlockFace.WEST){
             z = -1;
             j = 1;
             isX = false;
         } // negative X
-        else if((yaw < -135 && yaw > -180) || (yaw > 135 && yaw < 180)){
+        else if(player.getFacing() == BlockFace.NORTH){
             x = -1;
             i = 1;
         } // negative z

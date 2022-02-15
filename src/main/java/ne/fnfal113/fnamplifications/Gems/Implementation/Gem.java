@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems;
+package ne.fnfal113.fnamplifications.Gems.Implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;

@@ -183,6 +183,8 @@ public final class FNAmpItemSetup {
         PsychokinesisGem.setup();
         AxeThrowieGem.setup();
         BlindBindGem.setup();
+        TriSwordGem.setup();
+        DamnationGem.setup();
     }
 
     public void registerTools(){
