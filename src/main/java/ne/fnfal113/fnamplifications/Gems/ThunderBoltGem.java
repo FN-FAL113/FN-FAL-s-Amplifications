@@ -8,7 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -45,7 +47,8 @@ public class ThunderBoltGem extends SlimefunItem implements GemImpl {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null && (SWORDS.contains(currentItem.getType()) || AXE.contains(currentItem.getType()))){
+        if(slimefunItem != null && currentItem != null &&
+                (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType()))){
             ItemMeta meta = currentItem.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 

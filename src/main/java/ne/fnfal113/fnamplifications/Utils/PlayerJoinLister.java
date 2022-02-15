@@ -45,12 +45,12 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &dAdded 3 new gems!"),
-                Utils.colorTranslator("     &e&l- &r&ePsychokinesis Gem"),
-                Utils.colorTranslator("     &e&l- &r&eAxe throwie Gem"),
-                Utils.colorTranslator("     &e&l- &r&eBlind bind Gem"),
-                Utils.colorTranslator("&d&l• &r&dSome code chores"),
-                Utils.colorTranslator("&d&l• &r&dConfig option to toggle off chat changelog"),
+                Utils.colorTranslator("&d&l• &dAdded 2 new gems!"),
+                Utils.colorTranslator("     &e&l+ &r&eDamnnation Gem - make your weapons serve you"),
+                Utils.colorTranslator("     &e&l+ &r&eTri-sword Gem - 3 sword homing destruction"),
+                Utils.colorTranslator("&d&l• &r&dFixed hoe bugs and errors, addon should work"),
+                Utils.colorTranslator("  &don &e1.15.x up &dto &e1.18.x &dminecraft versions again"),
+                Utils.colorTranslator("&d&l• &r&dCode rewrites and improvements"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

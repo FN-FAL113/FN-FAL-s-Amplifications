@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>2.9.7</version>
+    <version>2.9.8</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>

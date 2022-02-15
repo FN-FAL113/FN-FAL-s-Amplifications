@@ -6,36 +6,29 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowWeaponTask;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.*;
+import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-public class InfernoGem extends SlimefunItem implements GemImpl {
+public class DamnationGem extends SlimefunItem implements GemImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    private final ThrowWeaponTask throwWeaponTask = new ThrowWeaponTask();
 
-    public InfernoGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public DamnationGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
     }
 
@@ -49,7 +42,8 @@ public class InfernoGem extends SlimefunItem implements GemImpl {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null && WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())){
+        if(slimefunItem != null && currentItem != null &&
+                (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType()))){
             ItemMeta meta = currentItem.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
@@ -77,30 +71,22 @@ public class InfernoGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onDamage(EntityDamageByEntityEvent event){
-        LivingEntity livingEntity = (LivingEntity) event.getEntity();
+    public void onRightClick(Player player){
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
 
-        int random = ThreadLocalRandom.current().nextInt(100);
+        if(throwWeaponTask.isBelow4Weapons(player)) {
+            throwWeaponTask.floatThrowItem(player, itemStack.clone());
 
-        if(random < value.infernoGem()){
-            livingEntity.setFireTicks(60);
+            itemStack.setAmount(0);
         }
-
-        for(Entity entity : livingEntity.getNearbyEntities(7, 4,7)){
-            if(random < value.infernoGem()){
-                if(entity.getUniqueId() != event.getDamager().getUniqueId()){
-                    entity.setFireTicks(60);
-                }
-            }
-        }
-
     }
 
+
     public static void setup(){
-        new InfernoGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_INFERNO, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.TALISMAN_FIRE, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), SlimefunItems.TALISMAN_FIRE,
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                SlimefunItems.TALISMAN_FIRE, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), SlimefunItems.TALISMAN_FIRE})
+        new DamnationGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DAMNATION, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.TALISMAN_WARRIOR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 4),  SlimefunItems.TALISMAN_KNIGHT,
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 3), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 3),
+                SlimefunItems.TALISMAN_WARRIOR, new SlimefunItemStack(SlimefunItems.RAINBOW_RUNE, 4),  SlimefunItems.TALISMAN_KNIGHT})
                 .register(plugin);
     }
 }

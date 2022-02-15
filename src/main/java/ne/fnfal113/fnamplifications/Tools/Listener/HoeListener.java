@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.Tools.Listener;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
@@ -11,9 +12,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -25,10 +28,18 @@ import java.util.Set;
 
 public class HoeListener implements Listener {
 
+    private static Material GRASS = Material.matchMaterial("GRASS_PATH");
+
+    static {
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)){
+            GRASS = Material.DIRT_PATH;
+        }
+    }
+
     private final Set<Material> dirtBlocks = EnumSet.of(
             Material.DIRT,
-            Material.DIRT_PATH,
-            Material.GRASS_BLOCK
+            Material.GRASS_BLOCK,
+            GRASS
     );
 
     private final Set<Material> grass = EnumSet.of(
@@ -38,8 +49,7 @@ public class HoeListener implements Listener {
             Material.TALL_GRASS
     );
 
-
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         boolean rightClick = event.getAction() == Action.RIGHT_CLICK_BLOCK;
@@ -47,36 +57,32 @@ public class HoeListener implements Listener {
 
         if (event.getHand() == EquipmentSlot.HAND) {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if(itemStack.getType() == Material.DIAMOND_HOE){
+            if(itemStack.getType() == Material.DIAMOND_HOE || itemStack.getType() == Material.NETHERITE_HOE){
                 SlimefunItem hoe = SlimefunItem.getByItem(itemStack);
 
                 if (hoe instanceof FnHoe || hoe instanceof FnHoeAutoPlant) {
                     Block clickedBlock = event.getClickedBlock();
-                    boolean checkBlock = clickedBlock != null &&
-                            ((clickedBlock.getType() == Material.GRASS_BLOCK) ||
-                                    (clickedBlock.getType() == Material.DIRT) ||
-                                    (clickedBlock.getType() == Material.DIRT_PATH));
+                    boolean checkBlock = clickedBlock != null && dirtBlocks.contains(clickedBlock.getType());
                     boolean checkBlockLeftClick = clickedBlock != null;
-                    float yaw = player.getLocation().getYaw();
                     int x = 0, z = 0, i = 0, j = 0, k = 0;
 
-                    if (yaw > -135 && yaw < -45) {
+                    if (player.getFacing() == BlockFace.EAST) {
                         i = 5;
                         z = -2;
                         j = 3;
                     } // positive x
-                    else if (yaw < 45 && yaw > -45) {
+                    else if (player.getFacing() == BlockFace.SOUTH) {
                         x = -2;
                         i = 3;
                         j = 5;
                     } // positive z
-                    else if (yaw < 135 && yaw > 45) {
+                    else if (player.getFacing() == BlockFace.WEST) {
                         x = -4;
                         i = 1;
                         z = -2;
                         j = 3;
                     } // negative X
-                    else if ((yaw < -135 && yaw > -180) || (yaw > 135 && yaw < 180) ){
+                    else if (player.getFacing() == BlockFace.NORTH){
                         x = -2;
                         i = 3;
                         z = -4;
@@ -90,7 +96,8 @@ public class HoeListener implements Listener {
                                     if(Slimefun.getProtectionManager().hasPermission
                                             (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.INTERACT_BLOCK)){
 
-                                        clickedBlock.getRelative(a, 0, b).setType(Material.FARMLAND);
+                                        Block land = clickedBlock.getRelative(a, 0, b);
+                                         land.setType(Material.FARMLAND);
                                          if(grass.contains(clickedBlock.getRelative(a, 1, b).getType()) ||
                                                  Tag.FLOWERS.isTagged(clickedBlock.getRelative(a, 1, b).getType()) ||
                                                  Tag.SMALL_FLOWERS.isTagged(clickedBlock.getRelative(a, 1, b).getType()) ||
@@ -103,16 +110,15 @@ public class HoeListener implements Listener {
                                 } // check the necessary block
                             } // z axis loop
                         } // x axis loop
-
                     }
 
-                    boolean isAgeable = checkBlockLeftClick  && clickedBlock.getBlockData() instanceof Ageable;
+                    boolean isAgeable = checkBlockLeftClick && clickedBlock.getBlockData().clone() instanceof Ageable;
 
                     if (leftClick && isAgeable && hoe instanceof FnHoe) {
                         for (int a = x; a < i; a++) {
                             for (int b = z; b < j; b++) {
                                 if (Tag.CROPS.isTagged(clickedBlock.getRelative(a, 0, b).getType()) &&
-                                        clickedBlock.getRelative(a, 0, b).getBlockData() instanceof Ageable) {
+                                        clickedBlock.getRelative(a, 0, b).getBlockData().clone() instanceof Ageable) {
                                     if(Slimefun.getProtectionManager().hasPermission
                                             (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.BREAK_BLOCK)){
 
@@ -125,8 +131,9 @@ public class HoeListener implements Listener {
                         for (int a = x; a < i; a++) {
                             for (int b = z; b < j; b++) {
                                 if (Tag.CROPS.isTagged(clickedBlock.getRelative(a, 0, b).getType()) &&
-                                        clickedBlock.getRelative(a, 0, b).getBlockData() instanceof Ageable){
-                                    Ageable ageable = (Ageable) clickedBlock.getRelative(a, 0, b).getBlockData();
+                                        clickedBlock.getRelative(a, 0, b).getBlockData().clone() instanceof Ageable){
+
+                                    Ageable ageable = (Ageable) clickedBlock.getRelative(a, 0, b).getBlockData().clone();
                                     if(Slimefun.getProtectionManager().hasPermission
                                             (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.BREAK_BLOCK)){
 

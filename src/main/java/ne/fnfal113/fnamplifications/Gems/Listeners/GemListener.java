@@ -62,6 +62,10 @@ public class GemListener implements Listener {
             ((AxeThrowieGem) gem).onDrag(event, player);
         } else if(gem instanceof BlindBindGem){
             ((BlindBindGem) gem).onDrag(event, player);
+        } else if(gem instanceof TriSwordGem){
+            ((TriSwordGem) gem).onDrag(event, player);
+        } else if(gem instanceof DamnationGem){
+            ((DamnationGem) gem).onDrag(event, player);
         }
 
     }
@@ -265,16 +269,24 @@ public class GemListener implements Listener {
                             key,
                             PersistentDataType.STRING)));
 
-                    if (item instanceof AxeThrowieGem) {
-                        ((AxeThrowieGem) item).onRightClick(player);
+                    if(player.isSneaking()) {
+                        if (item instanceof DamnationGem) {
+                            ((DamnationGem) item).onRightClick(player);
+                        }
                     }
+                    if(!player.isSneaking()) {
+                        if (item instanceof AxeThrowieGem) {
+                            ((AxeThrowieGem) item).onRightClick(player);
+                        }
 
+                        if (item instanceof TriSwordGem) {
+                            ((TriSwordGem) item).onRightClick(player);
+                        }
+                    }
                 } // make sure pdc type is string only
             } // loop all pdc keys inside the item
 
         } // pdc check
-
-
 
     }
 
