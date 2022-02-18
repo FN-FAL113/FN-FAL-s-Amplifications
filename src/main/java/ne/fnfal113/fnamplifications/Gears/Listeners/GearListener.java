@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GearListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void progressListener(EntityDamageByEntityEvent event){
 
         if(event.getDamager() instanceof Arrow){
