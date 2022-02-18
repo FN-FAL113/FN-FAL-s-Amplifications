@@ -45,12 +45,9 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &dAdded 2 new gems!"),
-                Utils.colorTranslator("     &e&l+ &r&eDamnnation Gem - make your weapons serve you"),
-                Utils.colorTranslator("     &e&l+ &r&eTri-sword Gem - 3 sword homing destruction"),
-                Utils.colorTranslator("&d&l• &r&dFixed hoe bugs and errors, addon should work"),
-                Utils.colorTranslator("  &don &e1.15.x up &dto &e1.18.x &dminecraft versions again"),
-                Utils.colorTranslator("&d&l• &r&dCode rewrites and improvements"),
+                Utils.colorTranslator("&d&l• &dAdded command to check FN Gear progress (/fngear)"),
+                Utils.colorTranslator("&d&l• &r&dAllow multi-blocks to output even with or without output chest"),
+                Utils.colorTranslator("&d&l• &r&dRewritten/Refactored the code for Gears and Quiver"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );
