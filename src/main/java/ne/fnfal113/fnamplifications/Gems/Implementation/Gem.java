@@ -81,14 +81,19 @@ public class Gem {
         int amountOfGems = pdc.getOrDefault(getStorageKey2(), PersistentDataType.INTEGER, 0);
 
         if (amountOfGems == 0) {
-            List<String> lore = new ArrayList<>();
+            List<String> lore;
+            if(meta.hasLore()){
+                lore = meta.getLore();
+            }else{
+                lore = new ArrayList<>();
+            }
             lore.add("");
             lore.add(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"));
             lore.add(ChatColor.RED + "◬ " + name);
             lore.add(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));
 
             meta.setLore(lore);
-        }else {
+        } else {
             List<String> lore2 = meta.getLore();
             if (lore2 != null) {
                 for (int i = 0; i < lore2.size(); i++) {

@@ -84,51 +84,58 @@ public class FnGemAltar extends MultiBlockMachine {
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
         if (outputInv != null) {
-            for (int j = 0; j < 9; j++) {
-                ItemStack item = inv.getContents()[j];
+            craftItem(inv, recipe, b);
 
-                if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
-                    ItemUtils.consumeItem(item, recipe[j].getAmount(),true);
-                }
+            outputInv.addItem(output);
+        } else {
+            craftItem(inv, recipe, b);
+
+            dispenser.getWorld().dropItem(b.getLocation(), output);
+            Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
+            p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
+        }
+
+        if(output.getItemMeta().hasDisplayName()){
+            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted " + output.getItemMeta().getDisplayName() + "!"));
+        } else{
+            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted item!"));
+        }
+    }
+
+    public void craftItem(Inventory inv, ItemStack[] recipe, Block b){
+        for (int j = 0; j < 9; j++) {
+            ItemStack item = inv.getContents()[j];
+
+            if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
+                ItemUtils.consumeItem(item, recipe[j].getAmount(),true);
             }
+        }
+        Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
+            b.getWorld().spawnParticle(Particle.WHITE_ASH, b.getLocation().add(0.5, 0.7, 0.5), 5, 0.1, 0.1, 0.1);
+            b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
+            b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
 
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                b.getWorld().spawnParticle(Particle.WHITE_ASH, b.getLocation().add(0.5, 0.7, 0.5), 5, 0.1, 0.1, 0.1);
-                b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
-                b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+                b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.ELECTRIC_SPARK, 1);
+                b.getWorld().spawnParticle(Particle.FLAME, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
+                b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
+                b.getWorld().playSound(b.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
 
                 Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                    b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.ELECTRIC_SPARK, 1);
-                    b.getWorld().spawnParticle(Particle.FLAME, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
-                    b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
-                    b.getWorld().playSound(b.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
+                    b.getWorld().playEffect(b.getLocation().add(0.35, 0.75, 0.35), Effect.MOBSPAWNER_FLAMES, 1);
+                    b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.2, 0.3, 0.2), 2, 0.1, 0.1, 0.1, 0.1);
+                    b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
 
                     Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                        b.getWorld().playEffect(b.getLocation().add(0.35, 0.75, 0.35), Effect.MOBSPAWNER_FLAMES, 1);
-                        b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.2, 0.3, 0.2), 2, 0.1, 0.1, 0.1, 0.1);
-                        b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+                        b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.ELECTRIC_SPARK, 1);
+                        b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
+                        b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
+                        b.getWorld().playSound(b.getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, 1, 1);
 
-                        Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                            b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.ELECTRIC_SPARK, 1);
-                            b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
-                            b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
-                            b.getWorld().playSound(b.getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, 1, 1);
-
-
-                            outputInv.addItem(output);
-                            if(output.getItemMeta().hasDisplayName()){
-                                p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted " + output.getItemMeta().getDisplayName() + "!"));
-                            } else{
-                                p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted item!"));
-                            }
-                        }, 30);
                     }, 30);
                 }, 30);
             }, 30);
-        } else {
-            Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-            p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Add an output chest for the outputs!");
-        }
+        }, 30);
     }
 
     protected @Nonnull
