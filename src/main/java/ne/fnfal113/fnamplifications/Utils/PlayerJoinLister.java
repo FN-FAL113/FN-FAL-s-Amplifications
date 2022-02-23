@@ -45,9 +45,9 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &dAdded command to check FN Gear progress (/fngear)"),
-                Utils.colorTranslator("&d&l• &r&dAllow multi-blocks to output even with or without output chest"),
-                Utils.colorTranslator("&d&l• &r&dRewritten/Refactored the code for Gears and Quiver"),
+                Utils.colorTranslator("&d&l• &r&dAdded Retaliate Gem - return to me my weapon"),
+                Utils.colorTranslator("&d&l• &r&dRewritten/refactored Mystery Sticks code and also cleanups"),
+                Utils.colorTranslator("&d&l• &r&dRewritten/refactored the code for making weapons throwable"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

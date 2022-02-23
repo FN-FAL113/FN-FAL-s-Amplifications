@@ -185,6 +185,7 @@ public final class FNAmpItemSetup {
         BlindBindGem.setup();
         TriSwordGem.setup();
         DamnationGem.setup();
+        RetaliateGem.setup();
     }
 
     public void registerTools(){

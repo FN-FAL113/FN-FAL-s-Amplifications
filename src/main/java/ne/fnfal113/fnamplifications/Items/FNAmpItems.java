@@ -1567,6 +1567,22 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_RETALIATE = new SlimefunItemStack(
+            "FN_GEM_RETALIATE",
+            Material.EMERALD,
+            "&cRetaliate Gem",
+            "",
+            "&eAllows your weapons to return back to you after",
+            "&ethrowing it, weapon must have any of these gems",
+            "&ebound to it before binding this gem: ",
+            "&e- Damnation Gem",
+            "&e- Tri-Sword Gem",
+            "&e- Axe Throwie Gem",
+            "",
+            "&dDrag and drop on sword or axe",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_BLINDBIND = new SlimefunItemStack(
             "FN_GEM_BLINDBIND",
             Material.EMERALD,

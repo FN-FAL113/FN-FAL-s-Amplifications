@@ -66,6 +66,8 @@ public class GemListener implements Listener {
             ((TriSwordGem) gem).onDrag(event, player);
         } else if(gem instanceof DamnationGem){
             ((DamnationGem) gem).onDrag(event, player);
+        } else if(gem instanceof RetaliateGem){
+            ((RetaliateGem) gem).onDrag(event, player);
         }
 
     }

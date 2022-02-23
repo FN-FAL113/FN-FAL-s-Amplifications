@@ -9,7 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
-import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowWeaponTask;
+import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowableWeapon;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
@@ -22,11 +22,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+@SuppressWarnings("ConstantConditions")
 public class TriSwordGem extends SlimefunItem implements GemImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private final ThrowWeaponTask throwWeaponTask = new ThrowWeaponTask();
+    private final ThrowableWeapon throwableWeapon = new ThrowableWeapon();
 
     public TriSwordGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -46,7 +47,7 @@ public class TriSwordGem extends SlimefunItem implements GemImpl {
             ItemMeta meta = currentItem.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            if(checkGemAmount(container, currentItem) < 3) {
+            if(checkGemAmount(container, currentItem) < 4) {
                 Gem gem = new Gem(slimefunItem, currentItem, player);
                 if(!gem.isSameGem(currentItem)){
                     player.setItemOnCursor(new ItemStack(Material.AIR));
@@ -55,7 +56,7 @@ public class TriSwordGem extends SlimefunItem implements GemImpl {
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
             } else {
-                player.sendMessage(Utils.colorTranslator("&eOnly 3 gems per item is allowed!"));
+                player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
             }
             event.setCancelled(true);
@@ -73,8 +74,11 @@ public class TriSwordGem extends SlimefunItem implements GemImpl {
     public void onRightClick(Player player){
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 
-        throwWeaponTask.throwWeapon(player, throwWeaponTask.spawnArmorstand(player, itemStack.clone(), true), itemStack.clone(),
-                false, true, true);
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
+        NamespacedKey key = new NamespacedKey(FNAmplifications.getInstance(), "return_weapon");
+
+        throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), true), itemStack.clone(),
+                false, true, true, Boolean.parseBoolean(pdc.getOrDefault(key, PersistentDataType.STRING, "false")));
 
         itemStack.setAmount(0);
     }

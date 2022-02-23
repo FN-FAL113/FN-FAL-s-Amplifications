@@ -16,6 +16,7 @@ import ne.fnfal113.fnamplifications.Tools.Listener.HoeListener;
 import ne.fnfal113.fnamplifications.Utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.AdvancedPie;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
@@ -62,6 +63,11 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         if (getConfig().getBoolean("auto-update", true) && getDescription().getVersion().startsWith("DEV - ")) {
             new GitHubBuildsUpdater(this, getFile(), "FN-FAL113/FN-FAL-s-Amplifications/main").start();
         }
+    }
+
+    @Override
+    public void onDisable(){
+        Bukkit.getScheduler().cancelTasks(FNAmplifications.getInstance());
     }
 
     @Nonnull

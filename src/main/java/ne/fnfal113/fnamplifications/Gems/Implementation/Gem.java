@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("ConstantConditions")
 public class Gem {
 
     private final SlimefunItem slimefunItem;
@@ -36,7 +37,7 @@ public class Gem {
         this.sfItemName = sfItem.getItemName();
         this.gemID = sfItem.getId();
         this.player = p;
-        this.key1 = new NamespacedKey(FNAmplifications.getInstance(), sfItem.getId());
+        this.key1 = new NamespacedKey(FNAmplifications.getInstance(), sfItem.getId().toLowerCase());
         this.key2 = new NamespacedKey(FNAmplifications.getInstance(), itemToSocket.getType().toString().toLowerCase() + "_socket_amount");
 
     }
@@ -125,6 +126,14 @@ public class Gem {
         }
 
         return container.has(getStorageKey1(), PersistentDataType.STRING);
+    }
+
+    public void retaliateWeapon(){
+        ItemMeta meta = getSocketedItemStack().getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(new NamespacedKey(FNAmplifications.getInstance(), "return_weapon"), PersistentDataType.STRING, "true");
+        getSocketedItemStack().setItemMeta(meta);
     }
 
 }
