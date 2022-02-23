@@ -48,7 +48,7 @@ public class PsychokinesisGem extends SlimefunItem implements GemImpl {
             ItemMeta meta = currentItem.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            if(checkGemAmount(container, currentItem) < 3) {
+            if(checkGemAmount(container, currentItem) < 4) {
                 Gem gem = new Gem(slimefunItem, currentItem, player);
                 if(!gem.isSameGem(currentItem)){
                     player.setItemOnCursor(new ItemStack(Material.AIR));
@@ -57,7 +57,7 @@ public class PsychokinesisGem extends SlimefunItem implements GemImpl {
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
             } else {
-                player.sendMessage(Utils.colorTranslator("&eOnly 3 gems per item is allowed!"));
+                player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
             }
             event.setCancelled(true);

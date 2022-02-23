@@ -8,140 +8,110 @@ import ne.fnfal113.fnamplifications.Utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.EulerAngle;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Getter
-public class ThrowWeaponTask {
+public class ThrowWeaponTask extends BukkitRunnable {
 
-    private final Map<UUID, Integer> WEAPONS = new HashMap<>();
+    @Getter
+    private final ArmorStand armorStand;
+    @Getter
+    private final Player player;
+    @Getter
+    private final ItemStack itemStack;
+    @Getter
+    private final boolean rotateWeapon;
+    @Getter
+    private final boolean isCutThrough;
+    @Getter
+    private final boolean isTriWeapon;
+    @Getter
+    private final boolean returnWeapon;
+    @Getter
+    private final Vector vector;
 
-    public ThrowWeaponTask(){
+    private final ReturnWeaponTask returnWeaponTask;
 
+    public ThrowWeaponTask(ArmorStand armorStand, Player player, ItemStack itemStack, boolean rotateWeapon, boolean isCutThrough, boolean isTriWeapon, boolean returnWeapon, Vector vector){
+        this.armorStand = armorStand;
+        this.player = player;
+        this.itemStack = itemStack;
+        this.rotateWeapon = rotateWeapon;
+        this.isCutThrough = isCutThrough;
+        this.isTriWeapon = isTriWeapon;
+        this.returnWeapon = returnWeapon;
+        this.vector = vector;
+        this.returnWeaponTask = new ReturnWeaponTask(itemStack, armorStand, player);
     }
 
-    public ArmorStand spawnArmorstand(Player player, ItemStack itemStack, boolean isTriSword){
+    @Override
+    public void run() {
+        getArmorStand().teleport(getArmorStand().getLocation().add(getVector()));
+        getArmorStand().getWorld().spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, getArmorStand().getLocation().add(0,0, 0.5), 2);
 
-        return player.getWorld().spawn(player.getLocation().add(0, 0.9, 0), ArmorStand.class, armorStand ->{
-            armorStand.setArms(true);
-            armorStand.setGravity(false);
-            armorStand.setVisible(false);
-            armorStand.setSmall(true);
-            armorStand.setMarker(true);
-            armorStand.setCustomNameVisible(false);
-            armorStand.setPersistent(false);
-            if(!isTriSword) {
-                armorStand.setRightArmPose(Utils.setRightArmAngle(armorStand, 270, 0, 0));
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInMainHand(itemStack.clone());
-            } else{
-                armorStand.setRightArmPose(Utils.setRightArmAngle(armorStand, 0, 0, 0));
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInMainHand(itemStack.clone());
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInOffHand(itemStack.clone());
-                Objects.requireNonNull(armorStand.getEquipment()).setHelmet(itemStack.clone());
-            }
-        });
-    }
-
-    public boolean isBelow4Weapons(Player player){
-        if(!WEAPONS.containsKey(player.getUniqueId())){
-            WEAPONS.put(player.getUniqueId(), 0);
+        // rotate weapon by 45 degrees each tick
+        if(isRotateWeapon()) {
+            getArmorStand().setRightArmPose(Utils.setRightArmAngle(getArmorStand(), 45, 0, 0));
         }
 
-        if(WEAPONS.get(player.getUniqueId()) < 4) {
-            WEAPONS.put(player.getUniqueId(), WEAPONS.get(player.getUniqueId()) + 1);
-            return true;
-        } else{
-            player.sendMessage(Utils.colorTranslator("&eLimit reached! You can only have 4 weapons simultaneously"));
-            return false;
-        }
-    }
+        RayTraceResult result = getArmorStand().rayTraceBlocks(0.107);
+        List<Entity> entityList = getArmorStand().getNearbyEntities(0.3, 0.3, 0.3);
 
-    public void floatThrowItem(Player player, ItemStack itemStack){
-            ArmorStand as = spawnArmorstand(player, itemStack, false);
-
-            int id = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
-                int x = ThreadLocalRandom.current().nextInt(3);
-                int xFinal = x < 1 ? -2 : 2;
-                int z = ThreadLocalRandom.current().nextInt(3);
-                int zFinal = z < 1 ? -2 : 2;
-                as.teleport(player.getLocation().clone().add(xFinal, 0.8, zFinal));
-            }, 5L, 12L).getTaskId();
-
-            Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                WEAPONS.put(player.getUniqueId(), WEAPONS.get(player.getUniqueId()) - 1);
-                Bukkit.getScheduler().cancelTask(id);
-                as.setRightArmPose(new EulerAngle(0, 0, 0));
-                throwWeapon(player, as, itemStack.clone(), false, false, false);
-            }, 160L);
-    }
-
-
-    public void throwWeapon(Player player, ArmorStand as, ItemStack itemStack, boolean rotateWeapon, boolean cutThrough, boolean isTriWeapon){
-        Vector vector = player.getLocation().add(player.getLocation().getDirection().multiply(9).normalize())
-                .subtract(player.getLocation().toVector()).toVector();
-
-
-        Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-            as.teleport(player.getLocation().add(0,0.9, 0));
-
-            if(isTriWeapon){
-                as.setRightArmPose(Utils.setRightArmAngle(as, 0, 348, 0));
-                as.setLeftArmPose(Utils.setLeftArmAngle(as, 0, 12, 0));
-                as.setHeadPose(Utils.setHeadAngle(as, 98, 32, 97));
+        // check if the raytrace result has a block within the max distance
+        if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS &&
+                !Tag.FLOWERS.isTagged(result.getHitBlock().getType())){
+            if(isReturnWeapon()) {
+                returnWeapon();
+                return;
             }
 
-            Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
-                as.teleport(as.getLocation().add(vector));
-                as.getWorld().spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, as.getLocation().add(0,0, 0.2), 2);
-                if(rotateWeapon) {
-                    as.setRightArmPose(Utils.setRightArmAngle(as, 45, 0, 0));
-                }
-                RayTraceResult result = as.rayTraceBlocks(0.105);
-                List<Entity> entityList = as.getNearbyEntities(0.3, 0.3, 0.3);
+            getPlayer().sendMessage(weaponTask(getArmorStand(), getPlayer(), getItemStack().clone()));
+            return;
+        }
 
-                if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS &&
-                        !Tag.FLOWERS.isTagged(result.getHitBlock().getType())){
-                    player.sendMessage(weaponTask(as, player, task, itemStack.clone()));
-                    return;
-                }
-                if(!entityList.isEmpty() && !entityList.contains(player)){
-                    for(int i = 0; i < entityList.size(); i++){
-                        if(entityList.get(i) instanceof Damageable && entityList.get(i).getUniqueId() != player.getUniqueId()){
-                            if(Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()), entityList.get(i).getLocation(), Interaction.BREAK_BLOCK)) {
-                                if(WeaponArmorEnum.SWORDS.isTagged(itemStack.clone().getType())) {
-                                    ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 6 : 3);
-                                } else {
-                                    ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 8 : 4);
-                                }
-                            }
+        // check if there are nearby entities around the given bounding box
+        if(!entityList.isEmpty() && !entityList.contains(getPlayer())){
+            for(int i = 0; i < entityList.size(); i++){
+                if(entityList.get(i) instanceof Damageable && entityList.get(i).getUniqueId() != getPlayer().getUniqueId()){
+                    if(Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(getPlayer().getUniqueId()), entityList.get(i).getLocation(), Interaction.BREAK_BLOCK)) {
+                        if(WeaponArmorEnum.SWORDS.isTagged(getItemStack().clone().getType())) {
+                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 8 : 5);
+                        } else {
+                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 10 : 7);
                         }
                     }
-                    if(!cutThrough) {
-                        weaponTask(as, player, task, itemStack.clone());
-                        return;
-                    }
                 }
-                if(as.getLocation().distanceSquared(player.getLocation()) > 3600){
-                    player.sendMessage(Utils.colorTranslator("&eYour weapon has reached the max distance, " + weaponTask(as, player, task, itemStack.clone())));
+            }
 
-                }
-            }, 0L, 1L);
-        }, 1L);
+            if(isReturnWeapon() && !isTriWeapon()) {
+                returnWeapon();
+                return;
+            }
 
+            if(!isTriWeapon()) {
+                weaponTask(getArmorStand(), getPlayer(), getItemStack().clone());
+                return;
+            }
+        }
+
+        // drop the weapon if the distance is greater 60 blocks
+        if(getArmorStand().getLocation().distanceSquared(player.getLocation()) > 3600){
+            getPlayer().sendMessage(Utils.colorTranslator("&eYour weapon has reached the max distance, " + weaponTask(getArmorStand(), getPlayer(), getItemStack().clone())));
+        }
     }
 
-    public String weaponTask(ArmorStand as, Player player, BukkitTask task, ItemStack itemStack){
-        Item droppedItem = as.getWorld().dropItem(as.getLocation(), itemStack);
+    public String weaponTask(ArmorStand as, Player player, ItemStack itemStack){
+        Item droppedItem = as.getWorld().dropItem(as.getLocation(), itemStack.clone());
         Location locInfo = droppedItem.getLocation();
         droppedItem.setOwner(player.getUniqueId());
         droppedItem.setGlowing(true);
         as.remove();
-        task.cancel();
+        this.cancel();
 
         return Utils.colorTranslator("&eWeapon dropped near at " +
                 "x: " + (int) locInfo.getX() + ", " +
@@ -149,4 +119,8 @@ public class ThrowWeaponTask {
                 "z: " + (int) locInfo.getZ());
     }
 
+    public void returnWeapon(){
+        this.cancel();
+        returnWeaponTask.runTaskTimer(FNAmplifications.getInstance(), 4L, 1L);
+    }
 }
