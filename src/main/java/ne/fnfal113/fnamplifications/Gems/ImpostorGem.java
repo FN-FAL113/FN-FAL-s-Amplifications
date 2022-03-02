@@ -75,6 +75,10 @@ public class ImpostorGem extends SlimefunItem implements GemImpl {
     }
 
     public void onDamage(EntityDamageByEntityEvent event){
+        if(event.isCancelled()){
+            return;
+        }
+
         if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
             Player victim = (Player) event.getEntity();
             Player damager = (Player) event.getDamager();

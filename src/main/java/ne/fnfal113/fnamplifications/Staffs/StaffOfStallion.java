@@ -12,6 +12,7 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -30,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class StaffOfStallion extends SlimefunItem {
+public class StaffOfStallion extends SlimefunItem implements StaffImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -38,10 +39,13 @@ public class StaffOfStallion extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
+    private final MainStaff mainStaff;
+
     public StaffOfStallion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "stallionstaff");
+        this.mainStaff = new MainStaff(lore(), value.staffOfStallion(), getStorageKey());
     }
 
     protected @Nonnull
@@ -49,10 +53,20 @@ public class StaffOfStallion extends SlimefunItem {
         return defaultUsageKey;
     }
 
+    @Override
+    public List<String> lore(){
+        List<String> lore = new ArrayList<>();
+        lore.add(0, "");
+        lore.add(1, ChatColor.LIGHT_PURPLE + "Spawns a skeleton horse that is");
+        lore.add(2, ChatColor.LIGHT_PURPLE + "rideable until passenger dismount");
+
+        return lore;
+    }
+
+    @Override
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-        NamespacedKey key = getStorageKey();
         Block block = event.getPlayer().getTargetBlockExact(50);
 
         if(block == null || item.getType() == Material.AIR){
@@ -68,13 +82,9 @@ public class StaffOfStallion extends SlimefunItem {
             return;
         }
 
-        if(item.getItemMeta() == null){
-            return;
-        }
-
         ItemMeta meta = item.getItemMeta();
 
-        updateMeta(item, meta, key, player);
+        mainStaff.updateMeta(item, meta, player);
 
         SkeletonHorse skeletonHorse = (SkeletonHorse) player.getWorld().spawnEntity(player.getLocation() , EntityType.SKELETON_HORSE);
         skeletonHorse.setAdult();
@@ -87,31 +97,6 @@ public class StaffOfStallion extends SlimefunItem {
         skeletonHorse.addPassenger(player);
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
-
-    }
-
-    public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
-        PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfStallion());
-        int decrement = uses_Left - 1;
-
-        List<String> lore = new ArrayList<>();
-
-        if(decrement > 0) {
-            max_Uses.set(key, PersistentDataType.INTEGER, decrement);
-            lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Spawns a skeleton horse that is");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "rideable until passenger dismount");
-            lore.add(3, "");
-            lore.add(4, ChatColor.YELLOW + "Uses left: " + decrement);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-        } else {
-            player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lStallion staff has reached max uses!"));
-            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
-        }
-
 
     }
 

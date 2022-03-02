@@ -72,7 +72,7 @@ public class PsychokinesisGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity, Arrow arrow){
+    public void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity){
         if(event.isCancelled()){
             return;
         }

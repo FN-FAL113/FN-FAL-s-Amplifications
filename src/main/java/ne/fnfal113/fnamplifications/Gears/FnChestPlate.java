@@ -8,7 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Gears.Implementation.GearsImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -27,7 +29,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
-public class FnChestPlate extends SlimefunItem {
+public class FnChestPlate extends SlimefunItem implements GearsImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -43,9 +45,9 @@ public class FnChestPlate extends SlimefunItem {
     public FnChestPlate(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "armor");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "armorlevel");
-        this.defaultUsageKey3 = new NamespacedKey(FNAmplifications.getInstance(), "armorfinal");
+        this.defaultUsageKey = Keys.FN_GEAR_CHEST;
+        this.defaultUsageKey2 = Keys.FN_GEAR_CHEST_LEVEL;
+        this.defaultUsageKey3 = Keys.FN_GEAR_CHEST_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 30, 120);
     }
 
@@ -64,6 +66,7 @@ public class FnChestPlate extends SlimefunItem {
         return defaultUsageKey3;
     }
 
+    @Override
     public List<String> defaultLore(){
         List<String> lore = new ArrayList<>();
         lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
@@ -79,6 +82,7 @@ public class FnChestPlate extends SlimefunItem {
         return lore;
     }
 
+    @Override
     public void onHit(EntityDamageByEntityEvent event){
         if(!(event.getEntity() instanceof Player)){
             return;
@@ -98,7 +102,7 @@ public class FnChestPlate extends SlimefunItem {
 
     }
 
-
+    @Override
     public void upgradeArmor(ItemStack armor, int level, Player p){
         ItemMeta meta = armor.getItemMeta();
 
@@ -243,5 +247,4 @@ public class FnChestPlate extends SlimefunItem {
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4), new ItemStack(Material.DIAMOND_CHESTPLATE), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4)})
                 .setUnbreakable(value.fnChestPlateUnbreakable()).register(plugin);
     }
-
 }

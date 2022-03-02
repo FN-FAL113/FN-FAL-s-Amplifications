@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.Quiver.Interface.QuiverImpl;
 import org.bukkit.ChatColor;
@@ -45,9 +46,9 @@ public class UpgradedQuiver extends SlimefunItem implements QuiverImpl {
 
         this.quiverSize = quiverSize;
         this.arrowType = arrowType;
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "upgradedarrows");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "upgradedarrowid");
-        this.defaultUsageKey3 = new NamespacedKey(FNAmplifications.getInstance(), "upgraded_state");
+        this.defaultUsageKey = Keys.UPGRADED_ARROWS_KEY;
+        this.defaultUsageKey2 = Keys.UPGRADED_ARROWS_ID_KEY;
+        this.defaultUsageKey3 = Keys.UPGRADED_QUIVER_STATE_KEY;
         this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), getQuiverSize(), getArrowType(), item, defaultLore());
     }
 

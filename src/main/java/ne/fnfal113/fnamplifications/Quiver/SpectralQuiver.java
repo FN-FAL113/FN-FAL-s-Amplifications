@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.Quiver.Interface.QuiverImpl;
 import org.bukkit.ChatColor;
@@ -45,9 +46,9 @@ public class SpectralQuiver extends SlimefunItem implements QuiverImpl {
 
         this.quiverSize = quiverSize;
         this.arrowType = arrowType;
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "spectralarrows");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "spectralarrowid");
-        this.defaultUsageKey3 = new NamespacedKey(FNAmplifications.getInstance(), "spectral_state");
+        this.defaultUsageKey = Keys.SPECTRAL_ARROWS_KEY;
+        this.defaultUsageKey2 = Keys.SPECTRAL_ARROWS_ID_KEY;
+        this.defaultUsageKey3 = Keys.SPECTRAL_STATE_KEY;
         this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), quiverSize, getArrowType(), item, defaultLore());
     }
 

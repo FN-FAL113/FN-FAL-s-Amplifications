@@ -186,6 +186,7 @@ public final class FNAmpItemSetup {
         TriSwordGem.setup();
         DamnationGem.setup();
         RetaliateGem.setup();
+        GuardianGem.setup();
     }
 
     public void registerTools(){

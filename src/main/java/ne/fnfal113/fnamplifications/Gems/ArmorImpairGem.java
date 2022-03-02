@@ -29,6 +29,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("ConstantConditions")
 public class ArmorImpairGem extends SlimefunItem implements GemImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
@@ -61,12 +62,11 @@ public class ArmorImpairGem extends SlimefunItem implements GemImpl {
                 } else{
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
-                event.setCancelled(true);
             } else {
                 player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
-                event.setCancelled(true);
             }
+            event.setCancelled(true);
         }
 
     }
@@ -79,6 +79,10 @@ public class ArmorImpairGem extends SlimefunItem implements GemImpl {
     }
 
     public void onDamage(EntityDamageByEntityEvent event){
+        if(event.isCancelled()){
+            return;
+        }
+
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
         ItemStack[] armorContents = livingEntity.getEquipment().getArmorContents();
 

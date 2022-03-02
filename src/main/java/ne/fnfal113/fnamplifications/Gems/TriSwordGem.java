@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
 import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowableWeapon;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
@@ -75,10 +76,9 @@ public class TriSwordGem extends SlimefunItem implements GemImpl {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 
         PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
-        NamespacedKey key = new NamespacedKey(FNAmplifications.getInstance(), "return_weapon");
 
         throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), true), itemStack.clone(),
-                false, true, true, Boolean.parseBoolean(pdc.getOrDefault(key, PersistentDataType.STRING, "false")));
+                false, true, true, Boolean.parseBoolean(pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false")));
 
         itemStack.setAmount(0);
     }

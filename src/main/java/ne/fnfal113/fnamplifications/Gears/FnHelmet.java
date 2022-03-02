@@ -8,7 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Gears.Implementation.GearsImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
-public class FnHelmet extends SlimefunItem {
+public class FnHelmet extends SlimefunItem implements GearsImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -45,9 +47,9 @@ public class FnHelmet extends SlimefunItem {
     public FnHelmet(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "helmet");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "helmetlevel");
-        this.defaultUsageKey3 = new NamespacedKey(FNAmplifications.getInstance(), "helmetfinal");
+        this.defaultUsageKey = Keys.FN_GEAR_HELMET;
+        this.defaultUsageKey2 = Keys.FN_GEAR_HELMET_LEVEL;
+        this.defaultUsageKey3 = Keys.FN_GEAR_HELMET_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 20, 100);
     }
 
@@ -66,6 +68,7 @@ public class FnHelmet extends SlimefunItem {
         return defaultUsageKey3;
     }
 
+    @Override
     public List<String> defaultLore(){
         List<String> lore = new ArrayList<>();
         lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
@@ -81,6 +84,7 @@ public class FnHelmet extends SlimefunItem {
         return lore;
     }
 
+    @Override
     public void onHit(EntityDamageByEntityEvent event){
         if(!(event.getEntity() instanceof Player)){
             return;
@@ -100,6 +104,7 @@ public class FnHelmet extends SlimefunItem {
 
     }
 
+    @Override
     public void upgradeArmor(ItemStack armor, int level, Player p){
         ItemMeta meta = armor.getItemMeta();
 
@@ -265,5 +270,4 @@ public class FnHelmet extends SlimefunItem {
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new ItemStack(Material.DIAMOND_HELMET), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
                 .setUnbreakable(value.fnHelmetUnbreakable()).register(plugin);
     }
-
 }

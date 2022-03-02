@@ -12,14 +12,13 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfTeleportation extends SlimefunItem {
+public class StaffOfTeleportation extends SlimefunItem implements StaffImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -35,10 +34,13 @@ public class StaffOfTeleportation extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
+    private final MainStaff mainStaff;
+
     public StaffOfTeleportation(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "tpstaff");
+        this.mainStaff = new MainStaff(lore(), value.staffOfTeleportation(), getStorageKey());
     }
 
     protected @Nonnull
@@ -46,11 +48,21 @@ public class StaffOfTeleportation extends SlimefunItem {
         return defaultUsageKey;
     }
 
+    @Override
+    public List<String> lore(){
+        List<String> lore = new ArrayList<>();
+        lore.add(0, "");
+        lore.add(1, ChatColor.LIGHT_PURPLE + "Teleport to a target block by");
+        lore.add(2, ChatColor.LIGHT_PURPLE + "right clicking it");
+
+        return lore;
+    }
+
+    @Override
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         Vector directional = player.getLocation().getDirection();
         ItemStack item = player.getInventory().getItemInMainHand();
-        NamespacedKey key = getStorageKey();
         Block block = event.getPlayer().getTargetBlockExact(100);
 
         if(block == null || item.getType() == Material.AIR){
@@ -66,41 +78,12 @@ public class StaffOfTeleportation extends SlimefunItem {
             return;
         }
 
-        if(item.getItemMeta() == null){
-            return;
-        }
-
         ItemMeta meta = item.getItemMeta();
 
-        updateMeta(item, meta, key, player);
+        mainStaff.updateMeta(item, meta,player);
         player.teleport(block.getLocation().add(0.5, 1, 0.5).setDirection(directional));
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
-
-    }
-
-    public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
-        PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfTeleportation());
-        int decrement = uses_Left - 1;
-
-        List<String> lore = new ArrayList<>();
-
-        if(decrement > 0) {
-            max_Uses.set(key, PersistentDataType.INTEGER, decrement);
-            lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Teleport to a target block by");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "right clicking it");
-            lore.add(3, "");
-            lore.add(4, ChatColor.YELLOW + "Uses left: " + decrement);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-        } else {
-            player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lTeleportation staff has reached max uses!"));
-            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
-        }
-
 
     }
 

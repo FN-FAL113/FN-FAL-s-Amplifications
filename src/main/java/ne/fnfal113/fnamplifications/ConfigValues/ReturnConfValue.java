@@ -517,6 +517,10 @@ public class ReturnConfValue {
         return config.getInt("Gem-Blindbind");
     }
 
+    public int guardianGem() {
+        return config.getInt("Gem-Guardian");
+    }
+
     public boolean changelogEnable(){
         return config.getBoolean("Enable-One-Time-Chat-Changelog");
     }

@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
@@ -77,12 +78,9 @@ public class RetaliateGem extends SlimefunItem implements GemImpl {
     }
 
     public boolean hasNeededGem(PersistentDataContainer pdc){
-        NamespacedKey damnedKey = new NamespacedKey(FNAmplifications.getInstance(), "fn_gem_damnation");
-        NamespacedKey triKey = new NamespacedKey(FNAmplifications.getInstance(), "fn_gem_tri_sword");
-        NamespacedKey throwieKey = new NamespacedKey(FNAmplifications.getInstance(), "fn_gem_axethrowie");
-
-        return pdc.has(damnedKey, PersistentDataType.STRING) || pdc.has(triKey, PersistentDataType.STRING) ||
-                pdc.has(throwieKey, PersistentDataType.STRING);
+        return pdc.has(Keys.RETURN_DAMNATION_KEY, PersistentDataType.STRING) ||
+                pdc.has(Keys.RETURN_TRISWORD_KEY, PersistentDataType.STRING) ||
+                pdc.has(Keys.RETURN_AXE_KEY, PersistentDataType.STRING);
     }
 
     public static void setup(){
