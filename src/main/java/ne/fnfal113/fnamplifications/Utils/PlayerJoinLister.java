@@ -48,6 +48,8 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&d&l• &r&dAdded Guardian gem, spawns an entity that will protect"),
                 Utils.colorTranslator("  &dyou until death when you are being attacked by enemies"),
                 Utils.colorTranslator("&d&l• &r&dChanged head textures for R10 Generator and Compressor part"),
+                Utils.colorTranslator("&d&l• &r&dFixed thunderbolt gem working inside protected claims and other gems too"),
+                Utils.colorTranslator("&d&l• &r&dRewritten/refactored the code for Staffs"),
                 Utils.colorTranslator("&d&l• &r&dCode cleanups and improvements"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
