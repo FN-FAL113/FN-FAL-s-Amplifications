@@ -12,6 +12,7 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
@@ -20,7 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfHealing extends SlimefunItem {
+public class StaffOfHealing extends SlimefunItem implements StaffImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -39,11 +39,14 @@ public class StaffOfHealing extends SlimefunItem {
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
 
+    private final MainStaff mainStaff;
+
     public StaffOfHealing(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "healingstaff");
         this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "cloudfn");
+        this.mainStaff = new MainStaff(lore(), value.staffOfHealing(), getStorageKey());
     }
 
     protected @Nonnull
@@ -56,10 +59,21 @@ public class StaffOfHealing extends SlimefunItem {
         return defaultUsageKey2;
     }
 
+    @Override
+    public List<String> lore(){
+        List<String> lore = new ArrayList<>();
+        lore.add(0, "");
+        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to spawn a cloud of effect");
+        lore.add(2, ChatColor.LIGHT_PURPLE + "that heals the caster only if inside the");
+        lore.add(3, ChatColor.LIGHT_PURPLE + "radius for 8 seconds");
+
+        return lore;
+    }
+
+    @Override
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-        NamespacedKey key = getStorageKey();
         Block block = event.getPlayer().getTargetBlockExact(50);
 
         if(block == null || item.getType() == Material.AIR){
@@ -75,13 +89,9 @@ public class StaffOfHealing extends SlimefunItem {
             return;
         }
 
-        if(item.getItemMeta() == null){
-            return;
-        }
-
         ItemMeta meta = item.getItemMeta();
 
-        updateMeta(item, meta, key, player);
+        mainStaff.updateMeta(item, meta, player);
 
         AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
         effectCloud.setParticle(Particle.HEART);
@@ -94,32 +104,6 @@ public class StaffOfHealing extends SlimefunItem {
         effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0 , 0, false, false, false), true);
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
-
-    }
-
-    public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
-        PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfHealing());
-        int decrement = uses_Left - 1;
-
-        List<String> lore = new ArrayList<>();
-
-        if(decrement > 0) {
-            max_Uses.set(key, PersistentDataType.INTEGER, decrement);
-            lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to spawn a cloud of effect");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "that heals the caster only if inside the");
-            lore.add(3, ChatColor.LIGHT_PURPLE + "radius for 8 seconds");
-            lore.add(4, "");
-            lore.add(5, ChatColor.YELLOW + "Uses left: " + decrement);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-        } else {
-            player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lHealing staff has reached max uses!"));
-            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
-        }
-
 
     }
 

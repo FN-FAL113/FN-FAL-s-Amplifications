@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications.Gems.Implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
@@ -113,7 +114,7 @@ public class Gem {
 
         getPlayer().sendMessage(Utils.colorTranslator("&eSuccessfully bound " + name + " &eto " +
                 itemStack.getType().name().replace("_", " ").toLowerCase(Locale.ROOT)
-                        .replace(itemStack.getType().name().substring(0, 0).toLowerCase(Locale.ROOT), itemStack.getType().name().substring(0, 0).toUpperCase(Locale.ROOT))));
+                        .replace(itemStack.getType().name().substring(0, 0), itemStack.getType().name().substring(0, 0).toUpperCase(Locale.ROOT))));
         getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
     }
 
@@ -132,7 +133,7 @@ public class Gem {
         ItemMeta meta = getSocketedItemStack().getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(new NamespacedKey(FNAmplifications.getInstance(), "return_weapon"), PersistentDataType.STRING, "true");
+        pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
         getSocketedItemStack().setItemMeta(meta);
     }
 

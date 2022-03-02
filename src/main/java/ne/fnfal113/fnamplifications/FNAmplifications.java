@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.logging.Level;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
 
@@ -68,6 +69,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     @Override
     public void onDisable(){
         Bukkit.getScheduler().cancelTasks(FNAmplifications.getInstance());
+        getLogger().log(Level.INFO, "Cancelled any running task that exist");
     }
 
     @Nonnull

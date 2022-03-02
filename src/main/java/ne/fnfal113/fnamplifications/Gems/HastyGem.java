@@ -67,12 +67,11 @@ public class HastyGem extends SlimefunItem implements GemImpl {
                 } else{
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
-                event.setCancelled(true);
             } else {
                 player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
-                event.setCancelled(true);
             }
+            event.setCancelled(true);
         }
 
     }
@@ -85,11 +84,10 @@ public class HastyGem extends SlimefunItem implements GemImpl {
     }
 
     public void onBlockBreak(BlockBreakEvent event, Player player){
-        Block block = event.getBlock();
-
         if(event.isCancelled()){
             return;
         }
+        Block block = event.getBlock();
 
         if(SlimefunTag.ORES.isTagged(block.getType()) || SlimefunTag.STONE_VARIANTS.isTagged(block.getType())) {
             if (ThreadLocalRandom.current().nextInt(100) < value.hastyGem()) {

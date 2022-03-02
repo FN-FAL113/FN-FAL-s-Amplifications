@@ -8,7 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.Gears.Implementation.GearsImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
-public class FnLeggings extends SlimefunItem{
+public class FnLeggings extends SlimefunItem implements GearsImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -45,25 +47,10 @@ public class FnLeggings extends SlimefunItem{
     public FnLeggings(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "leggings");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "leggingslevel");
-        this.defaultUsageKey3 = new NamespacedKey(FNAmplifications.getInstance(), "leggingsfinal");
+        this.defaultUsageKey = Keys.FN_GEAR_LEGGINGS;
+        this.defaultUsageKey2 = Keys.FN_GEAR_LEGGINGS_LEVEL;
+        this.defaultUsageKey3 = Keys.FN_GEAR_LEGGINGS_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 30, 105);
-    }
-
-    public List<String> defaultLore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Lore " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-        lore.add(1, "");
-        lore.add(2, ChatColor.WHITE + "Glorious leggings worn by FN during war");
-        lore.add(3, ChatColor.WHITE + "and was glorified on every victory against");
-        lore.add(4, ChatColor.WHITE + "his foes");
-        lore.add(5, "");
-        lore.add(6, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Stats " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-
-        return lore;
     }
 
     protected @Nonnull
@@ -81,7 +68,23 @@ public class FnLeggings extends SlimefunItem{
         return defaultUsageKey3;
     }
 
+    @Override
+    public List<String> defaultLore(){
+        List<String> lore = new ArrayList<>();
+        lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
+                + ChatColor.BOLD + "Lore " + ChatColor.GOLD + "|◬◬◬◬◬◬");
+        lore.add(1, "");
+        lore.add(2, ChatColor.WHITE + "Glorious leggings worn by FN during war");
+        lore.add(3, ChatColor.WHITE + "and was glorified on every victory against");
+        lore.add(4, ChatColor.WHITE + "his foes");
+        lore.add(5, "");
+        lore.add(6, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
+                + ChatColor.BOLD + "Stats " + ChatColor.GOLD + "|◬◬◬◬◬◬");
 
+        return lore;
+    }
+
+    @Override
     public void onHit(EntityDamageByEntityEvent event) {
         if(!(event.getEntity() instanceof Player)){
             return;
@@ -101,6 +104,7 @@ public class FnLeggings extends SlimefunItem{
 
     }
 
+    @Override
     public void upgradeArmor(ItemStack armor, int level, Player p) {
         ItemMeta meta = armor.getItemMeta();
 

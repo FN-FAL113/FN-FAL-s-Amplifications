@@ -1,22 +1,24 @@
 package ne.fnfal113.fnamplifications.Gems.Listeners;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.Gems.*;
+import ne.fnfal113.fnamplifications.Gems.Implementation.TargetReasonEnum;
+import ne.fnfal113.fnamplifications.Utils.Keys;
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Container;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -26,9 +28,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class GemListener implements Listener {
+
+    @Getter
+    private final List<EntityTargetEvent.TargetReason> reasonList = Arrays.asList(EntityTargetEvent.TargetReason.values());
 
     @EventHandler
     public void onDragDrop(InventoryClickEvent event){
@@ -68,6 +75,8 @@ public class GemListener implements Listener {
             ((DamnationGem) gem).onDrag(event, player);
         } else if(gem instanceof RetaliateGem){
             ((RetaliateGem) gem).onDrag(event, player);
+        } else if(gem instanceof GuardianGem){
+            ((GuardianGem) gem).onDrag(event, player);
         }
 
     }
@@ -107,6 +116,18 @@ public class GemListener implements Listener {
                     } // loop all pdc keys inside the item
                 } // pdc check
             }
+
+            if(event.getEntity().getPersistentDataContainer()
+                    .has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
+                if(Objects.equals(event.getEntity().getPersistentDataContainer()
+                        .get(Keys.GUARDIAN_KEY, PersistentDataType.STRING), player.getName())) {
+                    event.setCancelled(true);
+                } else if(!Slimefun.getProtectionManager().hasPermission(
+                        Bukkit.getOfflinePlayer(player.getUniqueId()),
+                        event.getEntity().getLocation(), Interaction.ATTACK_ENTITY)) {
+                    event.setCancelled(true);
+                }
+            } // check if entity is a guardian
         }
 
         /*
@@ -127,6 +148,9 @@ public class GemListener implements Listener {
 
                             if (item instanceof ThornAwayGem) {
                                 ((ThornAwayGem) item).onDamage(event);
+                            }
+                            if (item instanceof GuardianGem) {
+                                ((GuardianGem) item).onDamage(event, player);
                             }
                         } // make sure pdc type is string only
                     } // loop all pdc keys inside the item
@@ -151,7 +175,6 @@ public class GemListener implements Listener {
                 } // pdc check
             }
         }
-
 
     }
 
@@ -230,7 +253,7 @@ public class GemListener implements Listener {
                             PersistentDataType.STRING)));
 
                     if (item instanceof PsychokinesisGem) {
-                        ((PsychokinesisGem) item).onArrowHit(event, player, livingEntity, arrow);
+                        ((PsychokinesisGem) item).onArrowHit(event, player, livingEntity);
                     }
                     if (item instanceof BlindBindGem) {
                         ((BlindBindGem) item).onArrowHit(event, player, livingEntity, arrow);
@@ -290,6 +313,45 @@ public class GemListener implements Listener {
 
         } // pdc check
 
+    }
+
+    @EventHandler
+    public void onMobTarget(EntityTargetLivingEntityEvent event){
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
+
+        if(event.getEntity() instanceof Zombie) {
+            Zombie zombie = (Zombie) event.getEntity();
+
+            if (event.getTarget() instanceof Player) {
+                Player player = (Player) event.getTarget();
+
+                if (!zombie.getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)) {
+                    return;
+                }
+
+                if(Objects.equals(zombie.getPersistentDataContainer()
+                        .get(Keys.GUARDIAN_KEY, PersistentDataType.STRING), player.getName())){
+                    event.setCancelled(true);
+                }
+                if(TargetReasonEnum.PLAYER_TARGET.isTagged(event.getReason())) {
+                    event.setTarget(null);
+                    event.setCancelled(true);
+                }
+
+            } // check if target is player
+
+            if(event.getTarget() instanceof Zombie){
+                Zombie zombieTarget = (Zombie) event.getTarget();
+
+                if(zombieTarget.getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)
+                && TargetReasonEnum.ZOMBIE_TARGET.isTagged(event.getReason())) {
+                   event.setCancelled(true);
+                }
+            } // check if target is zombie
+
+        } // check if zombie entity
     }
 
     public PersistentDataContainer getPersistentDataContainer(ItemStack itemStack){

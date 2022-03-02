@@ -45,9 +45,12 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &r&dAdded Retaliate Gem - return to me my weapon"),
-                Utils.colorTranslator("&d&l• &r&dRewritten/refactored Mystery Sticks code and also cleanups"),
-                Utils.colorTranslator("&d&l• &r&dRewritten/refactored the code for making weapons throwable"),
+                Utils.colorTranslator("&d&l• &r&dAdded Guardian gem, spawns an entity that will protect"),
+                Utils.colorTranslator("  &dyou until death when you are being attacked by enemies"),
+                Utils.colorTranslator("&d&l• &r&dChanged head textures for R10 Generator and Compressor part"),
+                Utils.colorTranslator("&d&l• &r&dFixed thunderbolt gem working inside protected claims and other gems too"),
+                Utils.colorTranslator("&d&l• &r&dRewritten/refactored the code for Staffs"),
+                Utils.colorTranslator("&d&l• &r&dCode cleanups and improvements"),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

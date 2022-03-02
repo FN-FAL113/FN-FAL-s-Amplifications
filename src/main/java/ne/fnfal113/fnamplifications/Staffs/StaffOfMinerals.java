@@ -12,6 +12,7 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -20,13 +21,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class StaffOfMinerals extends SlimefunItem {
+public class StaffOfMinerals extends SlimefunItem implements StaffImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -34,10 +33,13 @@ public class StaffOfMinerals extends SlimefunItem {
 
     private final NamespacedKey defaultUsageKey;
 
+    private final MainStaff mainStaff;
+
     public StaffOfMinerals(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "mineralstaff");
+        this.mainStaff = new MainStaff(lore(), value.staffOfMinerals(), getStorageKey());
     }
 
     protected @Nonnull
@@ -45,20 +47,29 @@ public class StaffOfMinerals extends SlimefunItem {
         return defaultUsageKey;
     }
 
+    @Override
+    public List<String> lore(){
+        List<String> lore = new ArrayList<>();
+        lore.add(0, "");
+        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to receive mythical");
+        lore.add(2, ChatColor.LIGHT_PURPLE + "information that awaits upon using");
+        lore.add(3, ChatColor.LIGHT_PURPLE + "the staff");
+
+        return lore;
+    }
+
+    @Override
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-        NamespacedKey key = getStorageKey();
         Chunk chunk = player.getLocation().getChunk();
+
         Set<Material> materials = SlimefunTag.ORES.getValues();
         Map<String, Integer> MINERALS = new HashMap<>();
         List<String> contents = new ArrayList<>();
         List<String> firstPage = new ArrayList<>();
-        int amount = 0;
 
-        if(item.getItemMeta() == null){
-            return;
-        }
+        int amount = 0;
 
         for(int y = WorldUtils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight(); y++) {
             for(int x = 0; x <= 15; x++) {
@@ -116,7 +127,7 @@ public class StaffOfMinerals extends SlimefunItem {
 
         ItemMeta meta = item.getItemMeta();
 
-        updateMeta(item, meta, key, player);
+        mainStaff.updateMeta(item, meta, player);
 
         writtenBook.setItemMeta(bookMeta);
         player.openBook(writtenBook);
@@ -129,32 +140,6 @@ public class StaffOfMinerals extends SlimefunItem {
         return firstPage.toString().replace("[", "").replace("]", "");
     }
 
-    public void updateMeta(ItemStack item, ItemMeta meta, NamespacedKey key, Player player){
-        PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(key, PersistentDataType.INTEGER, value.staffOfMinerals());
-        int decrement = uses_Left - 1;
-
-        List<String> lore = new ArrayList<>();
-
-        if(decrement > 0) {
-            max_Uses.set(key, PersistentDataType.INTEGER, decrement);
-            lore.add(0, "");
-            lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to receive mythical");
-            lore.add(2, ChatColor.LIGHT_PURPLE + "information that awaits upon using");
-            lore.add(3, ChatColor.LIGHT_PURPLE + "the staff");
-            lore.add(4, "");
-            lore.add(5, ChatColor.YELLOW + "Uses left: " + decrement);
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-        } else {
-            player.getInventory().setItemInMainHand(null);
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&d&lMineral staff has reached max uses!"));
-            player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
-        }
-
-
-    }
-
     public static void setup(){
         new StaffOfMinerals(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_MINERALS, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2), new ItemStack(Material.BLAZE_POWDER, 12), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),
@@ -162,5 +147,4 @@ public class StaffOfMinerals extends SlimefunItem {
                 new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2)})
                 .register(plugin);
     }
-
 }

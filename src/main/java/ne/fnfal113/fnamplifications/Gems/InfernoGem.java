@@ -78,6 +78,10 @@ public class InfernoGem extends SlimefunItem implements GemImpl {
     }
 
     public void onDamage(EntityDamageByEntityEvent event){
+        if(event.isCancelled()){
+            return;
+        }
+
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
 
         int random = ThreadLocalRandom.current().nextInt(100);

@@ -269,7 +269,7 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_XPANSION_POWER_R10 = new SlimefunItemStack(
             "FN_POWER_XPANSION_POWER_R10",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode(
-                    "56a7d2195ff7674bbb12e2f7578a2a63c54a980e64744450ac6656e05a790499")),
+                    "7b7c9b6a23f21cca2b362b85b36dece3d8389e363014defe5b92ff6ee64f1ae")),
             "&d&lFN Power Xpansion R10",
             "&9This works at Night!",
             "&9Place and right click",
@@ -796,7 +796,7 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack COMPRESSOR_PART = new SlimefunItemStack(
             "FN_MACHINERY_COMPRESSOR_PART",
-            PlayerHead.getItemStack(PlayerSkin.fromHashCode("e48337f7ede15c3b2f8dc6a63bd92874cdf74ec862b4118c7e35559ce8b4d")),
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("d3898f7c444223b7a91a8f038e224222fef8960cfbef94836b014a06ea4cba63")),
             "&dCompressor Part",
             "&fEssential Part for FN Machinery",
             "",
@@ -1151,7 +1151,7 @@ public class FNAmpItems {
             "&cStaff of Invisibility",
             "",
             "&d6 seconds of invisibility",
-            "&deven your armor and name is hidden",
+            "&deven your armor and name are hidden",
             "",
             "&eUses left: "  + value.staffOfInvisibility()
     );
@@ -1572,9 +1572,10 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cRetaliate Gem",
             "",
-            "&eAllows your weapons to return back to you after",
-            "&ethrowing it, weapon must have any of these gems",
-            "&ebound to it before binding this gem: ",
+            "&eAllows your weapons to return back to ",
+            "&eyou after throwing and hitting an object",
+            "&eor entity, weapon must have any of these",
+            "&egems bound to it before binding this gem:",
             "&e- Damnation Gem",
             "&e- Tri-Sword Gem",
             "&e- Axe Throwie Gem",
@@ -1592,6 +1593,24 @@ public class FNAmpItems {
             "&e4 seconds when got hit by your arrow",
             "",
             "&dDrag and drop on a bow",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_GUARDIAN = new SlimefunItemStack(
+            "FN_GEM_GUARDIAN",
+            Material.EMERALD,
+            "&cGuardian Gem",
+            "",
+            "&e" + value.guardianGem() + "&e% chance to spawn a guardian that will",
+            "&efight for you until death, the armor that",
+            "&ehas this gem must be worn in order for",
+            "&ethe guardian to protect you from enemies",
+            "&ewhen you are being attacked.",
+            "&f- Unequipped armor will remove any active guardians",
+            "&f- Guardians don't attack other guardians and",
+            "  &fcan only attack the owner of that guardian",
+            "",
+            "&dDrag and drop on a chestplate",
             "&dto bind this gem"
     );
 

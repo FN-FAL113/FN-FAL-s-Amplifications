@@ -77,6 +77,10 @@ public class ThunderBoltGem extends SlimefunItem implements GemImpl {
     }
 
     public void onDamage(EntityDamageByEntityEvent event, Player player){
+        if(event.isCancelled()){
+            return;
+        }
+
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
 
         if(ThreadLocalRandom.current().nextInt(100) < value.thunderBoltGem()){
