@@ -130,9 +130,9 @@ public class GuardianGem extends SlimefunItem implements GemImpl {
 
     public static void setup(){
         new GuardianGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_GUARDIAN, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.TALISMAN_FIRE, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), SlimefunItems.TALISMAN_FIRE,
+                SlimefunItems.TALISMAN_ANGEL, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.TALISMAN_FIRE,
                 new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                SlimefunItems.TALISMAN_FIRE, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), SlimefunItems.TALISMAN_FIRE})
+                SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 1),  SlimefunItems.MAGIC_SUGAR})
                 .register(plugin);
     }
 }
