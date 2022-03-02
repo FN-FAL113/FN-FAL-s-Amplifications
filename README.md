@@ -3,10 +3,6 @@ A slimefun addon that adds different types of items and more content for your se
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
 of crafting, it means harder is fun and the grind is worth it!
 
-Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
-
-Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
-
 Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
 
 ## :bulb: Features
@@ -77,3 +73,11 @@ More has changed since this video was released meaning more items and content si
 ### Slimefun addons
 Addon is now part of Slimefun Community Addons! Go check out others addon here:
 https://github.com/Slimefun/Slimefun4/wiki/Addons
+
+
+### Special Mentions
+Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
+
+Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
+
+Big credits to the owners of the head textures used in this addon
