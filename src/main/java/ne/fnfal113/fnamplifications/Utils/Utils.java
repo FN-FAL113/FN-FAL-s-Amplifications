@@ -38,5 +38,4 @@ public class Utils {
         return new EulerAngle(armorStandX + Math.toRadians(x), armorStandY + Math.toRadians(y), armorStandZ + Math.toRadians(z));
     }
 
-
 }

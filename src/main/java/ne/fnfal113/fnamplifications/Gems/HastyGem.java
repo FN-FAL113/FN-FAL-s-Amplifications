@@ -10,8 +10,9 @@ import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnBlockBreakHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -33,7 +34,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class HastyGem extends SlimefunItem implements GemImpl {
+public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -83,6 +84,7 @@ public class HastyGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
+    @Override
     public void onBlockBreak(BlockBreakEvent event, Player player){
         if(event.isCancelled()){
             return;

@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.Staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -12,7 +11,6 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
@@ -29,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfGravitationalPull extends SlimefunItem implements StaffImpl {
+public class StaffOfGravitationalPull extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -68,7 +66,7 @@ public class StaffOfGravitationalPull extends SlimefunItem implements StaffImpl 
         ItemStack item = player.getInventory().getItemInMainHand();
         Block block = event.getPlayer().getTargetBlockExact(50);
 
-        if(block == null || item.getType() == Material.AIR){
+        if(block == null){
             return;
         }
 
@@ -88,7 +86,7 @@ public class StaffOfGravitationalPull extends SlimefunItem implements StaffImpl 
         AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
         effectCloud.setParticle(Particle.FALLING_OBSIDIAN_TEAR);
         effectCloud.setDuration(160);
-        effectCloud.setRadius(2.85F);
+        effectCloud.setRadius(3.8F);
         effectCloud.setCustomName("FN_GRAVITY");
         effectCloud.setCustomNameVisible(false);
         effectCloud.setReapplicationDelay(0);

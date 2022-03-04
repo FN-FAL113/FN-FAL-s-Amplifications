@@ -2,13 +2,13 @@ package ne.fnfal113.fnamplifications.Gears;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gears.Implementation.GearsImpl;
+import ne.fnfal113.fnamplifications.Gears.Abstracts.AbstractGears;
+import ne.fnfal113.fnamplifications.Gears.Implementation.MainGears;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
-public class FnHelmet extends SlimefunItem implements GearsImpl {
+public class FnHelmet extends AbstractGears {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 

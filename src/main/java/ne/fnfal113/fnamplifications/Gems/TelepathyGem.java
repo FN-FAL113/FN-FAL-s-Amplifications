@@ -8,8 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnBlockBreakHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -25,7 +26,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Collection;
 
-public class TelepathyGem extends SlimefunItem implements GemImpl {
+public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -55,12 +56,11 @@ public class TelepathyGem extends SlimefunItem implements GemImpl {
                 } else{
                     player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
                 }
-                event.setCancelled(true);
             } else {
                 player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
                 player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
-                event.setCancelled(true);
             }
+            event.setCancelled(true);
         }
 
     }
@@ -72,12 +72,12 @@ public class TelepathyGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
+    @Override
     public void onBlockBreak(BlockBreakEvent event, Player player){
-        Block block = event.getBlock();
-
         if (event.isCancelled()){
             return;
         }
+        Block block = event.getBlock();
 
         Collection<ItemStack> drops = block.getDrops(player.getInventory().getItemInMainHand());
 
