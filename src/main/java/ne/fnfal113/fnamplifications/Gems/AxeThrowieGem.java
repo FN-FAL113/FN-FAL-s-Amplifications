@@ -8,9 +8,10 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowableWeapon;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnRightClickHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -23,7 +24,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 @SuppressWarnings("ConstantConditions")
-public class AxeThrowieGem extends SlimefunItem implements GemImpl {
+public class AxeThrowieGem extends AbstractGem implements OnRightClickHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -71,7 +72,11 @@ public class AxeThrowieGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
+    @Override
     public void onRightClick(Player player){
+        if(player.isSneaking()){
+            return;
+        }
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 
         PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();

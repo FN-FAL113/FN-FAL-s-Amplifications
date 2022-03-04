@@ -12,7 +12,6 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfTeleportation extends SlimefunItem implements StaffImpl {
+public class StaffOfTeleportation extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -80,7 +79,7 @@ public class StaffOfTeleportation extends SlimefunItem implements StaffImpl {
 
         ItemMeta meta = item.getItemMeta();
 
-        mainStaff.updateMeta(item, meta,player);
+        mainStaff.updateMeta(item, meta, player);
         player.teleport(block.getLocation().add(0.5, 1, 0.5).setDirection(directional));
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);

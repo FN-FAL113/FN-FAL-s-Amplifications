@@ -9,7 +9,8 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnArrowHitHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -24,7 +25,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PsychokinesisGem extends SlimefunItem implements GemImpl {
+public class PsychokinesisGem extends AbstractGem implements OnArrowHitHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -72,6 +73,7 @@ public class PsychokinesisGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
+    @Override
     public void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity){
         if(event.isCancelled()){
             return;

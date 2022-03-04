@@ -2,20 +2,21 @@ package ne.fnfal113.fnamplifications.MysteriousItems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
+import ne.fnfal113.fnamplifications.MysteriousItems.Abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.Utils.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +35,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
-public class MysteryStick8 extends SlimefunItem {
+public class MysteryStick8 extends AbstractStick {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -62,6 +63,7 @@ public class MysteryStick8 extends SlimefunItem {
         return defaultUsageKey2;
     }
 
+    @Override
     public Map<Enchantment, Integer> enchantments(){
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.DAMAGE_ARTHROPODS, 12);
@@ -72,10 +74,12 @@ public class MysteryStick8 extends SlimefunItem {
         return enchantments;
     }
 
+    @Override
     public String weaponLore(){
         return ChatColor.GOLD + "I'm out of words using this";
     }
 
+    @Override
     public String stickLore(){
         return ChatColor.WHITE + "This stick is kinda heavy";
     }
@@ -91,17 +95,21 @@ public class MysteryStick8 extends SlimefunItem {
         return lore2;
     }
 
+    @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.DIAMOND_AXE, true);
+        if(e.getPlayer().getLevel() >= 20) {
+            mainStick.onInteract(e, Material.DIAMOND_AXE, true);
+        } else {
+            blindPlayer(e.getPlayer(), 20);
+        }
     }
 
+    @Override
     public void onSwing(EntityDamageByEntityEvent event){
         if(!(event.getDamager() instanceof Player)){
             return;
         }
-        if(event.getCause() == EntityDamageEvent.DamageCause.THORNS){
-            return;
-        }
+
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -125,6 +133,8 @@ public class MysteryStick8 extends SlimefunItem {
         if(player.getLevel() >= 20)  {
             if(ThreadLocalRandom.current().nextInt(100) < 30) {
                 player.setLevel(player.getLevel() - 3);
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.
+                        fromLegacyText(Utils.colorTranslator("&d3 xp levels has been consumed from you")));
             }
             if(event.getEntity() instanceof LivingEntity) {
                 LivingEntity victim = (LivingEntity) event.getEntity();
@@ -145,6 +155,7 @@ public class MysteryStick8 extends SlimefunItem {
 
     }
 
+    @Override
     public void LevelChange(PlayerLevelChangeEvent event){
         mainStick.levelChange(event, FNAmpItems.FN_STICK_8, 20, 2);
     }

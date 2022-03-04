@@ -9,10 +9,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
 import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Gems.Implementation.GuardianTask;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -35,7 +36,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
-public class GuardianGem extends SlimefunItem implements GemImpl {
+public class GuardianGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -86,10 +87,13 @@ public class GuardianGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onDamage(EntityDamageByEntityEvent event, Player player){
+    @Override
+    public void onDamage(EntityDamageByEntityEvent event){
         if(event.isCancelled()){
             return;
         }
+
+        Player player = (Player) event.getEntity();
 
         if(event.getDamager() instanceof Phantom || event.getDamager() instanceof Flying || event.getDamager() instanceof EnderDragon){
             return;

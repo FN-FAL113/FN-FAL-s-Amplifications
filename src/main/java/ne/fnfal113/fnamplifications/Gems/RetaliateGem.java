@@ -8,9 +8,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -25,7 +25,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 @SuppressWarnings("ConstantConditions")
-public class RetaliateGem extends SlimefunItem implements GemImpl {
+public class RetaliateGem extends AbstractGem {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 

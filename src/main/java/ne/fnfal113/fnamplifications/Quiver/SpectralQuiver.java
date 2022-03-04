@@ -2,16 +2,15 @@ package ne.fnfal113.fnamplifications.Quiver;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.Quiver.Abstracts.AbstractQuiver;
 import ne.fnfal113.fnamplifications.Utils.Keys;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Quiver.Interface.QuiverImpl;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -25,11 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
-public class SpectralQuiver extends SlimefunItem implements QuiverImpl {
+public class SpectralQuiver extends AbstractQuiver {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    @Getter
     private final int quiverSize;
 
     @Getter
@@ -49,21 +47,26 @@ public class SpectralQuiver extends SlimefunItem implements QuiverImpl {
         this.defaultUsageKey = Keys.SPECTRAL_ARROWS_KEY;
         this.defaultUsageKey2 = Keys.SPECTRAL_ARROWS_ID_KEY;
         this.defaultUsageKey3 = Keys.SPECTRAL_STATE_KEY;
-        this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), quiverSize, getArrowType(), item, defaultLore());
+        this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), getQuiverSize(), getArrowType(), item, defaultLore());
     }
 
-    public @Nonnull
-    NamespacedKey getStorageKey() {
+    @Override
+    public int getQuiverSize(){
+        return quiverSize;
+    }
+
+    @Override
+    public @Nonnull NamespacedKey getStorageKey() {
         return defaultUsageKey;
     }
 
-    public @Nonnull
-    NamespacedKey getStorageKey2() {
+    @Override
+    public @Nonnull NamespacedKey getStorageKey2() {
         return defaultUsageKey2;
     }
 
-    public @Nonnull
-    NamespacedKey getStorageKey3() {
+    @Override
+    public @Nonnull NamespacedKey getStorageKey3() {
         return defaultUsageKey3;
     }
 

@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.Staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -12,7 +11,6 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StaffOfWebs extends SlimefunItem implements StaffImpl {
+public class StaffOfWebs extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -84,7 +82,7 @@ public class StaffOfWebs extends SlimefunItem implements StaffImpl {
 
         ItemMeta meta = item.getItemMeta();
 
-        mainStaff.updateMeta(item, meta,player);
+        mainStaff.updateMeta(item, meta, player);
 
         int x = 0, z = 0, i = 0, j = 0;
         boolean isX = true;

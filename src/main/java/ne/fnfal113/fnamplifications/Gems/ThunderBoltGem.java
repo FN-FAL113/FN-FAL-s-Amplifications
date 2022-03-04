@@ -9,8 +9,9 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -28,7 +29,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ThunderBoltGem extends SlimefunItem implements GemImpl {
+public class ThunderBoltGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -71,16 +72,16 @@ public class ThunderBoltGem extends SlimefunItem implements GemImpl {
 
     @Override
     public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
-        return pdc.getOrDefault(
-                new NamespacedKey(FNAmplifications.getInstance(), itemStack.getType().toString().toLowerCase() + "_socket_amount"),
+        return pdc.getOrDefault(new NamespacedKey(FNAmplifications.getInstance(),
+                        itemStack.getType().toString().toLowerCase() + "_socket_amount"),
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onDamage(EntityDamageByEntityEvent event, Player player){
+    public void onDamage(EntityDamageByEntityEvent event){
         if(event.isCancelled()){
             return;
         }
-
+        Player player = (Player) event.getDamager();
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
 
         if(ThreadLocalRandom.current().nextInt(100) < value.thunderBoltGem()){

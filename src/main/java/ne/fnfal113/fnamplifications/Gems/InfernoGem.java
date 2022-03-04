@@ -9,8 +9,9 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -29,7 +30,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class InfernoGem extends SlimefunItem implements GemImpl {
+public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -41,7 +42,6 @@ public class InfernoGem extends SlimefunItem implements GemImpl {
 
     @Override
     public void onDrag(InventoryClickEvent event, Player player){
-
         if(event.getCursor() == null){
             return;
         }
@@ -77,6 +77,7 @@ public class InfernoGem extends SlimefunItem implements GemImpl {
                 PersistentDataType.INTEGER, 0);
     }
 
+    @Override
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.isCancelled()){
             return;

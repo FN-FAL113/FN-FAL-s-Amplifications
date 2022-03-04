@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.Staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -10,7 +9,6 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,7 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class StaffOfInvisibility extends SlimefunItem implements StaffImpl {
+public class StaffOfInvisibility extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -58,6 +56,10 @@ public class StaffOfInvisibility extends SlimefunItem implements StaffImpl {
     @Override
     public void onRightClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
+        if (player.isInvisible()) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour invisibility is still active!"));
+            return;
+        }
         ItemStack item = player.getInventory().getItemInMainHand();
 
         ItemMeta meta = item.getItemMeta();

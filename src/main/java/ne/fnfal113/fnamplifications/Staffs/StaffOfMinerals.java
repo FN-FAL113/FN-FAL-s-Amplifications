@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.Staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -12,7 +11,6 @@ import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Interface.StaffImpl;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -25,7 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import javax.annotation.Nonnull;
 import java.util.*;
 
-public class StaffOfMinerals extends SlimefunItem implements StaffImpl {
+public class StaffOfMinerals extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 

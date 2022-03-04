@@ -28,6 +28,7 @@ import org.bukkit.persistence.PersistentDataType;
 import javax.annotation.Nonnull;
 import java.util.*;
 
+@SuppressWarnings("ConstantConditions")
 public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
 
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
@@ -73,6 +74,11 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
     @Override
     public void onRightClick(PlayerInteractEntityEvent event){
         Player player = event.getPlayer();
+
+        if (!(event.getRightClicked() instanceof LivingEntity) && event.getRightClicked() instanceof Player) {
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou right clicked an invalid entity"));
+            return;
+        }
 
         LivingEntity en = (LivingEntity) event.getRightClicked();
 

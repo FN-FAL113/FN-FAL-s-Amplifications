@@ -2,19 +2,21 @@ package ne.fnfal113.fnamplifications.MysteriousItems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
+import ne.fnfal113.fnamplifications.MysteriousItems.Abstracts.AbstractStick;
+import ne.fnfal113.fnamplifications.Utils.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,9 +29,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
-public class MysteryStick3 extends SlimefunItem {
+public class MysteryStick3 extends AbstractStick {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -57,6 +60,7 @@ public class MysteryStick3 extends SlimefunItem {
         return defaultUsageKey2;
     }
 
+    @Override
     public Map<Enchantment, Integer> enchantments(){
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.ARROW_DAMAGE, 3);
@@ -65,31 +69,43 @@ public class MysteryStick3 extends SlimefunItem {
         return enchantments;
     }
 
+    @Override
     public String weaponLore(){
         return ChatColor.GOLD + "I knew it was something about shooting arrows";
     }
 
+    @Override
     public String stickLore(){
         return ChatColor.WHITE + "I feel coordinated when holding this stick";
     }
 
+    @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.BOW, false);
+        if(e.getPlayer().getLevel() >= 5) {
+            mainStick.onInteract(e, Material.BOW, false);
+        } else {
+            blindPlayer(e.getPlayer(), 5);
+        }
     }
 
+    @Override
     public void onSwing(EntityDamageByEntityEvent event){
         Arrow arrow = (Arrow) event.getDamager();
         Player player = ((Player) arrow.getShooter());
         if(player == null){
             return;
         }
-        if(event.getCause() == EntityDamageEvent.DamageCause.THORNS){
-            return;
-        }
+
         ItemStack item = player.getInventory().getItemInMainHand();
 
         if(item.getType() != Material.BOW) {
             return;
+        }
+
+        if (ThreadLocalRandom.current().nextInt(100) < 24) {
+            player.setLevel(player.getLevel() - 1);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.
+                    fromLegacyText(Utils.colorTranslator("&d1 xp levels has been consumed from you")));
         }
 
         ItemMeta meta = item.getItemMeta();
@@ -112,6 +128,7 @@ public class MysteryStick3 extends SlimefunItem {
 
     }
 
+    @Override
     public void LevelChange(PlayerLevelChangeEvent event){
        mainStick.levelChange(event, FNAmpItems.FN_STICK_3, 5, 0);
     }
@@ -135,7 +152,7 @@ public class MysteryStick3 extends SlimefunItem {
         new MysteryStick3(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_3, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.LEATHER), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1),
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 8), new ItemStack(Material.STICK), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 8),
-                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 10), new ItemStack(Material.LEAD), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 10)})
+                new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6), new ItemStack(Material.LEAD), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6)})
                 .register(plugin);
     }
 }

@@ -9,8 +9,9 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Interface.GemImpl;
+import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
 import ne.fnfal113.fnamplifications.Utils.Utils;
@@ -18,6 +19,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +29,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ThornAwayGem extends SlimefunItem implements GemImpl {
+public class ThornAwayGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
@@ -69,12 +71,13 @@ public class ThornAwayGem extends SlimefunItem implements GemImpl {
 
     @Override
     public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
-        return pdc.getOrDefault(
-                new NamespacedKey(FNAmplifications.getInstance(), itemStack.getType().toString().toLowerCase() + "_socket_amount"),
+        return pdc.getOrDefault(new NamespacedKey(FNAmplifications.getInstance(),
+                        itemStack.getType().toString().toLowerCase() + "_socket_amount"),
                 PersistentDataType.INTEGER, 0);
     }
 
-    public void onDamage(EntityDamageEvent event){
+    @Override
+    public void onDamage(EntityDamageByEntityEvent event){
         if(event.isCancelled()){
             return;
         }
