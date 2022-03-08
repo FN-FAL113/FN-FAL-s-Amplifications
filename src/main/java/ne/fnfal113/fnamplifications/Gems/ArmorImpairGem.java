@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
@@ -37,8 +38,13 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
 
     private static final ReturnConfValue value = new ReturnConfValue();
 
+    @Getter
+    private final int chance;
+
     public ArmorImpairGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 15);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -89,7 +95,7 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
         ItemStack[] armorContents = livingEntity.getEquipment().getArmorContents();
 
         for(ItemStack entityEquipment : armorContents){
-            if(ThreadLocalRandom.current().nextInt(100) < value.armorImpairGem() && entityEquipment != null){
+            if(ThreadLocalRandom.current().nextInt(100) < getChance() && entityEquipment != null){
                 ItemMeta meta = entityEquipment.getItemMeta();
                 if(meta instanceof Damageable){
                     Damageable damageable = (Damageable) meta;

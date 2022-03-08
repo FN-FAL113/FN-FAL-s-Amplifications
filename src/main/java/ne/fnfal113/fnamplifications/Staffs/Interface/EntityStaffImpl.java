@@ -13,7 +13,6 @@ public interface EntityStaffImpl {
      */
     List<String> lore();
 
-
     /**
      *
      * @param event the interact event for right-clicking entities

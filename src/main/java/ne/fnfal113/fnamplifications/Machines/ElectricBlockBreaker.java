@@ -15,16 +15,17 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import lombok.SneakyThrows;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.Utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -44,18 +45,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
 
     public static final Map<Location, BlockBreakerCache> CACHE_MAP = new HashMap<>();
 
     private static final SlimefunAddon PLUGIN = FNAmplifications.getInstance();
-    private static final ReturnConfValue VALUE = new ReturnConfValue();
     public static final int CHANGE_MODE = 0;
     public static final int ON_OFF = 8;
     private static final ItemStack VERSIONED_AMETHYST;
@@ -134,9 +130,13 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     private int rate = 2;
 
     @ParametersAreNonnullByDefault
-    public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    @SneakyThrows
+    public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-tickrate", tickRate, "block-breaker-tickrate");
+        setRate();
+        Utils.setLore(this.getItem(), this.getId(), "-tickrate", "ticks", "&e", " ticks");
         addItemHandler(
             new BlockTicker() {
                 @Override
@@ -170,8 +170,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
             FNAmpItems.GEAR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.GEAR_PART,
             new ItemStack(Material.IRON_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
-            FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING})
-            .setRate(VALUE.blockBreaker1Ticks())
+            FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING}, 12)
             .setCapacity(512)
             .setEnergyConsumption(32)
             .register(PLUGIN);
@@ -179,8 +178,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
             new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
             new ItemStack(Material.DIAMOND_PICKAXE), new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.DIAMOND_PICKAXE),
-            FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING})
-            .setRate(VALUE.blockBreaker2Ticks())
+            FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING}, 6)
             .setCapacity(1024)
             .setEnergyConsumption(64)
             .register(PLUGIN);
@@ -188,8 +186,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
             new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 3),
             new ItemStack(Material.NETHERITE_PICKAXE), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new ItemStack(Material.NETHERITE_PICKAXE),
-            FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING})
-            .setRate(VALUE.blockBreaker3Ticks())
+            FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING}, 2)
             .setCapacity(2048)
             .setEnergyConsumption(128)
             .register(PLUGIN);
@@ -291,7 +288,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
 
                     if (invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aOperating!",
-                            "", "&bRate: " + this.rate + " Block per tick", "&2Breaking block at rate: " + progress
+                            "", "&bRate: " + this.rate + " ticks per Block", "&2Breaking block at rate: " + progress
                             + "/" + this.rate));
                     }
 
@@ -341,9 +338,8 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
         CACHE_MAP.put(location, cache);
     }
 
-    public final ElectricBlockBreaker setRate(int rateTicks) {
-        this.rate = Math.max(rateTicks, 1);
-        return this;
+    public final void setRate() {
+        this.rate = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-tickrate");
     }
 
     @Nonnull

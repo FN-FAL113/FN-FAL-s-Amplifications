@@ -8,7 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -35,20 +35,19 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
-
     private final NamespacedKey defaultUsageKey;
 
     private final NamespacedKey defaultUsageKey2;
 
     private final MainStaff mainStaff;
 
-    public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    @SneakyThrows
+    public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int maxUses) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "movestaff");
         this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "identifier");
-        this.mainStaff = new MainStaff(lore(), value.staffOfLocomotion(), getStorageKey());
+        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
     }
 
     public @Nonnull
@@ -99,7 +98,7 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
         PersistentDataContainer data = meta.getPersistentDataContainer();
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
 
-        int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, value.staffOfLocomotion());
+        int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER,  FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-max-uses"));
 
         if(!ENTITY_OWNER.containsValue(en)) {
             ENTITY_OWNER.remove(data);
@@ -160,7 +159,7 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
         new StaffOfLocomotion(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_LOCOMOTION, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 SlimefunItems.BLANK_RUNE, SlimefunItems.MAGICAL_GLASS, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 6),
                 SlimefunItems.AIR_RUNE, new ItemStack(Material.BLAZE_ROD), SlimefunItems.AIR_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 6), SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.BLANK_RUNE})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 6), SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.BLANK_RUNE}, 10)
                 .register(plugin);
     }
 }

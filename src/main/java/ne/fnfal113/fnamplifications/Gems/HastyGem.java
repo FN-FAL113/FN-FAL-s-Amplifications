@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
@@ -38,10 +39,13 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    @Getter
+    private final int chance;
 
     public HastyGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 16);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -92,14 +96,13 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
         Block block = event.getBlock();
 
         if(SlimefunTag.ORES.isTagged(block.getType()) || SlimefunTag.STONE_VARIANTS.isTagged(block.getType())) {
-            if (ThreadLocalRandom.current().nextInt(100) < value.hastyGem()) {
+            if (ThreadLocalRandom.current().nextInt(100) < getChance()) {
                 PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 80, 2, true, false, false);
                 player.addPotionEffect(potionEffect);
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
                         TextComponent.fromLegacyText(Utils.colorTranslator("&eYou're too hasty now!")));
             }
         }
-
     }
 
     public static void setup(){

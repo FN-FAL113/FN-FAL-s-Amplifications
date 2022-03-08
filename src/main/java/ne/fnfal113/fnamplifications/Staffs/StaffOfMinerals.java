@@ -7,7 +7,6 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.WorldUtils;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -27,8 +26,6 @@ public class StaffOfMinerals extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
-
     private final NamespacedKey defaultUsageKey;
 
     private final MainStaff mainStaff;
@@ -37,7 +34,7 @@ public class StaffOfMinerals extends AbstractStaff {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "mineralstaff");
-        this.mainStaff = new MainStaff(lore(), value.staffOfMinerals(), getStorageKey());
+        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
     }
 
     protected @Nonnull
@@ -81,14 +78,6 @@ public class StaffOfMinerals extends AbstractStaff {
                 }
             }
         }
-
-       /*Inventory inventory = Bukkit.createInventory(null, 54, "Staff of Minerals");*/
-
-        /*MINERALS.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .forEachOrdered(e -> inventory.addItem(new ItemStack(Objects.requireNonNull(Material.matchMaterial(e.getKey())), e.getValue()) ) );*/
-
-        /*player.openInventory(inventory);*/
 
         ItemStack writtenBook = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) writtenBook.getItemMeta();

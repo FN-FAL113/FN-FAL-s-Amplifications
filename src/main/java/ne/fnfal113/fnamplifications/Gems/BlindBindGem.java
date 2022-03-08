@@ -6,7 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
@@ -35,10 +35,13 @@ public class BlindBindGem extends AbstractGem implements OnArrowHitHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    @Getter
+    private final int chance;
 
     public BlindBindGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 13);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -85,7 +88,7 @@ public class BlindBindGem extends AbstractGem implements OnArrowHitHandler {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < value.blindBindGem()){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, entity.getLocation(), 5);
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
         }

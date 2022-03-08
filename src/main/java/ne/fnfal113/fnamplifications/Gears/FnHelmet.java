@@ -5,7 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gears.Abstracts.AbstractGears;
 import ne.fnfal113.fnamplifications.Gears.Implementation.MainGears;
@@ -35,8 +35,6 @@ public class FnHelmet extends AbstractGears {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
-
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
     private final NamespacedKey defaultUsageKey3;
@@ -44,6 +42,7 @@ public class FnHelmet extends AbstractGears {
     private final MainGears mainGears;
 
     @ParametersAreNonnullByDefault
+    @SneakyThrows
     public FnHelmet(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
@@ -51,6 +50,8 @@ public class FnHelmet extends AbstractGears {
         this.defaultUsageKey2 = Keys.FN_GEAR_HELMET_LEVEL;
         this.defaultUsageKey3 = Keys.FN_GEAR_HELMET_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 20, 100);
+        FNAmplifications.getInstance().getConfigManager().setBooleanValues(this.getId() + "-unbreakable", false, "fn-gear-unbreakable-settings");
+        setUnbreakable();
     }
 
     protected @Nonnull
@@ -253,14 +254,10 @@ public class FnHelmet extends AbstractGears {
         return false;
     }
 
-    public final FnHelmet setUnbreakable(boolean unbreakable) {
+    public final void setUnbreakable() {
         ItemMeta meta = this.getItem().getItemMeta();
-        if(meta == null){
-            return this;
-        }
-        meta.setUnbreakable(unbreakable);
+        meta.setUnbreakable(FNAmplifications.getInstance().getConfigManager().getBoolById(this.getId() + "-unbreakable"));
         this.getItem().setItemMeta(meta);
-        return this;
     }
 
     public static void setup(){
@@ -268,6 +265,6 @@ public class FnHelmet extends AbstractGears {
                 new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 4), new ItemStack(Material.IRON_HELMET), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 4),
                 SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 5), SlimefunItems.ENCHANTMENT_RUNE,
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new ItemStack(Material.DIAMOND_HELMET), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
-                .setUnbreakable(value.fnHelmetUnbreakable()).register(plugin);
+                .register(plugin);
     }
 }

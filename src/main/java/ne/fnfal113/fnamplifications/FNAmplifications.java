@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
+import ne.fnfal113.fnamplifications.ConfigValues.ConfigManager;
 import ne.fnfal113.fnamplifications.Gears.Commands.CheckProgress;
 import ne.fnfal113.fnamplifications.Gears.Listeners.GearListener;
 import ne.fnfal113.fnamplifications.Gears.Runnables.ArmorEquipRunnable;
@@ -31,6 +32,8 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
     private static FNAmplifications instance;
 
+    private final ConfigManager configManager = new ConfigManager();
+
     @Override
     public void onEnable() {
         setInstance(this);
@@ -40,10 +43,9 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
         getLogger().info("************************************************************");
         getLogger().info("*         FN Amplifications - Created by FN_FAL113         *");
-        getLogger().info("* Credits to Jeff(LiteXpansion) and Walshy(SF) for letting *");
-        getLogger().info("*            me use their utils and resources              *");
         getLogger().info("*         Add me on discord if there are any issues        *");
-        getLogger().info("*                       FN_FAL#7779                        *");
+        getLogger().info("*          FN_FAL#7779 or join SF Addon Community          *");
+        getLogger().info("*                https://discord.gg/SqD3gg5SAU             *");
         getLogger().info("************************************************************");
 
         FNAmpItemSetup.INSTANCE.init();
@@ -81,6 +83,10 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     @Override
     public String getBugTrackerURL() {
         return "https://github.com/FN-FAL113/FN-FAL-s-Amplifications/issues";
+    }
+
+    public ConfigManager getConfigManager(){
+        return instance.configManager;
     }
 
     private static void setInstance(FNAmplifications ins) {
