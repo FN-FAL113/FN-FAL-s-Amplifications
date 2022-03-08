@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Items.FNAmpItems;
 import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
@@ -24,8 +23,6 @@ public class StaffOfAwareness extends AbstractStaff {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
-
     private final NamespacedKey defaultUsageKey;
 
     private final MainStaff mainStaff;
@@ -34,7 +31,7 @@ public class StaffOfAwareness extends AbstractStaff {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "awarestaff");
-        this.mainStaff = new MainStaff(lore(), value.staffOfAwareness(), getStorageKey());
+        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
     }
 
     protected @Nonnull

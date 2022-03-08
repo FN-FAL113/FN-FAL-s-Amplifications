@@ -6,7 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
@@ -34,10 +34,13 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    @Getter
+    private final int chance;
 
     public InfernoGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 16);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -87,12 +90,12 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
         int random = ThreadLocalRandom.current().nextInt(100);
 
-        if(random < value.infernoGem()){
+        if(random < getChance()){
             livingEntity.setFireTicks(60);
         }
 
         for(Entity entity : livingEntity.getNearbyEntities(7, 4,7)){
-            if(random < value.infernoGem()){
+            if(random < getChance()){
                 if(entity.getUniqueId() != event.getDamager().getUniqueId()){
                     entity.setFireTicks(60);
                 }

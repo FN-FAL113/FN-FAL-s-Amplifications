@@ -5,7 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gears.Abstracts.AbstractGears;
 import ne.fnfal113.fnamplifications.Gears.Implementation.MainGears;
@@ -35,8 +35,6 @@ public class FnBoots extends AbstractGears {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
-
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
     private final NamespacedKey defaultUsageKey3;
@@ -44,6 +42,7 @@ public class FnBoots extends AbstractGears {
     private final MainGears mainGears;
 
     @ParametersAreNonnullByDefault
+    @SneakyThrows
     public FnBoots(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
@@ -51,6 +50,8 @@ public class FnBoots extends AbstractGears {
         this.defaultUsageKey2 = Keys.FN_GEAR_BOOTS_LEVEL;
         this.defaultUsageKey3 = Keys.FN_GEAR_BOOTS_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 25, 100);
+        FNAmplifications.getInstance().getConfigManager().setBooleanValues(this.getId() + "-unbreakable", false, "fn-gear-unbreakable-settings");
+        setUnbreakable();
     }
 
     protected @Nonnull
@@ -270,14 +271,10 @@ public class FnBoots extends AbstractGears {
         return false;
     }
 
-    public final FnBoots setUnbreakable(boolean unbreakable) {
+    public final void setUnbreakable() {
         ItemMeta meta = this.getItem().getItemMeta();
-        if(meta == null){
-            return this;
-        }
-        meta.setUnbreakable(unbreakable);
+        meta.setUnbreakable(FNAmplifications.getInstance().getConfigManager().getBoolById(this.getId() + "-unbreakable"));
         this.getItem().setItemMeta(meta);
-        return this;
     }
 
     public static void setup(){
@@ -285,6 +282,6 @@ public class FnBoots extends AbstractGears {
                 new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 5), new ItemStack(Material.IRON_BOOTS), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 5),
                 SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 6), SlimefunItems.ENCHANTMENT_RUNE,
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new ItemStack(Material.DIAMOND_BOOTS), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
-                .setUnbreakable(value.fnBootsUnbreakable()).register(plugin);
+                .register(plugin);
     }
 }

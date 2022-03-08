@@ -17,17 +17,13 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 
 import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class FNAmpItems {
-
-    private static final ReturnConfValue value = new ReturnConfValue();
 
     private FNAmpItems() {}
 
@@ -150,10 +146,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_I_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_I_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_I_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R2 = new SlimefunItemStack(
@@ -164,10 +157,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_II_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_II_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_II_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R3 = new SlimefunItemStack(
@@ -178,10 +168,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_III_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_III_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_III_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R4 = new SlimefunItemStack(
@@ -192,10 +179,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_IV_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_IV_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_IV_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R5 = new SlimefunItemStack(
@@ -206,10 +190,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_V_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_V_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_V_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R6 = new SlimefunItemStack(
@@ -218,10 +199,7 @@ public class FNAmpItems {
                     "1d5a09884cb83ef5c908dddd385f246fefdee221712c010177f54376da238fdd")),
             "&d&lFN Power Xpansion R6",
             "&9This works at Night!",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_VI_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VI_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VI_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R7 = new SlimefunItemStack(
@@ -232,10 +210,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_VII_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VII_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VII_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R8 = new SlimefunItemStack(
@@ -246,10 +221,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_VIII_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VIII_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_VIII_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R9 = new SlimefunItemStack(
@@ -260,10 +232,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_IX_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_IX_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_IX_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R10 = new SlimefunItemStack(
@@ -274,10 +243,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_X_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_X_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_X_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R11 = new SlimefunItemStack(
@@ -288,10 +254,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_XI_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_XI_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_XI_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FN_XPANSION_POWER_R12 = new SlimefunItemStack(
@@ -302,10 +265,7 @@ public class FNAmpItems {
             "&9This works at Night!",
             "&9Place and right click",
             "&9the block for power info",
-            "",
-            LoreBuilderDynamic.powerBuffer(PowahGenerator.FN_POWERGEN_RANK_XII_STORAGE),
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_XII_DAYRATE) + " (Day Rate)",
-            LoreBuilderDynamic.powerPerTick(PowahGenerator.FN_POWERGEN_RANK_XII_NIGHTRATE) + " (Night Rate)"
+            ""
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_MULTIBLOCK = new SlimefunItemStack(
@@ -333,6 +293,7 @@ public class FNAmpItems {
             Material.CLAY,
             "&3FN_FAL's Clay Generator",
             "&6Generates Clay at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -351,6 +312,7 @@ public class FNAmpItems {
             Material.WARPED_NYLIUM,
             "&4FN_FAL's Warped Nylium Generator",
             "&6Generates Warped Nylium at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -369,6 +331,7 @@ public class FNAmpItems {
             Material.TERRACOTTA,
             "&4FN_FAL's Terracotta Generator",
             "&6Generates Terracotta at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -387,6 +350,7 @@ public class FNAmpItems {
             Material.BONE_BLOCK,
             "&fFN_FAL's Bone Generator",
             "&6Generates Bone at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -405,6 +369,7 @@ public class FNAmpItems {
             Material.DIAMOND_BLOCK,
             "&bFN_FAL's Diamond Generator",
             "&6Generates Diamond at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -423,6 +388,7 @@ public class FNAmpItems {
             Material.EMERALD_BLOCK,
             "&aFN_FAL's Emerald Generator",
             "&6Generates Emerald at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -441,6 +407,7 @@ public class FNAmpItems {
             Material.DIRT,
             "&fFN_FAL's Dirt Generator",
             "&6Generates Dirt at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -459,6 +426,7 @@ public class FNAmpItems {
             Material.HONEYCOMB_BLOCK,
             "&6FN_FAL's Honey Comb Generator",
             "&6Generates Honey Comb at a certain rate",
+            "&6Right click the block for info",
             "",
             "&5&oFN_Fal's Material Generators"
     );
@@ -469,12 +437,9 @@ public class FNAmpItems {
             "&dFN Solar Generator Tier I",
             "",
             "&eA solar generator for those who needs power",
-            value.tier1Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier1Buffer()),
-            LoreBuilder.powerPerSecond(value.tier1Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier1PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER2 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER2",
@@ -482,12 +447,9 @@ public class FNAmpItems {
             "&dFN Solar Generator Tier II",
             "",
             "&eA solar generator for those who needs power",
-            value.tier2Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier2Buffer()),
-            LoreBuilder.powerPerSecond(value.tier2Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier2PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER3 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER3",
@@ -495,12 +457,9 @@ public class FNAmpItems {
             "&dFN Solar Generator Tier III",
             "",
             "&eA solar generator for those who needs power",
-            value.tier3Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier3Buffer()),
-            LoreBuilder.powerPerSecond(value.tier3Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier3PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER4 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER4",
@@ -508,12 +467,9 @@ public class FNAmpItems {
             "&dFN Solar Generator Tier IV",
             "",
             "&eA solar generator for those who needs power",
-            value.tier4Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier4Buffer()),
-            LoreBuilder.powerPerSecond(value.tier4Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier4PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER5 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER5",
@@ -521,48 +477,36 @@ public class FNAmpItems {
             "&dFN Solar Generator Tier V",
             "",
             "&eA solar generator for those who needs power",
-            value.tier5Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier5Buffer()),
-            LoreBuilder.powerPerSecond(value.tier5Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier5PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER6 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER6",
             "224ad26209fa02f559ef6aa863ee9ba8f3bef0a02f1e9cff8fdc09196402fb6f",
             "&dFN Solar Generator Tier VI",
             "", "&eA solar generator for those who needs power",
-            value.tier6Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier6Buffer()),
-            LoreBuilder.powerPerSecond(value.tier6Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier6PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER7 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER7",
             "c4fe135c311f7086edcc5e6dbc4ef4b23f819fddaa42f827dac46e3574de2287",
             "&dFN Solar Generator Tier VII",
             "", "&eA solar generator for those who needs power",
-            value.tier7Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier7Buffer()),
-            LoreBuilder.powerPerSecond(value.tier7Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier7PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER8 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER8",
             "240775c3ad75763613f32f04986881bbe4eee4366d0c57f17f7c7514e2d0a77d",
             "&dFN Solar Generator Tier VIII",
             "", "&eA solar generator for those who needs power",
-            value.tier8Lore(),
+            "&eduring day only",
             "",
-            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR),
-            LoreBuilder.powerBuffer(value.tier8Buffer()),
-            LoreBuilder.powerPerSecond(value.tier8Power() * 2) + " (Day)",
-            LoreBuilder.powerPerSecond(value.tier8PowerNight() * 2) + " (Night)");
+            LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
     public static final SlimefunItemStack FN_FAL_TRANSFORMER_1 = new SlimefunItemStack(
             "FN_FAL_TRANSFORMER_1",
@@ -934,7 +878,7 @@ public class FNAmpItems {
             "&6of the dispenser to break",
             "&d(Vanilla)",
             "",
-            "&eRate: " + value.blockBreaker1Ticks() + " ticks",
+            "&eRate: " + "&eticks",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
@@ -951,7 +895,7 @@ public class FNAmpItems {
             "&6of the dispenser to break",
             "&d(Vanilla)",
             "",
-            "&eRate: " + value.blockBreaker2Ticks() + " ticks",
+            "&eRate: " + "&eticks",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
@@ -968,7 +912,7 @@ public class FNAmpItems {
             "&6of the dispenser to break",
             "&d(Vanilla)",
             "",
-            "&eRate: " + value.blockBreaker3Ticks() + " ticks",
+            "&eRate: " + "&eticks",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -1142,7 +1086,7 @@ public class FNAmpItems {
             "&dTeleport to a target block by",
             "&dright clicking it",
             "",
-            "&eUses left: " + value.staffOfTeleportation()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_INVI = new SlimefunItemStack(
@@ -1153,7 +1097,7 @@ public class FNAmpItems {
             "&d6 seconds of invisibility",
             "&deven your armor and name are hidden",
             "",
-            "&eUses left: "  + value.staffOfInvisibility()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_LOCOMOTION = new SlimefunItemStack(
@@ -1164,7 +1108,7 @@ public class FNAmpItems {
             "&dMove entities to a target location by right",
             "&dclicking to select and left click to move",
             "",
-            "&eUses left: " + value.staffOfLocomotion()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_HELLFIRE = new SlimefunItemStack(
@@ -1176,7 +1120,7 @@ public class FNAmpItems {
             "&dwhere entities are set on fire",
             "&dif inside the radius for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfHellFire()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_DEEPFREEZE = new SlimefunItemStack(
@@ -1188,7 +1132,7 @@ public class FNAmpItems {
             "&dentities are being slowed by the freezing",
             "&dcold if inside the radius for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfDeepFreeze()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_CONFUSION = new SlimefunItemStack(
@@ -1200,7 +1144,7 @@ public class FNAmpItems {
             "&dentities are confused of their direction",
             "&dif inside the radius for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfConfusion()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_GRAVITY = new SlimefunItemStack(
@@ -1212,7 +1156,7 @@ public class FNAmpItems {
             "&dentities are being pulled by the gravitational",
             "&dforce if inside the radius for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfGravity()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_STALLION = new SlimefunItemStack(
@@ -1223,7 +1167,7 @@ public class FNAmpItems {
             "&dSpawns a skeleton horse that is",
             "&drideable until passenger dismount",
             "",
-            "&eUses left: " + value.staffOfStallion()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_FORCE = new SlimefunItemStack(
@@ -1236,7 +1180,7 @@ public class FNAmpItems {
             "&dshift-right-click to spawn a different cloud",
             "&dof effect that gives a backward force",
             "",
-            "&eUses left: " + value.staffOfForce()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_HEALING = new SlimefunItemStack(
@@ -1248,7 +1192,7 @@ public class FNAmpItems {
             "&dthat heals the caster only if inside the",
             "&dradius for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfHealing()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_INVULNERABILITY = new SlimefunItemStack(
@@ -1260,7 +1204,7 @@ public class FNAmpItems {
             "&dthat protects entities inside the radius",
             "&dfrom damage for 8 seconds",
             "",
-            "&eUses left: " + value.staffOfInvulnerable()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_EXPLOSION = new SlimefunItemStack(
@@ -1271,7 +1215,7 @@ public class FNAmpItems {
             "&dRight click a target block to",
             "&dyield an explosion causing damage",
             "",
-            "&eUses left: " + value.staffOfExplosion()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_MUSTER = new SlimefunItemStack(
@@ -1283,7 +1227,7 @@ public class FNAmpItems {
             "&dnearby entities that are on ground",
             "&dwithin 50 block radius",
             "",
-            "&eUses left: " + value.staffOfMuster()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_AWARENESS = new SlimefunItemStack(
@@ -1295,7 +1239,7 @@ public class FNAmpItems {
             "&dregarding the nearest players around",
             "&d50 block radius",
             "",
-            "&eUses left: " + value.staffOfAwareness()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_MINERALS = new SlimefunItemStack(
@@ -1307,7 +1251,7 @@ public class FNAmpItems {
             "&dinformation that awaits upon using",
             "&dthe staff",
             "",
-            "&eUses left: " + value.staffOfMinerals()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_FANGS = new SlimefunItemStack(
@@ -1319,7 +1263,7 @@ public class FNAmpItems {
             "&dspawn evoker fangs that causes",
             "&ddamage to entities",
             "",
-            "&eUses left: " + value.staffOfFangs()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_SKULLS = new SlimefunItemStack(
@@ -1330,7 +1274,7 @@ public class FNAmpItems {
             "&dRight click to launch",
             "&dwither skull projectiles",
             "",
-            "&eUses left: " + value.staffOfSkulls()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_AIR_STRIDER = new SlimefunItemStack(
@@ -1341,7 +1285,7 @@ public class FNAmpItems {
             "&dRight click to gain the ability to",
             "&dwalk on the air for 10 seconds",
             "",
-            "&eUses left: " + value.staffOfAirStrider()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_STAFF_COBWEB = new SlimefunItemStack(
@@ -1352,7 +1296,7 @@ public class FNAmpItems {
             "&dRight click a target block",
             "&dto spawn a wall of cobwebs",
             "",
-            "&eUses left: " + value.staffOfCobWebs()
+            "&eUses: " + "&eleft"
     );
 
     public static final SlimefunItemStack FN_QUIVER = new SlimefunItemStack(
@@ -1437,7 +1381,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cInferno Gem",
             "",
-            "&e" + value.infernoGem() +"&e% chance to set enemies in a",
+            "&e% chance to set enemies in a",
             "&e7 block radius on fire",
             "",
             "&dDrag and drop on a sword",
@@ -1449,7 +1393,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cArmor Impair Gem",
             "",
-            "&e" + value.armorImpairGem() + "&e% chance to deal extra durability",
+            "&e% chance to deal extra durability",
             "&edamage to all enemy armor at proc",
             "",
             "&dDrag and drop on a sword or axe",
@@ -1473,7 +1417,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cThunderbolt Gem",
             "",
-            "&e" + value.thunderBoltGem() + "&e% chance to strike",
+            "&e% chance to strike",
             "&elightning to enemies",
             "",
             "&dDrag and drop on a sword or axe",
@@ -1485,7 +1429,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cHasty Gem",
             "",
-            "&e" + value.hastyGem() +"&e% chance to receive 4 seconds",
+            "&e% chance to receive 4 seconds",
             "&eof haste when mining ores",
             "",
             "&dDrag and drop on a tool",
@@ -1497,7 +1441,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cThorn Away Gem",
             "",
-            "&e" + value.thornAwayGem() +"&e% chance to negate",
+            "&e% chance to negate",
             "&eall thorn damage",
             "",
             "&dDrag and drop on a chestplate",
@@ -1509,7 +1453,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cImpostor Gem",
             "",
-            "&e" + value.impostorGem() +"&e% chance to teleport behind",
+            "&e% chance to teleport behind",
             "&ethe player that is hitting you",
             "",
             "&dDrag and drop on a helmet",
@@ -1521,7 +1465,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cPsychokinesis Gem",
             "",
-            "&e" + value.psychoKinesisGem() +"&e% chance to move enemies towards",
+            "&e% chance to move enemies towards",
             "&eyou when got hit by your arrow",
             "",
             "&dDrag and drop on a bow",
@@ -1589,7 +1533,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cBlind bind Gem",
             "",
-            "&e" + value.blindBindGem() +"&e% chance to blind enemies for",
+            "&e% chance to blind enemies for",
             "&e4 seconds when got hit by your arrow",
             "",
             "&dDrag and drop on a bow",
@@ -1601,7 +1545,7 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cGuardian Gem",
             "",
-            "&e" + value.guardianGem() + "&e% chance to spawn a guardian that will",
+            "&e% chance to spawn a guardian that will",
             "&efight for you until death, the armor that",
             "&ehas this gem must be worn in order for",
             "&ethe guardian to protect you from enemies",

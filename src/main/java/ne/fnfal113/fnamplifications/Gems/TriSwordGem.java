@@ -78,6 +78,10 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
         if(player.isSneaking()){
             return;
         }
+        if(!hasPermissionToThrow(player)){
+            player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have the permission to throw here!"));
+            return;
+        }
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 

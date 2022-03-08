@@ -82,7 +82,7 @@ public class Gem {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         int amountOfGems = pdc.getOrDefault(getStorageKey2(), PersistentDataType.INTEGER, 0);
 
-        if (amountOfGems == 0) {
+        if (amountOfGems == 0) { // add the lore when adding a gem for the first time
             List<String> lore;
             if(meta.hasLore()){
                 lore = meta.getLore();
@@ -95,7 +95,7 @@ public class Gem {
             lore.add(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));
 
             meta.setLore(lore);
-        } else {
+        } else { // append the new added gem to existing lore
             List<String> lore2 = meta.getLore();
             if (lore2 != null) {
                 for (int i = 0; i < lore2.size(); i++) {
@@ -118,6 +118,11 @@ public class Gem {
         getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
     }
 
+    /**
+     *
+     * @param itemStack the item to check whether it has already the gem
+     * @return if it has the same existing gem
+     */
     public boolean isSameGem(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
@@ -129,6 +134,10 @@ public class Gem {
         return container.has(getStorageKey1(), PersistentDataType.STRING);
     }
 
+    /**
+     * This makes throwable weapons return to the owner by
+     * adding the needed pdc to check whether it has retaliate gem
+     */
     public void retaliateWeapon(){
         ItemMeta meta = getSocketedItemStack().getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();

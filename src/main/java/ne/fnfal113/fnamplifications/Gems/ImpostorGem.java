@@ -6,7 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
@@ -31,10 +31,13 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    @Getter
+    private final int chance;
 
     public ImpostorGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 14);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -85,7 +88,7 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
             Player victim = (Player) event.getEntity();
             Player damager = (Player) event.getDamager();
 
-            if (ThreadLocalRandom.current().nextInt(100) < value.impostorGem() && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (ThreadLocalRandom.current().nextInt(100) < getChance() && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 double nX;
                 double nZ;
                 float nang = victim.getLocation().getYaw() + 90;

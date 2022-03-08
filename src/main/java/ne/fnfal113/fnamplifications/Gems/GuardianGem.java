@@ -6,7 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
 import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
@@ -40,13 +40,16 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
-    private static final ReturnConfValue value = new ReturnConfValue();
+    @Getter
+    private final int chance;
 
     private final Map<UUID, Zombie> entityUUIDMap = new HashMap<>();
     private final Map<UUID, BukkitTask> runnableMap = new HashMap<>();
 
     public GuardianGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 8);
+
+        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -108,7 +111,7 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
         }
 
         if(!entityUUIDMap.containsKey(player.getUniqueId())) {
-            if(ThreadLocalRandom.current().nextInt(100) < value.guardianGem()) {
+            if(ThreadLocalRandom.current().nextInt(100) < getChance()) {
                 GuardianTask guardianTask = new GuardianTask(player, event);
 
                 runnableMap.put(player.getUniqueId(),

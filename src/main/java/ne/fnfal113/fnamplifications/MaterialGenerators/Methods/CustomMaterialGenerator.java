@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.MaterialGenerators.Methods;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
+import ne.fnfal113.fnamplifications.FNAmplifications;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -45,12 +47,11 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
             "&ePlace a chest above first!"
     );
 
-    private int rate = 2;
     private ItemStack item;
     private String material;
 
     @ParametersAreNonnullByDefault
-    public CustomMaterialGenerator(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public CustomMaterialGenerator(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 
         createPreset(this, getInventoryTitle(), blockMenuPreset -> {
@@ -59,6 +60,12 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
             }
             blockMenuPreset.addItem(4, notGenerating);
         });
+
+        try {
+            FNAmplifications.getInstance().getConfigManager().setIntegerValues(item.getItemId(), tickRate, "material-gen-tickrate");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -81,7 +88,10 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
     public void tick(@Nonnull Block b) {
         BlockMenu invMenu = BlockStorage.getInventory(b);
         Block targetBlock = b.getRelative(BlockFace.UP);
-        invMenu.replaceExistingItem(4, notGenerating);
+
+        if(invMenu.toInventory() != null && invMenu.hasViewer()) {
+            invMenu.replaceExistingItem(4, notGenerating);
+        }
         if (targetBlock.getType() == Material.CHEST) {
             BlockState state = PaperLib.getBlockState(targetBlock, false).getState();
             if (state instanceof InventoryHolder) {
@@ -90,13 +100,13 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
                     final BlockPosition pos = new BlockPosition(b);
                     int progress = generatorProgress.getOrDefault(pos, 0);
 
-                    if (invMenu.toInventory() != null && !invMenu.toInventory().getViewers().isEmpty()) {
+                    if (invMenu.toInventory() != null && invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aGenerating Material",
-                                "", "&bMaterial: " + this.material, "&bRate: " + "" + ChatColor.GREEN + this.rate + " &aticks", "", "&2Progress: " + progress
-                                + "/"+ this.rate));
+                                "", "&bMaterial: " + this.material, "&bRate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getValueById(this.getId()) + " &aticks", "", "&2Progress: " + progress
+                                + "/"+ FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())));
                     }
 
-                    if (progress >= this.rate) {
+                    if (progress >= FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())) {
                         progress = 0;
                         inv.addItem(this.item);
                     } else {
@@ -115,11 +125,6 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
 
     public final CustomMaterialGenerator setItem(@Nonnull Material material) {
         this.item = new ItemStack(material);
-        return this;
-    }
-
-    public final CustomMaterialGenerator setRate(int rateTicks) {
-        this.rate = Math.max(rateTicks, 2);
         return this;
     }
 
