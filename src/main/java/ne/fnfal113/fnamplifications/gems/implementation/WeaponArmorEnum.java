@@ -2,6 +2,9 @@ package ne.fnfal113.fnamplifications.gems.implementation;
 
 import org.bukkit.Material;
 
+/**
+ * Enum that contains every vanilla weapon and armors
+ */
 public enum WeaponArmorEnum {
 
     PICKAXE(Material.NETHERITE_PICKAXE, Material.DIAMOND_PICKAXE,

@@ -1,16 +1,12 @@
 package ne.fnfal113.fnamplifications.quivers;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
-import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
+import ne.fnfal113.fnamplifications.quivers.implementations.MainQuiver;
 import ne.fnfal113.fnamplifications.utils.Keys;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -23,8 +19,6 @@ import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class Quiver extends AbstractQuiver {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final int quiverSize;
 
@@ -99,14 +93,5 @@ public class Quiver extends AbstractQuiver {
     @Override
     public void bowShoot(EntityShootBowEvent event, ItemStack itemStack){
         mainQuiver.bowShoot(event, itemStack,true);
-    }
-
-    public static void setup() {
-        new Quiver(FNAmpItems.FN_MISC, FNAmpItems.FN_QUIVER, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.TIN_INGOT, 5), new ItemStack(Material.LEAD, 3), new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 5),
-                new ItemStack(Material.STRING, 16), new ItemStack(Material.STICK, 24),  new ItemStack(Material.STRING, 16),
-                new SlimefunItemStack(SlimefunItems.TIN_INGOT, 5), new ItemStack(Material.LEATHER, 16), new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 5)},
-                192, new ItemStack(Material.ARROW, 1))
-                .register(plugin);
     }
 }

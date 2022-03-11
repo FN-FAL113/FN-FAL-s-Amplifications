@@ -17,19 +17,19 @@ public abstract class AbstractGears extends SlimefunItem {
     }
 
     /**
-     *
+     * the lore used for rebuilding the item lore on update
      * @return the default lore associated with the gear
      */
     public abstract List<String> defaultLore();
 
     /**
-     *
+     * This is where player gets the progress by being hit by living entities
      * @param event the entity damage event where progress are added
      */
     public abstract void onHit(EntityDamageByEntityEvent event);
 
     /**
-     *
+     * When the armor levels up, add or upgrade any enchants/attributes
      * @param armor the armor that leveled up
      * @param level the new level of the armor
      * @param p the player who wore the armor

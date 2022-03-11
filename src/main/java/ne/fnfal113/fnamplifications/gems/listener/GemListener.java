@@ -270,7 +270,7 @@ public class GemListener implements Listener {
                 Zombie zombieTarget = (Zombie) event.getTarget();
 
                 if(zombieTarget.getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)
-                && TargetReasonEnum.ZOMBIE_TARGET.isTagged(event.getReason())) {
+                        && TargetReasonEnum.ZOMBIE_TARGET.isTagged(event.getReason())) {
                    event.setCancelled(true);
                 }
             } // check if target is zombie

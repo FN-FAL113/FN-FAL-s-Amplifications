@@ -6,7 +6,7 @@ public interface OnRightClickHandler {
 
     /**
      *
-     * @param player the player who right-clicked the item
+     * @param player the player who right-clicked
      */
     void onRightClick(Player player);
 

@@ -51,7 +51,7 @@ public abstract class AbstractGem extends SlimefunItem {
 
     /**
      *
-     * @param event the click event for the drag and drop
+     * @param event the click event where drag and drop is being listened
      * @param player the player who dragged and dropped the gem
      */
     public abstract void onDrag(InventoryClickEvent event, Player player);

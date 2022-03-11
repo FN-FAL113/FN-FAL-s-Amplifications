@@ -1,17 +1,13 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
@@ -32,8 +28,6 @@ import java.util.*;
 public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
 
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -153,13 +147,5 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
             Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1 ,1);
             mainStaff.updateMeta(item, meta, player);
         }
-    }
-
-    public static void setup(){
-        new StaffOfLocomotion(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_LOCOMOTION, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.BLANK_RUNE, SlimefunItems.MAGICAL_GLASS, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 6),
-                SlimefunItems.AIR_RUNE, new ItemStack(Material.BLAZE_ROD), SlimefunItems.AIR_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 6), SlimefunItems.MAGIC_EYE_OF_ENDER, SlimefunItems.BLANK_RUNE}, 10)
-                .register(plugin);
     }
 }

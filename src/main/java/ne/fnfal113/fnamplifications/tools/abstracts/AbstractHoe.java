@@ -29,4 +29,9 @@ public abstract class AbstractHoe extends SlimefunItem {
      */
     public abstract void onLeftClick(Player player, Block clickedBlock, ItemStack itemStack);
 
+    @Override
+    public boolean useVanillaBlockBreaking(){
+        return true;
+    }
+
 }

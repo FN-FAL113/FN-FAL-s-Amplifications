@@ -1,21 +1,16 @@
 package ne.fnfal113.fnamplifications.gems;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -25,8 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ThunderBoltGem extends AbstractGem implements OnDamageHandler {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     @Getter
     private final int chance;
@@ -68,13 +61,5 @@ public class ThunderBoltGem extends AbstractGem implements OnDamageHandler {
             livingEntity.getWorld().strikeLightning(livingEntity.getLocation());
             player.setNoDamageTicks(20);
         } // if below the chance, strike lightning at the victim and set no damage for the attacker for 1 second
-    }
-
-    public static void setup(){
-        new ThunderBoltGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_THUNDER, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 3), new ItemStack(Material.FIRE_CHARGE), new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 3),
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 3), new ItemStack(Material.FIRE_CHARGE), new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 3)})
-                .register(plugin);
     }
 }

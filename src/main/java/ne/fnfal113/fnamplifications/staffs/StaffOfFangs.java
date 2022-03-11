@@ -1,15 +1,11 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -25,8 +21,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class StaffOfFangs extends AbstractStaff {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -85,13 +79,5 @@ public class StaffOfFangs extends AbstractStaff {
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
-    }
-
-    public static void setup(){
-        new StaffOfFangs(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_FANGS, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.BLANK_RUNE, new ItemStack(Material.BLAZE_POWDER, 14), SlimefunItems.BLANK_RUNE,
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2), new ItemStack(Material.BLAZE_ROD), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 7), new ItemStack(Material.ROTTEN_FLESH, 24), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 7)})
-                .register(plugin);
     }
 }

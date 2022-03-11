@@ -17,13 +17,13 @@ public abstract class AbstractStaff extends SlimefunItem {
 
     /**
      *
-     * @return the default lore associated with the staff
+     * @return the default lore of the staff
      */
     public abstract List<String> lore();
 
     /**
      *
-     * @param event the interact event specifically right click action is used
+     * @param event the interact event specifically used here for right click action
      */
     public abstract void onRightClick(PlayerInteractEvent event);
 }

@@ -36,7 +36,7 @@ public class ArmorEquipRunnable implements Runnable {
     }
 
     /**
-     *
+     * Get the current level of the armor through pdc
      * @param itemStack the item to check
      * @return the persistent data armor level
      */

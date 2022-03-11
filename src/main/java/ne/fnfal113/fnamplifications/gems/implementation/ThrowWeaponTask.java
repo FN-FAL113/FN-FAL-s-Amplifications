@@ -82,7 +82,7 @@ public class ThrowWeaponTask extends BukkitRunnable {
                         if(WeaponArmorEnum.SWORDS.isTagged(getItemStack().clone().getType())) {
                             ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 8 : 5);
                         } else {
-                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 10 : 7);
+                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 10 : 6);
                         }
                     }
                 }

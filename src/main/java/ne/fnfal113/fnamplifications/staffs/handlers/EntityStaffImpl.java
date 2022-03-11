@@ -9,19 +9,19 @@ public interface EntityStaffImpl {
 
     /**
      *
-     * @return the default lore as list for the itemstack
+     * @return the default lore as list of the staff
      */
     List<String> lore();
 
     /**
      *
-     * @param event the interact event for right-clicking entities
+     * @param event the player interact at entity event
      */
     void onRightClick(PlayerInteractEntityEvent event);
 
     /**
      *
-     * @param event the interact event for the left click action
+     * @param event the player interact event
      */
     void onLeftClick(PlayerInteractEvent event);
 }

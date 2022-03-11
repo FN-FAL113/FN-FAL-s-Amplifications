@@ -11,7 +11,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.operations.CraftingOper
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 import ne.fnfal113.fnamplifications.machines.abstracts.CMachine;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
@@ -22,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -31,8 +29,6 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.RecipeDisplayItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
 public class ElectricMachineDowngrader extends CMachine implements RecipeDisplayItem {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     public static final RecipeType RECIPE_TYPE = new RecipeType(
             new NamespacedKey(FNAmplifications.getInstance(), "fn_fal_downgrader"),
@@ -139,14 +135,6 @@ public class ElectricMachineDowngrader extends CMachine implements RecipeDisplay
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.COAL_GENERATOR, 1)});
         registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ELECTRIC_PRESS_2, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.ELECTRIC_PRESS, 1)});
-    }
-
-    public static void setup() {
-        new ElectricMachineDowngrader(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_DOWNGRADER, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.COMPRESSOR_PART, FNAmpItems.DOWNGRADER_PART, FNAmpItems.RECYCLER_PART,
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2),
-                FNAmpItems.CONDENSER_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.MOTOR_SWITCH
-        }).setCapacity(4024).setEnergyConsumption(750).setProcessingSpeed(2).register(plugin);
     }
 
     @Nonnull

@@ -1097,7 +1097,8 @@ public class FNAmpItems {
             "&cStaff of Invisibility",
             "",
             "&d6 seconds of invisibility",
-            "&deven your armor and name are hidden",
+            "&deven your armor and name",
+            "&dare hidden",
             "",
             "&eUses: " + "&eleft"
     );

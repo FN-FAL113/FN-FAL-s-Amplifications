@@ -60,8 +60,8 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("  &dpurpur, etc but it might not work properly on abandoned forks"),
                 Utils.colorTranslator("  &djust like any other addons."),
                 Utils.colorTranslator("&d&l• &r&dThe code for gems has been further improved and"),
-                Utils.colorTranslator("  &dcleaned up along with the stick rewrite that the jar"),
-                Utils.colorTranslator("  &dfile size has been reduced by from 425kb to 400kb."),
+                Utils.colorTranslator("  &dcleaned up along with the stick rewrite and chores. the jar"),
+                Utils.colorTranslator("  &dfile size has been reduced by from 425kb to 382kb."),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

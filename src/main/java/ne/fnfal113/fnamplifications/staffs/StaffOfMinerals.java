@@ -1,15 +1,11 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.utils.WorldUtils;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
@@ -24,8 +20,6 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class StaffOfMinerals extends AbstractStaff {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -126,13 +120,5 @@ public class StaffOfMinerals extends AbstractStaff {
 
     public String firstPageBook(List<String> firstPage){
         return firstPage.toString().replace("[", "").replace("]", "");
-    }
-
-    public static void setup(){
-        new StaffOfMinerals(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_MINERALS, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2), new ItemStack(Material.BLAZE_POWDER, 12), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 14), new ItemStack(Material.BLAZE_ROD), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 14),
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2), SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2)})
-                .register(plugin);
     }
 }

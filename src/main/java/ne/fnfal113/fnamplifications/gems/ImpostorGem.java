@@ -1,19 +1,15 @@
 package ne.fnfal113.fnamplifications.gems;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -25,8 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ImpostorGem extends AbstractGem implements OnDamageHandler {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     @Getter
     private final int chance;
@@ -83,13 +77,5 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
             } // teleport behind the attacker
         }
 
-    }
-
-    public static void setup(){
-        new ImpostorGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_IMPOSTOR, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), new SlimefunItemStack(SlimefunItems.COMMON_TALISMAN, 1), new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 4),
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                new SlimefunItemStack(SlimefunItems.AIR_RUNE, 4), new SlimefunItemStack(SlimefunItems.COMMON_TALISMAN, 1), SlimefunItems.WATER_RUNE})
-                .register(plugin);
     }
 }

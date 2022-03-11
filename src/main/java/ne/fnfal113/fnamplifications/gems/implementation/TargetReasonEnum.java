@@ -3,6 +3,10 @@ package ne.fnfal113.fnamplifications.gems.implementation;
 import lombok.Getter;
 import org.bukkit.event.entity.EntityTargetEvent;
 
+/**
+ * Enum that contains the needed target reasons for the guardian
+ * to work properly
+ */
 public enum TargetReasonEnum {
 
     PLAYER_TARGET(EntityTargetEvent.TargetReason.CLOSEST_PLAYER, EntityTargetEvent.TargetReason.RANDOM_TARGET,

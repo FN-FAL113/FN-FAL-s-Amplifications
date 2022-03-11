@@ -6,7 +6,6 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GearListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler
     public void progressListener(EntityDamageByEntityEvent event){
 
         if(event.getDamager() instanceof Arrow){

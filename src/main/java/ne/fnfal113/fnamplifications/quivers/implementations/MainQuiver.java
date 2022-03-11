@@ -1,8 +1,12 @@
-package ne.fnfal113.fnamplifications.quivers;
+package ne.fnfal113.fnamplifications.quivers.implementations;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import lombok.Getter;
+import ne.fnfal113.fnamplifications.quivers.Quiver;
+import ne.fnfal113.fnamplifications.quivers.SpectralQuiver;
+import ne.fnfal113.fnamplifications.quivers.UpgradedQuiver;
+import ne.fnfal113.fnamplifications.quivers.UpgradedSpectralQuiver;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+// To do: Method Documentation
 public class MainQuiver {
 
     @Getter

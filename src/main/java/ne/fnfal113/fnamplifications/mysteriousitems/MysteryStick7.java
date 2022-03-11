@@ -1,13 +1,9 @@
 package ne.fnfal113.fnamplifications.mysteriousitems;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -27,8 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MysteryStick7 extends AbstractStick {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     public final MainStick mainStick;
 
@@ -87,13 +81,5 @@ public class MysteryStick7 extends AbstractStick {
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 
-    }
-
-    public static void setup(){
-        new MysteryStick7(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK_7, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),  new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 2),
-                new SlimefunItemStack(SlimefunItems.FIRE_RUNE, 3), FNAmpItems.FN_STICK_4, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 3),
-                new SlimefunItemStack(SlimefunItems.LIGHTNING_RUNE, 3), new SlimefunItemStack(SlimefunItems.ENDER_RUNE, 2), new SlimefunItemStack(SlimefunItems.ENCHANTMENT_RUNE, 3)})
-                .register(plugin);
     }
 }

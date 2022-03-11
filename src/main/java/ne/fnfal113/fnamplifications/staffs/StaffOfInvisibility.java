@@ -1,20 +1,15 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -22,8 +17,6 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class StaffOfInvisibility extends AbstractStaff {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -65,7 +58,7 @@ public class StaffOfInvisibility extends AbstractStaff {
         mainStaff.updateMeta(item, meta, player);
 
         for(Player online : Bukkit.getOnlinePlayers()){
-            online.hidePlayer((Plugin) plugin, player);
+            online.hidePlayer(FNAmplifications.getInstance(), player);
         }
         PotionEffect effect = new PotionEffect(PotionEffectType.GLOWING,115,1, false, false);
         PotionEffect effect2 = new PotionEffect(PotionEffectType.INVISIBILITY,115,1, false, false);
@@ -74,22 +67,14 @@ public class StaffOfInvisibility extends AbstractStaff {
         player.sendMessage(ChatColor.GREEN + "You are now invisible to all players!");
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
-        Bukkit.getScheduler().runTaskLater((Plugin) plugin, () -> {
+        Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
             if(!player.isOnline()){
                 return;
             }
             for(Player online : Bukkit.getOnlinePlayers()){
-                online.showPlayer((Plugin) plugin, player);
+                online.showPlayer(FNAmplifications.getInstance(), player);
             }
         },120L);
 
-    }
-
-    public static void setup(){
-        new StaffOfInvisibility(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_INVI, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2), SlimefunItems.MAGICAL_GLASS, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 6),
-                SlimefunItems.AIR_RUNE, new ItemStack(Material.BLAZE_ROD), SlimefunItems.AIR_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 6), SlimefunItems.MAGIC_SUGAR,  new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2)})
-                .register(plugin);
     }
 }

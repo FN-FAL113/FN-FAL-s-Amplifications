@@ -1,19 +1,14 @@
 package ne.fnfal113.fnamplifications.gears;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gears.abstracts.AbstractGears;
 import ne.fnfal113.fnamplifications.gears.implementation.MainGears;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.utils.Keys;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -30,8 +25,6 @@ import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class FnChestPlate extends AbstractGears {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
     private final NamespacedKey defaultUsageKey2;
@@ -235,13 +228,5 @@ public class FnChestPlate extends AbstractGears {
         ItemMeta meta = this.getItem().getItemMeta();
         meta.setUnbreakable(FNAmplifications.getInstance().getConfigManager().getBoolById(this.getId() + "-unbreakable"));
         this.getItem().setItemMeta(meta);
-    }
-
-    public static void setup(){
-        new FnChestPlate(FNAmpItems.FN_GEARS, FNAmpItems.FN_GEAR_CHESTPLATE, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2), new ItemStack(Material.IRON_CHESTPLATE), new SlimefunItemStack(SlimefunItems.REINFORCED_PLATE, 2),
-                SlimefunItems.ENCHANTMENT_RUNE, new ItemStack(Material.NETHERITE_INGOT, 4), SlimefunItems.ENCHANTMENT_RUNE,
-                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4), new ItemStack(Material.DIAMOND_CHESTPLATE), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 4)})
-                .register(plugin);
     }
 }

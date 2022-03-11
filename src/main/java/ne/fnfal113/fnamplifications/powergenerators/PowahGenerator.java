@@ -46,7 +46,6 @@ import java.util.Map;
 
 public class PowahGenerator extends SlimefunItem implements HologramOwner, EnergyNetProvider  {
 
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
     private static final ReturnConfValue value = new ReturnConfValue();
 
     private final Map<Location, Boolean> HOLO_CACHE = new HashMap<>();
@@ -220,78 +219,78 @@ public class PowahGenerator extends SlimefunItem implements HologramOwner, Energ
         }
     }
 
-    public static void setup() {
+    public static void setup(SlimefunAddon instance) {
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, new CustomItemStack(LITEX_ITEMSTACK_TIN, 3), FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.SOLAR_GENERATOR_4, FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
-        }, 236, 138, 20, 100000).register(plugin);
+        }, 236, 138, 20, 100000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R1, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_SOLDER, 6), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
-        }, 472, 276, 40, 200000).register(plugin);
+        }, 472, 276, 40, 200000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R2, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_BRONZE, 9), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.BASIC_CIRCUIT_BOARD, FNAmpItems.ALUMINUM_PLATING, SlimefunItems.BASIC_CIRCUIT_BOARD
-        }, 944, 552, 60, 300000).register(plugin);
+        }, 944, 552, 60, 300000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R4, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R3, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_DURALUMIN, 12), FNAmpItems.BASIC_MACHINE_BLOCK,
                 SlimefunItems.ADVANCED_CIRCUIT_BOARD, FNAmpItems.GOLD_PLATING, SlimefunItems.ADVANCED_CIRCUIT_BOARD
-        }, 1888, 1104, 120, 400000).register(plugin);
+        }, 1888, 1104, 120, 400000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R5, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R4, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_BRASS, 15), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER1, FNAmpItems.GOLD_PLATING, SlimefunItems.ADVANCED_CIRCUIT_BOARD
-        }, 3064, 1784, 480, 5000000).register(plugin);
+        }, 3064, 1784, 480, 5000000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R6, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R5, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_CORINTHIAN, 18), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER2, FNAmpItems.GOLD_PLATING, SlimefunItems.REINFORCED_ALLOY_INGOT
-        }, 5224, 3128, 480, 600000).register(plugin);
+        }, 5224, 3128, 480, 600000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R7, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R6, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_STEEL, 21), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER3, FNAmpItems.BRASS_PLATING, SlimefunItems.BLISTERING_INGOT
-        }, 7128, 5142, 960, 700000).register(plugin);
+        }, 7128, 5142, 960, 700000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R8, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R7, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_DAMASCUS, 24), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER4, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.BLISTERING_INGOT_2
-        }, 9420, 6752, 1200, 800000).register(plugin);
+        }, 9420, 6752, 1200, 800000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R9, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R8, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 27), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER5, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.REINFORCED_ALLOY_INGOT
-        }, 11384, 7431, 1440, 900000).register(plugin);
+        }, 11384, 7431, 1440, 900000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R10, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R9, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 32), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.FN_FAL_GENERATOR_TIER6, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.URANIUM
-        }, 13692, 8128, 1520, 1000000).register(plugin);
+        }, 13692, 8128, 1520, 1000000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R11, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R10, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 36), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.FN_FAL_GENERATOR_TIER7, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.NEPTUNIUM
-        }, 15984, 9462, 1640, 1500000).register(plugin);
+        }, 15984, 9462, 1640, 1500000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R12, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R11, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 40), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_XPANSION_POWER_R7, SlimefunItems.BOOSTED_URANIUM
-        }, 17421, 10128, 1780, 2000000).register(plugin);
+        }, 17421, 10128, 1780, 2000000).register(instance);
     }
 
 }

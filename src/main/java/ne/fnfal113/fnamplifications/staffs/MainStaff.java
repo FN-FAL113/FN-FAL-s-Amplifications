@@ -36,7 +36,7 @@ public class MainStaff {
     }
 
     /**
-     * this adds the config entries
+     * this adds the config entries if none exist
      * @param maxUses the max uses value that will be set in the config
      * @param id the path or id which the value is assigned
      */

@@ -34,6 +34,7 @@ public class GuardianTask extends BukkitRunnable {
             Vector finalVec = vec.clone().setX(-vec.getZ()).setZ(vec.getX()).setY(0.8);
             getZombie().teleport(getPlayer().getLocation().add(finalVec.multiply(1)));
         }
+
         if(getZombie().isDead() || getZombie().isInWater()
                 || !getPlayer().isOnline() || getPlayer().getEquipment().getChestplate() == null){
             getZombie().remove();

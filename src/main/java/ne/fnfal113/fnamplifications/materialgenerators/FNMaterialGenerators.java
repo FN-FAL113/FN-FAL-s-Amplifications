@@ -1,17 +1,16 @@
 package ne.fnfal113.fnamplifications.materialgenerators;
 
+import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 import ne.fnfal113.fnamplifications.config.ReturnConfValue;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomBrokenGenerator;
 import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomGeneratorMultiblock;
@@ -19,7 +18,6 @@ import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomMat
 
 public class FNMaterialGenerators {
 
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
     private static final ReturnConfValue value = new ReturnConfValue();
 
     public static ItemStack SMG_ITEMSTACK_GRAVEL = new ItemStack(Material.DIAMOND_PICKAXE);
@@ -51,9 +49,9 @@ public class FNMaterialGenerators {
         }
     }
 
-    public static void setup() {
+    public static void setup(SlimefunAddon instance) {
 
-        new CustomGeneratorMultiblock(FNAmpItems.MATERIAL_GENERATORS, FNAmpItems.FMG_GENERATOR_MULTIBLOCK).register(plugin);
+        new CustomGeneratorMultiblock(FNAmpItems.MATERIAL_GENERATORS, FNAmpItems.FMG_GENERATOR_MULTIBLOCK).register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_CLAY_BROKEN,
@@ -62,7 +60,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.CARBON, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.CARBON,
                         new ItemStack(Material.BOWL), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.BOWL),
                         SlimefunItems.CARBON, SlimefunItems.GOLD_PAN, SlimefunItems.CARBON})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_CLAY,
@@ -73,7 +71,7 @@ public class FNMaterialGenerators {
                         new ItemStack(Material.DIAMOND_PICKAXE), new ItemStack(Material.FURNACE), new ItemStack(Material.DIAMOND_PICKAXE)}, 32)
                 .setItem(Material.CLAY)
                 .getMaterialName("&3&lClay")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_WARPED_BROKEN,
@@ -82,7 +80,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.CARBONADO, new ItemStack(Material.DIAMOND_SHOVEL), SlimefunItems.CARBONADO,
                         new ItemStack(Material.NETHERITE_PICKAXE), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.NETHERITE_PICKAXE),
                         SlimefunItems.CARBONADO, SlimefunItems.NETHER_GOLD_PAN, SlimefunItems.CARBONADO})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_WARPED1,
@@ -93,7 +91,7 @@ public class FNMaterialGenerators {
                         FNAmpItems.FMG_GENERATOR_WARPED_BROKEN, new ItemStack(Material.BLAST_FURNACE), FNAmpItems.FMG_GENERATOR_WARPED_BROKEN}, 48)
                 .setItem(Material.WARPED_NYLIUM)
                 .getMaterialName("&4&cWarped Nylium")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_TERRACOTTA_BROKEN,
@@ -102,7 +100,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.FERROSILICON, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.FERROSILICON,
                         new ItemStack(Material.DIAMOND_SHOVEL), new ItemStack(Material.BUCKET), new ItemStack(Material.DIAMOND_SHOVEL),
                         SlimefunItems.FERROSILICON, new ItemStack(Material.COAL), SlimefunItems.FERROSILICON})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_TERRACOTTA,
@@ -113,7 +111,7 @@ public class FNMaterialGenerators {
                         FNAmpItems.FMG_GENERATOR_TERRACOTTA_BROKEN, new ItemStack(Material.BLAST_FURNACE), FNAmpItems.FMG_GENERATOR_TERRACOTTA_BROKEN}, 84)
                 .setItem(Material.TERRACOTTA)
                 .getMaterialName("&4&lTerracotta")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_BONE_BROKEN,
@@ -122,7 +120,7 @@ public class FNMaterialGenerators {
                         new ItemStack(Material.BONE_MEAL), new ItemStack(Material.DIAMOND_SWORD), new ItemStack(Material.BONE_MEAL),
                         new ItemStack(Material.BONE_BLOCK), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.BONE_BLOCK),
                         SlimefunItems.BLISTERING_INGOT_2, new ItemStack(Material.COAL), SlimefunItems.BLISTERING_INGOT_2})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_BONE,
@@ -133,7 +131,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.PROGRAMMABLE_ANDROID, new ItemStack(Material.BLAST_FURNACE), SlimefunItems.PROGRAMMABLE_ANDROID}, 256)
                 .setItem(Material.BONE)
                 .getMaterialName("&f&lBone")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_DIAMOND_BROKEN,
@@ -142,7 +140,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.SYNTHETIC_DIAMOND, SMG_ITEMSTACK_COBBLE_2, SlimefunItems.SYNTHETIC_DIAMOND,
                         new ItemStack(Material.DIAMOND_BLOCK), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.DIAMOND_BLOCK),
                         SlimefunItems.SYNTHETIC_DIAMOND, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SYNTHETIC_DIAMOND})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_DIAMOND,
@@ -153,7 +151,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.PROGRAMMABLE_ANDROID, new ItemStack(Material.BLAST_FURNACE), SlimefunItems.PROGRAMMABLE_ANDROID}, 192)
                 .setItem(Material.DIAMOND)
                 .getMaterialName("&b&lDiamond")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_EMERALD_BROKEN,
@@ -162,7 +160,7 @@ public class FNMaterialGenerators {
                         new ItemStack(Material.EMERALD), new ItemStack(Material.EMERALD_ORE), new ItemStack(Material.EMERALD),
                         new ItemStack(Material.EMERALD_BLOCK), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.EMERALD_BLOCK),
                         SlimefunItems.SYNTHETIC_EMERALD, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SYNTHETIC_EMERALD})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_EMERALD,
@@ -173,7 +171,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.PROGRAMMABLE_ANDROID, new ItemStack(Material.BLAST_FURNACE), SlimefunItems.PROGRAMMABLE_ANDROID}, 218)
                 .setItem(Material.EMERALD)
                 .getMaterialName("&a&lEmerald")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_DIRT_BROKEN,
@@ -182,7 +180,7 @@ public class FNMaterialGenerators {
                         new ItemStack(Material.DIRT), new ItemStack(Material.DIAMOND_SHOVEL), new ItemStack(Material.DIRT),
                         new ItemStack(Material.DIAMOND_SHOVEL), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.IRON_SHOVEL),
                         SlimefunItems.SOLDER_INGOT, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.SOLDER_INGOT})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_DIRT,
@@ -193,7 +191,7 @@ public class FNMaterialGenerators {
                         SlimefunItems.MAGNESIUM_INGOT, new ItemStack(Material.BLAST_FURNACE), SlimefunItems.MAGNESIUM_INGOT}, 12)
                 .setItem(Material.DIRT)
                 .getMaterialName("&6&lDirt")
-                .register(plugin);
+                .register(instance);
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_HONEYCOMB_BROKEN,
@@ -202,7 +200,7 @@ public class FNMaterialGenerators {
                         new ItemStack(Material.HONEYCOMB), new ItemStack(Material.HONEY_BOTTLE), new ItemStack(Material.HONEYCOMB),
                         new ItemStack(Material.DIAMOND_SHOVEL), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.IRON_SHOVEL),
                         SlimefunItems.REINFORCED_PLATE, new ItemStack(Material.HONEY_BLOCK), SlimefunItems.REINFORCED_PLATE})
-                .register(plugin);
+                .register(instance);
 
         new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_FNFAL_HONEYCOMB,
@@ -213,6 +211,6 @@ public class FNMaterialGenerators {
                         SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.BLAST_FURNACE), SlimefunItems.REINFORCED_ALLOY_INGOT}, 44)
                 .setItem(Material.HONEYCOMB)
                 .getMaterialName("&6&lHoney Comb")
-                .register(plugin);
+                .register(instance);
     }
 }

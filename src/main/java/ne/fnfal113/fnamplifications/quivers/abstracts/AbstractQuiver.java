@@ -23,8 +23,7 @@ public abstract class AbstractQuiver extends SlimefunItem {
     }
 
     /**
-     * Gets the default lore and add them to the list
-     * for reusability
+     * Gets the default lore and add them to a list
      * @return the default lore as list
      */
     public abstract List<String> defaultLore();

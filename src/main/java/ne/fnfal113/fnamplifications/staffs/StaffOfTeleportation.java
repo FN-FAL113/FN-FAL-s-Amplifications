@@ -1,16 +1,11 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -26,8 +21,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class StaffOfTeleportation extends AbstractStaff {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final NamespacedKey defaultUsageKey;
 
@@ -82,22 +75,5 @@ public class StaffOfTeleportation extends AbstractStaff {
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 
-    }
-
-    public static ItemStack ALT_RECIPE = SlimefunItems.COMMON_TALISMAN;
-
-    static {
-        SlimefunItem alt_recipe = SlimefunItem.getByItem(SlimefunItems.SCROLL_OF_DIMENSIONAL_TELEPOSITION);
-        if(alt_recipe != null && !alt_recipe.isDisabled()){
-            ALT_RECIPE = alt_recipe.getItem().clone();
-        }
-    }
-
-    public static void setup(){
-        new StaffOfTeleportation(FNAmpItems.FN_STAFFS, FNAmpItems.FN_STAFF_TP, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), ALT_RECIPE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
-                SlimefunItems.ENDER_RUNE, new ItemStack(Material.BLAZE_ROD), SlimefunItems.ENDER_RUNE,
-                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2), SlimefunItems.MAGIC_EYE_OF_ENDER, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2)})
-                .register(plugin);
     }
 }

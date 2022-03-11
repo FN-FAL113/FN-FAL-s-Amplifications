@@ -36,7 +36,6 @@ public class ReturnWeaponTask extends BukkitRunnable {
 
         if(!getPlayer().isOnline()){
             dropItem(asLocation);
-
             stopTask();
         }
 

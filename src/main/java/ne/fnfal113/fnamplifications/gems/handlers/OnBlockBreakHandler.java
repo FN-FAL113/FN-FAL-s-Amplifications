@@ -8,7 +8,7 @@ public interface OnBlockBreakHandler {
     /**
      *
      * @param event the block break event and listens if a block is broken
-     * @param player the player who break the block
+     * @param player the player who broke the block
      */
     void onBlockBreak(BlockBreakEvent event, Player player);
 

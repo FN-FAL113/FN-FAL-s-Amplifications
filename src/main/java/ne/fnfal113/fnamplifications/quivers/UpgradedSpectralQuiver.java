@@ -1,18 +1,13 @@
 package ne.fnfal113.fnamplifications.quivers;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
-import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
+import ne.fnfal113.fnamplifications.quivers.implementations.MainQuiver;
 import ne.fnfal113.fnamplifications.utils.Keys;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -24,8 +19,6 @@ import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class UpgradedSpectralQuiver extends AbstractQuiver {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     private final int quiverSize;
 
@@ -100,14 +93,5 @@ public class UpgradedSpectralQuiver extends AbstractQuiver {
     @Override
     public void bowShoot(EntityShootBowEvent event, ItemStack itemStack){
         mainQuiver.bowShoot(event, itemStack,false);
-    }
-
-    public static void setup() {
-        new UpgradedSpectralQuiver(FNAmpItems.FN_MISC, FNAmpItems.FN_UPGRADED_SPECTRAL_QUIVER, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.GOLD_10K, 3), FNAmpItems.FN_SPECTRAL_QUIVER, new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 3),
-                new ItemStack(Material.STRING, 48), new ItemStack(Material.STICK, 36),  new ItemStack(Material.STRING, 48),
-                new SlimefunItemStack(SlimefunItems.GOLD_10K, 3), new ItemStack(Material.LEATHER, 24), new SlimefunItemStack(SlimefunItems.DAMASCUS_STEEL_INGOT, 3)},
-                288, new ItemStack(Material.SPECTRAL_ARROW, 1))
-                .register(plugin);
     }
 }

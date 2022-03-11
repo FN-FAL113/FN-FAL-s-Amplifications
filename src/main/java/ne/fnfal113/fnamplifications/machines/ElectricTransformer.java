@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -22,12 +20,9 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
 public class ElectricTransformer extends AContainer implements RecipeDisplayItem {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     public ElectricTransformer(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -77,26 +72,6 @@ public class ElectricTransformer extends AContainer implements RecipeDisplayItem
         registerRecipe(8, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.PROGRAMMABLE_ANDROID_2, 1),
                         new SlimefunItemStack(SlimefunItems.ANDROID_MEMORY_CORE, 4)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.PROGRAMMABLE_ANDROID_3, 1)});
-    }
-
-    public static void setup() {
-        new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.FUNNEL_PART, FNAmpItems.THREAD_PART, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.GEAR_PART, FNAmpItems.BASIC_MACHINE_BLOCK, FNAmpItems.GEAR_PART,
-                FNAmpItems.COMPRESSOR_PART, FNAmpItems.BRASS_PLATING, FNAmpItems.CONDENSER_PART
-        }).setCapacity(1536).setEnergyConsumption(128).setProcessingSpeed(1).register(plugin);
-
-        new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.FUNNEL_PART, FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.POWER_COMPONENT,
-                new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.BASIC_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
-                FNAmpItems.THREAD_PART, FNAmpItems.ALUMINUM_PLATING, FNAmpItems.CONDENSER_PART
-        }).setCapacity(1536).setEnergyConsumption(192).setProcessingSpeed(2).register(plugin);
-
-        new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.FUNNEL_PART, 2), FNAmpItems.FN_FAL_TRANSFORMER_2, FNAmpItems.POWER_COMPONENT,
-                FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_FAL_TRANSFORMER_1,
-                FNAmpItems.COMPONENT_PART, FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.CONDENSER_PART, 2)
-        }).setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(plugin);
     }
 
     @Nonnull

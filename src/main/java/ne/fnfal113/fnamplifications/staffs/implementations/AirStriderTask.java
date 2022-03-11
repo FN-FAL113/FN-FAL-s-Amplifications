@@ -50,8 +50,7 @@ public class AirStriderTask extends BukkitRunnable {
                         }// check if relative block below along its relative axis the player is air
                     }
                 }
-            } // cooldown check
-            else { // when cooldown is due remove remaining blocks
+            } else { // when cooldown is due remove remaining blocks
                 List<Block> block = blockMap.get(player.getUniqueId());
                 for(Block blocks: block) {
                     if (blocks != null) {

@@ -1,11 +1,9 @@
 package ne.fnfal113.fnamplifications.gems;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
@@ -14,11 +12,8 @@ import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.gems.implementation.GuardianTask;
 import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -33,8 +28,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
 public class GuardianGem extends AbstractGem implements OnDamageHandler {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     @Getter
     private final int chance;
@@ -111,13 +104,5 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
             } // target the damager, will attack projectile shooter
 
         } // guardian targets the entity that damaged the player
-    }
-
-    public static void setup(){
-        new GuardianGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_GUARDIAN, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.TALISMAN_ANGEL, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.TALISMAN_FIRE,
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 1),  SlimefunItems.MAGIC_SUGAR})
-                .register(plugin);
     }
 }

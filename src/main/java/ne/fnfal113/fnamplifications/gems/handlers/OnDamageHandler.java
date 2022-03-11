@@ -10,7 +10,7 @@ public interface OnDamageHandler {
 
     /**
      *
-     * @param event the click event for the drag and drop
+     * @param event the entity damage by other entity event
      */
     void onDamage(EntityDamageByEntityEvent event);
 

@@ -110,7 +110,6 @@ public class QuiverListener implements Listener {
                 }
             } // game mode
         } // instanceof
-
     }
 
 }

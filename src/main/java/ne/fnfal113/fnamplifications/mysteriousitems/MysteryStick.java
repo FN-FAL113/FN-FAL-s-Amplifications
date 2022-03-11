@@ -1,13 +1,9 @@
 package ne.fnfal113.fnamplifications.mysteriousitems;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -27,8 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MysteryStick extends AbstractStick {
-
-    private static final SlimefunAddon plugin = FNAmplifications.getInstance();
 
     public final MainStick mainStick;
 
@@ -78,13 +72,5 @@ public class MysteryStick extends AbstractStick {
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 0, false, false, false));
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
-    }
-
-    public static void setup(){
-        new MysteryStick(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8),
-                SlimefunItems.BLANK_RUNE, new ItemStack(Material.STICK), SlimefunItems.BLANK_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 6), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8)})
-                .register(plugin);
     }
 }

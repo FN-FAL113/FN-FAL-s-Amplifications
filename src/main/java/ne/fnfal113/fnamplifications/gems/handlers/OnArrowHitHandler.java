@@ -9,7 +9,7 @@ public interface OnArrowHitHandler {
     /**
      *
      * @param event the projectile event, used by gems made for bows
-     * @param player the player who shot the projectile
+     * @param player the player who shot the projectile or arrow
      * @param entity  the entity that got hit by the projectile
      */
     void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity);

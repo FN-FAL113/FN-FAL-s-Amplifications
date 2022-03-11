@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.machines;
 
 import dev.j3fftw.extrautils.interfaces.InventoryBlock;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -23,8 +22,6 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -51,7 +48,6 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
 
     public static final Map<Location, BlockBreakerCache> CACHE_MAP = new HashMap<>();
 
-    private static final SlimefunAddon PLUGIN = FNAmplifications.getInstance();
     public static final int CHANGE_MODE = 0;
     public static final int ON_OFF = 8;
     private static final ItemStack VERSIONED_AMETHYST;
@@ -164,32 +160,6 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             }
             blockMenuPreset.addItem(4, NO_POWER);
         });
-    }
-
-    public static void setup() {
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-            FNAmpItems.GEAR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.GEAR_PART,
-            new ItemStack(Material.IRON_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
-            FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING}, 12)
-            .setCapacity(512)
-            .setEnergyConsumption(32)
-            .register(PLUGIN);
-
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-            new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
-            new ItemStack(Material.DIAMOND_PICKAXE), new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.DIAMOND_PICKAXE),
-            FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING}, 6)
-            .setCapacity(1024)
-            .setEnergyConsumption(64)
-            .register(PLUGIN);
-
-        new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-            new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 3),
-            new ItemStack(Material.NETHERITE_PICKAXE), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new ItemStack(Material.NETHERITE_PICKAXE),
-            FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING}, 2)
-            .setCapacity(2048)
-            .setEnergyConsumption(128)
-            .register(PLUGIN);
     }
 
     @Override
