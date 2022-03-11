@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems.Implementation;
+package ne.fnfal113.fnamplifications.gems.implementation;
 
 import lombok.Getter;
 import org.bukkit.event.entity.EntityTargetEvent;

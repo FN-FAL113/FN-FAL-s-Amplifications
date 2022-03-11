@@ -1,29 +1,29 @@
-package ne.fnfal113.fnamplifications.Items;
+package ne.fnfal113.fnamplifications.items;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gears.FnBoots;
-import ne.fnfal113.fnamplifications.Gears.FnChestPlate;
-import ne.fnfal113.fnamplifications.Gears.FnHelmet;
-import ne.fnfal113.fnamplifications.Gears.FnLeggings;
-import ne.fnfal113.fnamplifications.Gems.*;
-import ne.fnfal113.fnamplifications.Machines.*;
-import ne.fnfal113.fnamplifications.MaterialGenerators.FNMaterialGenerators;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
-import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
-import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
-import ne.fnfal113.fnamplifications.MysteriousItems.*;
-import ne.fnfal113.fnamplifications.PowerGenerators.FNSolarGenerators;
-import ne.fnfal113.fnamplifications.PowerGenerators.PowahGenerator;
-import ne.fnfal113.fnamplifications.Quiver.Quiver;
-import ne.fnfal113.fnamplifications.Quiver.SpectralQuiver;
-import ne.fnfal113.fnamplifications.Quiver.UpgradedQuiver;
-import ne.fnfal113.fnamplifications.Quiver.UpgradedSpectralQuiver;
-import ne.fnfal113.fnamplifications.Staffs.*;
-import ne.fnfal113.fnamplifications.Tools.FnHoe;
-import ne.fnfal113.fnamplifications.Tools.FnHoeAutoPlant;
+import ne.fnfal113.fnamplifications.gears.FnBoots;
+import ne.fnfal113.fnamplifications.gears.FnChestPlate;
+import ne.fnfal113.fnamplifications.gears.FnHelmet;
+import ne.fnfal113.fnamplifications.gears.FnLeggings;
+import ne.fnfal113.fnamplifications.gems.*;
+import ne.fnfal113.fnamplifications.machines.*;
+import ne.fnfal113.fnamplifications.materialgenerators.FNMaterialGenerators;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
+import ne.fnfal113.fnamplifications.multiblocks.FnScrapRecycler;
+import ne.fnfal113.fnamplifications.mysteriousitems.*;
+import ne.fnfal113.fnamplifications.powergenerators.FNSolarGenerators;
+import ne.fnfal113.fnamplifications.powergenerators.PowahGenerator;
+import ne.fnfal113.fnamplifications.quivers.Quiver;
+import ne.fnfal113.fnamplifications.quivers.SpectralQuiver;
+import ne.fnfal113.fnamplifications.quivers.UpgradedQuiver;
+import ne.fnfal113.fnamplifications.quivers.UpgradedSpectralQuiver;
+import ne.fnfal113.fnamplifications.staffs.*;
+import ne.fnfal113.fnamplifications.tools.FnHoe;
+import ne.fnfal113.fnamplifications.tools.FnHoeAutoPlant;
 
 public final class FNAmpItemSetup {
 

@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gears.Abstracts;
+package ne.fnfal113.fnamplifications.gears.abstracts;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;

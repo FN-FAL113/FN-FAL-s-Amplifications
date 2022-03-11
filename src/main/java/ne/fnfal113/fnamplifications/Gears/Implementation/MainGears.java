@@ -1,10 +1,10 @@
-package ne.fnfal113.fnamplifications.Gears.Implementation;
+package ne.fnfal113.fnamplifications.gears.implementation;
 
 import com.google.common.base.Strings;
 import lombok.Getter;
 import lombok.Setter;
-import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;

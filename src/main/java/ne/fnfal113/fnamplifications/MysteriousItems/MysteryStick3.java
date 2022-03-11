@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.MysteriousItems;
+package ne.fnfal113.fnamplifications.mysteriousitems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -6,38 +6,30 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnMysteryStickAltar;
-import ne.fnfal113.fnamplifications.MysteriousItems.Abstracts.AbstractStick;
-import ne.fnfal113.fnamplifications.Utils.Utils;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
+import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
+import ne.fnfal113.fnamplifications.utils.Keys;
+import ne.fnfal113.fnamplifications.utils.Utils;
+import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
-@SuppressWarnings("ConstantConditions")
 public class MysteryStick3 extends AbstractStick {
 
     private static final SlimefunAddon plugin = FNAmplifications.getInstance();
-
-    private final NamespacedKey defaultUsageKey;
-    private final NamespacedKey defaultUsageKey2;
 
     public final MainStick mainStick;
 
@@ -45,25 +37,13 @@ public class MysteryStick3 extends AbstractStick {
     public MysteryStick3(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "bowexp");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "bowdamage");
-        this.mainStick = new MainStick(getStorageKey(), getStorageKey2(), enchantments(), weaponLore(), stickLore());
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey() {
-        return defaultUsageKey;
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey2() {
-        return defaultUsageKey2;
+        this.mainStick = new MainStick(Keys.STICK_3_EXP_LEVELS, Keys.STICK_3_DAMAGE, enchantments(), weaponLore(), stickLore(), 1, 5);
     }
 
     @Override
     public Map<Enchantment, Integer> enchantments(){
         Map<Enchantment, Integer> enchantments = new HashMap<>();
-        enchantments.put(Enchantment.ARROW_DAMAGE, 3);
+        enchantments.put(Enchantment.ARROW_DAMAGE, 2);
         enchantments.put(Enchantment.ARROW_INFINITE, 1);
 
         return enchantments;
@@ -81,11 +61,7 @@ public class MysteryStick3 extends AbstractStick {
 
     @Override
     public void interact(PlayerInteractEvent e) {
-        if(e.getPlayer().getLevel() >= 5) {
-            mainStick.onInteract(e, Material.BOW, false);
-        } else {
-            blindPlayer(e.getPlayer(), 5);
-        }
+        mainStick.onInteract(e, Material.BOW);
     }
 
     @Override
@@ -102,50 +78,12 @@ public class MysteryStick3 extends AbstractStick {
             return;
         }
 
-        if (ThreadLocalRandom.current().nextInt(100) < 24) {
-            player.setLevel(player.getLevel() - 1);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.
-                    fromLegacyText(Utils.colorTranslator("&d1 xp levels has been consumed from you")));
+        if(mainStick.onSwing(item, FNAmpItems.FN_STICK_9, player, event.getDamage(), 27, 1)) {
+            LivingEntity victim = (LivingEntity) event.getEntity();
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 0, false, false));
+            player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore2 = meta.getLore();
-
-        PersistentDataContainer expUsed = meta.getPersistentDataContainer();
-        PersistentDataContainer damage = meta.getPersistentDataContainer();
-        int damageamount = damage.getOrDefault(getStorageKey2(), PersistentDataType.INTEGER, 0);
-        int get_Damage = (int) event.getDamage() + damageamount;
-        int xpamount = expUsed.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, 0);
-        damage.set(getStorageKey2(), PersistentDataType.INTEGER, get_Damage);
-
-        meta.setLore(mainStick.loreUpdate(lore2, get_Damage, xpamount, weaponLore(), false));
-        item.setItemMeta(meta);
-
-        if(player.getLevel() <= 5) {
-            mainStick.darkenVision(player, 5);
-            mainStick.transformWeapon(player, item, FNAmpItems.FN_STICK_3, 5, stickLore(), 0);
-        }
-
-    }
-
-    @Override
-    public void LevelChange(PlayerLevelChangeEvent event){
-       mainStick.levelChange(event, FNAmpItems.FN_STICK_3, 5, 0);
-    }
-
-    @Override
-    public boolean isEnchantable() {
-        return false;
-    }
-
-    @Override
-    public boolean isDisenchantable() {
-        return false;
-    }
-
-    @Override
-    public boolean isUseableInWorkbench() {
-        return false;
     }
 
     public static void setup(){

@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Items;
+package ne.fnfal113.fnamplifications.items;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -199,6 +199,8 @@ public class FNAmpItems {
                     "1d5a09884cb83ef5c908dddd385f246fefdee221712c010177f54376da238fdd")),
             "&d&lFN Power Xpansion R6",
             "&9This works at Night!",
+            "&9Place and right click",
+            "&9the block for power info",
             ""
     );
 

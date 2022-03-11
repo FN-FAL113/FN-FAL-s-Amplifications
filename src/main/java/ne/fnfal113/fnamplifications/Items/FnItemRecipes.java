@@ -1,7 +1,7 @@
-package ne.fnfal113.fnamplifications.Items;
+package ne.fnfal113.fnamplifications.items;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
-import ne.fnfal113.fnamplifications.Machines.ElectricMachineDowngrader;
+import ne.fnfal113.fnamplifications.config.ReturnConfValue;
+import ne.fnfal113.fnamplifications.machines.ElectricMachineDowngrader;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

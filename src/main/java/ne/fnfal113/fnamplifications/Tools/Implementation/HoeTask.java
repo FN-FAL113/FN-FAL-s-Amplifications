@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Tools.Implementation;
+package ne.fnfal113.fnamplifications.tools.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;

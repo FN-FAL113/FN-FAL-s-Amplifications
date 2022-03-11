@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Tools;
+package ne.fnfal113.fnamplifications.tools;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -7,10 +7,10 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Tools.Abstracts.AbstractHoe;
-import ne.fnfal113.fnamplifications.Tools.Implementation.HoeTask;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.tools.abstracts.AbstractHoe;
+import ne.fnfal113.fnamplifications.tools.implementation.HoeTask;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;

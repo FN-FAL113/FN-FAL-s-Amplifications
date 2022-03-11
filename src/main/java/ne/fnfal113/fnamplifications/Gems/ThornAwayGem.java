@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems;
+package ne.fnfal113.fnamplifications.gems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -8,24 +8,19 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.gems.implementation.Gem;
+import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -51,32 +46,15 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null && WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType())){
-            ItemMeta meta = currentItem.getItemMeta();
-            PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            if(checkGemAmount(container, currentItem) < 4) {
-                Gem gem = new Gem(slimefunItem, currentItem, player);
-                if(!gem.isSameGem(currentItem)){
-                    player.setItemOnCursor(new ItemStack(Material.AIR));
-                    gem.socketItem();
-                } else{
-                    player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
-                }
+        if(slimefunItem != null && currentItem != null) {
+            if (WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType())) {
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
-                player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplates only"));
             }
-            event.setCancelled(true);
         }
 
-    }
-
-    @Override
-    public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
-        return pdc.getOrDefault(new NamespacedKey(FNAmplifications.getInstance(),
-                        itemStack.getType().toString().toLowerCase() + "_socket_amount"),
-                PersistentDataType.INTEGER, 0);
     }
 
     @Override
@@ -87,11 +65,11 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler {
 
         if(event.getCause() != EntityDamageEvent.DamageCause.THORNS){
             return;
-        }
+        } // if damage cause is not thorns, don't continue
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             event.setCancelled(true);
-        }
+        } // cancel any thorn damage
 
     }
 

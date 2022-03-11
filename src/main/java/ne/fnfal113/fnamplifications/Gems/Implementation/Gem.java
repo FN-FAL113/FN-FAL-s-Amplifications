@@ -1,20 +1,19 @@
-package ne.fnfal113.fnamplifications.Gems.Implementation;
+package ne.fnfal113.fnamplifications.gems.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Utils.Keys;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.utils.Keys;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.apache.commons.lang.Validate;
-import org.bukkit.ChatColor;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +22,25 @@ import java.util.Locale;
 @SuppressWarnings("ConstantConditions")
 public class Gem {
 
+    @Getter
     private final SlimefunItem slimefunItem;
-    private final ItemStack itemStack;
+    @Getter
+    private final ItemStack itemStackToSocket;
+    @Getter
     private final String sfItemName;
+    @Getter
     private final String gemID;
+    @Getter
     private final Player player;
+    @Getter
     private final NamespacedKey key1;
+    @Getter
     private final NamespacedKey key2;
 
     @ParametersAreNonnullByDefault
     public Gem(SlimefunItem sfItem, ItemStack itemToSocket, Player p){
         this.slimefunItem = sfItem;
-        this.itemStack = itemToSocket;
+        this.itemStackToSocket = itemToSocket;
         this.sfItemName = sfItem.getItemName();
         this.gemID = sfItem.getId();
         this.player = p;
@@ -43,44 +49,36 @@ public class Gem {
 
     }
 
-    public String getSfItemName(){
-        return sfItemName;
-    }
+    public void onDrag(InventoryClickEvent event, boolean retaliateWeapon){
+        ItemMeta meta = getItemStackToSocket().getItemMeta();
+        PersistentDataContainer container = meta.getPersistentDataContainer();
 
-    public SlimefunItem getSlimefunItem() {
-        return slimefunItem;
-    }
-
-    public ItemStack getSocketedItemStack() {
-        return itemStack;
-    }
-
-    public String getGemID() {
-        return gemID;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey1() {
-        return key1;
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey2() {
-        return key2;
+        if(checkGemAmount(container, getItemStackToSocket()) < 4) { // gem amount must be below 4
+            if(!isSameGem(getItemStackToSocket())){ // check if the gem being added already exist
+                getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
+                socketItem();
+                if(retaliateWeapon){
+                    retaliateWeapon();
+                }
+            } else{
+                getPlayer().sendMessage(Utils.colorTranslator("&6Your item has " + getSfItemName() + " &6socketed already!"));
+                getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1.0F, 1.0F);
+            }
+        } else {
+            getPlayer().sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
+            getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 1.0F);
+        }
+        event.setCancelled(true);
     }
 
     public void socketItem(){
         String name = getSfItemName();
-        ItemStack itemStack = getSocketedItemStack();
+        ItemStack itemStack = getItemStackToSocket();
         ItemMeta meta = itemStack.getItemMeta();
         Validate.notNull(meta, "Meta must not be null!");
 
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        int amountOfGems = pdc.getOrDefault(getStorageKey2(), PersistentDataType.INTEGER, 0);
+        int amountOfGems = pdc.getOrDefault(getKey2(), PersistentDataType.INTEGER, 0);
 
         if (amountOfGems == 0) { // add the lore when adding a gem for the first time
             List<String> lore;
@@ -108,14 +106,26 @@ public class Gem {
             }
         }
 
-        pdc.set(getStorageKey1(), PersistentDataType.STRING, getGemID());
-        pdc.set(getStorageKey2(), PersistentDataType.INTEGER, amountOfGems + 1);
+        pdc.set(getKey1(), PersistentDataType.STRING, getGemID());
+        pdc.set(getKey2(), PersistentDataType.INTEGER, amountOfGems + 1);
         itemStack.setItemMeta(meta);
 
         getPlayer().sendMessage(Utils.colorTranslator("&eSuccessfully bound " + name + " &eto " +
-                itemStack.getType().name().replace("_", " ").toLowerCase(Locale.ROOT)
-                        .replace(itemStack.getType().name().substring(0, 0), itemStack.getType().name().substring(0, 0).toUpperCase(Locale.ROOT))));
+                itemStack.getType().name().replace("_", " ").toLowerCase(Locale.ROOT)));
         getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
+    }
+
+    /**
+     *
+     * @param pdc the persistent data that contains the key and amount
+     *            value from the itemstack
+     * @param itemStack the itemstack that has the needed pdc data
+     * @return the amount of gem inside the itemstack if there are any
+     */
+    public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
+        return pdc.getOrDefault(
+                new NamespacedKey(FNAmplifications.getInstance(), itemStack.getType().toString().toLowerCase() + "_socket_amount"),
+                PersistentDataType.INTEGER, 0);
     }
 
     /**
@@ -131,7 +141,7 @@ public class Gem {
            return false;
         }
 
-        return container.has(getStorageKey1(), PersistentDataType.STRING);
+        return container.has(getKey1(), PersistentDataType.STRING);
     }
 
     /**
@@ -139,11 +149,11 @@ public class Gem {
      * adding the needed pdc to check whether it has retaliate gem
      */
     public void retaliateWeapon(){
-        ItemMeta meta = getSocketedItemStack().getItemMeta();
+        ItemMeta meta = getItemStackToSocket().getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
-        getSocketedItemStack().setItemMeta(meta);
+        getItemStackToSocket().setItemMeta(meta);
     }
 
 }

@@ -1,10 +1,10 @@
-package ne.fnfal113.fnamplifications.Items;
+package ne.fnfal113.fnamplifications.items;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Multiblock.FnScrapRecycler;
+import ne.fnfal113.fnamplifications.multiblocks.FnScrapRecycler;
 
 import org.bukkit.inventory.ItemStack;
 

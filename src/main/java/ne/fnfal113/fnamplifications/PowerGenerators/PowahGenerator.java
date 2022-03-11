@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.PowerGenerators;
+package ne.fnfal113.fnamplifications.powergenerators;
 
 import javax.annotation.Nonnull;
 
@@ -14,8 +14,8 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import lombok.SneakyThrows;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -34,8 +34,8 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.config.ReturnConfValue;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 

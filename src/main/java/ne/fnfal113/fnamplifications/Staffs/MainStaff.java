@@ -1,9 +1,9 @@
-package ne.fnfal113.fnamplifications.Staffs;
+package ne.fnfal113.fnamplifications.staffs;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

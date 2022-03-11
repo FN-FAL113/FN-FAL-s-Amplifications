@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gears;
+package ne.fnfal113.fnamplifications.gears;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -7,11 +7,11 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gears.Abstracts.AbstractGears;
-import ne.fnfal113.fnamplifications.Gears.Implementation.MainGears;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Utils.Keys;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.gears.abstracts.AbstractGears;
+import ne.fnfal113.fnamplifications.gears.implementation.MainGears;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.utils.Keys;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

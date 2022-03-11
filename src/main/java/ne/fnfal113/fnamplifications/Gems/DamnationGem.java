@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems;
+package ne.fnfal113.fnamplifications.gems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -7,20 +7,19 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.Gems.Interface.OnRightClickHandler;
-import ne.fnfal113.fnamplifications.Utils.Keys;
-import ne.fnfal113.fnamplifications.Gems.Implementation.ThrowableWeapon;
-import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.gems.implementation.Gem;
+import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
+import ne.fnfal113.fnamplifications.utils.Keys;
+import ne.fnfal113.fnamplifications.gems.implementation.ThrowableWeapon;
+import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -37,7 +36,6 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
 
     @Override
     public void onDrag(InventoryClickEvent event, Player player){
-
         if(event.getCursor() == null){
             return;
         }
@@ -45,33 +43,14 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null &&
-                (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType()))){
-            ItemMeta meta = currentItem.getItemMeta();
-            PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            if(checkGemAmount(container, currentItem) < 4) {
-                Gem gem = new Gem(slimefunItem, currentItem, player);
-                if(!gem.isSameGem(currentItem)){
-                    player.setItemOnCursor(new ItemStack(Material.AIR));
-                    gem.socketItem();
-                } else{
-                    player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
-                }
+        if(slimefunItem != null && currentItem != null) {
+            if ((WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType()))) {
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
-                player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
             }
-            event.setCancelled(true);
         }
-
-    }
-
-    @Override
-    public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
-        return pdc.getOrDefault(
-                new NamespacedKey(FNAmplifications.getInstance(), itemStack.getType().toString().toLowerCase() + "_socket_amount"),
-                PersistentDataType.INTEGER, 0);
     }
 
     @Override
@@ -82,13 +61,15 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
         if(!hasPermissionToThrow(player)){
             player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have the permission to throw here!"));
             return;
-        }
+        } // check if player has the permission to build on current location
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
 
+        // check if player has below 4 floating weapons
         if(throwableWeapon.isBelow4Weapons(player)) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
+            // creates a throwable task from the object instance
             throwableWeapon.floatThrowItem(player, itemStack.clone(), Boolean.parseBoolean(pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false")));
 
             itemStack.setAmount(0);

@@ -1,11 +1,11 @@
-package ne.fnfal113.fnamplifications.Machines;
+package ne.fnfal113.fnamplifications.machines;
 
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,7 +20,7 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
 public class ElectricCompressor extends AContainer implements RecipeDisplayItem {
 

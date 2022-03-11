@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems;
+package ne.fnfal113.fnamplifications.gems;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -8,25 +8,21 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gems.Implementation.Gem;
-import ne.fnfal113.fnamplifications.Gems.Abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.Gems.Interface.OnDamageHandler;
-import ne.fnfal113.fnamplifications.Utils.Keys;
-import ne.fnfal113.fnamplifications.Gems.Implementation.GuardianTask;
-import ne.fnfal113.fnamplifications.Gems.Implementation.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnGemAltar;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.gems.implementation.Gem;
+import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
+import ne.fnfal113.fnamplifications.utils.Keys;
+import ne.fnfal113.fnamplifications.gems.implementation.GuardianTask;
+import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -54,7 +50,6 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
 
     @Override
     public void onDrag(InventoryClickEvent event, Player player){
-
         if(event.getCursor() == null){
             return;
         }
@@ -62,32 +57,14 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
         ItemStack currentItem = event.getCurrentItem();
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-        if(slimefunItem != null && currentItem != null && WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType())){
-            ItemMeta meta = currentItem.getItemMeta();
-            PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            if(checkGemAmount(container, currentItem) < 4) {
-                Gem gem = new Gem(slimefunItem, currentItem, player);
-                if(!gem.isSameGem(currentItem)){
-                    player.setItemOnCursor(new ItemStack(Material.AIR));
-                    gem.socketItem();
-                } else{
-                    player.sendMessage(Utils.colorTranslator("&6Your item has " + gem.getSfItemName() + " &6socketed already!"));
-                }
+        if(slimefunItem != null && currentItem != null) {
+            if ((WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()))) {
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
-                player.playSound(player.getLocation(), Sound.UI_TOAST_OUT, 1.0F, 1.0F);
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplate only"));
             }
-            event.setCancelled(true);
         }
-
-    }
-
-    @Override
-    public int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack){
-        return pdc.getOrDefault(
-                new NamespacedKey(FNAmplifications.getInstance(), itemStack.getType().toString().toLowerCase() + "_socket_amount"),
-                PersistentDataType.INTEGER, 0);
     }
 
     @Override
@@ -107,7 +84,7 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
                 entityUUIDMap.remove(player.getUniqueId());
                 runnableMap.remove(player.getUniqueId());
                 return;
-            }
+            } // remove the map when the runnable associated with the UUID is cancelled
         }
 
         if(!entityUUIDMap.containsKey(player.getUniqueId())) {
@@ -117,22 +94,23 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
                 runnableMap.put(player.getUniqueId(),
                         guardianTask.runTaskTimer(FNAmplifications.getInstance(), 5L, 3L));
                 entityUUIDMap.put(player.getUniqueId(), guardianTask.getZombie());
-            }
+            } // make a guardian runnable for the player using UUID and a new instance of the guardian task
         } else {
             Zombie zombie = entityUUIDMap.get(player.getUniqueId());
 
             if(zombie.getTarget() != null && !zombie.getTarget().isDead()){
                 return;
-            }
+            } // don't change target if the current target is not yet dead
 
             if(event.getDamager().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
                 zombie.setTarget(Bukkit.getPlayer(event.getDamager().getPersistentDataContainer().get(Keys.GUARDIAN_KEY, PersistentDataType.STRING)));
-            } else {
+            } // if the damager has a guardian, attack the owner of the guardian instead
+            else {
                 zombie.setTarget(event.getDamager() instanceof Projectile ?
                         (LivingEntity) ((Projectile) event.getDamager()).getShooter() : (LivingEntity) event.getDamager());
-            }
+            } // target the damager, will attack projectile shooter
 
-        }
+        } // guardian targets the entity that damaged the player
     }
 
     public static void setup(){

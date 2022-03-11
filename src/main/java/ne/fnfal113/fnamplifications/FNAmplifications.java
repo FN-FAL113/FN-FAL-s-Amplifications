@@ -5,27 +5,23 @@ import javax.annotation.Nonnull;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ConfigManager;
-import ne.fnfal113.fnamplifications.Gears.Commands.CheckProgress;
-import ne.fnfal113.fnamplifications.Gears.Listeners.GearListener;
-import ne.fnfal113.fnamplifications.Gears.Runnables.ArmorEquipRunnable;
-import ne.fnfal113.fnamplifications.Gems.Listeners.GemListener;
-import ne.fnfal113.fnamplifications.MysteriousItems.Listeners.MysteryStickListener;
-import ne.fnfal113.fnamplifications.Quiver.Listener.QuiverListener;
-import ne.fnfal113.fnamplifications.Staffs.Listener.StaffListener;
-import ne.fnfal113.fnamplifications.Tools.Listener.HoeListener;
-import ne.fnfal113.fnamplifications.Utils.PlayerJoinLister;
+import ne.fnfal113.fnamplifications.config.ConfigManager;
+import ne.fnfal113.fnamplifications.gears.commands.CheckProgress;
+import ne.fnfal113.fnamplifications.gears.listener.GearListener;
+import ne.fnfal113.fnamplifications.gears.runnables.ArmorEquipRunnable;
+import ne.fnfal113.fnamplifications.gems.listener.GemListener;
+import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListener;
+import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
+import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
+import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
+import ne.fnfal113.fnamplifications.utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
-import org.bstats.charts.AdvancedPie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import ne.fnfal113.fnamplifications.Items.FNAmpItemSetup;
+import ne.fnfal113.fnamplifications.items.FNAmpItemSetup;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 
 public final class FNAmplifications extends JavaPlugin implements SlimefunAddon {
@@ -38,8 +34,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     public void onEnable() {
         setInstance(this);
 
-        Metrics metrics = new Metrics(this, 13219);
-        addPieChartMatGen(metrics);
+        new Metrics(this, 13219);
 
         getLogger().info("************************************************************");
         getLogger().info("*         FN Amplifications - Created by FN_FAL113         *");
@@ -95,23 +90,6 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
     public static FNAmplifications getInstance() {
         return instance;
-    }
-
-    public void addPieChartMatGen(Metrics metrics){
-        metrics.addCustomChart(new AdvancedPie("material_gen_tickrates", new Callable<Map<String, Integer>>() {
-            @Override
-            public Map<String, Integer> call() {
-                Map<String, Integer> matGens = new HashMap<>();
-                for(Map.Entry<String, Object> config: getConfig().getValues(true).entrySet()){
-                    if(config.getKey().startsWith("FN_")){
-                        matGens.put(config.getKey() + ": " + config.getValue().toString(),
-                                matGens.getOrDefault(config.getKey() + ": " + config.getValue().toString(), 0) + 1);
-                    }
-                }
-
-                return matGens;
-            }
-        }));
     }
 
 }

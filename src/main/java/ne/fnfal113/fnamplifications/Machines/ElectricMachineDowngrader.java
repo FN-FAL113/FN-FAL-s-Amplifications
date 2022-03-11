@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Machines;
+package ne.fnfal113.fnamplifications.machines;
 
 import javax.annotation.Nonnull;
 
@@ -10,10 +10,10 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.operations.CraftingOperation;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
-import ne.fnfal113.fnamplifications.Machines.Abstracts.CMachine;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.machines.abstracts.CMachine;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;

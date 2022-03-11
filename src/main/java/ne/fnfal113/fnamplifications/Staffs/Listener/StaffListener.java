@@ -1,9 +1,9 @@
-package ne.fnfal113.fnamplifications.Staffs.Listener;
+package ne.fnfal113.fnamplifications.staffs.listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Staffs.*;
-import ne.fnfal113.fnamplifications.Staffs.Interface.EntityStaffImpl;
+import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;

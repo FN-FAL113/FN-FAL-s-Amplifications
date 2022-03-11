@@ -1,7 +1,7 @@
-package ne.fnfal113.fnamplifications.Gems.Implementation;
+package ne.fnfal113.fnamplifications.gems.implementation;
 
 import lombok.Getter;
-import ne.fnfal113.fnamplifications.Utils.Keys;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;

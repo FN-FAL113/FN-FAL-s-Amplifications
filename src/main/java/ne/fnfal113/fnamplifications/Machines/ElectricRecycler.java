@@ -1,9 +1,9 @@
-package ne.fnfal113.fnamplifications.Machines;
+package ne.fnfal113.fnamplifications.machines;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -17,7 +17,7 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
 import javax.annotation.Nonnull;
 

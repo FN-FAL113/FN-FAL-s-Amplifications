@@ -1,12 +1,12 @@
-package ne.fnfal113.fnamplifications.Gears.Commands;
+package ne.fnfal113.fnamplifications.gears.commands;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gears.FnBoots;
-import ne.fnfal113.fnamplifications.Gears.FnChestPlate;
-import ne.fnfal113.fnamplifications.Gears.FnHelmet;
-import ne.fnfal113.fnamplifications.Gears.FnLeggings;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.gears.FnBoots;
+import ne.fnfal113.fnamplifications.gears.FnChestPlate;
+import ne.fnfal113.fnamplifications.gears.FnHelmet;
+import ne.fnfal113.fnamplifications.gears.FnLeggings;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

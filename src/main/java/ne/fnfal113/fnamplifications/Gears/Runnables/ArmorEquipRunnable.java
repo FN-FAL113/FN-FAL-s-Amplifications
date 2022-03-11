@@ -1,8 +1,8 @@
-package ne.fnfal113.fnamplifications.Gears.Runnables;
+package ne.fnfal113.fnamplifications.gears.runnables;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Gears.FnChestPlate;
+import ne.fnfal113.fnamplifications.gears.FnChestPlate;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Utils;
+package ne.fnfal113.fnamplifications.utils;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import net.md_5.bungee.api.ChatColor;

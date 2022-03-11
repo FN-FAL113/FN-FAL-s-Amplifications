@@ -1,18 +1,13 @@
-package ne.fnfal113.fnamplifications.MysteriousItems.Abstracts;
+package ne.fnfal113.fnamplifications.mysteriousitems.abstracts;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.Map;
 
@@ -54,17 +49,19 @@ public abstract class AbstractStick extends SlimefunItem {
      */
     public abstract void onSwing(EntityDamageByEntityEvent event);
 
-    /**
-     *
-     * @param event the level change event where the player level
-     *              changes and gets assigned to the weapon lore
-     */
-    public abstract void LevelChange(PlayerLevelChangeEvent event);
+    @Override
+    public boolean isEnchantable() {
+        return false;
+    }
 
-    public void blindPlayer(Player p, int levelReq){
-        p.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 300, 2, false, false));
-        p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than " + levelReq);
-        p.sendTitle(ChatColor.DARK_RED + " Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 15, 40, 45);
+    @Override
+    public boolean isDisenchantable() {
+        return false;
+    }
+
+    @Override
+    public boolean isUseableInWorkbench() {
+        return false;
     }
 
 }

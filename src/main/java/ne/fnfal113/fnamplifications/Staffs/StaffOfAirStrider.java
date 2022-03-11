@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Staffs;
+package ne.fnfal113.fnamplifications.staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -8,10 +8,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.Staffs.Implementation.AirStriderTask;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.AirStriderTask;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -86,12 +87,13 @@ public class StaffOfAirStrider extends AbstractStaff {
                 player.sendMessage(Utils.colorTranslator("&dAir strider will expire in ") + i + " seconds");
             }
             if(i.get() == 0){
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Air Strider has expired!");
                 taskMap.get(player.getUniqueId()).cancel();
                 taskMap.remove(player.getUniqueId());
                 task.cancel();
             }
             i.getAndDecrement();
-        },0L, 20L);
+        },0L, 23L);
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 

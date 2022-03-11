@@ -1,6 +1,6 @@
-package ne.fnfal113.fnamplifications.Utils;
+package ne.fnfal113.fnamplifications.utils;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -43,23 +43,25 @@ public class PlayerJoinLister implements Listener {
         return Utils.stringSequence(
                 "||---------------------------------------------------||",
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
-                Utils.colorTranslator("&fChangelog (Huge code rewrites!)"),
+                Utils.colorTranslator("&fChangelog (Another huge code rewrites!)"),
                 "",
-                Utils.colorTranslator("&d&l• &r&dFile Configuration management has been rewritten,"),
-                Utils.colorTranslator("  &dTake a backup of your current config.yml and"),
-                Utils.colorTranslator("  &ddelete it to update the entries. Item setting"),
-                Utils.colorTranslator("  &dconfiguration now have their own configuration file"),
-                Utils.colorTranslator("  &dinstead of storing them all inside config.yml"),
-                Utils.colorTranslator("&d&l• &r&dRewritten PowerXpansion generators, it now uses"),
-                Utils.colorTranslator("  &dholograms and can right clicked to toggle it on/off"),
-                Utils.colorTranslator("&d&l• &r&dHuge re-balancing for PowerXpansion and Solar"),
-                Utils.colorTranslator("  &dgenerators, nerfed power rates and capacity and"),
-                Utils.colorTranslator("  &dadjusted recipes for balancing, rates/capacity are"),
-                Utils.colorTranslator("  &dstill configurable inside their own config files"),
-                Utils.colorTranslator("&d&l• &r&dMaterial Generators server performance improvements"),
-                Utils.colorTranslator("&d&l• &r&dThrowable weapons now cannot be thrown if the"),
-                Utils.colorTranslator("  &dplayer has no permission to build or place inside"),
-                Utils.colorTranslator("  &dothers protected land claims"),
+                Utils.colorTranslator("&d&l• &r&dRewritten Mystery Sticks again for the second"),
+                Utils.colorTranslator("  &dtime, its now balanced and all op enchants are nerfed"),
+                Utils.colorTranslator("  &dand the crafting recipes are adjusted for balancing."),
+                Utils.colorTranslator("  &dThe stick will still consume exp levels from the owner"),
+                Utils.colorTranslator("  &dby % chance at the same time giving the enemies mystery"),
+                Utils.colorTranslator("  &ddeadly effects, the exp levels consumed is the price for"),
+                Utils.colorTranslator("  &dusing the almighty stick. The current stats for your"),
+                Utils.colorTranslator("  &dsticks might reset due to this changes"),
+                Utils.colorTranslator("&d&l• &r&dHopefully make the Air Strider staff work properly"),
+                Utils.colorTranslator("  &don servers. Note: Airplane server software is abandoned"),
+                Utils.colorTranslator("  &dand things might not work properly due to bugs and glitches"),
+                Utils.colorTranslator("  &dAddon supports spigot and forks above it including paper,"),
+                Utils.colorTranslator("  &dpurpur, etc but it might not work properly on abandoned forks"),
+                Utils.colorTranslator("  &djust like any other addons."),
+                Utils.colorTranslator("&d&l• &r&dThe code for gems has been further improved and"),
+                Utils.colorTranslator("  &dcleaned up along with the stick rewrite that the jar"),
+                Utils.colorTranslator("  &dfile size has been reduced by from 425kb to 400kb."),
                 Utils.colorTranslator("&e-FN_FAL113"),
                 "||---------------------------------------------------||"
         );

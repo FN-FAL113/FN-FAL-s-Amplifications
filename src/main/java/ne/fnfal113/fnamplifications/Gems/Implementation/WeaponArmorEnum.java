@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems.Implementation;
+package ne.fnfal113.fnamplifications.gems.implementation;
 
 import org.bukkit.Material;
 
@@ -27,7 +27,8 @@ public enum WeaponArmorEnum {
             Material.STONE_AXE, Material.WOODEN_AXE),
     SHOVELS(Material.NETHERITE_SHOVEL, Material.DIAMOND_SHOVEL,
            Material.GOLDEN_SHOVEL, Material.IRON_SHOVEL,
-           Material.STONE_SHOVEL, Material.WOODEN_SHOVEL)
+           Material.STONE_SHOVEL, Material.WOODEN_SHOVEL),
+    BOWS(Material.BOW, Material.CROSSBOW)
     ;
 
     private final Material[] materialSet;

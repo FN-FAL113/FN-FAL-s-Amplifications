@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.Gems.Abstracts;
+package ne.fnfal113.fnamplifications.gems.abstracts;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -8,16 +8,13 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Utils.Utils;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 
 import java.io.IOException;
-import java.util.List;
 
 public abstract class AbstractGem extends SlimefunItem {
 
@@ -58,14 +55,5 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param player the player who dragged and dropped the gem
      */
     public abstract void onDrag(InventoryClickEvent event, Player player);
-
-    /**
-     *
-     * @param pdc the persistent data that contains the key and amount
-     *            value from the itemstack
-     * @param itemStack the itemstack that has the needed pdc data
-     * @return the amount of gem inside the itemstack if there are any
-     */
-    public abstract int checkGemAmount(PersistentDataContainer pdc, ItemStack itemStack);
 
 }

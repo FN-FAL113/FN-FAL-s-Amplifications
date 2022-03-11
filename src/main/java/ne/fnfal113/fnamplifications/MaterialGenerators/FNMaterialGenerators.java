@@ -1,7 +1,7 @@
-package ne.fnfal113.fnamplifications.MaterialGenerators;
+package ne.fnfal113.fnamplifications.materialgenerators;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import ne.fnfal113.fnamplifications.Multiblock.FnAssemblyStation;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,12 +10,12 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
-import ne.fnfal113.fnamplifications.ConfigValues.ReturnConfValue;
+import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.Items.FNAmpItems;
-import ne.fnfal113.fnamplifications.MaterialGenerators.Methods.CustomBrokenGenerator;
-import ne.fnfal113.fnamplifications.MaterialGenerators.Methods.CustomGeneratorMultiblock;
-import ne.fnfal113.fnamplifications.MaterialGenerators.Methods.CustomMaterialGenerator;
+import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomBrokenGenerator;
+import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomGeneratorMultiblock;
+import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomMaterialGenerator;
 
 public class FNMaterialGenerators {
 
