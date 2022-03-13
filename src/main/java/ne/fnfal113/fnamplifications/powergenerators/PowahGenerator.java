@@ -248,7 +248,7 @@ public class PowahGenerator extends SlimefunItem implements HologramOwner, Energ
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R4, FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_BRASS, 15), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
                 FNAmpItems.FN_FAL_GENERATOR_TIER1, FNAmpItems.GOLD_PLATING, SlimefunItems.ADVANCED_CIRCUIT_BOARD
-        }, 3064, 1784, 480, 5000000).register(instance);
+        }, 3064, 1784, 480, 500000).register(instance);
 
         new PowahGenerator(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R6, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R5, FNAmpItems.GEAR_PART,
