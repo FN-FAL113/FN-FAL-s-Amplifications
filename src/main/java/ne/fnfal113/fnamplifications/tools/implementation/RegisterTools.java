@@ -7,6 +7,7 @@ import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import ne.fnfal113.fnamplifications.tools.FnHoe;
 import ne.fnfal113.fnamplifications.tools.FnHoeAutoPlant;
+import ne.fnfal113.fnamplifications.tools.BlockRotator;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,6 +24,12 @@ public class RegisterTools {
                 SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 6), SlimefunItems.COMMON_TALISMAN,
                 new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7),
                 new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14), new SlimefunItemStack(SlimefunItems.CARBON, 6), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14)})
+                .register(instance);
+
+        new BlockRotator(FNAmpItems.FN_MISC, FNAmpItems.FN_BLOCK_ROTATOR, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.CARBON, new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 3), SlimefunItems.CARBON,
+                SlimefunItems.ELECTRO_MAGNET, new ItemStack(Material.COMPASS), SlimefunItems.ELECTRO_MAGNET,
+                new SlimefunItemStack(SlimefunItems.DURALUMIN_INGOT, 2), new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 3), new SlimefunItemStack(SlimefunItems.DURALUMIN_INGOT, 2)})
                 .register(instance);
     }
 
