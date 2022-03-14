@@ -1561,4 +1561,16 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(
+            "FN_BLOCK_ROTATOR",
+            Material.CLOCK,
+            "&cFN's Block Rotator",
+            "",
+            "&dRight click to rotate orientable or",
+            "&ddirectional blocks. &f(Terracotta, Chains, etc)",
+            "",
+            "&dShift right click to flip slab, bisected",
+            "&dor orientable blocks &f(Slabs, stairs, etc)"
+    );
+
 }

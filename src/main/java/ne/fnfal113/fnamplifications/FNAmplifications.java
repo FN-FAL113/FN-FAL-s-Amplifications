@@ -14,6 +14,7 @@ import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListene
 import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
 import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
 import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
+import ne.fnfal113.fnamplifications.tools.listener.RotatorListener;
 import ne.fnfal113.fnamplifications.utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -52,6 +53,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new HoeListener(), this);
         getServer().getPluginManager().registerEvents(new GemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
+        getServer().getPluginManager().registerEvents(new RotatorListener(), this);
         Objects.requireNonNull(getCommand("fngear")).setExecutor(new CheckProgress());
         getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
