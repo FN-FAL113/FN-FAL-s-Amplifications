@@ -1573,4 +1573,43 @@ public class FNAmpItems {
             "&dor orientable blocks &f(Slabs, stairs, etc)"
     );
 
+    public static final SlimefunItemStack FN_JUKEBOX_I = new SlimefunItemStack(
+            "FN_JUKEBOX_I",
+            Material.JUKEBOX, "&5F&dN &fJ&bu&ek&ce&5b&do&4x I",
+            "", "&eA jukebox that can store and play",
+            "&emusic disc, it can loop through",
+            "&eentire disc slots and autoplay",
+            "&ea new disc after one has finished",
+            "",
+            "&dSlot amount: &d&o3 music disc slots",
+            "",
+            LoreBuilder.powerBuffer(512),
+            LoreBuilder.powerPerSecond(3));
+
+    public static final SlimefunItemStack FN_JUKEBOX_II = new SlimefunItemStack(
+            "FN_JUKEBOX_II",
+            Material.JUKEBOX, "&5F&dN &fJ&bu&ek&ce&5b&do&4x II",
+            "", "&eA jukebox that can store and play",
+            "&emusic disc, it can loop through",
+            "&eentire disc slots and autoplay",
+            "&ea new disc after one has finished",
+            "",
+            "&dSlot amount: &d&o7 music disc slots",
+            "",
+            LoreBuilder.powerBuffer(768),
+            LoreBuilder.powerPerSecond(8));
+
+    public static final SlimefunItemStack FN_JUKEBOX_III = new SlimefunItemStack(
+            "FN_JUKEBOX_III",
+            Material.JUKEBOX, "&5F&dN &fJ&bu&ek&ce&5b&do&4x III",
+            "", "&eA jukebox that can store and play",
+            "&emusic disc, it can loop through",
+            "&eentire disc slots and autoplay",
+            "&ea new disc after one has finished",
+            "",
+            "&dSlot amount: &d&o12 music disc slots",
+            "",
+            LoreBuilder.powerBuffer(1024),
+            LoreBuilder.powerPerSecond(16));
+
 }
