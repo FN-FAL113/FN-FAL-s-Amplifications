@@ -10,6 +10,7 @@ import ne.fnfal113.fnamplifications.gears.commands.CheckProgress;
 import ne.fnfal113.fnamplifications.gears.listener.GearListener;
 import ne.fnfal113.fnamplifications.gears.runnables.ArmorEquipRunnable;
 import ne.fnfal113.fnamplifications.gems.listener.GemListener;
+import ne.fnfal113.fnamplifications.machines.listener.JukeBoxClickListener;
 import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListener;
 import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
 import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
@@ -54,6 +55,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new GemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
         getServer().getPluginManager().registerEvents(new RotatorListener(), this);
+        getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
         Objects.requireNonNull(getCommand("fngear")).setExecutor(new CheckProgress());
         getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
