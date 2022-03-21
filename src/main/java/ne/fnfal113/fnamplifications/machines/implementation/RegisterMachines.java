@@ -133,6 +133,6 @@ public class RegisterMachines {
                 SlimefunItems.BRASS_INGOT, FNAmpItems.FN_JUKEBOX_II, SlimefunItems.BRASS_INGOT,
                 FNAmpItems.COMPONENT_PART, FNAmpItems.REINFORCED_CASING,  FNAmpItems.COMPONENT_PART},
                 19, 25, 19, 29, 33, true)
-                .setCapacity(768).setEnergyConsumption(8).register(instance);
+                .setCapacity(1024).setEnergyConsumption(16).register(instance);
     }
 }
