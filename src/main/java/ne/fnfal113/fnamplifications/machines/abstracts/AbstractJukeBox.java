@@ -151,29 +151,54 @@ public abstract class AbstractJukeBox extends SlimefunItem implements InventoryB
     public abstract void changeStatus(BlockMenu invMenu, int currentSlot);
 
     /**
-     * This is where you decrease your current slot by 1
+     * The method for toggling the jukebox on or off
+     * @param blockMenu the menu associated with block
+     */
+    public abstract void toggleOnOrOff(BlockMenu blockMenu);
+
+    /**
+     * Change the current slot back to the previous one in the left
      * @param player the player who changed the jukebox slot
      * @param menu the menu associated with block
      * @param goBackToDefaultSlot play default slot after the last music disc has finished playing
      */
-    public abstract void previousSlot(@Nullable Player player, BlockMenu menu, boolean goBackToDefaultSlot);
+    public abstract void previousDiscButton(@Nullable Player player, BlockMenu menu, boolean goBackToDefaultSlot);
 
     /**
-     * This is where you increase your current slot by 1
+     * Change the current slot to the next one in the right
      * @param player the player who changed the jukebox slot
      * @param menu the menu associated with block
      */
-    public abstract void nextSlot(@Nullable Player player, BlockMenu menu);
+    public abstract void nextDiscButton(@Nullable Player player, BlockMenu menu);
 
     /**
-     * This method plays the music disc in the current disc slot if one exist
+     * The play and stop button, it will play a music disc according to current slot
+     * @param player the player who clicked the play or stop button
+     * @param menu the menu associated with block
+     */
+    public abstract void playOrStopButton(Player player, BlockMenu menu);
+
+    /**
+     * This method plays the selected slot if a disc exist
      * @param menu the menu associated with block
      * @param cache the cache hashmap that holds persistent data values
      * @param jukebox the jukebox block involved
      * @param location the location of jukebox block menu
      * @param arithmetic integer number that determines whether to increase or decrease slot
      */
-    public abstract void playJukeBox(BlockMenu menu, JukeboxCache cache, Jukebox jukebox, Location location, int arithmetic);
+    public abstract void playCurrentSlot(BlockMenu menu, JukeboxCache cache, Jukebox jukebox, Location location, int arithmetic);
+
+    /**
+     * Stops the music disc in the current slot
+     * @param jukebox the jukebox block involved
+     */
+    public abstract void stopCurrentSlot(Jukebox jukebox, Location location, JukeboxCache cache, BlockMenu menu);
+
+    /**
+     * Checks if the new current slot is out of bounds or reached the last index
+     * @param arithmetic integer number that determines to increase or decrease slot by 1
+     */
+    public abstract void isOutOfBounds(BlockMenu menu, Jukebox jukebox, JukeboxCache cache, Location location, int arithmetic);
 
     /**
      * Change the slot if no music disc exist in the next or previous slot,
@@ -188,11 +213,25 @@ public abstract class AbstractJukeBox extends SlimefunItem implements InventoryB
     public abstract void changeSlot(BlockMenu menu, Jukebox jukebox, JukeboxCache cache, Location location, int arithmetic, boolean goToDefaultSlot);
 
     /**
-     * Check the previous slot if it is a glass pane indicator, if yes change slot material to air on slot change
+     * Unselect the slot by removing the glass pane indicator after changing to a new slot
      * @param menu the menu associated with block
      * @param cache the cache hashmap that holds persistent data values
      */
-    public abstract void checkPreviousSlot(BlockMenu menu, JukeboxCache cache);
+    public abstract void unSelectSlot(BlockMenu menu, JukeboxCache cache);
+
+    /**
+     * Enchants the music disc to indicate it is the current disc being played
+     * @param itemStack the current playing music disc
+     * @param menu the menu associated with block
+     */
+    public abstract void selectDisc(@Nullable ItemStack itemStack, BlockMenu menu);
+
+    /**
+     * Un-enchants the unselected music disc
+     * @param itemStack the current disc being unselected
+     * @param menu the menu associated with block
+     */
+    public abstract void unSelectDisc(ItemStack itemStack, BlockMenu menu);
 
     /**
      * Check the next slot if its null
@@ -202,45 +241,6 @@ public abstract class AbstractJukeBox extends SlimefunItem implements InventoryB
      * @return true if slot has no music disc and is empty
      */
     public abstract boolean isSlotNotNull(BlockMenu menu, JukeboxCache cache, int arithmetic);
-
-    /**
-     * The play and stop button, it will play a music disc according to current slot
-     * @param player the player who clicked the play or stop button
-     * @param menu the menu associated with block
-     */
-    public abstract void playSlot(Player player, BlockMenu menu);
-
-    /**
-     * Enchants the music disc to indicate its the current disc being played
-     * @param itemStack the current playing music disc
-     * @param menu the menu associated with block
-     */
-    public abstract void enchantDisc(@Nullable ItemStack itemStack, BlockMenu menu);
-
-    /**
-     * Un-enchants the previous music disc after change to a new one
-     * @param itemStack the current disc being unselected
-     * @param menu the menu associated with block
-     */
-    public abstract void unenchantDisc(ItemStack itemStack, BlockMenu menu);
-
-    /**
-     * The method for toggling the jukebox on or off
-     * @param blockMenu the menu associated with block
-     */
-    public abstract void toggleOnOrOff(BlockMenu blockMenu);
-
-    /**
-     * Stops the current playing record from the jukebox
-     * @param jukebox the jukebox block involved
-     */
-    public abstract void stopJukebox(org.bukkit.block.Jukebox jukebox, Location location, JukeboxCache cache, BlockMenu menu);
-
-    /**
-     * Checks if the new current slot is out of bounds or reached the last index
-     * @param arithmetic integer number that determines to increase or decrease slot by 1
-     */
-    public abstract void isOutOfBounds(BlockMenu menu, Jukebox jukebox, JukeboxCache cache, Location location, int arithmetic);
 
     /**
      * Checks if the item in the slot is a type of music disc

@@ -20,6 +20,7 @@ import ne.fnfal113.fnamplifications.machines.implementation.DiscDurationsEnum;
 import ne.fnfal113.fnamplifications.machines.implementation.JukeBox;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.Jukebox;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -90,13 +91,7 @@ public class ElectricJukebox extends JukeBox {
 
     // accumulate the gui slots with empty click slots, skip the slots between the lower bound and upper bound
     public void addGuiItems(BlockMenuPreset menuPreset){
-        for (int i = 0; i < 9; i++) {
-            menuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
-        }
-        for (int i = 45; i < 54; i++) {
-            menuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
-        }
-        for (int i = 9; i < 45; i ++) {
+        for (int i = 0; i < 54; i ++) {
             if(i < getLowerBound()) {
                 menuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
             }
@@ -156,13 +151,13 @@ public class ElectricJukebox extends JukeBox {
                 }
                 menu.replaceExistingItem(0, PREVIOUS);
                 menu.addMenuClickHandler(0, (p, slot, item, action) -> {
-                    previousSlot(p, menu, false);
+                    previousDiscButton(p, menu, false);
                     return false;
                 });
 
                 menu.replaceExistingItem(8, NEXT);
                 menu.addMenuClickHandler(8, (p, slot, item, action) -> {
-                    nextSlot(p, menu);
+                    nextDiscButton(p, menu);
                     return false;
                 });
 
@@ -174,7 +169,7 @@ public class ElectricJukebox extends JukeBox {
 
                 menu.replaceExistingItem(4, playing ? PLAY : STOP);
                 menu.addMenuClickHandler(4, (p, slot, item, action) -> {
-                    playSlot(p, menu);
+                    playOrStopButton(p, menu);
                     return false;
                 });
 
@@ -190,7 +185,7 @@ public class ElectricJukebox extends JukeBox {
             return;
         }
 
-        org.bukkit.block.Jukebox jukebox = (org.bukkit.block.Jukebox) invMenu.getBlock().getState();
+        Jukebox jukebox = (Jukebox) invMenu.getBlock().getState();
         JukeboxCache cache = getCACHE_MAP().get(b.getLocation());
         if (getCharge(b.getLocation()) > 0) { // is jukebox powered
             if(invMenu.hasViewer()) {
@@ -217,9 +212,9 @@ public class ElectricJukebox extends JukeBox {
                     }
                     if(durationMap.containsKey(b.getLocation())) {
                         if (durationMap.get(b.getLocation()) >= (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDurationInSec() * 2)) {
-                            nextSlot(null, invMenu);
+                            nextDiscButton(null, invMenu);
                             currentTime = 0;
-                        } // if current music disc has reached the duration, check next slot if there is a disc else go back to default slot
+                        } // when disc duration is done, check next slot if there is a disc else stop the jukebox or go back to default slot when upper bound is reached
                         else { // increment current time if music has not reached the duration
                             currentTime++;
                             if(currentTime == 1){ // re-update the jukebox state, for persistent state after server restart (might not work on 1.18 below)
@@ -238,7 +233,7 @@ public class ElectricJukebox extends JukeBox {
                 }
             takeCharge(b.getLocation());
             } else if(cache.isPlaying){ // jukebox is turned off. stop current music disc and change status of gui panels
-                stopJukebox(jukebox, invMenu.getLocation(), cache, invMenu);
+                stopCurrentSlot(jukebox, invMenu.getLocation(), cache, invMenu);
                 durationMap.put(b.getLocation(), 0);
                 if(invMenu.hasViewer()) {
                     changeStatus(invMenu, cache.currentSlot);
