@@ -38,11 +38,11 @@ public class JukeBox extends AbstractJukeBox {
     @Getter
     private final int defaultSlot;
     @Getter
-    private final boolean secondBound;
-
-    @Getter
     @Setter
     private boolean newMusic = false;
+
+    @Getter
+    private final boolean secondBound;
 
     @Getter
     private static final Map<Location, JukeboxCache> CACHE_MAP = new HashMap<>();

@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
@@ -35,6 +36,10 @@ public class BlockRotator extends SlimefunItem {
         BlockData blockData = block.getBlockData();
 
         if(player.isSneaking()){
+            if(Tag.DOORS.isTagged(block.getType())){
+                return;
+            }
+
             if(blockData instanceof Orientable) {
                 flip((Orientable) blockData, block);
             }
@@ -45,6 +50,10 @@ public class BlockRotator extends SlimefunItem {
                 flip((Slab) blockData, block);
             }
         } else {
+            if(Tag.BEDS.isTagged(block.getType())){
+                return;
+            }
+
             if(blockData instanceof Orientable) {
                 rotate((Orientable) blockData, block);
             }
