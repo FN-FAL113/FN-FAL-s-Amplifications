@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications.utils;
 
 import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,12 +46,10 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &r&dAdded Electric Jukebox (I, II, III)"),
-                Utils.colorTranslator("  &dcan store and play music disc, it can loop through"),
-                Utils.colorTranslator("  &dentire disc slots and autoplay a new disc after"),
-                Utils.colorTranslator("  &da disc has finished playing if next slot has a disc"),
+                Utils.colorTranslator("&d&l• &r&dSmall bug fix with block rotator"),
+                Utils.colorTranslator("  &dwhen used on doors and beds"),
                 Utils.colorTranslator(""),
-                Utils.colorTranslator("&e-FN_FAL113"),
+                Utils.colorTranslator("&ehttps://github.com/FN-FAL113"),
                 "||---------------------------------------------------||"
         );
     }
