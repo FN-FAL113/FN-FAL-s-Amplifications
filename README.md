@@ -17,7 +17,9 @@ Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
 - **11 sets of Mystery Sticks** - PVP/PVE sticks, these will consume xp levels by chance per use and best for op pvp!
 - **Quivers** - Normal and Spectral quivers that can store more arrows saving up spaces in your inventory
 - **FN Gears** - Level up the gears to receive bonus attributes and enchants
-- **FN hoe** - Soil/till land and harvest crops in a 5x5 square area
+- **FN Hoe** - Soil/till land and harvest crops in a 5x5 square area, can also auto replant!
+- **FN Block Rotator** - Rotate or flip blocks like terracotta, stairs, doors, slabs and many more!
+- **FN Electric Jukebox** - Jukeboxes that can play or traverse music disc in the disc slots gui and can auto play after one has finished playing, ranging from 3 to 12 slots you never have to worry about manually changing each disc!
 - **and more coming anytime soon!**
 
 ## :arrow_down: Download from build page with auto updates
@@ -55,10 +57,12 @@ More has changed since this video was released meaning more items and content si
 #### :gift: Misc Category
 ![misc](https://user-images.githubusercontent.com/88238718/149249878-fb5b21fb-1059-4fd0-a1bd-23ef6b6d2e6b.png)
 
-### :computer: Everything is configurable in terms of Power Rates, Buffer, Capacity, Tick Rates and Lores
-![config1](https://user-images.githubusercontent.com/88238718/142844553-2b141c58-e0f8-4595-8e29-3099d690fadd.png)
-![config2](https://user-images.githubusercontent.com/88238718/142844555-64fb0203-3d3a-4a32-8c22-ca4123fe31c5.png)
-![config3](https://user-images.githubusercontent.com/88238718/136697386-a52bc1d3-2897-4524-bea4-b64c308065ed.png)
+### :computer: Everything is configurable in terms of Power Rates, Buffer, Capacity, Tick Rates, Staff max uses and more
+Most of the stuffs inside ```/plugins/FNAmplifications``` folder are configurable.
+ 
+Each major category has its own configurable settings. 
+
+You can change them if you think they need balancing or for several reasons 
 
 ### :running: Head to my addon channel at SF Addon Community Server for feedbacks 
 <p>
