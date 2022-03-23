@@ -48,96 +48,98 @@ public class FNAmpItems {
 
     }
 
-    public static final NestedItemGroup FN_ITEMS = new NestedItemGroup(
+    // start of Item Groups
+    public static final NestedItemGroup FN_MAIN_GROUP = new NestedItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_ITEMS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "115b670a704ba080a730acf246da64c413901644847edd671c3da9a97441ddc5")),
-            "&e&lFN_FAL113's &b&lAmpli&c&lfications"));
+            "&e&lFN &b&lAmpli&c&lfications"));
 
     public static final SubItemGroup POWER_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "POWER_GENERATORS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "ecb316f7a227a8c59d58ae0dd6768fe4fa546d55b9cfdd56cfe40b6586d81c24")),
-            "&eFN_FAL'S Power Xpansion"));
+            "&eFN Power Xpansion"));
 
     public static final SubItemGroup MATERIAL_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MATERIAL_GENERATORS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(Material.EMERALD_BLOCK,
-            "&eFN_FAL'S Material Generators"));
+            "&eFN Material Generators"));
 
     public static final SubItemGroup SOLAR_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "SOLAR_GENERATORS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "e7f4c00356d1addb85b45ba5352992d3ecc0c9d11feb9041482f8531fd27d014")),
-            "&eFN_FAL'S Solar Generators"));
+            "&eFN Solar Generators"));
 
     public static final SubItemGroup MACHINES = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MACHINERY"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "4a7d54ca45a398c364cebbffb5390ce5e0345e0c7bc5e863acabf57d1342c4bd")),
-            "&eFN_FAL'S Machinery"));
+            "&eFN Machinery"));
 
     public static final SubItemGroup ITEMS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MACHINERY_ITEMS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "8245a1c3e8d7c3d59d05e3634b04af4cbf8d11b70e2a40e2e6364386db49e737")),
-            "&eFN_FAL'S Machinery Items"));
+            "&eFN Machinery Items"));
 
     public static final SubItemGroup MULTIBLOCK = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MULTIBLOCK"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "550c3306bb11522fec380ea248eb6a5b180f4a7ab8843d635d14d4a778d6351")),
-            "&eFN_FAL'S Multiblocks"));
+            "&eFN Multiblocks"));
 
     public static final SubItemGroup METAL_SCRAP_RECIPES = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "METAL_SCRAP_RECIPES"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "3ff0bee591e5f0000ef16f966b949adcb5c2f409a14ccfc5b91222fd925045db")),
             "&eMetal Scrap Recipes"));
 
     public static final SubItemGroup MYSTERY_STICKS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MYSTERY_STICKS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(STICK,
-                    "&eFN_FAL'S Mystery PVP/PVE Sticks"));
+                    "&eFN Mystery PVP/PVE Sticks"));
 
     public static final SubItemGroup FN_GEARS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_GEARS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(ARMOR,
-                    "&eFN_FAL'S Gears of Friction"));
+                    "&eFN Gears of Friction"));
 
     public static final SubItemGroup FN_STAFFS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_STAFFS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(Material.BLAZE_ROD,
-                    "&eFN_FAL'S Staffs"));
+                    "&eFN Staffs"));
 
     public static final SubItemGroup FN_MISC = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_MISC"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(Material.CHEST,
-                    "&eFN_FAL'S Miscellaneous"));
+                    "&eFN Miscellaneous"));
 
     public static final SubItemGroup FN_GEMS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_GEMS"),
-            FN_ITEMS,
+            FN_MAIN_GROUP,
             new CustomItemStack(Material.EMERALD,
-                    "&eFN_FAL'S Gems"));
+                    "&eFN Gems"));
 
     public static final ItemGroup FN_AMPLIFICATIONS = new ItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "FN_AMPLIFICATIONS"),
             new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
                     "115b670a704ba080a730acf246da64c413901644847edd671c3da9a97441ddc5")),
-            "&e&lFN_FAL113's &b&lAmpli&c&lfications"));
+            "&e&lFN &b&lAmpli&c&lfications"));
 
+    // start of FN itemstacks
     public static final SlimefunItemStack FN_XPANSION_POWER_R1 = new SlimefunItemStack(
             "FN_POWER_XPANSION_POWER_R1",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode(
@@ -284,162 +286,198 @@ public class FNAmpItems {
     public static final SlimefunItemStack FMG_GENERATOR_CLAY_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_CLAY_BROKEN",
             Material.CLAY,
-            "&3FN_FAL's Clay Generator &8(Broken)",
+            "&3FN Clay Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static SlimefunItemStack FMG_GENERATOR_FNFAL_CLAY = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_CLAY",
             Material.CLAY,
-            "&3FN_FAL's Clay Generator",
-            "&6Generates Clay at a certain rate",
+            "&3FN Clay Generator",
+            "&6Generates clay at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_WARPED_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_WARPED_BROKEN",
             Material.WARPED_NYLIUM,
-            "&4FN_FAL's Warped Nylium Generator &8(Broken)",
+            "&4FN Warped Nylium Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_WARPED1 = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_WARPED1",
             Material.WARPED_NYLIUM,
-            "&4FN_FAL's Warped Nylium Generator",
-            "&6Generates Warped Nylium at a certain rate",
+            "&4FN Warped Nylium Generator",
+            "&6Generates warped nylium at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_TERRACOTTA_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_TERRACOTTA_BROKEN",
             Material.TERRACOTTA,
-            "&4FN_FAL's Terracotta Generator &8(Broken)",
+            "&4FN Terracotta Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_TERRACOTTA = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_TERRACOTTA",
             Material.TERRACOTTA,
-            "&4FN_FAL's Terracotta Generator",
-            "&6Generates Terracotta at a certain rate",
+            "&4FN Terracotta Generator",
+            "&6Generates terracotta at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_BONE_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_BONE_BROKEN",
             Material.BONE_BLOCK,
-            "&fFN_FAL's Bone Generator &8(Broken)",
+            "&fFN Bone Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_BONE = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_BONE",
             Material.BONE_BLOCK,
-            "&fFN_FAL's Bone Generator",
-            "&6Generates Bone at a certain rate",
+            "&fFN Bone Generator",
+            "&6Generates bone at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_DIAMOND_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_DIAMOND_BROKEN",
             Material.DIAMOND_BLOCK,
-            "&bFN_FAL's Diamond Generator &8(Broken)",
+            "&bFN Diamond Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_DIAMOND = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_DIAMOND",
             Material.DIAMOND_BLOCK,
-            "&bFN_FAL's Diamond Generator",
-            "&6Generates Diamond at a certain rate",
+            "&bFN Diamond Generator",
+            "&6Generates diamond at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_EMERALD_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_EMERALD_BROKEN",
             Material.EMERALD_BLOCK,
-            "&aFN_FAL's Emerald Generator &8(Broken)",
+            "&aFN Emerald Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_EMERALD = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_EMERALD",
             Material.EMERALD_BLOCK,
-            "&aFN_FAL's Emerald Generator",
-            "&6Generates Emerald at a certain rate",
+            "&aFN Emerald Generator",
+            "&6Generates emerald at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_DIRT_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_DIRT_BROKEN",
             Material.DIRT,
-            "&fFN_FAL's Dirt Generator &8(Broken)",
+            "&fFN Dirt Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_DIRT = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_DIRT",
             Material.DIRT,
-            "&fFN_FAL's Dirt Generator",
-            "&6Generates Dirt at a certain rate",
+            "&fFN Dirt Generator",
+            "&6Generates dirt at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_HONEYCOMB_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_HONEYCOMB_BROKEN",
             Material.HONEYCOMB_BLOCK,
-            "&6FN_FAL's Honey Comb Generator &8(Broken)",
+            "&6FN Honey Comb Generator &8(Broken)",
             "&8Needs to be repaired",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FMG_GENERATOR_FNFAL_HONEYCOMB = new SlimefunItemStack(
             "FMG_GENERATOR_FNFAL_HONEYCOMB",
             Material.HONEYCOMB_BLOCK,
-            "&6FN_FAL's Honey Comb Generator",
-            "&6Generates Honey Comb at a certain rate",
+            "&6FN Honey Comb Generator",
+            "&6Generates honey comb at a certain rate",
             "&6Right click the block for info",
             "",
-            "&5&oFN_Fal's Material Generators"
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_QUARTZ_BROKEN = new SlimefunItemStack(
+            "FMG_GENERATOR_QUARTZ_BROKEN",
+            Material.QUARTZ_BLOCK,
+            "&fFN Quartz Generator &8(Broken)",
+            "&8Needs to be repaired",
+            "",
+            "&d&oFN Material Generators"
+    );
+
+    public static final SlimefunItemStack FMG_GENERATOR_FNFAL_QUARTZ = new SlimefunItemStack(
+            "FMG_GENERATOR_FNFAL_QUARTZ",
+            Material.QUARTZ_BLOCK,
+            "&fFN Quartz Generator",
+            "&6Generates quartz at a certain rate",
+            "&6Right click the block for info",
+            "",
+            "&6Tickrate: " + "&6ticks",
+            "",
+            "&d&oFN Material Generators"
     );
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER1 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER1",
             "6d2822cedb3abd579d6dfa2966c1433c3c36cb9732e2c23ec0cc81daedd4403b",
             "&dFN Solar Generator Tier I",
-            "",
-            "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -447,9 +485,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER2",
             "35dd37f729fc88133e314a552204c0fa2c0168428b353f957bf15ff24b7707e0",
             "&dFN Solar Generator Tier II",
-            "",
-            "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -457,9 +494,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER3",
             "25ddf6af2d6271d8fdfadbdc54faaad5a68d7b8ac20e163883fc38d76336ea6",
             "&dFN Solar Generator Tier III",
-            "",
-            "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -467,9 +503,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER4",
             "e7f4c00356d1addb85b45ba5352992d3ecc0c9d11feb9041482f8531fd27d014",
             "&dFN Solar Generator Tier IV",
-            "",
-            "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -477,9 +512,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER5",
             "afdd9e588d2461d2d3d058cb3e0af2b3a3367607aa14d124ed92a833f25fb112",
             "&dFN Solar Generator Tier V",
-            "",
-            "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -487,8 +521,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER6",
             "224ad26209fa02f559ef6aa863ee9ba8f3bef0a02f1e9cff8fdc09196402fb6f",
             "&dFN Solar Generator Tier VI",
-            "", "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -496,8 +530,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER7",
             "c4fe135c311f7086edcc5e6dbc4ef4b23f819fddaa42f827dac46e3574de2287",
             "&dFN Solar Generator Tier VII",
-            "", "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -505,8 +539,8 @@ public class FNAmpItems {
             "FN_FAL_GENERATOR_TIER8",
             "240775c3ad75763613f32f04986881bbe4eee4366d0c57f17f7c7514e2d0a77d",
             "&dFN Solar Generator Tier VIII",
-            "", "&eA solar generator for those who needs power",
-            "&eduring day only",
+            "", "&eA solar generator for those who",
+            "&eneeds power during day only",
             "",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.GENERATOR));
 
@@ -514,8 +548,8 @@ public class FNAmpItems {
             "FN_FAL_TRANSFORMER_1",
             Material.BLUE_GLAZED_TERRACOTTA,
             "&dFN Electric Transformer I",
-            "", "&eA machinery that can transform various items",
-            "&eto other forms",
+            "", "&eA machinery that can transform",
+            "&evarious items to other forms",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -525,8 +559,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_TRANSFORMER_2 = new SlimefunItemStack(
             "FN_FAL_TRANSFORMER_2",
             Material.BLUE_GLAZED_TERRACOTTA, "&dFN Electric Transformer II",
-            "", "&eA machinery that can transform various items",
-            "&eto other forms",
+            "", "&eA machinery that can transform",
+            "&evarious items to other forms",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -536,8 +570,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_TRANSFORMER_3 = new SlimefunItemStack(
             "FN_FAL_TRANSFORMER_3",
             Material.BLUE_GLAZED_TERRACOTTA, "&dFN Electric Transformer III",
-            "", "&eA machinery that can transform various items",
-            "&eto other forms",
+            "", "&eA machinery that can transform",
+            "&evarious items to other forms",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -547,8 +581,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_1 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_1",
             Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor I",
-            "", "&eA machinery that can compress items to",
-            "&eform a biological item",
+            "", "&eA machinery that can compress",
+            "&eitems to form a biological item",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -558,8 +592,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_2 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_2",
             Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor II",
-            "", "&eA machinery that can compress items to",
-            "&eform a biological item",
+            "", "&eA machinery that can compress",
+            "&eitems to form a biological item",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -569,8 +603,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_3 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_3",
             Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor III",
-            "", "&eA machinery that can compress items to",
-            "&eform a biological item",
+            "", "&eA machinery that can compress",
+            "&eitems to form a biological item",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -580,8 +614,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_CONDENSER_1 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_1",
             Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser I",
-            "", "&eA machinery that can condense two ingots or items to",
-            "&eone biological ingot",
+            "", "&eA machinery that can condense two",
+            "&eingots or items to one biological ingot",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -591,8 +625,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_CONDENSER_2 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_2",
             Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser II",
-            "", "&eA machinery that can condense two ingots or items to",
-            "&eone biological ingot",
+            "", "&eA machinery that can condense two",
+            "&eingots or items to one biological ingot",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -602,8 +636,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_CONDENSER_3 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_3",
             Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser III",
-            "", "&eA machinery that can condense two ingots or items to",
-            "&eone biological ingot",
+            "", "&eA machinery that can condense two",
+            "&eingots or items to one biological ingot",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -613,8 +647,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_RECYCLER_1 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_1",
             Material.PURPLE_STAINED_GLASS, "&dFN Electric Recycler I",
-            "", "&eA machinery that can recycle items to that of",
-            "&ein lower form",
+            "", "&eA machinery that can recycle",
+            "&eitems to that of in lower form",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -624,8 +658,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_RECYCLER_2 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_2",
             Material.PURPLE_STAINED_GLASS, "&dFN Electric Recycler II",
-            "", "&eA machinery that can recycle items to that of",
-            "&ein lower form",
+            "", "&eA machinery that can recycle",
+            "&eitems to that of in lower form",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -635,8 +669,8 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_RECYCLER_3 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_3",
             Material.PURPLE_STAINED_GLASS, "&dElectric Recycler III",
-            "", "&eA machinery that can recycle items to that of",
-            "&ein lower form",
+            "", "&eA machinery that can recycle",
+            "&eitems to that of in lower form",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
@@ -646,8 +680,14 @@ public class FNAmpItems {
     public static final SlimefunItemStack FN_FAL_DOWNGRADER = new SlimefunItemStack(
             "FN_FAL_DOWNGRADER",
             Material.WHITE_GLAZED_TERRACOTTA, "&dElectric Machine Downgrader",
-            "", "&eA machinery that can downgrade SF machines",
-            "&eGreat machine for mistakenly crafted tier machines",
+            "", "&eA machinery that can downgrade SF",
+            "&emachines, great machine for mistakenly",
+            "&ecrafted machines or want to downgrade",
+            "&eextra machines",
+            "",
+            "&e- Machine gui must be opened in order",
+            "  &efor scraps to drop by chance",
+            "&e- 25% chance to get 1 scrap/downgrade",
             "",
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),

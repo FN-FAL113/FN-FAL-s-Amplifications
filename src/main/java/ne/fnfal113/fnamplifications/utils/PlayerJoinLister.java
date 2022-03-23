@@ -2,7 +2,6 @@ package ne.fnfal113.fnamplifications.utils;
 
 import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,8 +45,16 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &r&dSmall bug fix with block rotator"),
-                Utils.colorTranslator("  &dwhen used on doors and beds"),
+                Utils.colorTranslator("&d&l• &r&dAdded Quartz Material Generator"),
+                Utils.colorTranslator("&d&l• &r&dAdded tickrates of material generators in the lore"),
+                Utils.colorTranslator("&d&l• &r&dAdded scrap mechanics on machine downgrader lore"),
+                Utils.colorTranslator("&d&l• &r&dScrap drops chance from 10% to 25%, only drops"),
+                Utils.colorTranslator("  &dwhen machine downgrader gui is opened or being viewed"),
+                Utils.colorTranslator("  &dduring downgrading a machine"),
+                Utils.colorTranslator("&d&l• &r&dRenamed the item groups in the sf guide and the"),
+                Utils.colorTranslator("  &dtitle of the addon to FN Amplifications"),
+                Utils.colorTranslator("&d&l• &r&dMachine and item formatting changes to make the lore"),
+                Utils.colorTranslator("  &dshorter and better to read"),
                 Utils.colorTranslator(""),
                 Utils.colorTranslator("&ehttps://github.com/FN-FAL113"),
                 "||---------------------------------------------------||"

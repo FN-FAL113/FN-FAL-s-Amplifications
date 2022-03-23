@@ -16,6 +16,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
@@ -63,6 +64,7 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
 
         try {
             FNAmplifications.getInstance().getConfigManager().setIntegerValues(item.getItemId(), tickRate, "material-gen-tickrate");
+            Utils.setLore(this.getItem(), this.getId(), "", "ticks", "&6", " ticks");
         } catch (IOException e) {
             e.printStackTrace();
         }
