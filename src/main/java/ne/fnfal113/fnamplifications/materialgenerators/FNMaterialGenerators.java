@@ -1,10 +1,13 @@
 package ne.fnfal113.fnamplifications.materialgenerators;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -15,6 +18,7 @@ import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomBrokenGenerator;
 import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomGeneratorMultiblock;
 import ne.fnfal113.fnamplifications.materialgenerators.implementations.CustomMaterialGenerator;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class FNMaterialGenerators {
 
@@ -232,5 +236,33 @@ public class FNMaterialGenerators {
                 .setItem(Material.QUARTZ)
                 .getMaterialName("&f&lQuartz")
                 .register(instance);
+
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)){
+            ItemStack silkTool = new ItemStack(Material.NETHERITE_PICKAXE);
+            ItemMeta meta = silkTool.getItemMeta();
+            meta.addEnchant(Enchantment.SILK_TOUCH, 1, true);
+            silkTool.setItemMeta(meta);
+
+            new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
+                    FNAmpItems.FMG_GENERATOR_AMETHYST_BROKEN,
+                    FnAssemblyStation.RECIPE_TYPE,
+                    new ItemStack[]{
+                            FNAmpItems.FMG_GENERATOR_FNFAL_QUARTZ, silkTool.clone(), FNAmpItems.FMG_GENERATOR_FNFAL_QUARTZ,
+                            silkTool.clone(), new ItemStack(Material.AMETHYST_BLOCK), silkTool.clone(),
+                            FNAmpItems.REINFORCED_CASING, SMG_ITEMSTACK_NETHERRACK, FNAmpItems.REINFORCED_CASING})
+                    .register(instance);
+
+            new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
+                    FNAmpItems.FMG_GENERATOR_FNFAL_AMETHYST,
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    new ItemStack[]{
+                            FNAmpItems.FMG_GENERATOR_AMETHYST_BROKEN, SlimefunItems.REINFORCED_ALLOY_INGOT, FNAmpItems.FMG_GENERATOR_AMETHYST_BROKEN,
+                            new ItemStack(Material.AMETHYST_CLUSTER), new ItemStack(Material.AMETHYST_BLOCK), new ItemStack(Material.AMETHYST_CLUSTER),
+                            FNAmpItems.FMG_GENERATOR_AMETHYST_BROKEN, new ItemStack(Material.BLAST_FURNACE), FNAmpItems.FMG_GENERATOR_AMETHYST_BROKEN}, 160)
+                    .setItem(Material.AMETHYST_CLUSTER)
+                    .getMaterialName("&d&lAmethyst Cluster")
+                    .register(instance);
+        }
+
     }
 }

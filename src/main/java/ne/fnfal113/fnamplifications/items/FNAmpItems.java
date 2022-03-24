@@ -1,5 +1,7 @@
 package ne.fnfal113.fnamplifications.items;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -472,6 +474,34 @@ public class FNAmpItems {
             "&d&oFN Material Generators"
     );
 
+    public static SlimefunItemStack FMG_GENERATOR_AMETHYST_BROKEN;
+    public static SlimefunItemStack FMG_GENERATOR_FNFAL_AMETHYST;
+
+    static {
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
+            FMG_GENERATOR_AMETHYST_BROKEN = new SlimefunItemStack(
+                    "FMG_GENERATOR_AMETHYST_BROKEN",
+                    Material.AMETHYST_BLOCK,
+                    "&dFN Amethyst Cluster Generator &8(Broken)",
+                    "&8Needs to be repaired",
+                    "",
+                    "&d&oFN Material Generators"
+            );
+
+            FMG_GENERATOR_FNFAL_AMETHYST = new SlimefunItemStack(
+                    "FMG_GENERATOR_FNFAL_AMETHYST",
+                    Material.AMETHYST_BLOCK,
+                    "&dFN Amethyst Cluster Generator",
+                    "&6Generates amethyst cluster at a certain rate",
+                    "&6Right click the block for info",
+                    "",
+                    "&6Tickrate: " + "&6ticks",
+                    "",
+                    "&d&oFN Material Generators"
+            );
+        }
+    }
+
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER1 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER1",
             "6d2822cedb3abd579d6dfa2966c1433c3c36cb9732e2c23ec0cc81daedd4403b",
@@ -569,7 +599,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_TRANSFORMER_3 = new SlimefunItemStack(
             "FN_FAL_TRANSFORMER_3",
-            Material.BLUE_GLAZED_TERRACOTTA, "&dFN Electric Transformer III",
+            Material.BLUE_GLAZED_TERRACOTTA,
+            "&dFN Electric Transformer III",
             "", "&eA machinery that can transform",
             "&evarious items to other forms",
             "",
@@ -580,7 +611,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_1 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_1",
-            Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor I",
+            Material.GREEN_GLAZED_TERRACOTTA,
+            "&dFN Electric Compressor I",
             "", "&eA machinery that can compress",
             "&eitems to form a biological item",
             "",
@@ -591,7 +623,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_2 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_2",
-            Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor II",
+            Material.GREEN_GLAZED_TERRACOTTA,
+            "&dFN Electric Compressor II",
             "", "&eA machinery that can compress",
             "&eitems to form a biological item",
             "",
@@ -602,7 +635,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_COMPRESSOR_3 = new SlimefunItemStack(
             "FN_FAL_COMPRESSOR_3",
-            Material.GREEN_GLAZED_TERRACOTTA, "&dFN Electric Compressor III",
+            Material.GREEN_GLAZED_TERRACOTTA,
+            "&dFN Electric Compressor III",
             "", "&eA machinery that can compress",
             "&eitems to form a biological item",
             "",
@@ -613,7 +647,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_CONDENSER_1 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_1",
-            Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser I",
+            Material.YELLOW_STAINED_GLASS,
+            "&dFN Electric Ingot Condenser I",
             "", "&eA machinery that can condense two",
             "&eingots or items to one biological ingot",
             "",
@@ -624,7 +659,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_CONDENSER_2 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_2",
-            Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser II",
+            Material.YELLOW_STAINED_GLASS,
+            "&dFN Electric Ingot Condenser II",
             "", "&eA machinery that can condense two",
             "&eingots or items to one biological ingot",
             "",
@@ -635,7 +671,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_CONDENSER_3 = new SlimefunItemStack(
             "FN_FAL_CONDENSER_3",
-            Material.YELLOW_STAINED_GLASS, "&dFN Electric Ingot Condenser III",
+            Material.YELLOW_STAINED_GLASS,
+            "&dFN Electric Ingot Condenser III",
             "", "&eA machinery that can condense two",
             "&eingots or items to one biological ingot",
             "",
@@ -646,7 +683,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_RECYCLER_1 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_1",
-            Material.PURPLE_STAINED_GLASS, "&dFN Electric Recycler I",
+            Material.PURPLE_STAINED_GLASS,
+            "&dFN Electric Recycler I",
             "", "&eA machinery that can recycle",
             "&eitems to that of in lower form",
             "",
@@ -657,7 +695,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_RECYCLER_2 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_2",
-            Material.PURPLE_STAINED_GLASS, "&dFN Electric Recycler II",
+            Material.PURPLE_STAINED_GLASS,
+            "&dFN Electric Recycler II",
             "", "&eA machinery that can recycle",
             "&eitems to that of in lower form",
             "",
@@ -668,7 +707,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_RECYCLER_3 = new SlimefunItemStack(
             "FN_FAL_RECYCLER_3",
-            Material.PURPLE_STAINED_GLASS, "&dElectric Recycler III",
+            Material.PURPLE_STAINED_GLASS,
+            "&dFN Electric Recycler III",
             "", "&eA machinery that can recycle",
             "&eitems to that of in lower form",
             "",
@@ -679,7 +719,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_FAL_DOWNGRADER = new SlimefunItemStack(
             "FN_FAL_DOWNGRADER",
-            Material.WHITE_GLAZED_TERRACOTTA, "&dElectric Machine Downgrader",
+            Material.WHITE_GLAZED_TERRACOTTA,
+            "&dFN Electric Machine Downgrader",
             "", "&eA machinery that can downgrade SF",
             "&emachines, great machine for mistakenly",
             "&ecrafted machines or want to downgrade",
