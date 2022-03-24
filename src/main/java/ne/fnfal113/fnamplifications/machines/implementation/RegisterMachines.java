@@ -14,7 +14,7 @@ public class RegisterMachines {
     public static void setup(SlimefunAddon instance){
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.GEAR_PART, FNAmpItems.COMPONENT_PART, FNAmpItems.GEAR_PART,
-                new ItemStack(Material.IRON_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
+                new ItemStack(Material.DIAMOND_PICKAXE), FNAmpItems.BASIC_MACHINE_BLOCK, new ItemStack(Material.IRON_PICKAXE),
                 FNAmpItems.ALUMINUM_PLATING, FNAmpItems.POWER_COMPONENT, FNAmpItems.ALUMINUM_PLATING}, 12)
                 .setCapacity(512)
                 .setEnergyConsumption(32)
@@ -22,7 +22,7 @@ public class RegisterMachines {
 
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_2, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(FNAmpItems.GEAR_PART, 2), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 2),
-                new ItemStack(Material.DIAMOND_PICKAXE), new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.DIAMOND_PICKAXE),
+                FNAmpItems.FN_BLOCK_BREAKER_1, new SlimefunItemStack(FNAmpItems.BASIC_MACHINE_BLOCK, 2), new ItemStack(Material.NETHERITE_PICKAXE),
                 FNAmpItems.BRASS_PLATING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.BRASS_PLATING}, 6)
                 .setCapacity(1024)
                 .setEnergyConsumption(64)
@@ -30,7 +30,7 @@ public class RegisterMachines {
 
         new ElectricBlockBreaker(FNAmpItems.MACHINES, FNAmpItems.FN_BLOCK_BREAKER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.COMPONENT_PART, new SlimefunItemStack(FNAmpItems.GEAR_PART, 3),
-                new ItemStack(Material.NETHERITE_PICKAXE), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new ItemStack(Material.NETHERITE_PICKAXE),
+                FNAmpItems.FN_BLOCK_BREAKER_1, FNAmpItems.HIGHTECH_MACHINE_BLOCK, FNAmpItems.FN_BLOCK_BREAKER_2,
                 FNAmpItems.REINFORCED_CASING, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 2), FNAmpItems.REINFORCED_CASING}, 2)
                 .setCapacity(2048)
                 .setEnergyConsumption(128)
@@ -67,7 +67,7 @@ public class RegisterMachines {
                 .setCapacity(1536).setEnergyConsumption(192).setProcessingSpeed(2).register(instance);
 
         new ElectricIngotCondenser(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_CONDENSER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FN_FAL_CONDENSER_2, FNAmpItems.FN_FAL_CONDENSER_1,
+                FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FN_FAL_CONDENSER_1, FNAmpItems.FN_FAL_CONDENSER_1,
                 new SlimefunItemStack(FNAmpItems.GEAR_PART, 3), FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 3),
                 FNAmpItems.THREAD_PART, FNAmpItems.REINFORCED_CASING, FNAmpItems.COMPONENT_PART})
                 .setCapacity(1536).setEnergyConsumption(384).setProcessingSpeed(4).register(instance);
@@ -91,9 +91,9 @@ public class RegisterMachines {
                 .setCapacity(1536).setEnergyConsumption(168).setProcessingSpeed(2).register(instance);
 
         new ElectricRecycler(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_RECYCLER_3, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(FNAmpItems.RECYCLER_PART, 3), FNAmpItems.FN_FAL_TRANSFORMER_2, FNAmpItems.COMPRESSOR_PART,
+                new SlimefunItemStack(FNAmpItems.RECYCLER_PART, 3), FNAmpItems.FN_FAL_RECYCLER_1, FNAmpItems.COMPRESSOR_PART,
                 FNAmpItems.GEAR_PART, FNAmpItems.HIGHTECH_MACHINE_BLOCK, new SlimefunItemStack(FNAmpItems.POWER_COMPONENT, 3),
-                FNAmpItems.FN_FAL_TRANSFORMER_1, FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_FAL_TRANSFORMER_1})
+                FNAmpItems.FN_FAL_RECYCLER_1, FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_FAL_RECYCLER_1})
                 .setCapacity(1536).setEnergyConsumption(336).setProcessingSpeed(4).register(instance);
 
         new ElectricTransformer(FNAmpItems.MACHINES, FNAmpItems.FN_FAL_TRANSFORMER_1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
