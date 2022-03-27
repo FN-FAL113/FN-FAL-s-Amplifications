@@ -4,11 +4,9 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
+import ne.fnfal113.fnamplifications.gems.handlers.*;
 import ne.fnfal113.fnamplifications.gems.implementation.TargetReasonEnum;
-import ne.fnfal113.fnamplifications.gems.handlers.OnArrowHitHandler;
-import ne.fnfal113.fnamplifications.gems.handlers.OnBlockBreakHandler;
-import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
-import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -32,8 +30,42 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class GemListener implements Listener {
+
+    @EventHandler
+    @SuppressWarnings("ConstantConditions")
+    public void onGuardianSpawn(GuardianSpawnEvent event){
+       if(!(event.getDamager() instanceof Player)) {
+           return;
+       }
+       Player player = (Player) event.getDamager();
+
+       if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+           return;
+       }
+       PersistentDataContainer pdc = player.getInventory().getItemInMainHand().getItemMeta().getPersistentDataContainer();
+
+       callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event), pdc);
+    }
+
+    public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, PersistentDataContainer pdc) {
+        if (!pdc.isEmpty()) {
+            for (NamespacedKey key : pdc.getKeys()) {
+                if (pdc.has(key, PersistentDataType.STRING)) {
+                    SlimefunItem item = getSfItem(key, pdc);
+
+                    if(item instanceof AbstractGem) {
+                        AbstractGem gem = (AbstractGem) item;
+                        if(clazz.isInstance(gem)) {
+                            consumer.accept(clazz.cast(gem));
+                        } // is gem instance of sub interface of GemHandler
+                    } // is gem instanceOf Gem
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void onDragDrop(InventoryClickEvent event) {
@@ -71,7 +103,7 @@ public class GemListener implements Listener {
                 ItemStack itemStackHand = player.getInventory().getItemInMainHand();
                 PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
 
-                hasDamageHandler(event, pdcHand);
+                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcHand);
             } // check if player is holding an item in main hand
 
             if(event.getEntity().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
@@ -94,31 +126,17 @@ public class GemListener implements Listener {
                 ItemStack itemStackChest = player.getInventory().getChestplate();
                 PersistentDataContainer pdcChest = getPersistentDataContainer(itemStackChest);
 
-                hasDamageHandler(event, pdcChest);
+                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcChest);
             } // check if player is wearing a chestplate
 
             if(player.getInventory().getHelmet() != null) {
                 ItemStack itemStackHelmet = player.getInventory().getHelmet();
                 PersistentDataContainer pdcHelmet = getPersistentDataContainer(itemStackHelmet);
 
-                hasDamageHandler(event, pdcHelmet);
+                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcHelmet);
             } // check if player is wearing a helmet
         }
 
-    }
-
-    public void hasDamageHandler(EntityDamageByEntityEvent event, PersistentDataContainer pdc){
-        if (!pdc.isEmpty()) {
-            for (NamespacedKey key : pdc.getKeys()) {
-                if (pdc.has(key, PersistentDataType.STRING)) {
-                    SlimefunItem item = getSfItem(key, pdc);
-
-                    if (item instanceof OnDamageHandler) {
-                        ((OnDamageHandler) item).onDamage(event);
-                    }
-                } // make sure pdc type is string only
-            } // loop all pdc keys inside the item
-        } // pdc check
     }
 
     @EventHandler
@@ -141,21 +159,7 @@ public class GemListener implements Listener {
 
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
-        hasBlockBreakHandler(event, pdc, player);
-    }
-
-    public void hasBlockBreakHandler(BlockBreakEvent event, PersistentDataContainer pdc, Player player) {
-        if (!pdc.isEmpty()) {
-            for (NamespacedKey key : pdc.getKeys()) {
-                if (pdc.has(key, PersistentDataType.STRING)) {
-                    SlimefunItem item = getSfItem(key, pdc);
-
-                    if (item instanceof OnBlockBreakHandler) {
-                        ((OnBlockBreakHandler) item).onBlockBreak(event, player);
-                    }
-                } // make sure pdc type is string only
-            } // loop all pdc keys inside the item
-        } // pdc check
+        callGemHandler(OnBlockBreakHandler.class, handler -> handler.onBlockBreak(event, player), pdc);
     }
 
     @EventHandler
@@ -185,21 +189,7 @@ public class GemListener implements Listener {
 
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
-        hasProjectileHandler(event, pdc, player, livingEntity);
-    }
-
-    public void hasProjectileHandler(ProjectileHitEvent event, PersistentDataContainer pdc, Player player, LivingEntity livingEntity){
-        if (!pdc.isEmpty()) {
-            for (NamespacedKey key : pdc.getKeys()) {
-                if (pdc.has(key, PersistentDataType.STRING)) {
-                    SlimefunItem item = getSfItem(key, pdc);
-
-                    if (item instanceof OnArrowHitHandler) {
-                        ((OnArrowHitHandler) item).onArrowHit(event, player, livingEntity);
-                    }
-                } // make sure pdc type is string only
-            } // loop all pdc keys inside the item
-        } // pdc check
+        callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), pdc);
     }
 
     @EventHandler
@@ -222,21 +212,7 @@ public class GemListener implements Listener {
 
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
-        hasRightClickHandler(pdc, player);
-    }
-
-    public void hasRightClickHandler(PersistentDataContainer pdc, Player player){
-        if (!pdc.isEmpty()) {
-            for (NamespacedKey key : pdc.getKeys()) {
-                if (pdc.has(key, PersistentDataType.STRING)) {
-                    SlimefunItem item = getSfItem(key, pdc);
-
-                    if (item instanceof OnRightClickHandler) {
-                        ((OnRightClickHandler) item).onRightClick(player);
-                    }
-                } // make sure pdc type is string only
-            } // loop all pdc keys inside the item
-        } // pdc check
+        callGemHandler(OnRightClickHandler.class, handler -> handler.onRightClick(player), pdc);
     }
 
     @EventHandler

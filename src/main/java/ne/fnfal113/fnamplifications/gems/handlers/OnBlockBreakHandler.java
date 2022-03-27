@@ -3,7 +3,7 @@ package ne.fnfal113.fnamplifications.gems.handlers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 
-public interface OnBlockBreakHandler {
+public interface OnBlockBreakHandler extends GemHandler{
 
     /**
      *

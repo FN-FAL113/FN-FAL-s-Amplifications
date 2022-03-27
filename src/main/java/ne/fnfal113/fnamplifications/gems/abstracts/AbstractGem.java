@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 
-public abstract class AbstractGem extends SlimefunItem {
+public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
     public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);

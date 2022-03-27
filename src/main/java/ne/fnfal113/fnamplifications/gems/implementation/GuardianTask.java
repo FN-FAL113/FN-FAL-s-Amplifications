@@ -18,13 +18,14 @@ import org.bukkit.util.Vector;
 public class GuardianTask extends BukkitRunnable {
     
     @Getter
-    private Zombie zombie;
+    private final Zombie zombie;
     @Getter
     private final Player player;
 
-    public GuardianTask(Player player, EntityDamageByEntityEvent damageByEntityEvent) {
+    public GuardianTask(Player player, EntityDamageByEntityEvent event) {
         this.player = player;
-        this.spawnZombie(damageByEntityEvent);
+        this.zombie = player.getWorld().spawn(getPlayer().getLocation(), Zombie.class);
+        this.spawnZombie(event);
     }
 
     @Override
@@ -43,7 +44,6 @@ public class GuardianTask extends BukkitRunnable {
     }
 
     public void spawnZombie(EntityDamageByEntityEvent event){
-        this.zombie = getPlayer().getWorld().spawn(getPlayer().getLocation(), Zombie.class);
         getZombie().setCustomName(getPlayer().getName() + "'s Guardian");
         getZombie().setCustomNameVisible(true);
         getZombie().setGlowing(true);
