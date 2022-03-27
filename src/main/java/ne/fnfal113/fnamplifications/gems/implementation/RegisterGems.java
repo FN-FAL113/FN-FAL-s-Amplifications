@@ -36,12 +36,6 @@ public class RegisterGems {
                 SlimefunItems.TALISMAN_WARRIOR, new SlimefunItemStack(SlimefunItems.RAINBOW_RUNE, 4),  SlimefunItems.TALISMAN_KNIGHT})
                 .register(instance);
 
-        new GuardianGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_GUARDIAN, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.TALISMAN_ANGEL, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.TALISMAN_FIRE,
-                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
-                SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 1),  SlimefunItems.MAGIC_SUGAR})
-                .register(instance);
-
         new HastyGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_HASTY, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 SlimefunItems.TALISMAN_MINER, new ItemStack(Material.DIAMOND_PICKAXE), SlimefunItems.COMMON_TALISMAN,
                 new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
@@ -94,6 +88,18 @@ public class RegisterGems {
                 SlimefunItems.TALISMAN_KNIGHT, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 6),  SlimefunItems.TALISMAN_KNIGHT,
                 new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 3), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 3),
                 SlimefunItems.TALISMAN_KNIGHT, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4),  SlimefunItems.TALISMAN_KNIGHT})
+                .register(instance);
+
+        new GuardianGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_GUARDIAN, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.TALISMAN_ANGEL, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.TALISMAN_FIRE,
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
+                SlimefunItems.MAGIC_SUGAR, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 1),  SlimefunItems.MAGIC_SUGAR})
+                .register(instance);
+
+        new DisruptedGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DISRUPTED, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                SlimefunItems.ENDER_TALISMAN, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.ENDER_TALISMAN,
+                new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1), new ItemStack(Material.EMERALD), new SlimefunItemStack(SlimefunItems.ESSENCE_OF_AFTERLIFE, 1),
+                SlimefunItems.ENDER_RUNE, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), SlimefunItems.ENDER_RUNE})
                 .register(instance);
     }
 }

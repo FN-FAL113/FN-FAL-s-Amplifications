@@ -46,10 +46,11 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
 
         if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType())) {
+            if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType())
+                    || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType())) {
                 new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on shovels and axes only"));
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on shovels, pickaxes and axes only"));
             }
         }
     }

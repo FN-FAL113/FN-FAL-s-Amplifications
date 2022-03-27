@@ -45,9 +45,15 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &r&dAdded Amethyst Cluster Material Generator"),
-                Utils.colorTranslator("&d&l• &r&dRe-adjusted some recipes for FN Machinery"),
-                Utils.colorTranslator("&d&l• &r&dSmall format changes to lores"),
+                Utils.colorTranslator("&d&l• &r&d&lAdded Disrupted Gem"),
+                Utils.colorTranslator("&d&l• &r&dFixed 1.16.5 noSuchField error with Blindbind gem"),
+                Utils.colorTranslator("&d&l• &r&dLittle code rewrite on Gem Handling (Dev side)"),
+                Utils.colorTranslator("&d&l• &r&dAdded GuardianSpawnEvent (API for devs)"),
+                Utils.colorTranslator("&d&l• &r&dSmall code chores and cleanups"),
+                Utils.colorTranslator(""),
+                Utils.colorTranslator("&eWe have reached 100+ servers using this addon according"),
+                Utils.colorTranslator("&eto the stats, appreciate you all for this."),
+                Utils.colorTranslator("&eGives me joy to continue giving contents for everyone."),
                 Utils.colorTranslator("&ehttps://github.com/FN-FAL113"),
                 "||---------------------------------------------------||"
         );

@@ -6,7 +6,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
  * Serves as the handler for gems that relies
  * on damaging entities
  */
-public interface OnDamageHandler {
+public interface OnDamageHandler extends GemHandler {
 
     /**
      *

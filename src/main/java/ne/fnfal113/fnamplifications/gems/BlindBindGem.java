@@ -61,7 +61,6 @@ public class BlindBindGem extends AbstractGem implements OnArrowHitHandler {
         }
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
-            player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, entity.getLocation(), 5);
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
         }
 

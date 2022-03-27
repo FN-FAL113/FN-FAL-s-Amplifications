@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
@@ -83,6 +84,13 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
         if(!entityUUIDMap.containsKey(player.getUniqueId())) {
             if(ThreadLocalRandom.current().nextInt(100) < getChance()) {
                 GuardianTask guardianTask = new GuardianTask(player, event);
+                GuardianSpawnEvent guardianSpawnEvent = new GuardianSpawnEvent(player, guardianTask.getZombie(), event.getDamager());
+                Bukkit.getPluginManager().callEvent(guardianSpawnEvent);
+
+                if(guardianSpawnEvent.isCancelled()){
+                    guardianSpawnEvent.getZombieGuardian().remove();
+                    return;
+                }
 
                 runnableMap.put(player.getUniqueId(),
                         guardianTask.runTaskTimer(FNAmplifications.getInstance(), 5L, 3L));

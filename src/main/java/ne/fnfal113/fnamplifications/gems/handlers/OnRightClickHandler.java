@@ -2,7 +2,7 @@ package ne.fnfal113.fnamplifications.gems.handlers;
 
 import org.bukkit.entity.Player;
 
-public interface OnRightClickHandler {
+public interface OnRightClickHandler extends GemHandler {
 
     /**
      *

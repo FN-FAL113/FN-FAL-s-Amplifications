@@ -1642,6 +1642,18 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_DISRUPTED = new SlimefunItemStack(
+            "FN_GEM_DISRUPTED",
+            Material.EMERALD,
+            "&cDisrupted Gem",
+            "",
+            "&e% chance to prevent your enemy",
+            "&eguardian from spawning",
+            "",
+            "&dDrag and drop on a sword",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(
             "FN_BLOCK_ROTATOR",
             Material.CLOCK,
