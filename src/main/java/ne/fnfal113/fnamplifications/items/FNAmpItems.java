@@ -91,6 +91,13 @@ public class FNAmpItems {
                     "8245a1c3e8d7c3d59d05e3634b04af4cbf8d11b70e2a40e2e6364386db49e737")),
             "&eFN Machinery Items"));
 
+    public static final SubItemGroup MAGICAL_ITEMS = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "MAGICAL_ITEMS"),
+            FN_MAIN_GROUP,
+            new CustomItemStack(PlayerHead.getItemStack(PlayerSkin.fromHashCode(
+                    "72114a80357463fe2f59e397aab9fc66d482a65d524f8870d21c724c18ecf757")),
+                    "&eFN Magical Items"));
+
     public static final SubItemGroup MULTIBLOCK = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "MULTIBLOCK"),
             FN_MAIN_GROUP,
@@ -912,6 +919,113 @@ public class FNAmpItems {
             "",
             "&d&oFN Machinery Items");
 
+    public static final SlimefunItemStack UNBIND_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_UNBIND_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("4f01ec6331a3bc30a8204ec56398d08ca38788556bca9b81d776f6238d567367")),
+            "&6Unbind Rune",
+            "&fA magical rune from psijic time",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack SPIRAL_FIRE_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_SPIRAL_FIRE_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("8301aa86cafd4b2d732a9b4894cfcfc65edc828e8571b45dbf0a3ba96575cccf")),
+            "&cSpiral Fire Rune",
+            "&fA heart full of fire is fire",
+            "&fthat spirals within this rune",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack SPIRIT_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_SPIRIT_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("c738b8af8d7ce1a26dc6d40180b3589403e11ef36a66d7c4590037732829542e")),
+            "&fSpirit Rune",
+            "&fSpirit thy come for",
+            "&fI redeem thy soul",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack PESTILENCE_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_PESTILENCE_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("a8c4811395fbf7f620f05cc3175cef1515aaf775ba04a01045027f0693a90147")),
+            "&aPestilence Rune",
+            "&fA rune from the black death",
+            "&fperiod that holds a deadly sin",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack SPARKLING_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_SPARKLING_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("f1e2428cb359988f4c4ff0e61de21385c62269de19a69762d773223b75dd1666")),
+            "&eSparkling Rune",
+            "&fToo bright and too flashy",
+            "&ffor this rune is too deadly",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack CLOUD_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_CLOUD_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2273740d454de962484712f9835e35119b37ab867fa6982d5cc1f333c2334e59")),
+            "&3Cloud Rune",
+            "&fUp in the skies is where",
+            "&fthe clouds lies",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack ICE_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_ICE_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("cdc57c75adf39ec6f0e0916049dd9671e98a8a1e600104e84e645c988950bd7")),
+            "&bIce Rune",
+            "&fThe rune full of chill",
+            "&fbut can you stay still",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack POWER_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_POWER_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("3b481c31dc683bdcb7d375a7c5db7ac7adf9e9fe8b6c04a64931613e29fe470e")),
+            "&9Power Rune",
+            "&fThe power from this rune",
+            "&fcan do dangerous things",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack LINGER_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_LINGER_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2c4a65c689b2d36409100a60c2ab8d3d0a67ce94eea3c1f7ac974fd893568b5d")),
+            "&2Linger Rune",
+            "&fIt lingers from top to",
+            "&fbottom and soon the middle",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack AGILITY_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_AGILITY_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("35f4861aa5b22ee28a90e75dab45d221efd14c0b1ecc8ee998fb67e43bb8f3de")),
+            "&eAgility Rune",
+            "&fFaster means better but",
+            "&fdoes it matter",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack INTELLECT_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_INTELLECT_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("977c1fc93216e96d435cf962e1173de8d1a249b644894d72676eba732fcd56e7")),
+            "&9Intellect Rune",
+            "&fVery useful rune in the",
+            "&ftime of desperation",
+            "",
+            "&d&oFN Magical Items");
+
+    public static final SlimefunItemStack HEART_RUNE = new SlimefunItemStack(
+            "FN_MAGICAL_ITEMS_HEART_RUNE",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("2c1c179ad51955f1522c48ea9931f09c162741b45e22e9d3feb682c7e5ed8274")),
+            "&dHeart Rune",
+            "&fRejuvenate through this rune",
+            "&fas you sense the aura inside",
+            "",
+            "&d&oFN Magical Items");
+
     public static final SlimefunItemStack BASIC_MACHINE_BLOCK = new SlimefunItemStack(
             "FN_MACHINERY_BASIC_MACHINE_BLOCK",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("883dd0f90df05fe6a09aaccaf54bc043e455e1c865bda1fd272e3f47fb9bb910")),
@@ -1091,6 +1205,12 @@ public class FNAmpItems {
             "FN_GEM_ALTAR",
             Material.SMITHING_TABLE,
             "&dFN Gem Altar"
+    );
+
+    public static final SlimefunItemStack FN_MAGIC_ALTAR = new SlimefunItemStack(
+            "FN_MAGIC_ALTAR",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("e34930125767c2e34ac939ec94a2aa4e79c381ee336760695c6c874cf12")),
+            "&dFN Magic Altar"
     );
 
     public static final SlimefunItemStack FN_GEAR_HELMET = new SlimefunItemStack(
@@ -1652,6 +1772,99 @@ public class FNAmpItems {
             "",
             "&dDrag and drop on a sword",
             "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_ARROW_AVERT = new SlimefunItemStack(
+            "FN_GEM_ARROW_AVERT",
+            Material.EMERALD,
+            "&cArrow Avert Gem",
+            "",
+            "&e% chance to prevent arrow shot by a player",
+            "&efrom hitting you, arrow is averted taking",
+            "&eno damage when you get hit",
+            "",
+            "&dDrag and drop on any armor type",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_DEBERSERK = new SlimefunItemStack(
+            "FN_GEM_DEBERSERK",
+            Material.EMERALD,
+            "&cDeberserk Gem",
+            "",
+            "&e% chance to decrease damage",
+            "&etaken from axes by 30%",
+            "",
+            "&dDrag and drop on any armor type",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_PARRY = new SlimefunItemStack(
+            "FN_GEM_PARRY",
+            Material.EMERALD,
+            "&cParry Gem",
+            "",
+            "&e% chance to decrease damage",
+            "&etaken from swords by 25%",
+            "",
+            "&dDrag and drop on any armor type",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_FLAWLESS_UNBIND = new SlimefunItemStack(
+            "FN_GEM_FLAWLESS_UNBIND",
+            Material.DIAMOND,
+            "&bFlawless Unbind Gem",
+            "",
+            "&e% chance to remove any of the",
+            "&eselected gem from an item",
+            "",
+            "&f&lInstruction",
+            "&dRight hand: &cUnbind Gem",
+            "&dLeft hand: &cWeapon/Armor/Tools",
+            "&dAction: &cRight click"
+    );
+
+    public static final SlimefunItemStack FN_GEM_PRECIOUS_UNBIND = new SlimefunItemStack(
+            "FN_GEM_PRECIOUS_UNBIND",
+            Material.DIAMOND,
+            "&dPrecious Unbind Gem",
+            "",
+            "&e% chance to remove any of the",
+            "&eselected gem from an item",
+            "",
+            "&f&lInstruction",
+            "&dRight hand: &cUnbind Gem",
+            "&dLeft hand: &cWeapon/Armor/Tools",
+            "&dAction: &cRight click"
+    );
+
+    public static final SlimefunItemStack FN_GEM_BLEMISHED_UNBIND = new SlimefunItemStack(
+            "FN_GEM_BLEMISHED_UNBIND",
+            Material.DIAMOND,
+            "&aBlemished Unbind Gem",
+            "",
+            "&e% chance to remove any of the",
+            "&eselected gem from an item",
+            "",
+            "&f&lInstruction",
+            "&dRight hand: &cUnbind Gem",
+            "&dLeft hand: &cWeapon/Armor/Tools",
+            "&dAction: &cRight click"
+    );
+
+    public static final SlimefunItemStack FN_GEM_DAMAGED_UNBIND = new SlimefunItemStack(
+            "FN_GEM_DAMAGED_UNBIND",
+            Material.DIAMOND,
+            "&6Damaged Unbind Gem",
+            "",
+            "&e% chance to remove any of the",
+            "&eselected gem from an item",
+            "",
+            "&f&lInstruction",
+            "&dRight hand: &cUnbind Gem",
+            "&dLeft hand: &cWeapon/Armor/Tools",
+            "&dAction: &cRight click"
     );
 
     public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(

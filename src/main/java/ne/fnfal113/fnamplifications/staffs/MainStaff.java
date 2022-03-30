@@ -31,17 +31,16 @@ public class MainStaff {
         this.storageKey = storageKey;
         this.id = id;
 
-        setConfigValues(uses, id);
-        Utils.setLore(itemStack, id, "-max-uses", "left", "&e", " left");
+        setConfigValues(uses);
+        Utils.setLore(itemStack, this.getId(), "-max-uses", "left", "&e", " left");
     }
 
     /**
      * this adds the config entries if none exist
      * @param maxUses the max uses value that will be set in the config
-     * @param id the path or id which the value is assigned
      */
-    public void setConfigValues(int maxUses, String id) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(id + "-max-uses",  maxUses, "staffs-settings");
+    public void setConfigValues(int maxUses) throws IOException {
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-max-uses",  maxUses, "staffs-settings");
     }
 
     /**

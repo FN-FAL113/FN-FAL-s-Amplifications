@@ -7,10 +7,7 @@ import ne.fnfal113.fnamplifications.gears.implementation.RegisterGears;
 import ne.fnfal113.fnamplifications.gems.implementation.RegisterGems;
 import ne.fnfal113.fnamplifications.machines.implementation.RegisterMachines;
 import ne.fnfal113.fnamplifications.materialgenerators.FNMaterialGenerators;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
-import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
-import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
-import ne.fnfal113.fnamplifications.multiblocks.FnScrapRecycler;
+import ne.fnfal113.fnamplifications.multiblocks.*;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.RegisterSticks;
 import ne.fnfal113.fnamplifications.powergenerators.FNSolarGenerators;
 import ne.fnfal113.fnamplifications.powergenerators.PowahGenerator;
@@ -50,6 +47,7 @@ public final class FNAmpItemSetup {
         new FnScrapRecycler().register(FNAmplifications.getInstance());
         new FnMysteryStickAltar().register(FNAmplifications.getInstance());
         new FnGemAltar().register(FNAmplifications.getInstance());
+        new FnMagicAltar().register(FNAmplifications.getInstance());
     }
 
 }

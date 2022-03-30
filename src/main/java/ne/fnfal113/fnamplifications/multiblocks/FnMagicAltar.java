@@ -21,21 +21,21 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class FnGemAltar extends MultiBlockMachine {
+public class FnMagicAltar extends MultiBlockMachine {
 
     public static final RecipeType RECIPE_TYPE = new RecipeType(
-            new NamespacedKey(FNAmplifications.getInstance(), "fn_gem_altar"),
-            FNAmpItems.FN_GEM_ALTAR,
+            new NamespacedKey(FNAmplifications.getInstance(), "fn_magic_altar"),
+            FNAmpItems.FN_MAGIC_ALTAR,
             "",
-            "&fThis is where you craft those nasty gems!"
+            "&fThis is where you craft magical items!"
     );
 
 
-    public FnGemAltar() {
-        super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_GEM_ALTAR, new ItemStack[] {
+    public FnMagicAltar() {
+        super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_MAGIC_ALTAR, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.SPRUCE_FENCE), null,
-                new ItemStack(Material.ANVIL), new ItemStack(Material.DISPENSER), new ItemStack(Material.SMITHING_TABLE)
+                null, new ItemStack(Material.CRIMSON_FENCE), null,
+                new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.DISPENSER), new ItemStack(Material.SMITHING_TABLE)
         }, BlockFace.SELF);
     }
 
@@ -111,24 +111,26 @@ public class FnGemAltar extends MultiBlockMachine {
             }
         }
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-            b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.SMOKE, 1);
-            b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
-            b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_LAND, 1, 1);
+            b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.5, 0.7, 0.5), 5, 0.1, 0.1, 0.1);
+            b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
+            b.getWorld().playSound(b.getLocation(), Sound.ENTITY_ZOMBIE_INFECT, 1, 1);
 
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                b.getWorld().spawnParticle(Particle.FLAME, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
+                b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.MOBSPAWNER_FLAMES, 1);
+                b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
                 b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
-                b.getWorld().playSound(b.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
+                b.getWorld().playSound(b.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 1);
 
                 Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
                     b.getWorld().playEffect(b.getLocation().add(0.35, 0.75, 0.35), Effect.MOBSPAWNER_FLAMES, 1);
                     b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.2, 0.3, 0.2), 2, 0.1, 0.1, 0.1, 0.1);
+                    b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
 
                     Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
                         b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.SMOKE, 1);
-                        b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
                         b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
-                        b.getWorld().playSound(b.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
+                        b.getWorld().spawnParticle(Particle.FLASH, b.getLocation().add(0.35, 0.4, 0.4), 2, 0.1, 0.1, 0.1, 0.1);
+                        b.getWorld().playSound(b.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
                     }, 30);
                 }, 30);

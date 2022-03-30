@@ -52,7 +52,6 @@ public class ThrowWeaponTask extends BukkitRunnable {
     @Override
     public void run() {
         getArmorStand().teleport(getArmorStand().getLocation().add(getVector()));
-        getArmorStand().getWorld().spawnParticle(Particle.DRIPPING_OBSIDIAN_TEAR, getArmorStand().getLocation().add(0,0, 0.5), 2);
 
         // rotate weapon by 45 degrees each tick
         if(isRotateWeapon()) {
