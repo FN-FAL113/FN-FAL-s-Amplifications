@@ -6,8 +6,8 @@ of crafting, it means harder is fun and the grind is worth it!
 Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
 
 ## :bulb: Features
-- **PowerXpansion** - 12 new power generators which integrates with LiteXpansion's items as recipes!
-- **Solar Panels** - 8 solar panels that can be configured inside the yml to work at night
+- **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
+- **Solar Panels** - 8 solar panels for power hungry minds during day only
 - **Material Generators** - Clay, Warped Nylium, Dirt generator and more! 
 - **Machineries** - Electric machine downgrader, condenser, compressor, recycler and transformers
 - **Metal Scraps** - Obtain metal scrap from downgrading machines using the electric machine downgrader
