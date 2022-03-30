@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.staffs;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -88,7 +89,7 @@ public class StaffOfForce extends AbstractStaff {
         effectCloud.setDuration(160);
         effectCloud.setRadius(2.85F);
         if(!isSneaking) {
-            effectCloud.setParticle(Particle.ELECTRIC_SPARK);
+            effectCloud.setParticle(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17) ? Particle.ELECTRIC_SPARK : Particle.SNEEZE);
             effectCloud.setCustomName("FN_FORCE");
             player.sendMessage(ChatColor.GREEN + "You spawned a cloud effect with forward force");
         } else{

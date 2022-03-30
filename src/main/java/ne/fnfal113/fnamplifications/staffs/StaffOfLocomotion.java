@@ -36,7 +36,7 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
     private final MainStaff mainStaff;
 
     @SneakyThrows
-    public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int maxUses) {
+    public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "movestaff");

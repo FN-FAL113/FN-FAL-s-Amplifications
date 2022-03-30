@@ -122,19 +122,12 @@ public class GemListener implements Listener {
         if(event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
 
-            if(player.getInventory().getChestplate() != null) {
-                ItemStack itemStackChest = player.getInventory().getChestplate();
-                PersistentDataContainer pdcChest = getPersistentDataContainer(itemStackChest);
-
-                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcChest);
-            } // check if player is wearing a chestplate
-
-            if(player.getInventory().getHelmet() != null) {
-                ItemStack itemStackHelmet = player.getInventory().getHelmet();
-                PersistentDataContainer pdcHelmet = getPersistentDataContainer(itemStackHelmet);
-
-                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcHelmet);
-            } // check if player is wearing a helmet
+            for (ItemStack armor: player.getInventory().getArmorContents()) {
+                if(armor != null) {
+                    PersistentDataContainer pdcChest = getPersistentDataContainer(armor);
+                    callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), pdcChest);
+                }
+            }
         }
 
     }
@@ -169,27 +162,33 @@ public class GemListener implements Listener {
         }
         Arrow arrow = (Arrow) event.getEntity();
 
-        if(!(arrow.getShooter() instanceof Player)){
-            return;
-        }
-
         if(!(event.getHitEntity() instanceof LivingEntity)){
             return;
         }
 
-        LivingEntity livingEntity = (LivingEntity) event.getHitEntity();
+        if(arrow.getShooter() instanceof Player){
+            LivingEntity livingEntity = (LivingEntity) event.getHitEntity();
 
-        Player player = (Player) arrow.getShooter();
+            Player player = (Player) arrow.getShooter();
 
-        if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
-            return;
+            if(player.getInventory().getItemInMainHand().getType() != Material.AIR){
+                ItemStack itemStack = player.getInventory().getItemInMainHand();
+
+                PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
+
+                callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), pdc);
+            } // check if player in main hand is not null or air
+
+            if(livingEntity instanceof Player) {
+                for (ItemStack armor : ((Player) livingEntity).getInventory().getArmorContents()) {
+                    if (armor != null) {
+                        PersistentDataContainer pdc = getPersistentDataContainer(armor);
+                        callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), pdc);
+                    }
+                }
+            } // check if the entity hit is instance of player
+
         }
-
-        ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-        PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
-
-        callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), pdc);
     }
 
     @EventHandler

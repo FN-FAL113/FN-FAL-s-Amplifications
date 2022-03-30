@@ -76,7 +76,7 @@ public class StaffOfGravitationalPull extends AbstractStaff {
         mainStaff.updateMeta(item, meta, player);
 
         AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
-        effectCloud.setParticle(Particle.FALLING_OBSIDIAN_TEAR);
+        effectCloud.setParticle(Particle.FALLING_NECTAR);
         effectCloud.setDuration(160);
         effectCloud.setRadius(3.8F);
         effectCloud.setCustomName("FN_GRAVITY");

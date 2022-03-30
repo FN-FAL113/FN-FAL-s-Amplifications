@@ -1,7 +1,9 @@
 package ne.fnfal113.fnamplifications.items;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.machines.ElectricMachineDowngrader;
+import ne.fnfal113.fnamplifications.multiblocks.FnMagicAltar;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -160,6 +162,78 @@ public class FnItemRecipes {
                 null, null, null,
                 null, null, null,
                 null, null, null})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.UNBIND_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1), new ItemStack(Material.BLAZE_POWDER, 2), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 2), null, new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 2),
+                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.ROTTEN_FLESH, 2), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.SPIRAL_FIRE_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 2), new ItemStack(Material.GUNPOWDER, 8), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT, 2),
+                null, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), null,
+                new SlimefunItemStack(SlimefunItems.COPPER_INGOT, 2), new ItemStack(Material.FLINT_AND_STEEL, 1), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT, 2)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.SPIRIT_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2), new ItemStack(Material.ROTTEN_FLESH, 2), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2),
+                new ItemStack(Material.BLAZE_POWDER, 1), new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1), new ItemStack(Material.BLAZE_POWDER, 1),
+                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2), new ItemStack(Material.WITHER_SKELETON_SKULL, 4), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.PESTILENCE_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.URANIUM, 2), new ItemStack(Material.NETHER_WART, 6), new SlimefunItemStack(SlimefunItems.URANIUM, 2),
+                new ItemStack(Material.ROTTEN_FLESH, 4), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.ROTTEN_FLESH, 4),
+                new SlimefunItemStack(SlimefunItems.URANIUM, 2), new ItemStack(Material.QUARTZ, 3), new SlimefunItemStack(SlimefunItems.URANIUM, 2)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.SPARKLING_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.SILVER_INGOT, 3), null, new SlimefunItemStack(SlimefunItems.SILVER_INGOT, 3),
+                new ItemStack(Material.BLAZE_ROD, 2), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.BLAZE_ROD, 2),
+                new SlimefunItemStack(SlimefunItems.SILVER_INGOT, 3), null, new SlimefunItemStack(SlimefunItems.SILVER_INGOT, 3)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.CLOUD_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), new ItemStack(Material.BLAZE_POWDER, 3), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), new SlimefunItemStack(SlimefunItems.AIR_RUNE, 1), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2),
+                new SlimefunItemStack(SlimefunItems.MAGNESIUM_DUST, 4), new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1), new SlimefunItemStack(SlimefunItems.MAGNESIUM_DUST, 4)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.ICE_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new ItemStack(Material.ICE, 4), null, new ItemStack(Material.ICE, 4),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 2), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 2),
+                new ItemStack(Material.ICE, 4), null, new ItemStack(Material.ICE, 4)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.POWER_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new ItemStack(Material.REDSTONE, 6), new SlimefunItemStack(SlimefunItems.BOOSTED_URANIUM, 1), new ItemStack(Material.REDSTONE, 6),
+                null, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), null,
+                new ItemStack(Material.NETHER_STAR, 2), new SlimefunItemStack(SlimefunItems.BOOSTED_URANIUM, 1), new ItemStack(Material.NETHER_STAR, 2)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.LINGER_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new ItemStack(Material.NETHER_WART, 6), new SlimefunItemStack(SlimefunItems.TIN_DUST, 1), new ItemStack(Material.NETHER_WART, 6),
+                new ItemStack(Material.GLOWSTONE_DUST, 5), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.GLOWSTONE_DUST, 5),
+                new ItemStack(Material.FERMENTED_SPIDER_EYE, 1), new SlimefunItemStack(SlimefunItems.ZINC_DUST, 1), new ItemStack(Material.FERMENTED_SPIDER_EYE, 1)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.AGILITY_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new ItemStack(Material.SUGAR, 4), new SlimefunItemStack(SlimefunItems.PORK_JERKY, 1), new ItemStack(Material.SUGAR, 4),
+                new ItemStack(Material.NETHER_WART, 4), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new ItemStack(Material.NETHER_WART, 4),
+                new ItemStack(Material.SUGAR, 4), new SlimefunItemStack(SlimefunItems.BEEF_JERKY, 1), new ItemStack(Material.SUGAR, 4)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.INTELLECT_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                new ItemStack(Material.BLAZE_POWDER, 5), null, new ItemStack(Material.BLAZE_POWDER, 5),
+                new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1),
+                new ItemStack(Material.SUGAR, 5), null, new ItemStack(Material.SUGAR, 5)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.HEART_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
+                null, new ItemStack(Material.NETHER_WART, 3), null,
+                new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1),
+                new ItemStack(Material.GLISTERING_MELON_SLICE, 2), new ItemStack(Material.NETHER_WART, 3), new ItemStack(Material.GLISTERING_MELON_SLICE, 2)})
                 .register(instance);
 
     }

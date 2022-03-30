@@ -6,15 +6,16 @@ of crafting, it means harder is fun and the grind is worth it!
 Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
 
 ## :bulb: Features
-- **PowerXpansion** - 12 new power generators which integrates with LiteXpansion's items as recipes!
-- **Solar Panels** - 8 solar panels that can be configured inside the yml to work at night
+- **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
+- **Solar Panels** - 8 solar panels for power hungry minds during day only
 - **Material Generators** - Clay, Warped Nylium, Dirt generator and more! 
 - **Machineries** - Electric machine downgrader, condenser, compressor, recycler and transformers
 - **Metal Scraps** - Obtain metal scrap from downgrading machines using the electric machine downgrader
                      and use the scraps for crafting FN components that is needed in machineries
 - **Electric Block Breaker** - Can be toggled in side the machine gui to break with or without silk touch!
-- **19 sets of Staffs** - From area of effect clouds, moving entities, and many more, check them out!
+- **20+ sets of Staffs** - From area of effect clouds, moving entities, and many more, check them out!
 - **11 sets of Mystery Sticks** - PVP/PVE sticks, these will consume xp levels by chance per use and best for op pvp!
+- **18+ sets of Gems** - Drag and drop these magical gems into your weapons, armors and tools for extra abilities and bonuses!
 - **Quivers** - Normal and Spectral quivers that can store more arrows saving up spaces in your inventory
 - **FN Gears** - Level up the gears to receive bonus attributes and enchants
 - **FN Hoe** - Soil/till land and harvest crops in a 5x5 square area, can also auto replant!

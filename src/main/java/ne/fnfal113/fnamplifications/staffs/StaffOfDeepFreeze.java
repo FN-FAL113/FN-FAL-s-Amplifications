@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.staffs;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -74,33 +75,12 @@ public class StaffOfDeepFreeze extends AbstractStaff {
         mainStaff.updateMeta(item, meta, player);
 
         AreaEffectCloud effectCloud = (AreaEffectCloud) player.getWorld().spawnEntity(block.getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
-        effectCloud.setParticle(Particle.SNOWFLAKE);
+        effectCloud.setParticle(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17) ? Particle.SNOWFLAKE : Particle.CLOUD);
         effectCloud.setDuration(160);
         effectCloud.setRadius(2.85F);
         effectCloud.setCustomName("FN_DEEP_FREEZE");
         effectCloud.setCustomNameVisible(false);
         effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0, 0, false, false, false), true);
-
-        // Commented out in favor of AreaCloudEffectApply Event
-        /*World world = player.getWorld();
-        AtomicInteger i = new AtomicInteger(8);
-        taskID = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
-            for (Entity e : world.getNearbyEntities(effectCloud.getLocation(), 2.85F, 2, 2.85F)) {
-
-                if (e instanceof LivingEntity) {
-                    if (e.getLocation().distance(effectCloud.getLocation()) <= 2.85F) {
-                        e.setFreezeTicks(210);
-                    }
-
-                }
-            }
-
-            if (i.get() == 0) {
-                taskID.cancel();
-            }
-            i.getAndDecrement();
-
-        }, 0, 20L);*/
 
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
