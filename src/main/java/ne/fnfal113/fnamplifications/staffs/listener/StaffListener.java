@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class StaffListener implements Listener {
 
     @EventHandler
-    public void onApply(AreaEffectCloudApplyEvent event){
+    public void onEffectApply(AreaEffectCloudApplyEvent event){
 
         if (Objects.equals(event.getEntity().getCustomName(), "FN_HELL_FIRE")){
             for(LivingEntity entity : event.getAffectedEntities()){
@@ -94,24 +94,23 @@ public class StaffListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
         boolean actionRight = (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK);
         boolean actionLeft = (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK);
+        boolean isRightHand = e.getHand() == EquipmentSlot.HAND;
 
-        if (stick instanceof AbstractStaff && actionRight && e.getHand() == EquipmentSlot.HAND) {
-            ((AbstractStaff) stick).onRightClick(e);
-        }
-
-        if (stick instanceof EntityStaffImpl && actionLeft && e.getHand() == EquipmentSlot.HAND) {
-            ((EntityStaffImpl) stick).onLeftClick(e);
+        if (stick instanceof AbstractStaff && !(stick instanceof EntityStaffImpl) && actionRight && isRightHand) {
+            ((AbstractStaff) stick).onClick(e);
+        } else if (stick instanceof AbstractStaff && stick instanceof EntityStaffImpl && actionLeft && isRightHand) {
+            ((AbstractStaff) stick).onClick(e);
         }
 
     }
 
     @EventHandler
-    public void onPlayerDismount(VehicleExitEvent event){
+    public void onHorseDismount(VehicleExitEvent event){
         /*
          * This event is used by stallion staff to de-spawn
          * the skeleton horse upon unmount
@@ -131,7 +130,7 @@ public class StaffListener implements Listener {
     }
 
     @EventHandler
-    public void horseInventory(InventoryOpenEvent event){
+    public void onHorseInventoryOpen(InventoryOpenEvent event){
         /*
          * This event is used by stallion staff to prevent
          * opening of horse inventory which holds a saddle
@@ -145,12 +144,12 @@ public class StaffListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(PlayerInteractEntityEvent e) {
+    public void onEntityInteract(PlayerInteractEntityEvent e) {
         Player p = e.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
 
         if (stick instanceof EntityStaffImpl && e.getHand() == EquipmentSlot.HAND) {
-            ((EntityStaffImpl) stick).onRightClick(e);
+            ((EntityStaffImpl) stick).onEntityClick(e);
         } // check if stick implement EntityStaff interface (Locomotion Staff)
 
     }

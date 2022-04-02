@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -16,9 +17,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class StaffOfTeleportation extends AbstractStaff {
 
@@ -27,10 +25,10 @@ public class StaffOfTeleportation extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfTeleportation(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "tpstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -39,17 +37,8 @@ public class StaffOfTeleportation extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Teleport to a target block by");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "right clicking it");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         Vector directional = player.getLocation().getDirection();
         ItemStack item = player.getInventory().getItemInMainHand();
@@ -72,8 +61,6 @@ public class StaffOfTeleportation extends AbstractStaff {
 
         mainStaff.updateMeta(item, meta, player);
         player.teleport(block.getLocation().add(0.5, 1, 0.5).setDirection(directional));
-
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 
     }
 }

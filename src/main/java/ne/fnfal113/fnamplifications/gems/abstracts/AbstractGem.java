@@ -9,8 +9,10 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemHandler;
+import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,7 +22,7 @@ import java.io.IOException;
 public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
     public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        this(itemGroup, item, recipeType, recipe, 0);
     }
 
     // This constructor is specifically used for gems that has chances to proc
@@ -29,8 +31,11 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
     public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int chance) {
         super(itemGroup, item, recipeType, recipe);
 
-        setConfigValues(chance);
-        Utils.setLore(this.getItem(), this.getId(), "-percent-chance", "%", "&e", "%");
+        if(chance != 0) {
+            setConfigValues(chance);
+            Utils.setLore(this.getItem(), this.getId(), "-percent-chance", "%", "&e", "%");
+        }
+        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
     }
 
     /**

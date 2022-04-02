@@ -30,6 +30,11 @@ public class FNMaterialGenerators {
     public static ItemStack SMG_ITEMSTACK_NETHERRACK = FNAmpItems.FMG_GENERATOR_WARPED_BROKEN;
     public static ItemStack SMG_ITEMSTACK_SOUL_SAND = FNAmpItems.FMG_GENERATOR_FNFAL_CLAY;
 
+    private static final ItemStack SHOVEL = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+            new ItemStack(Material.NETHERITE_SHOVEL) :  new ItemStack(Material.DIAMOND_SHOVEL);
+    private static final ItemStack PICKAXE = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+            new ItemStack(Material.NETHERITE_PICKAXE) :  new ItemStack(Material.DIAMOND_PICKAXE);
+
     static {
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("SimpleMaterialGenerators") && value.smgRecipe()) {
             SlimefunItem smg_gravel = SlimefunItem.getById("SMG_GENERATOR_GRAVEL");
@@ -77,25 +82,27 @@ public class FNMaterialGenerators {
                 .getMaterialName("&3&lClay")
                 .register(instance);
 
-        new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
-                FNAmpItems.FMG_GENERATOR_WARPED_BROKEN,
-                FnAssemblyStation.RECIPE_TYPE,
-                new ItemStack[]{
-                        SlimefunItems.CARBONADO, new ItemStack(Material.DIAMOND_SHOVEL), SlimefunItems.CARBONADO,
-                        new ItemStack(Material.NETHERITE_PICKAXE), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.NETHERITE_PICKAXE),
-                        SlimefunItems.CARBONADO, SlimefunItems.NETHER_GOLD_PAN, SlimefunItems.CARBONADO})
-                .register(instance);
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16)) {
+            new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
+                    FNAmpItems.FMG_GENERATOR_WARPED_BROKEN,
+                    FnAssemblyStation.RECIPE_TYPE,
+                    new ItemStack[]{
+                            SlimefunItems.CARBONADO, new ItemStack(Material.DIAMOND_SHOVEL), SlimefunItems.CARBONADO,
+                            PICKAXE.clone(), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.NETHERITE_PICKAXE),
+                            SlimefunItems.CARBONADO, SlimefunItems.NETHER_GOLD_PAN, SlimefunItems.CARBONADO})
+                    .register(instance);
 
-        new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
-                FNAmpItems.FMG_GENERATOR_FNFAL_WARPED1,
-                RecipeType.ENHANCED_CRAFTING_TABLE,
-                new ItemStack[]{
-                        new ItemStack(Material.NETHERITE_SHOVEL), new ItemStack(Material.WARPED_NYLIUM), new ItemStack(Material.NETHERITE_SHOVEL),
-                        SMG_ITEMSTACK_NETHERRACK, new ItemStack(Material.NETHERITE_PICKAXE), SMG_ITEMSTACK_NETHERRACK,
-                        FNAmpItems.FMG_GENERATOR_WARPED_BROKEN, new ItemStack(Material.BLAST_FURNACE), FNAmpItems.FMG_GENERATOR_WARPED_BROKEN}, 48)
-                .setItem(Material.WARPED_NYLIUM)
-                .getMaterialName("&4&cWarped Nylium")
-                .register(instance);
+            new CustomMaterialGenerator(FNAmpItems.MATERIAL_GENERATORS,
+                    FNAmpItems.FMG_GENERATOR_FNFAL_WARPED1,
+                    RecipeType.ENHANCED_CRAFTING_TABLE,
+                    new ItemStack[]{
+                            SHOVEL.clone(), new ItemStack(Material.WARPED_NYLIUM), SHOVEL.clone(),
+                            SMG_ITEMSTACK_NETHERRACK, new ItemStack(Material.NETHERITE_PICKAXE), SMG_ITEMSTACK_NETHERRACK,
+                            FNAmpItems.FMG_GENERATOR_WARPED_BROKEN, new ItemStack(Material.BLAST_FURNACE), FNAmpItems.FMG_GENERATOR_WARPED_BROKEN}, 48)
+                    .setItem(Material.WARPED_NYLIUM)
+                    .getMaterialName("&4&cWarped Nylium")
+                    .register(instance);
+        }
 
         new CustomBrokenGenerator(FNAmpItems.MATERIAL_GENERATORS,
                 FNAmpItems.FMG_GENERATOR_TERRACOTTA_BROKEN,

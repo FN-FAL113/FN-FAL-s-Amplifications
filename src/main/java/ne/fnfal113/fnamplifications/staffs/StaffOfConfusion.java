@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
@@ -19,8 +20,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class StaffOfConfusion extends AbstractStaff {
@@ -30,10 +29,10 @@ public class StaffOfConfusion extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfConfusion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "confusionstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -42,18 +41,8 @@ public class StaffOfConfusion extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Spawn an area of effect cloud");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "entities are confused of their direction");
-        lore.add(3, ChatColor.LIGHT_PURPLE + "if inside the radius for 8 seconds");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block block = event.getPlayer().getTargetBlockExact(50);

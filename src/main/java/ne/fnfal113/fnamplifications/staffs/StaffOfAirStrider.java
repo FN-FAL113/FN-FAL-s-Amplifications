@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.staffs;
 
-import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -9,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AirStriderTask;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -30,10 +30,10 @@ public class StaffOfAirStrider extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfAirStrider(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "airstriderstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -42,17 +42,8 @@ public class StaffOfAirStrider extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to gain the ability to");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "walk on the air for 10 seconds");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -89,8 +80,6 @@ public class StaffOfAirStrider extends AbstractStaff {
             }
             i.getAndDecrement();
         },0L, 23L);
-
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
     }
 }

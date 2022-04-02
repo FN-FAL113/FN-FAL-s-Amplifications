@@ -31,7 +31,8 @@ public class FNAmpItems {
 
     private static final ItemStack STICK = new ItemStack(Material.STICK);
 
-    private static final ItemStack ARMOR = new ItemStack(Material.NETHERITE_CHESTPLATE);
+    private static final ItemStack ARMOR = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+            new ItemStack(Material.NETHERITE_CHESTPLATE) : new ItemStack(Material.DIAMOND_CHESTPLATE);
 
     static{
         ItemMeta meta = STICK.getItemMeta();
@@ -313,27 +314,6 @@ public class FNAmpItems {
             "&d&oFN Material Generators"
     );
 
-    public static final SlimefunItemStack FMG_GENERATOR_WARPED_BROKEN = new SlimefunItemStack(
-            "FMG_GENERATOR_WARPED_BROKEN",
-            Material.WARPED_NYLIUM,
-            "&4FN Warped Nylium Generator &8(Broken)",
-            "&8Needs to be repaired",
-            "",
-            "&d&oFN Material Generators"
-    );
-
-    public static final SlimefunItemStack FMG_GENERATOR_FNFAL_WARPED1 = new SlimefunItemStack(
-            "FMG_GENERATOR_FNFAL_WARPED1",
-            Material.WARPED_NYLIUM,
-            "&4FN Warped Nylium Generator",
-            "&6Generates warped nylium at a certain rate",
-            "&6Right click the block for info",
-            "",
-            "&6Tickrate: " + "&6ticks",
-            "",
-            "&d&oFN Material Generators"
-    );
-
     public static final SlimefunItemStack FMG_GENERATOR_TERRACOTTA_BROKEN = new SlimefunItemStack(
             "FMG_GENERATOR_TERRACOTTA_BROKEN",
             Material.TERRACOTTA,
@@ -481,6 +461,8 @@ public class FNAmpItems {
             "&d&oFN Material Generators"
     );
 
+    public static SlimefunItemStack FMG_GENERATOR_WARPED_BROKEN;
+    public static SlimefunItemStack FMG_GENERATOR_FNFAL_WARPED1;
     public static SlimefunItemStack FMG_GENERATOR_AMETHYST_BROKEN;
     public static SlimefunItemStack FMG_GENERATOR_FNFAL_AMETHYST;
 
@@ -500,6 +482,29 @@ public class FNAmpItems {
                     Material.AMETHYST_BLOCK,
                     "&dFN Amethyst Cluster Generator",
                     "&6Generates amethyst cluster at a certain rate",
+                    "&6Right click the block for info",
+                    "",
+                    "&6Tickrate: " + "&6ticks",
+                    "",
+                    "&d&oFN Material Generators"
+            );
+        }
+
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16)){
+            FMG_GENERATOR_WARPED_BROKEN = new SlimefunItemStack(
+                    "FMG_GENERATOR_WARPED_BROKEN",
+                    Material.WARPED_NYLIUM,
+                    "&4FN Warped Nylium Generator &8(Broken)",
+                    "&8Needs to be repaired",
+                    "",
+                    "&d&oFN Material Generators"
+            );
+
+           FMG_GENERATOR_FNFAL_WARPED1 = new SlimefunItemStack(
+                    "FMG_GENERATOR_FNFAL_WARPED1",
+                    Material.WARPED_NYLIUM,
+                    "&4FN Warped Nylium Generator",
+                    "&6Generates warped nylium at a certain rate",
                     "&6Right click the block for info",
                     "",
                     "&6Tickrate: " + "&6ticks",
@@ -1215,7 +1220,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_GEAR_HELMET = new SlimefunItemStack(
             "FN_GEAR_HELMET",
-            Material.NETHERITE_HELMET,
+            Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+                    Material.NETHERITE_HELMET : Material.DIAMOND_HELMET,
             "&cFN's Field Tested Helmet",
             "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
             "",
@@ -1232,7 +1238,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_GEAR_CHESTPLATE = new SlimefunItemStack(
             "FN_GEAR_CHESTPLATE",
-            Material.NETHERITE_CHESTPLATE,
+            Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+                    Material.NETHERITE_CHESTPLATE : Material.DIAMOND_CHESTPLATE,
             "&cFN's Battle Scarred Chestplate",
             "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
             "",
@@ -1249,7 +1256,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_GEAR_LEGGINGS = new SlimefunItemStack(
             "FN_GEAR_LEGGINGS",
-            Material.NETHERITE_LEGGINGS,
+            Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+                    Material.NETHERITE_LEGGINGS: Material.DIAMOND_LEGGINGS,
             "&cFN's Chausses of Eminence",
             "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
             "",
@@ -1266,7 +1274,8 @@ public class FNAmpItems {
 
     public static final SlimefunItemStack FN_GEAR_BOOTS = new SlimefunItemStack(
             "FN_GEAR_BOOTS",
-            Material.NETHERITE_BOOTS,
+            Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
+                    Material.NETHERITE_BOOTS : Material.DIAMOND_BOOTS,
             "&cFN's Expedition Combat Boots",
             "&c◬◬◬◬◬◬| &d&lLore &6|◬◬◬◬◬◬",
             "",
@@ -1312,7 +1321,8 @@ public class FNAmpItems {
             "&dMove entities to a target location by right",
             "&dclicking to select and left click to move",
             "",
-            "&eUses: " + "&eleft"
+            "&eUses: " + "&eleft",
+            "&eEntity stored: none"
     );
 
     public static final SlimefunItemStack FN_STAFF_HELLFIRE = new SlimefunItemStack(
@@ -1512,9 +1522,10 @@ public class FNAmpItems {
             "&dby right clicking arrows or",
             "&dshift click quiver to withdraw",
             "",
-            "&eLeft/Right click to change state",
+            "&eClick to change state",
             "&eSize: 192 Arrows",
-            "&eArrows: " + ChatColor.WHITE + "0"
+            "&eArrows: " + "&f0",
+            "&eState: Closed (No Arrows)"
     );
 
     public static final SlimefunItemStack FN_SPECTRAL_QUIVER = new SlimefunItemStack(
@@ -1526,9 +1537,10 @@ public class FNAmpItems {
             "&dright clicking spectral arrows or",
             "&dshift click quiver to withdraw",
             "",
-            "&eLeft/Right click to change state",
+            "&eClick to close/open",
             "&eSize: 192 Spectral Arrows",
-            "&eArrows: " + ChatColor.WHITE + "0"
+            "&eArrows: " + "&f0",
+            "&eState: Closed (No Arrows)"
     );
 
     public static final SlimefunItemStack FN_UPGRADED_QUIVER = new SlimefunItemStack(
@@ -1540,9 +1552,10 @@ public class FNAmpItems {
             "&dby right clicking arrows or",
             "&dshift click to withdraw",
             "",
-            "&eLeft/Right click to change state",
+            "&eClick to change state",
             "&eSize: 288 Arrows",
-            "&eArrows: " + ChatColor.WHITE + "0"
+            "&eArrows: " + "&f0",
+            "&eState: Closed (No Arrows)"
     );
 
     public static final SlimefunItemStack FN_UPGRADED_SPECTRAL_QUIVER = new SlimefunItemStack(
@@ -1554,9 +1567,10 @@ public class FNAmpItems {
             "&dby right clicking spectral arrows or",
             "&dshift click quiver to withdraw",
             "",
-            "&eLeft/Right click to change state",
+            "&eClick to change state",
             "&eSize: 288 Arrows",
-            "&eArrows: " + ChatColor.WHITE + "0"
+            "&eArrows: " + "&f0",
+            "&eState: Closed (No Arrows)"
     );
 
     public static final SlimefunItemStack FN_HOE_5X5 = new SlimefunItemStack(
@@ -1865,6 +1879,30 @@ public class FNAmpItems {
             "&dRight hand: &cUnbind Gem",
             "&dLeft hand: &cWeapon/Armor/Tools",
             "&dAction: &cRight click"
+    );
+
+    public static final SlimefunItemStack FN_GEM_STOUT = new SlimefunItemStack(
+            "FN_GEM_STOUT",
+            Material.EMERALD,
+            "&cStout Gem",
+            "",
+            "&e% chance to prevent armor from",
+            "&etaking any durability damage",
+            "",
+            "&dDrag and drop on any armor type",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_ADAMANTINE = new SlimefunItemStack(
+            "FN_GEM_ADAMANTINE",
+            Material.EMERALD,
+            "&cAdamantine Gem",
+            "",
+            "&e% chance to prevent weapon or tools",
+            "&efrom having durability damage",
+            "",
+            "&dDrag and drop on weapon or",
+            "&dtools to bind this gem"
     );
 
     public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(

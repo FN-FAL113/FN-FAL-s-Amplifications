@@ -34,7 +34,7 @@ public class FnAssemblyStation extends MultiBlockMachine {
     public FnAssemblyStation() {
         super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_ASSEMBLY_STATION, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.NETHER_BRICK_FENCE), null,
+                null, new ItemStack(Material.ACACIA_FENCE), null,
                 new ItemStack(Material.CRAFTING_TABLE), new ItemStack(Material.DISPENSER), new ItemStack(Material.CRAFTING_TABLE)
         }, BlockFace.SELF);
     }

@@ -5,7 +5,10 @@ import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Zombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -36,8 +39,7 @@ public class GuardianTask extends BukkitRunnable {
             getZombie().teleport(getPlayer().getLocation().add(finalVec.multiply(1)));
         }
 
-        if(getZombie().isDead() || getZombie().isInWater()
-                || !getPlayer().isOnline() || getPlayer().getEquipment().getChestplate() == null){
+        if(getZombie().isDead() || !getPlayer().isOnline() || getPlayer().getEquipment().getChestplate() == null){
             getZombie().remove();
             this.cancel();
         }
@@ -48,7 +50,7 @@ public class GuardianTask extends BukkitRunnable {
         getZombie().setCustomNameVisible(true);
         getZombie().setGlowing(true);
         getZombie().setAI(true);
-        getZombie().setBaby();
+        getZombie().setBaby(true);
 
         getZombie().getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0.4F);
         getZombie().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40);

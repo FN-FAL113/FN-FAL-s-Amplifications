@@ -14,8 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
 public class Quiver extends AbstractQuiver {
@@ -39,7 +37,7 @@ public class Quiver extends AbstractQuiver {
         this.defaultUsageKey = Keys.ARROWS_KEY;
         this.defaultUsageKey2 = Keys.ARROWS_ID_KEY;
         this.defaultUsageKey3 = Keys.QUIVER_STATE_KEY;
-        this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), getQuiverSize(), getArrowType(), item, defaultLore());
+        this.mainQuiver = new MainQuiver(getStorageKey(), getStorageKey2(), getStorageKey3(), getQuiverSize(), getArrowType(), item);
     }
 
     @Override
@@ -63,35 +61,22 @@ public class Quiver extends AbstractQuiver {
     }
 
     @Override
-    public List<String> defaultLore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Store inside the quiver");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "by right clicking arrows or");
-        lore.add(3, ChatColor.LIGHT_PURPLE + "shift click quiver to withdraw");
-        lore.add(4, "");
-        lore.add(5, ChatColor.YELLOW + "Left/Right click to change state");
-        lore.add(6, ChatColor.YELLOW + "Size: 192 Arrows");
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(Player player, ItemStack item) {
+    public void onArrowDeposit(Player player, ItemStack item) {
         mainQuiver.depositArrows(item, item.getItemMeta(), item.getItemMeta().getPersistentDataContainer(), player);
     }
 
     @Override
-    public void withdraw(PlayerInteractEvent event, ItemStack item){
+    public void onArrowWithdraw(PlayerInteractEvent event, ItemStack item){
         mainQuiver.withdrawArrows(item, item.getItemMeta(), event.getPlayer(), item.getItemMeta().getPersistentDataContainer());
     }
 
     @Override
-    public void changeState(ItemStack itemStack){
+    public void onChangeState(ItemStack itemStack){
         mainQuiver.changeState(itemStack, itemStack.getItemMeta(), itemStack.getItemMeta().getPersistentDataContainer());
     }
 
     @Override
-    public void bowShoot(EntityShootBowEvent event, ItemStack itemStack){
+    public void onBowShoot(EntityShootBowEvent event, ItemStack itemStack){
         mainQuiver.bowShoot(event, itemStack,true);
     }
 }

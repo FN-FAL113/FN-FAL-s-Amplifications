@@ -10,7 +10,7 @@ import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.handlers.OnGuardianSpawnHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
-import ne.fnfal113.fnamplifications.gems.implementation.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

@@ -1,14 +1,15 @@
 package ne.fnfal113.fnamplifications.staffs;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
-public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
+public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl {
 
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
 
@@ -37,11 +38,12 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
 
     @SneakyThrows
     public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "movestaff");
         this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "identifier");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
+
     }
 
     public @Nonnull
@@ -55,21 +57,15 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Move entities to a target location by right");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "clicking to select and left click to move");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEntityEvent event){
+    public void onEntityClick(PlayerInteractEntityEvent event){
         Player player = event.getPlayer();
+        if(event.getRightClicked() instanceof Player){
+            player.sendMessage(Utils.colorTranslator("&cStaff is not allowed to move players!"));
+            return;
+        }
 
-        if (!(event.getRightClicked() instanceof LivingEntity) && event.getRightClicked() instanceof Player) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou right clicked an invalid entity"));
+        if (!(event.getRightClicked() instanceof LivingEntity)) {
+            player.sendMessage(Utils.colorTranslator("&cYou right clicked an invalid entity"));
             return;
         }
 
@@ -78,7 +74,7 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
         if (!Slimefun.getProtectionManager().hasPermission(
                 Bukkit.getOfflinePlayer(player.getUniqueId()),
                 en.getLocation(),
-                Interaction.INTERACT_ENTITY)
+                Interaction.PLACE_BLOCK)
         ) {
             player.sendMessage(ChatColor.DARK_RED + "You don't have permission to select this entity!");
             return;
@@ -87,33 +83,20 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
         ItemStack item = player.getInventory().getItemInMainHand();
         ItemMeta meta = item.getItemMeta();
 
-        List<String> lore = new ArrayList<>();
-
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-
-        int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER,  FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-max-uses"));
-
         if(!ENTITY_OWNER.containsValue(en)) {
             ENTITY_OWNER.remove(data);
-            data.set(getStorageKey2(), PersistentDataType.DOUBLE, Math.random());
-            mainStaff.updateLore(lore);
-            lore.add(3, "");
-            lore.add(4, ChatColor.YELLOW + "Uses left: " + uses_Left);
-            lore.add(5, "");
-            lore.add(6,ChatColor.WHITE + "Entity right clicked: " + ChatColor.ITALIC +en.getName());
-            lore.add(7,ChatColor.WHITE + "Entity ID: " + ChatColor.ITALIC + en.getEntityId());
-            meta.setLore(lore);
-            item.setItemMeta(meta);
+            data.set(getStorageKey2(), PersistentDataType.DOUBLE, Math.random()); // for Unique PDC (avoid same pdc contents)
             ENTITY_OWNER.put(data, en);
+            Utils.updateValueByPdc(item, meta, en.getName(), "Entity stored: ", "&e", "", " entity");
             Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1 ,1);
         } else {
-            player.sendMessage(Utils.colorTranslator("&eThis entity has been right clicked already!"));
+            player.sendMessage(Utils.colorTranslator("&eThis entity has been stored already by others!"));
         }
     }
 
     @Override
-    public void onLeftClick(PlayerInteractEvent event){
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -144,7 +127,7 @@ public class StaffOfLocomotion extends SlimefunItem implements EntityStaffImpl {
             LivingEntity entity = ENTITY_OWNER.get(data);
             entity.teleport(block.getLocation().add(0.5, 1, 0.5));
             ENTITY_OWNER.remove(data);
-            Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1 ,1);
+            Utils.updateValueByPdc(item, meta, "none", "Entity stored: ", "&e", "", "");
             mainStaff.updateMeta(item, meta, player);
         }
     }

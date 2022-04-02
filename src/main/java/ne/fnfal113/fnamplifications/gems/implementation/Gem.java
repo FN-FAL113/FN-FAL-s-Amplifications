@@ -53,7 +53,7 @@ public class Gem {
         ItemMeta meta = getItemStackToSocket().getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
 
-        if(checkGemAmount(container, getItemStackToSocket()) < 4) { // gem amount must be below 4
+        if(checkGemAmount(container, getItemStackToSocket()) < 5) { // gem amount must be below 5
             if(!isSameGem(getItemStackToSocket())){ // check if the gem being added already exist
                 getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
                 socketItem();
@@ -65,7 +65,7 @@ public class Gem {
                 getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1.0F, 1.0F);
             }
         } else {
-            getPlayer().sendMessage(Utils.colorTranslator("&eOnly 4 gems per item is allowed!"));
+            getPlayer().sendMessage(Utils.colorTranslator("&eOnly 5 gems per item is allowed!"));
             getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 1.0F);
         }
         event.setCancelled(true);

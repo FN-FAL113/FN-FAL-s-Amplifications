@@ -34,7 +34,7 @@ public class FnMagicAltar extends MultiBlockMachine {
     public FnMagicAltar() {
         super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_MAGIC_ALTAR, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.CRIMSON_FENCE), null,
+                null, new ItemStack(Material.ACACIA_FENCE), null,
                 new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.DISPENSER), new ItemStack(Material.SMITHING_TABLE)
         }, BlockFace.SELF);
     }

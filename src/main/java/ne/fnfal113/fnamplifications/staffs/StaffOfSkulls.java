@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -17,9 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class StaffOfSkulls extends AbstractStaff {
 
@@ -28,10 +26,10 @@ public class StaffOfSkulls extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfSkulls(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "skullsstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -40,17 +38,8 @@ public class StaffOfSkulls extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to launch");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "wither skull projectiles");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block block = event.getPlayer().getTargetBlock(null, 50);
@@ -77,8 +66,6 @@ public class StaffOfSkulls extends AbstractStaff {
             skull.setIsIncendiary(true);
             skull.setBounce(false);
         }
-
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
     }
 }
