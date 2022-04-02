@@ -48,7 +48,7 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&d&l• &r&d&lAdded &r&dStout and Adamantine Gem"),
                 Utils.colorTranslator("&d&l• &r&b&lCompatibility &r&bfor 1.15 version has been restored"),
                 Utils.colorTranslator("  &bfixed a lot of compatibility issues and addon"),
-                Utils.colorTranslator("  &can now be used for 1.15.X and above"),
+                Utils.colorTranslator("  &bcan now be used for 1.15.X and above"),
                 Utils.colorTranslator("&d&l• &r&d&lIncreased &r&dgem bind limit from 4 to 5"),
                 Utils.colorTranslator("&d&l• &r&d&lOptimized &r&dgem handling (server side improvements)"),
                 Utils.colorTranslator("&d&l• &r&d&lChanged &r&dall FN Multiblocks to use wood type fences"),
