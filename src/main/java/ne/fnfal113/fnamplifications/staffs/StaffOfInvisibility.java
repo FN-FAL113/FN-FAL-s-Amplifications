@@ -1,10 +1,13 @@
 package ne.fnfal113.fnamplifications.staffs;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -14,7 +17,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
-import java.util.*;
 
 public class StaffOfInvisibility extends AbstractStaff {
 
@@ -23,10 +25,10 @@ public class StaffOfInvisibility extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfInvisibility(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "invistaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -35,19 +37,14 @@ public class StaffOfInvisibility extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "6 seconds of invisibility");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "even your armor and name are hidden");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
-        if (player.isInvisible()) {
+
+        boolean isInvisible = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17) ?
+                player.isInvisible() : player.hasPotionEffect(PotionEffectType.INVISIBILITY);
+
+        if (isInvisible) { // #isInvisible() only supports 1.16 above
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour invisibility is still active!"));
             return;
         }
@@ -66,7 +63,6 @@ public class StaffOfInvisibility extends AbstractStaff {
         player.addPotionEffect(effect2);
         player.sendMessage(ChatColor.GREEN + "You are now invisible to all players!");
 
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
             if(!player.isOnline()){
                 return;

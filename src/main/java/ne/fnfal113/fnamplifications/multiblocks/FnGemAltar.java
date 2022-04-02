@@ -34,7 +34,7 @@ public class FnGemAltar extends MultiBlockMachine {
     public FnGemAltar() {
         super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_GEM_ALTAR, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.SPRUCE_FENCE), null,
+                null, new ItemStack(Material.ACACIA_FENCE), null,
                 new ItemStack(Material.ANVIL), new ItemStack(Material.DISPENSER), new ItemStack(Material.SMITHING_TABLE)
         }, BlockFace.SELF);
     }

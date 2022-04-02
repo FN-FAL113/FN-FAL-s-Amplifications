@@ -9,6 +9,7 @@ import org.bukkit.util.EulerAngle;
 
 import java.util.List;
 
+@SuppressWarnings("ConstantConditions")
 public class Utils {
 
     public static String colorTranslator(String strings){
@@ -43,10 +44,6 @@ public class Utils {
         return new EulerAngle(armorStandX + Math.toRadians(x), armorStandY + Math.toRadians(y), armorStandZ + Math.toRadians(z));
     }
 
-    /**
-     *
-     * @param itemStack the itemstack that needs to update its lore value according to the config value
-     */
     public static void setLore(ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
@@ -60,5 +57,18 @@ public class Utils {
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
     }
+
+    public static void updateValueByPdc(ItemStack itemStack, ItemMeta meta, String value, String prefix, String color, String color2, String suffix){
+        List<String> lore = meta.getLore();
+        for(int i = 0 ; i < lore.size(); i++){
+            if(lore.get(i).contains(Utils.colorTranslator(color + prefix))){
+                lore.set(i, Utils.colorTranslator(color + prefix + color2 + value + suffix));
+            }
+        }
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
+    }
+
+
 
 }

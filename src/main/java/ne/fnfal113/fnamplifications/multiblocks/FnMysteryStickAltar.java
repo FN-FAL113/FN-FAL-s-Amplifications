@@ -33,7 +33,7 @@ public class FnMysteryStickAltar extends MultiBlockMachine {
     public FnMysteryStickAltar() {
         super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_STICK_ALTAR, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.DARK_OAK_FENCE), null,
+                null, new ItemStack(Material.ACACIA_FENCE), null,
                 new ItemStack(Material.ENCHANTING_TABLE), new ItemStack(Material.DISPENSER), new ItemStack(Material.ENCHANTING_TABLE)
         }, BlockFace.SELF);
     }

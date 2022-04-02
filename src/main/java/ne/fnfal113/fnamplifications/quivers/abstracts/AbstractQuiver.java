@@ -10,8 +10,6 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.List;
-
 /**
  * Serves as the abstract class for the quivers that
  * implements the main methods they invoke
@@ -23,37 +21,31 @@ public abstract class AbstractQuiver extends SlimefunItem {
     }
 
     /**
-     * Gets the default lore and add them to a list
-     * @return the default lore as list
-     */
-    public abstract List<String> defaultLore();
-
-    /**
      * The method for adding arrows into the quiver
      * @param player The player involved in this event
      * @param item The quiver from your inventory
      */
-    public abstract void onRightClick(Player player, ItemStack item);
+    public abstract void onArrowDeposit(Player player, ItemStack item);
 
     /**
      * The method for removing arrows from the quiver
      * @param event the interact event
      * @param item the item involved which is the quiver
      */
-    public abstract void withdraw(PlayerInteractEvent event, ItemStack item);
+    public abstract void onArrowWithdraw(PlayerInteractEvent event, ItemStack item);
 
     /**
      * The method for changing the quiver state between opened and closed quiver
      * @param itemStack the item involved when changing the state
      */
-    public abstract void changeState(ItemStack itemStack);
+    public abstract void onChangeState(ItemStack itemStack);
 
     /**
      * The event for deducting arrows from the quiver when
      * shooting a bow
      * @param event - Parameter for the EntityShootBowEvent
      */
-    public abstract void bowShoot(EntityShootBowEvent event, ItemStack itemStack);
+    public abstract void onBowShoot(EntityShootBowEvent event, ItemStack itemStack);
 
     /**
      *

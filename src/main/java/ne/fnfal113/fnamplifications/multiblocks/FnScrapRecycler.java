@@ -40,7 +40,7 @@ public class FnScrapRecycler extends MultiBlockMachine {
     public FnScrapRecycler() {
         super(FNAmpItems.MULTIBLOCK, FNAmpItems.FN_SCRAP_RECYCLER, new ItemStack[] {
                 null , null , null,
-                null, new ItemStack(Material.WARPED_FENCE), null,
+                null, new ItemStack(Material.ACACIA_FENCE), null,
                 new ItemStack(Material.ANVIL), new ItemStack(Material.DISPENSER), new ItemStack(Material.CRAFTING_TABLE)
         }, BlockFace.SELF);
     }

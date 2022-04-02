@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class MysteryStickListener implements Listener {
 
     @EventHandler
-    public void onClick(PlayerInteractEvent e) {
+    public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if(p.getInventory().getItemInMainHand().getType() == Material.AIR){
             return;
@@ -32,7 +32,7 @@ public class MysteryStickListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onClick(EntityDamageByEntityEvent e) {
+    public void onEntityDamage(EntityDamageByEntityEvent e) {
         if(e.getCause() == EntityDamageEvent.DamageCause.THORNS){
             return;
         }

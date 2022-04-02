@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -18,9 +19,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class StaffOfMuster extends AbstractStaff {
 
@@ -29,10 +27,10 @@ public class StaffOfMuster extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfMuster(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "musterstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -41,18 +39,8 @@ public class StaffOfMuster extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click a target block to teleport");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "nearby entities that are on ground");
-        lore.add(3, ChatColor.LIGHT_PURPLE + "within 50 block radius");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block block = event.getPlayer().getTargetBlockExact(50);
@@ -77,8 +65,8 @@ public class StaffOfMuster extends AbstractStaff {
                             entity.getLocation(),
                             Interaction.INTERACT_ENTITY)) {
 
-                if (entity instanceof LivingEntity && !(entity instanceof ArmorStand)
-                        && !((LivingEntity) entity).isLeashed() && !entity.isInWater() && !(entity instanceof Player)) {
+                if (entity instanceof LivingEntity && !(entity instanceof ArmorStand) && !(entity instanceof Player)
+                        && !((LivingEntity) entity).isLeashed() && entity.isOnGround()) {
                     entity.teleport(block.getLocation().clone().add(0.5, 1, 0.5));
                     amount = amount + 1;
                 } // instanceof check
@@ -92,8 +80,6 @@ public class StaffOfMuster extends AbstractStaff {
         ItemMeta meta = item.getItemMeta();
 
         mainStaff.updateMeta(item, meta, player);
-
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
     }
 

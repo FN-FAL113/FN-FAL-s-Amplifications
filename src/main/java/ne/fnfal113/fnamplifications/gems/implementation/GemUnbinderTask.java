@@ -39,14 +39,15 @@ public class GemUnbinderTask {
     public void getGemsFromItem(){
         Inventory inventory = Bukkit.createInventory(null, 9, Utils.colorTranslator("&cSelect a gem to unbind"));
         PersistentDataContainer pdc = getItemInOffhand().getItemMeta().getPersistentDataContainer();
+
         if(pdc.isEmpty()){
             return;
         }
 
         List<ItemStack> gemArray = new ArrayList<>();
-        for(NamespacedKey gemKeys : pdc.getKeys()){
-            if(pdc.has(gemKeys, PersistentDataType.STRING)) {
-                SlimefunItem gem = SlimefunItem.getById(pdc.get(gemKeys, PersistentDataType.STRING));
+        for(NamespacedKey key : GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS()){
+            if(pdc.has(key, PersistentDataType.STRING)) { // get all the pdc value based from the gem key enum
+                SlimefunItem gem = SlimefunItem.getById(pdc.get(key, PersistentDataType.STRING));
                 if(gem instanceof AbstractGem) {
                     gemArray.add(gem.getItem().clone());
                 }
@@ -58,7 +59,7 @@ public class GemUnbinderTask {
             return;
         }
 
-        for (ItemStack gems: gemArray) {
+        for (ItemStack gems: gemArray) { // add all gems inside the inventory ui
             inventory.addItem(gems);
         }
 
@@ -74,6 +75,7 @@ public class GemUnbinderTask {
     @SuppressWarnings("ConstantConditions")
     public void unBindGem(SlimefunItem slimefunItem, int chance){
         getPlayer().getInventory().getItemInMainHand().setAmount(0);
+
         if(ThreadLocalRandom.current().nextInt(100) <= chance) {
             ItemMeta meta = getItemInOffhand().getItemMeta();
             PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -87,7 +89,7 @@ public class GemUnbinderTask {
             pdc.remove(gem);
             pdc.set(socketAmount, PersistentDataType.INTEGER, pdc.get(socketAmount, PersistentDataType.INTEGER) - 1);
 
-            if (pdc.get(socketAmount, PersistentDataType.INTEGER) == 0) {
+            if (pdc.get(socketAmount, PersistentDataType.INTEGER) == 0) { // remove excess space above the gem lore
                 for (int i = 0; i < lore.indexOf(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥")) + 1; i++) {
                     if (lore.get(i).contains(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"))) {
                         lore.remove(i - 1);

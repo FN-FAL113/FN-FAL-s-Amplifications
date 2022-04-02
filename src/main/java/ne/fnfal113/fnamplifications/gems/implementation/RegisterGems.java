@@ -124,28 +124,41 @@ public class RegisterGems {
                 FNAmpItems.AGILITY_RUNE, new SlimefunItemStack(SlimefunItems.AIR_RUNE, 2), FNAmpItems.AGILITY_RUNE})
                 .register(instance);
 
+        new StoutGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_STOUT, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, null, FNAmpItems.HEART_RUNE,
+                null, new ItemStack(Material.EMERALD), null,
+                FNAmpItems.POWER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.HEART_RUNE})
+                .register(instance);
+
+        new AdamantineGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_ADAMANTINE, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, new ItemStack(Material.BLAZE_POWDER, 2), FNAmpItems.POWER_RUNE,
+                null, new ItemStack(Material.EMERALD), null,
+                FNAmpItems.AGILITY_RUNE, new ItemStack(Material.BLAZE_POWDER, 2), FNAmpItems.AGILITY_RUNE})
+                .register(instance);
+
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
                 FNAmpItems.UNBIND_RUNE, new ItemStack(Material.DIAMOND), FNAmpItems.UNBIND_RUNE,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5)})
                 .register(instance);
 
         new PreciousUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_PRECIOUS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 4),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 4),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 4), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 4),
                 new ItemStack(Material.SUGAR, 4), new ItemStack(Material.DIAMOND), new ItemStack(Material.SUGAR, 4),
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 4),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 4)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 4), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 4)})
                 .register(instance);
 
         new BlemishedUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_BLEMISHED_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 3),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 3),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 3), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 3),
                 null, new ItemStack(Material.DIAMOND), null,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 3),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 3)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_2, 3), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_2, 3)})
                 .register(instance);
 
         new DamagedUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DAMAGED_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2),  null, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2),
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), null, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2),
                 null, new ItemStack(Material.DIAMOND), null,
-                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2),  FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2)})
+                new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2)})
                 .register(instance);
+
     }
 }

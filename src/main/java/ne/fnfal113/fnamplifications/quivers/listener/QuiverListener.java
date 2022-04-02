@@ -7,11 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -19,9 +19,8 @@ import org.bukkit.persistence.PersistentDataType;
 @SuppressWarnings("ConstantConditions")
 public class QuiverListener implements Listener {
 
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onRightClick(PlayerInteractEvent event){
-
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         int length = player.getInventory().getContents().length;
@@ -45,11 +44,11 @@ public class QuiverListener implements Listener {
             SlimefunItem item = SlimefunItem.getByItem(itemStack);
             if(player.isSneaking()) {
                 if (item instanceof AbstractQuiver) {
-                    ((AbstractQuiver) item).withdraw(event, itemStack);
+                    ((AbstractQuiver) item).onArrowWithdraw(event, itemStack);
                 }
             } else {
                 if (item instanceof AbstractQuiver) {
-                    ((AbstractQuiver) item).changeState(itemStack);
+                    ((AbstractQuiver) item).onChangeState(itemStack);
                 }
             }
 
@@ -64,22 +63,39 @@ public class QuiverListener implements Listener {
                     if (sfItem instanceof AbstractQuiver && itemStack.getType() == Material.ARROW) {
                         if(getArrows(item, ((AbstractQuiver) sfItem).getStorageKey(), ((AbstractQuiver) sfItem).getQuiverSize()) &&
                         getState(item, ((AbstractQuiver) sfItem).getStorageKey3())) {
-                            ((AbstractQuiver) sfItem).onRightClick(player, player.getInventory().getItem(i));
-                            return;
+                            ((AbstractQuiver) sfItem).onArrowDeposit(player, player.getInventory().getItem(i));
                         }
                     }
 
                     if (sfItem instanceof AbstractQuiver && itemStack.getType() == Material.SPECTRAL_ARROW) {
                         if(getArrows(item, ((AbstractQuiver) sfItem).getStorageKey(), ((AbstractQuiver) sfItem).getQuiverSize()) &&
                         getState(item, ((AbstractQuiver) sfItem).getStorageKey3())) {
-                            ((AbstractQuiver) sfItem).onRightClick(player, player.getInventory().getItem(i));
-                            return;
+                            ((AbstractQuiver) sfItem).onArrowDeposit(player, player.getInventory().getItem(i));
                         }
                     }
                 } // loop
             } // item type
 
         } // event action
+
+    }
+
+    @EventHandler
+    public void onEntityBowShoot(EntityShootBowEvent event){
+        if(event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            if (player.getGameMode() != GameMode.CREATIVE) {
+                Inventory playerInven = player.getInventory();
+                int slot = playerInven.first(Material.matchMaterial(event.getProjectile().getName()));
+                ItemStack itemStack = playerInven.getItem(slot);
+
+                SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
+
+                if (sfItem instanceof AbstractQuiver) {
+                    ((AbstractQuiver) sfItem).onBowShoot(event, itemStack);
+                }
+            } // player is not in creative mode
+        } // shooter is a player
 
     }
 
@@ -95,21 +111,6 @@ public class QuiverListener implements Listener {
         PersistentDataContainer pdc = quiver.getItemMeta().getPersistentDataContainer();
         int getArrows = pdc.getOrDefault(key, PersistentDataType.INTEGER, 0);
         return getArrows < size;
-    }
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onBowShoot(EntityShootBowEvent event){
-
-        if(event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
-            if (player.getGameMode() != GameMode.CREATIVE) {
-                SlimefunItem sfItem = SlimefunItem.getByItem(event.getConsumable());
-
-                if(sfItem instanceof AbstractQuiver){
-                    ((AbstractQuiver) sfItem).bowShoot(event, event.getConsumable());
-                }
-            } // game mode
-        } // instanceof
     }
 
 }

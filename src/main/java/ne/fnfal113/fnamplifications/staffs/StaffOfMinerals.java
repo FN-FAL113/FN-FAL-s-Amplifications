@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.utils.WorldUtils;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -26,10 +27,10 @@ public class StaffOfMinerals extends AbstractStaff {
     private final MainStaff mainStaff;
 
     public StaffOfMinerals(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, 10);
 
         this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "mineralstaff");
-        this.mainStaff = new MainStaff(lore(), 10, getStorageKey(), this.getItem(), this.getId());
+        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
     }
 
     protected @Nonnull
@@ -38,18 +39,8 @@ public class StaffOfMinerals extends AbstractStaff {
     }
 
     @Override
-    public List<String> lore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, "");
-        lore.add(1, ChatColor.LIGHT_PURPLE + "Right click to receive mythical");
-        lore.add(2, ChatColor.LIGHT_PURPLE + "information that awaits upon using");
-        lore.add(3, ChatColor.LIGHT_PURPLE + "the staff");
-
-        return lore;
-    }
-
-    @Override
-    public void onRightClick(PlayerInteractEvent event){
+    @SuppressWarnings("ConstantConditions")
+    public void onClick(PlayerInteractEvent event){
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Chunk chunk = player.getLocation().getChunk();
@@ -61,7 +52,7 @@ public class StaffOfMinerals extends AbstractStaff {
 
         int amount = 0;
 
-        for(int y = WorldUtils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight(); y++) {
+        for(int y = WorldUtils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight() - 1; y++) {
             for(int x = 0; x <= 15; x++) {
                 for(int z = 0; z <= 15; z++) {
                     Block itemStack = chunk.getBlock(x, y, z);
@@ -113,8 +104,6 @@ public class StaffOfMinerals extends AbstractStaff {
 
         writtenBook.setItemMeta(bookMeta);
         player.openBook(writtenBook);
-
-        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
 
     }
 

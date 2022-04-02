@@ -48,16 +48,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
         FNAmpItemSetup.INSTANCE.init();
 
-        getServer().getPluginManager().registerEvents(new MysteryStickListener(), this);
-        getServer().getPluginManager().registerEvents(new GearListener(), this);
-        getServer().getPluginManager().registerEvents(new StaffListener(), this);
-        getServer().getPluginManager().registerEvents(new QuiverListener(), this);
-        getServer().getPluginManager().registerEvents(new HoeListener(), this);
-        getServer().getPluginManager().registerEvents(new GemListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
-        getServer().getPluginManager().registerEvents(new RotatorListener(), this);
-        getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
-        getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
+        registerEvents();
         Objects.requireNonNull(getCommand("fngear")).setExecutor(new CheckProgress());
         getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
@@ -73,6 +64,19 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     public void onDisable(){
         Bukkit.getScheduler().cancelTasks(FNAmplifications.getInstance());
         getLogger().log(Level.INFO, "Cancelled any running task that exist");
+    }
+
+    public void registerEvents(){
+        getServer().getPluginManager().registerEvents(new MysteryStickListener(), this);
+        getServer().getPluginManager().registerEvents(new GearListener(), this);
+        getServer().getPluginManager().registerEvents(new StaffListener(), this);
+        getServer().getPluginManager().registerEvents(new QuiverListener(), this);
+        getServer().getPluginManager().registerEvents(new HoeListener(), this);
+        getServer().getPluginManager().registerEvents(new GemListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
+        getServer().getPluginManager().registerEvents(new RotatorListener(), this);
+        getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
+        getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
     }
 
     @Nonnull

@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GearListener implements Listener {
 
     @EventHandler
-    public void progressListener(EntityDamageByEntityEvent event){
+    public void onEntityDamage(EntityDamageByEntityEvent event){
 
         if(event.getDamager() instanceof Arrow){
             Arrow arrow = (Arrow) event.getDamager();

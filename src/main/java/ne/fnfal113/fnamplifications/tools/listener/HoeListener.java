@@ -24,7 +24,7 @@ public class HoeListener implements Listener {
 
         if (event.getHand() == EquipmentSlot.HAND) {
             ItemStack itemStack = player.getInventory().getItemInMainHand();
-            if (itemStack.getType() == Material.DIAMOND_HOE || itemStack.getType() == Material.NETHERITE_HOE) {
+            if (itemStack.getType() == Material.DIAMOND_HOE || itemStack.getType() == Material.matchMaterial("NETHERITE_HOE")) {
                 SlimefunItem hoe = SlimefunItem.getByItem(itemStack);
 
                 if (hoe instanceof AbstractHoe) {

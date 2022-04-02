@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.staffs;
+package ne.fnfal113.fnamplifications.staffs.implementations;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -12,45 +12,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class MainStaff {
 
-    @Getter
-    private final List<String> defaultLore;
     @Getter
     private final NamespacedKey storageKey;
     @Getter
     private final String id;
 
     @SneakyThrows
-    public MainStaff(List<String> lore, int uses, NamespacedKey storageKey, ItemStack itemStack, String id) {
-        this.defaultLore = lore;
+    public MainStaff(NamespacedKey storageKey, String id) {
         this.storageKey = storageKey;
         this.id = id;
-
-        setConfigValues(uses);
-        Utils.setLore(itemStack, this.getId(), "-max-uses", "left", "&e", " left");
-    }
-
-    /**
-     * this adds the config entries if none exist
-     * @param maxUses the max uses value that will be set in the config
-     */
-    public void setConfigValues(int maxUses) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-max-uses",  maxUses, "staffs-settings");
-    }
-
-    /**
-     * used for rebuilding the lore of the staff instead of using {@link ItemMeta#getLore()}
-     * @param lore this adds the default lore of the staff to a string list
-     */
-    public void updateLore(List<String> lore){
-        for(int i = 0; i < getDefaultLore().size(); i++){
-            lore.add(i , getDefaultLore().get(i));
-        }
     }
 
     /**
@@ -64,21 +38,15 @@ public class MainStaff {
         int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-max-uses"));
         int decrement = uses_Left - 1;
 
-        List<String> lore = new ArrayList<>();
-
         if(decrement > 0) { // update the staff uses left the lore
             max_Uses.set(getStorageKey(), PersistentDataType.INTEGER, decrement);
-            updateLore(lore);
-            lore.add("");
-            lore.add(Utils.colorTranslator("&eUses: " + decrement + " left"));
-            meta.setLore(lore);
-            item.setItemMeta(meta);
+            Utils.updateValueByPdc(item, meta, String.valueOf(decrement), "Uses: ", "&e", "", " left");
         } else { // destroy the staff when it reached the max uses
             player.getInventory().setItemInMainHand(null);
             player.sendMessage(Utils.colorTranslator(meta.getDisplayName() + " &d&lhas reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
-
+        Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
     }
 
 }
