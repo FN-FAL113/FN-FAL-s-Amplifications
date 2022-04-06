@@ -87,8 +87,11 @@ public class QuiverListener implements Listener {
             if (player.getGameMode() != GameMode.CREATIVE) {
                 Inventory playerInven = player.getInventory();
                 int slot = playerInven.first(Material.matchMaterial(event.getProjectile().getName()));
-                ItemStack itemStack = playerInven.getItem(slot);
+                if(slot == -1){
+                    return;
+                }
 
+                ItemStack itemStack = playerInven.getItem(slot);
                 SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
 
                 if (sfItem instanceof AbstractQuiver) {
