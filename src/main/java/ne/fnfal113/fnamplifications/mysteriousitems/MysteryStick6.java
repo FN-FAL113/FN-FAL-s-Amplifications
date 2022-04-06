@@ -30,7 +30,7 @@ public class MysteryStick6 extends AbstractStick {
     public MysteryStick6(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.mainStick = new MainStick(Keys.STICK_6_EXP_LEVELS, Keys.STICK_5_EXP_LEVELS, enchantments(), weaponLore(), stickLore(), 2, 15);
+        this.mainStick = new MainStick(Keys.STICK_6_EXP_LEVELS, Keys.STICK_6_DAMAGE, enchantments(), weaponLore(), stickLore(), 2, 15);
     }
 
     @Override

@@ -5,10 +5,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import dev.j3fftw.extrautils.interfaces.InventoryBlock;
 
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 
@@ -24,6 +28,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -43,9 +49,27 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
 
     private static final Map<BlockPosition, Integer> generatorProgress = new HashMap<>();
 
-    private static final CustomItemStack notGenerating = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
+    private static final Map<BlockPosition, Integer> generatorStatus = new HashMap<>();
+
+    private static final CustomItemStack NOT_GENERATING = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
             "&cNot Generating",
             "&ePlace a chest above first!"
+    );
+
+    private static final CustomItemStack NOT_GENERATING_FULL = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
+            "&cNot Generating",
+            "&eChest inventory full!"
+    );
+
+    private static final CustomItemStack CONDITION = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
+            "&cCurrent Condition: ",
+            "&ePlace a chest above first!"
+    );
+
+    private static final CustomItemStack CONDITION_BROKEN = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
+            "&cCurrent Condition: ",
+            "&eGenerator is broken! please repair!",
+            "&eDestroy the block and craft a new one"
     );
 
     private ItemStack item;
@@ -59,7 +83,8 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
             for (int i = 0; i < 9; i++) {
                 blockMenuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
             }
-            blockMenuPreset.addItem(4, notGenerating);
+            blockMenuPreset.addItem(4, NOT_GENERATING);
+            blockMenuPreset.addItem(0, CONDITION);
         });
 
         try {
@@ -68,55 +93,118 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        addItemHandler(
+                new BlockPlaceHandler(false) {
+                    @Override
+                    public void onPlayerPlace(@Nonnull BlockPlaceEvent e) {
+                        BlockStorage.addBlockInfo(e.getBlock().getLocation(), "generator_status",
+                                "100");
+                        generatorStatus.put(new BlockPosition(e.getBlock().getLocation()), 100);
+                    }
+                },
+                new BlockBreakHandler(false, false) {
+                    @Override
+                    @SuppressWarnings("ConstantConditions")
+                    public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
+                        if(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "generator_status") != null) {
+                            e.setDropItems(false);
+                            e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(),
+                                    SlimefunItem.getById(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "id") + "_BROKEN").getItem());
+                            generatorStatus.remove(new BlockPosition(e.getBlock().getLocation()));
+                        } else {
+                            e.getPlayer().sendMessage(Utils.
+                                    colorTranslator("&cSlimefun block data is missing! Please ask for replacement from your server admin"));
+                        }
+                    }
+                });
     }
 
     @Override
     public void preRegister() {
-        addItemHandler(new BlockTicker() {
+        addItemHandler(
+                new BlockTicker() {
+                    @Override
+                    @ParametersAreNonnullByDefault
+                    public void tick(Block b, SlimefunItem sf, Config data) {
+                        CustomMaterialGenerator.this.tick(b);
+                    }
 
-            @Override
-            @ParametersAreNonnullByDefault
-            public void tick(Block b, SlimefunItem sf, Config data) {
-                CustomMaterialGenerator.this.tick(b);
-            }
-
-            @Override
-            public boolean isSynchronized() {
-                return true;
-            }
-        });
+                    @Override
+                    public boolean isSynchronized() {
+                        return true;
+                    }
+                });
     }
 
     public void tick(@Nonnull Block b) {
         BlockMenu invMenu = BlockStorage.getInventory(b);
         Block targetBlock = b.getRelative(BlockFace.UP);
+        final BlockPosition pos = new BlockPosition(b);
 
-        if(invMenu.toInventory() != null && invMenu.hasViewer()) {
-            invMenu.replaceExistingItem(4, notGenerating);
+        if(!generatorStatus.containsKey(pos)) {
+            if (BlockStorage.getLocationInfo(b.getLocation(), "generator_status") != null) {
+                generatorStatus.put(pos, Integer.parseInt(BlockStorage.getLocationInfo(b.getLocation(), "generator_status")));
+            } else {
+                BlockStorage.addBlockInfo(b.getLocation(), "generator_status", "100");
+                generatorStatus.put(pos, 100);
+            }
         }
+
         if (targetBlock.getType() == Material.CHEST) {
             BlockState state = PaperLib.getBlockState(targetBlock, false).getState();
-            if (state instanceof InventoryHolder) {
+            if (state instanceof InventoryHolder && generatorStatus.get(pos) > 0) {
                 Inventory inv = ((InventoryHolder) state).getInventory();
                 if (inv.firstEmpty() != -1) {
-                    final BlockPosition pos = new BlockPosition(b);
                     int progress = generatorProgress.getOrDefault(pos, 0);
+                    int generatorCondition = generatorStatus.get(pos);
 
                     if (invMenu.toInventory() != null && invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aGenerating Material",
                                 "", "&bMaterial: " + this.material, "&bRate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getValueById(this.getId()) + " &aticks", "", "&2Progress: " + progress
                                 + "/"+ FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())));
+
+                        if(generatorCondition > 0){
+                            if(generatorCondition > 75 && generatorCondition <= 100) {
+                                invMenu.replaceExistingItem(0, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aCurrent Condition:",
+                                    "", "&eIn best condition" + " (" + generatorCondition + "%)"));
+                            } else if(generatorCondition > 50 && generatorCondition < 75){
+                                invMenu.replaceExistingItem(0, new CustomItemStack(Material.YELLOW_STAINED_GLASS_PANE, "&aCurrent Condition:",
+                                        "", "&eIn good condition" + " (" + generatorCondition + "%)"));
+                            } else if(generatorCondition > 25 && generatorCondition < 50){
+                                invMenu.replaceExistingItem(0, new CustomItemStack(Material.ORANGE_STAINED_GLASS_PANE, "&aCurrent Condition:",
+                                        "", "&eIn bad condition" + " (" + generatorCondition + "%)"));
+                            } else if(generatorCondition < 25){
+                                invMenu.replaceExistingItem(0, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&aCurrent Condition:",
+                                        "", "&eIn worst condition" + " (" + generatorCondition + "%)"));
+                            }
+                        } else {
+                            invMenu.replaceExistingItem(0, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&aCurrent Condition:",
+                                    "", "&eBroken generator" + " (" + generatorStatus.get(pos) + "%)"));
+                        }
                     }
 
                     if (progress >= FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())) {
                         progress = 0;
+                        if(ThreadLocalRandom.current().nextInt(100) < 32 && generatorCondition > 0){
+                            BlockStorage.addBlockInfo(b.getLocation(), "generator_status", String.valueOf(generatorCondition - 1));
+                            generatorStatus.put(pos, generatorCondition - 1);
+                        }
                         inv.addItem(this.item);
                     } else {
                         progress++;
                     }
                     generatorProgress.put(pos, progress);
+                } else if(invMenu.toInventory() != null && invMenu.hasViewer()){
+                    invMenu.replaceExistingItem(4, NOT_GENERATING_FULL);
                 }
+            } else if(invMenu.toInventory() != null && invMenu.hasViewer()){
+                invMenu.replaceExistingItem(4, ChestMenuUtils.getBackground());
+                invMenu.replaceExistingItem(0, CONDITION_BROKEN);
             }
+        } else if(invMenu.toInventory() != null && invMenu.hasViewer()) {
+            invMenu.replaceExistingItem(4, NOT_GENERATING);
+            invMenu.replaceExistingItem(0, CONDITION);
         }
     }
 
