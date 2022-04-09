@@ -8,11 +8,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
-import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -20,25 +20,20 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-@SuppressWarnings("ConstantConditions")
-public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandler {
+public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHandler {
 
     @Getter
     private final int chance;
 
-    public BlindBindGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 13);
+    public AchillesHeelGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+        super(itemGroup, item, recipeType, recipe, 18);
 
         this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player){
+    public void onDrag(InventoryClickEvent event, Player player) {
         if(event.getCursor() == null){
             return;
         }
@@ -47,14 +42,13 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
 
-        if(WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
-            if(slimefunItem != null && currentItem != null) {
+        if(slimefunItem != null && currentItem != null) {
+            if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
                 new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+            } else {
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
             }
-        } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bow and crossbows only"));
         }
-
     }
 
     @Override
@@ -64,8 +58,8 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance()){
-            entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
+        if((projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5){
+            event.setDamage(event.getDamage() * 2.0);
         }
     }
 

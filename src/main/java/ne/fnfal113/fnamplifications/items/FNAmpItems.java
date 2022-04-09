@@ -1921,6 +1921,18 @@ public class FNAmpItems {
             "&dAction: &cRight click"
     );
 
+    public static final SlimefunItemStack FN_GEM_ADAMANTINE = new SlimefunItemStack(
+            "FN_GEM_ADAMANTINE",
+            Material.EMERALD,
+            "&cAdamantine Gem",
+            "",
+            "&e% chance to prevent weapon or tools",
+            "&efrom having durability damage",
+            "",
+            "&dDrag and drop on weapon or",
+            "&dtools to bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_STOUT = new SlimefunItemStack(
             "FN_GEM_STOUT",
             Material.EMERALD,
@@ -1933,16 +1945,41 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
-    public static final SlimefunItemStack FN_GEM_ADAMANTINE = new SlimefunItemStack(
-            "FN_GEM_ADAMANTINE",
+    public static final SlimefunItemStack FN_GEM_AWAKEN = new SlimefunItemStack(
+            "FN_GEM_AWAKEN",
             Material.EMERALD,
-            "&cAdamantine Gem",
+            "&cAwaken Gem",
             "",
-            "&e% chance to prevent weapon or tools",
-            "&efrom having durability damage",
+            "&e% chance to instant resurrect the",
+            "&eplayer upon death at same location",
             "",
-            "&dDrag and drop on weapon or",
-            "&dtools to bind this gem"
+            "&dDrag and drop on a helmet",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_ACHILLES_HEEL = new SlimefunItemStack(
+            "FN_GEM_ACHILLES_HEEL",
+            Material.EMERALD,
+            "&cAchilles Heel Gem",
+            "",
+            "&e% chance to deal 2x damage when",
+            "&ethe arrow hits the achilles heel",
+            "&eof an entity or player",
+            "",
+            "&dDrag and drop on a bow or crossbow",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_AVENGE = new SlimefunItemStack(
+            "FN_GEM_AVENGE",
+            Material.EMERALD,
+            "&cAvenge Gem",
+            "",
+            "&e% chance to spawn primed creeper",
+            "&eupon player death at same location",
+            "",
+            "&dDrag and drop on a boots",
+            "&dto bind this gem"
     );
 
     public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(
