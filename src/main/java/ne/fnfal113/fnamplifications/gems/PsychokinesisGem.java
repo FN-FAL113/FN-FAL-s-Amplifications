@@ -8,20 +8,20 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import ne.fnfal113.fnamplifications.gems.handlers.OnArrowHitHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.entity.*;
-import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PsychokinesisGem extends AbstractGem implements OnArrowHitHandler {
+public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageHandler {
 
     @Getter
     private final int chance;
@@ -53,16 +53,15 @@ public class PsychokinesisGem extends AbstractGem implements OnArrowHitHandler {
     }
 
     @Override
-    public void onArrowHit(ProjectileHitEvent event, Player player, LivingEntity entity){
-        if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()),
+    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile) {
+        if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(shooter.getUniqueId()),
                 entity.getLocation(), Interaction.ATTACK_ENTITY)) {
             return;
         }
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
-            player.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
-            entity.teleport(player);
+            shooter.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
+            entity.teleport(shooter);
         }
-
     }
 }

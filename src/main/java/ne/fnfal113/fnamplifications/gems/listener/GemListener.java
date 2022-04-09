@@ -68,10 +68,22 @@ public class GemListener implements Listener {
                         if(clazz.isInstance(gem)) {
                             consumer.accept(clazz.cast(gem));
                         } // is gem instance of sub interface of GemHandler
-                    } // is gem instanceOf Gem
+                    } // is gem instance of AbstractGem
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onEntityDeath(PlayerDeathEvent event){
+
+        Player player = event.getEntity();
+        for (ItemStack armor: player.getInventory().getArmorContents()) {
+            if(armor != null) {
+                callGemHandler(OnPlayerDeathHandler.class, handler -> handler.onPlayerDeath(event), armor, getPersistentDataContainer(armor));
+            }
+        }
+
     }
 
     @EventHandler
@@ -101,6 +113,30 @@ public class GemListener implements Listener {
         }
 
         /*
+         * If the damager is a projectile and the shooter is a player
+         */
+        if(event.getDamager() instanceof Projectile && event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE){
+            Projectile projectile = (Projectile) event.getDamager();
+
+            if(!(projectile.getShooter() instanceof Player)){
+                return;
+            }
+
+            if(!(event.getEntity() instanceof LivingEntity)){
+                return;
+            }
+
+            Player player = (Player) projectile.getShooter();
+            LivingEntity livingEntity = (LivingEntity) event.getEntity();
+            ItemStack itemStackHand = player.getInventory().getItemInMainHand();
+            PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
+
+            callGemHandler(OnProjectileDamageHandler.class,
+                    handler -> handler.onProjectileDamage(event, player, livingEntity, projectile),
+                    itemStackHand, pdcHand);
+        }
+
+        /*
          * If the damager is a player and victim is a living entity
          */
         if(event.getDamager() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
@@ -124,7 +160,7 @@ public class GemListener implements Listener {
         }
 
         /*
-         * If the victim is a player and damager is a living entity
+         * If the victim is a player and damager is a living entity or may be projectile
          */
         if(event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
@@ -159,42 +195,6 @@ public class GemListener implements Listener {
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
         callGemHandler(OnBlockBreakHandler.class, handler -> handler.onBlockBreak(event, player), itemStack, pdc);
-    }
-
-    @EventHandler
-    public void onArrowHit(ProjectileHitEvent event){
-        if(!(event.getEntity() instanceof Arrow)){
-            return;
-        }
-        Arrow arrow = (Arrow) event.getEntity();
-
-        if(!(event.getHitEntity() instanceof LivingEntity)){
-            return;
-        }
-
-        if(arrow.getShooter() instanceof Player){
-            LivingEntity livingEntity = (LivingEntity) event.getHitEntity();
-
-            Player player = (Player) arrow.getShooter();
-
-            if(player.getInventory().getItemInMainHand().getType() != Material.AIR){
-                ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-                PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
-
-                callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), itemStack,pdc);
-            } // check if player in main hand is not null or air
-
-            if(livingEntity instanceof Player) {
-                for (ItemStack armor : ((Player) livingEntity).getInventory().getArmorContents()) {
-                    if (armor != null) {
-                        PersistentDataContainer pdc = getPersistentDataContainer(armor);
-                        callGemHandler(OnArrowHitHandler.class, handler -> handler.onArrowHit(event, player, livingEntity), armor,pdc);
-                    }
-                }
-            } // check if the entity hit is instance of player
-
-        }
     }
 
     @EventHandler

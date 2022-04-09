@@ -136,6 +136,24 @@ public class RegisterGems {
                 FNAmpItems.AGILITY_RUNE, new ItemStack(Material.BLAZE_POWDER, 2), FNAmpItems.AGILITY_RUNE})
                 .register(instance);
 
+        new AwakenGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_AWAKEN, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.HEART_RUNE, new ItemStack(Material.BLAZE_POWDER), FNAmpItems.HEART_RUNE,
+                null, new ItemStack(Material.EMERALD), null,
+                FNAmpItems.HEART_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.HEART_RUNE})
+                .register(instance);
+
+        new AvengeGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_AVENGE, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.PESTILENCE_RUNE, new ItemStack(Material.ROTTEN_FLESH), FNAmpItems.PESTILENCE_RUNE,
+                new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.EMERALD), new ItemStack(Material.ROTTEN_FLESH),
+                FNAmpItems.LINGER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.LINGER_RUNE})
+                .register(instance);
+
+        new AchillesHeelGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_ACHILLES_HEEL, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.PESTILENCE_RUNE, new ItemStack(Material.ROTTEN_FLESH), FNAmpItems.PESTILENCE_RUNE,
+                new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.EMERALD), new ItemStack(Material.ROTTEN_FLESH),
+                FNAmpItems.LINGER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.LINGER_RUNE})
+                .register(instance);
+
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
                 FNAmpItems.UNBIND_RUNE, new ItemStack(Material.DIAMOND), FNAmpItems.UNBIND_RUNE,

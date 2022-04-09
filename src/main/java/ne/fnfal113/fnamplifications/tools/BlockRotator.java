@@ -30,13 +30,14 @@ public class BlockRotator extends SlimefunItem {
         if(!Slimefun.getProtectionManager().hasPermission(
                 Bukkit.getOfflinePlayer(player.getUniqueId()),
                 player.getLocation(), Interaction.BREAK_BLOCK)){
-            player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have the permission to interact that block!"));
+            player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have permission to rotate that block!"));
             return;
         }
         BlockData blockData = block.getBlockData();
 
         if(player.isSneaking()){
-            if(Tag.DOORS.isTagged(block.getType())){
+            if(Tag.DOORS.isTagged(block.getType()) || Tag.TALL_FLOWERS.isTagged(block.getType()) ||
+                    Tag.FLOWERS.isTagged(block.getType())){
                 return;
             }
 
