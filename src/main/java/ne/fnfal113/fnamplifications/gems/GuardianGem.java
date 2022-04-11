@@ -92,6 +92,7 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
                     return;
                 }
 
+                player.sendMessage(Utils.colorTranslator("&6Guardian gem has taken effect!"));
                 runnableMap.put(player.getUniqueId(),
                         guardianTask.runTaskTimer(FNAmplifications.getInstance(), 5L, 3L));
                 entityUUIDMap.put(player.getUniqueId(), guardianTask.getZombie());

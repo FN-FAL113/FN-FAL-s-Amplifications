@@ -74,6 +74,7 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
                 Location newDamagerLoc = new Location(victim.getWorld(), damager.getLocation().getX() - nX,
                         damager.getLocation().getY(), damager.getLocation().getZ() - nZ, damager.getLocation().getYaw(), damager.getLocation().getPitch());
                 victim.teleport(newDamagerLoc);
+                victim.sendMessage(Utils.colorTranslator("&6Impostor gem has taken effect!"));
             } // teleport behind the attacker
         }
 

@@ -109,9 +109,12 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
                     public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                         if(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "generator_status") != null) {
                             e.setDropItems(false);
+                            e.setCancelled(true);
+                            e.getBlock().setType(Material.AIR);
                             e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(),
                                     SlimefunItem.getById(BlockStorage.getLocationInfo(e.getBlock().getLocation(), "id") + "_BROKEN").getItem());
                             generatorStatus.remove(new BlockPosition(e.getBlock().getLocation()));
+                            BlockStorage.clearBlockInfo(e.getBlock().getLocation());
                         } else {
                             e.getPlayer().sendMessage(Utils.
                                     colorTranslator("&cSlimefun block data is missing! Please ask for replacement from your server admin"));

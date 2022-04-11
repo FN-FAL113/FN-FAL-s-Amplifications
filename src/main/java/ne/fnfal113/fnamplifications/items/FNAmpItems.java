@@ -1957,6 +1957,18 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_AVENGE = new SlimefunItemStack(
+            "FN_GEM_AVENGE",
+            Material.EMERALD,
+            "&cAvenge Gem",
+            "",
+            "&e% chance to spawn primed creeper",
+            "&eupon player death at same location",
+            "",
+            "&dDrag and drop on a boots",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_ACHILLES_HEEL = new SlimefunItemStack(
             "FN_GEM_ACHILLES_HEEL",
             Material.EMERALD,
@@ -1970,15 +1982,15 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
-    public static final SlimefunItemStack FN_GEM_AVENGE = new SlimefunItemStack(
-            "FN_GEM_AVENGE",
+    public static final SlimefunItemStack FN_GEM_DISARMOR = new SlimefunItemStack(
+            "FN_GEM_DISARMOR",
             Material.EMERALD,
-            "&cAvenge Gem",
+            "&cDisarmor Gem",
             "",
-            "&e% chance to spawn primed creeper",
-            "&eupon player death at same location",
+            "&e% chance of unequipping a random",
+            "&earmor piece from your enemy",
             "",
-            "&dDrag and drop on a boots",
+            "&dDrag and drop on sword or axe",
             "&dto bind this gem"
     );
 

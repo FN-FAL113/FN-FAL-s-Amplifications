@@ -21,6 +21,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHandler {
 
     @Getter
@@ -58,8 +60,10 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
             return;
         }
 
-        if((projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() &&
+                (projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5){
             event.setDamage(event.getDamage() * 2.0);
+            shooter.sendMessage(Utils.colorTranslator("&6Achilles heel gem has taken effect!"));
         }
     }
 
