@@ -56,7 +56,7 @@ public class GemListener implements Listener {
        callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event), itemStack, pdc);
     }
 
-    public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack ,PersistentDataContainer pdc) {
+    public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack, PersistentDataContainer pdc) {
         if (pdc.has(new NamespacedKey(FNAmplifications.getInstance(),
                 itemStack.getType().toString().toLowerCase() + "_socket_amount"), PersistentDataType.INTEGER)) {
             for (NamespacedKey key : GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS()) {
@@ -128,6 +128,11 @@ public class GemListener implements Listener {
 
             Player player = (Player) projectile.getShooter();
             LivingEntity livingEntity = (LivingEntity) event.getEntity();
+
+            if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+                return;
+            }
+
             ItemStack itemStackHand = player.getInventory().getItemInMainHand();
             PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
 
@@ -142,12 +147,14 @@ public class GemListener implements Listener {
         if(event.getDamager() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             Player player = (Player) event.getDamager();
 
-            if(player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-                ItemStack itemStackHand = player.getInventory().getItemInMainHand();
-                PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
-
-                callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), itemStackHand, pdcHand);
+            if(player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+                return;
             } // check if player is holding an item in main hand
+
+            ItemStack itemStackHand = player.getInventory().getItemInMainHand();
+            PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
+
+            callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), itemStackHand, pdcHand);
 
             if(event.getEntity().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
                 if(Objects.equals(event.getEntity().getPersistentDataContainer().get(Keys.GUARDIAN_KEY, PersistentDataType.STRING), player.getName())) {
@@ -275,7 +282,7 @@ public class GemListener implements Listener {
 
     public PersistentDataContainer getPersistentDataContainer(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
-        Validate.notNull(meta, "Meta must not be null!");
+        Validate.notNull(meta, "Meta must not be null! Item type (for debugging): " + itemStack.getType());
         return meta.getPersistentDataContainer();
     }
 

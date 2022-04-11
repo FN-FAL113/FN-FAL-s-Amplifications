@@ -66,6 +66,7 @@ public class ParryGem extends AbstractGem implements OnDamageHandler {
             int random = ThreadLocalRandom.current().nextInt(100);
             if(random < getChance()){
                 event.setDamage(event.getDamage() * 0.75);
+                event.getDamager().sendMessage(Utils.colorTranslator("&6Parry gem has taken effect!"));
             }
         }
     }

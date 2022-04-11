@@ -63,6 +63,7 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
         if(random < getChance()){
             livingEntity.setFireTicks(60);
+            event.getDamager().sendMessage(Utils.colorTranslator("&cInferno gem has taken effect!"));
         } // set the attacked entity on fire
 
         for(Entity entity : livingEntity.getNearbyEntities(7, 4,7)){

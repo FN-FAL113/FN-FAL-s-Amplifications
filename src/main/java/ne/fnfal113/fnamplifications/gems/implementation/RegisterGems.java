@@ -149,9 +149,15 @@ public class RegisterGems {
                 .register(instance);
 
         new AchillesHeelGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_ACHILLES_HEEL, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
-                FNAmpItems.PESTILENCE_RUNE, new ItemStack(Material.ROTTEN_FLESH), FNAmpItems.PESTILENCE_RUNE,
-                new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.EMERALD), new ItemStack(Material.ROTTEN_FLESH),
-                FNAmpItems.LINGER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.LINGER_RUNE})
+                FNAmpItems.AGILITY_RUNE, new ItemStack(Material.FEATHER), FNAmpItems.AGILITY_RUNE,
+                new ItemStack(Material.ARROW), new ItemStack(Material.EMERALD), new ItemStack(Material.ARROW),
+                FNAmpItems.PESTILENCE_RUNE, null, FNAmpItems.INTELLECT_RUNE})
+                .register(instance);
+
+        new DisarmorGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DISARMOR, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.INTELLECT_RUNE, null, FNAmpItems.PESTILENCE_RUNE,
+                new ItemStack(Material.BLAZE_POWDER), new ItemStack(Material.EMERALD), new ItemStack(Material.BLAZE_POWDER),
+                FNAmpItems.POWER_RUNE, null, FNAmpItems.INTELLECT_RUNE})
                 .register(instance);
 
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{

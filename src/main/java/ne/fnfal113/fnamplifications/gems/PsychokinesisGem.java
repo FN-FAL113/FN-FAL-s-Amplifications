@@ -62,6 +62,7 @@ public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageH
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             shooter.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
             entity.teleport(shooter);
+            shooter.sendMessage(Utils.colorTranslator("&6Psychokinesis gem has taken effect!"));
         }
     }
 }

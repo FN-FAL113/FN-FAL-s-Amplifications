@@ -68,6 +68,7 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
                     Damageable damageable = (Damageable) meta;
                     damageable.setDamage(damageable.getDamage() + 4);
                     entityEquipment.setItemMeta(meta);
+                    event.getDamager().sendMessage(Utils.colorTranslator("&eArmor impair gem has taken effect!"));
                 }
             }
         }

@@ -59,6 +59,7 @@ public class AvengeGem extends AbstractGem implements OnPlayerDeathHandler {
             Creeper creeper = player.getWorld().spawn(loc.clone(), Creeper.class);
             creeper.setPowered(true); // big boomer creeper
             creeper.setExplosionRadius(3);
+            event.getEntity().sendMessage(Utils.colorTranslator("&cAvenge gem has taken effect!"));
         }
     }
 

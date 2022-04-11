@@ -59,6 +59,8 @@ public class ThrowableWeapon {
     public void floatThrowItem(Player player, ItemStack itemStack, boolean returnWeapon){
             ArmorStand as = spawnArmorstand(player, itemStack, false);
 
+            player.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 1.0F, 1.0F);
+
             int id = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
                 int x = ThreadLocalRandom.current().nextInt(3);
                 int xFinal = x < 1 ? -2 : 2;
@@ -79,6 +81,7 @@ public class ThrowableWeapon {
         Vector vector = player.getLocation().add(player.getLocation().getDirection().multiply(9).normalize())
                 .subtract(player.getLocation().toVector()).toVector();
 
+        player.playSound(player.getLocation(), Sound.ENTITY_WITCH_THROW, 1.0F, 1.0F);
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
             as.teleport(player.getLocation().add(0,0.9, 0));
 

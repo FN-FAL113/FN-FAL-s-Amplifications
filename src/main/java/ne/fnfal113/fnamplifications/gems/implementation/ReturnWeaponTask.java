@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.gems.implementation;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -34,11 +35,13 @@ public class ReturnWeaponTask extends BukkitRunnable {
 
         getArmorStand().teleport(asLocation.subtract(asVector.subtract(pVector).normalize()).setDirection(pLocation.getDirection()));
 
+        // if player is not online, drop the throwable immediately
         if(!getPlayer().isOnline()){
             dropItem(asLocation);
             stopTask();
         }
 
+        // drop the item if the distance between player and throwable is square root of 150 blocks away
         if(distanceBetween(asLocation, pLocation) > 150){
             Location dropLoc = dropItem(asLocation);
             getPlayer().sendMessage(Utils.colorTranslator("&cWeapon has not been returned because you're too far!"));
@@ -57,12 +60,12 @@ public class ReturnWeaponTask extends BukkitRunnable {
             } else {
                 getPlayer().getInventory().addItem(getItemStack().clone());
             }
-
+            getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
             stopTask();
         }
     }
 
-    public Location dropItem(Location location){
+    public Location dropItem(Location location){ // drop the throwable weapon if player inventory is full
         Item droppedItem = getPlayer().getWorld().dropItem(location, getItemStack().clone());
         droppedItem.setOwner(getPlayer().getUniqueId());
         droppedItem.setGlowing(true);
@@ -70,11 +73,12 @@ public class ReturnWeaponTask extends BukkitRunnable {
         return droppedItem.getLocation();
     }
 
+    // get the distance between two locations and return the square root of the distance
     public double distanceBetween(Location asLoc, Location pLoc){
         return asLoc.distance(pLoc);
     }
 
-    public void stopTask(){
+    public void stopTask(){ // stop the task once task has been completed
         getArmorStand().remove();
         this.cancel();
     }
