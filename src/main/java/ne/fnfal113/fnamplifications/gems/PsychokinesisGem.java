@@ -13,8 +13,11 @@ import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.*;
-import org.bukkit.entity.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Particle;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -62,7 +65,7 @@ public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageH
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             shooter.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
             entity.teleport(shooter);
-            shooter.sendMessage(Utils.colorTranslator("&6Psychokinesis gem has taken effect!"));
+            sendGemMessage(shooter, this.getItemName());
         }
     }
 }

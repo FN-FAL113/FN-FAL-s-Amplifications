@@ -16,12 +16,18 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Container;
-import org.bukkit.entity.*;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -108,6 +114,7 @@ public class GemListener implements Listener {
         if(!(event.getEntity() instanceof LivingEntity)){
             return;
         }
+
         if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
             return;
         }
@@ -131,7 +138,7 @@ public class GemListener implements Listener {
 
             if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
                 return;
-            }
+            } // check if player is holding an item in main hand
 
             ItemStack itemStackHand = player.getInventory().getItemInMainHand();
             PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
@@ -183,6 +190,10 @@ public class GemListener implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
+        if(event.isCancelled()){
+            return;
+        }
+
         Player player = event.getPlayer();
 
         if(player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR){
@@ -198,7 +209,6 @@ public class GemListener implements Listener {
         }
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
         callGemHandler(OnBlockBreakHandler.class, handler -> handler.onBlockBreak(event, player), itemStack, pdc);
@@ -221,7 +231,6 @@ public class GemListener implements Listener {
         }
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
         callGemHandler(OnRightClickHandler.class, handler -> handler.onRightClick(player), itemStack, pdc);

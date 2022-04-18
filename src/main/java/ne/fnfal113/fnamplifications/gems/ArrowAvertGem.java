@@ -54,7 +54,9 @@ public class ArrowAvertGem extends AbstractGem implements OnDamageHandler {
     public void onDamage(EntityDamageByEntityEvent event) {
         if(ThreadLocalRandom.current().nextInt(100) < getChance() &&
                 event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE){
-            event.getEntity().sendMessage(Utils.colorTranslator("&6Arrow avert gem has taken effect!"));
+            if(event.getEntity() instanceof Player) {
+                sendGemMessage((Player) event.getEntity(), this.getItemName());
+            }
             event.setCancelled(true);
         }
     }

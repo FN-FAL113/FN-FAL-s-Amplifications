@@ -8,7 +8,8 @@ import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -20,7 +21,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MysteryStick6 extends AbstractStick {
 

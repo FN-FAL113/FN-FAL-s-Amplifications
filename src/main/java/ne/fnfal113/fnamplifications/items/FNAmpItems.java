@@ -1994,6 +1994,31 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_DISARM = new SlimefunItemStack(
+            "FN_GEM_DISARM",
+            Material.EMERALD,
+            "&cDisarm Gem",
+            "",
+            "&e% chance of unequipping the weapon",
+            "&ethat your enemy is holding",
+            "",
+            "&dDrag and drop on sword or axe",
+            "&dto bind this gem"
+    );
+
+    public static final SlimefunItemStack FN_GEM_SMOKE_CRIMINAL = new SlimefunItemStack(
+            "FN_GEM_SMOKE_CRIMINAL",
+            Material.EMERALD,
+            "&cSmoke Criminal Gem",
+            "",
+            "&e% chance to become invulnerable for",
+            "&e5 seconds when health is below 30%",
+            "&ewhile being protected by the smoke",
+            "",
+            "&dDrag and drop on a boots",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_BLOCK_ROTATOR = new SlimefunItemStack(
             "FN_BLOCK_ROTATOR",
             Material.CLOCK,

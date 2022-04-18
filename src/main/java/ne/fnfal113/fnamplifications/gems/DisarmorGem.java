@@ -50,7 +50,7 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler {
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event) {
-        if(!(event.getEntity() instanceof Player) || !(event.getDamager() instanceof Player)){
+        if(!(event.getEntity() instanceof Player)){
             return;
         }
         Player victim = (Player) event.getEntity();
@@ -90,7 +90,7 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler {
         } else {
             victim.getWorld().dropItem(victim.getLocation(), armor.clone());
         }
-        damager.sendMessage(Utils.colorTranslator("&6Disarmor gem has taken effect!"));
+        sendGemMessage(damager, this.getItemName());
     }
 
 }

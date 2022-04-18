@@ -60,7 +60,7 @@ public class ThunderBoltGem extends AbstractGem implements OnDamageHandler {
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             livingEntity.getWorld().strikeLightning(livingEntity.getLocation());
             player.setNoDamageTicks(20);
-            player.sendMessage(Utils.colorTranslator("&6Thunderbolt gem has taken effect!"));
+            sendGemMessage(player, this.getItemName());
         } // if below the chance, strike lightning at the victim and set no damage for the attacker for 1 second
     }
 }

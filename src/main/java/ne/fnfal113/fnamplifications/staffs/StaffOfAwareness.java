@@ -6,7 +6,9 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,7 +17,10 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class StaffOfAwareness extends AbstractStaff {
 
@@ -46,6 +51,10 @@ public class StaffOfAwareness extends AbstractStaff {
         int amount = 0;
 
         ItemMeta meta = item.getItemMeta();
+
+        if (!hasPermissionToCast(meta.getDisplayName(), player, player.getLocation())) {
+            return;
+        }
 
         ItemStack writtenBook = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) writtenBook.getItemMeta();

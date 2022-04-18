@@ -11,7 +11,11 @@ import ne.fnfal113.fnamplifications.gems.handlers.OnPlayerDeathHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -60,8 +64,8 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler {
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
                 player.spigot().respawn();
                 player.teleport(loc.clone());
-                player.sendMessage(Utils.colorTranslator("&6Awaken gem has taken effect and resurrected you instantly!"));
                 player.playSound(loc, Sound.ENTITY_VINDICATOR_CELEBRATE, 1.0F, 1.0F);
+                sendGemMessage(player, this.getItemName());
                 for (int d = 0; d <= 90; d++) {
                     int r = ThreadLocalRandom.current().nextInt(255);
                     int g = ThreadLocalRandom.current().nextInt(255);

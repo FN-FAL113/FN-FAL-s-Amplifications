@@ -11,9 +11,10 @@ import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.gems.implementation.ThrowableWeapon;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -57,13 +58,22 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
         } // check if player has permission to build on the current location
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
+        try{
+            String pdcValue = pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false");
 
-        // creates throw a task from this object instance
-        throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), true), itemStack.clone(),
-                false, true, true, Boolean.parseBoolean(pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false")));
+            // creates throw a task from this object instance
+            throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), true), itemStack.clone(),
+                    false, true, true, pdcValue.equalsIgnoreCase("true"));
+        } catch (IllegalArgumentException e){
+            pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
+            itemStack.setItemMeta(meta);
+            return;
+        }
 
         itemStack.setAmount(0);
     }
+
 }

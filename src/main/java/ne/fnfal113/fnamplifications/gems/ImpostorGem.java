@@ -11,7 +11,7 @@ import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.*;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -74,7 +74,7 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
                 Location newDamagerLoc = new Location(victim.getWorld(), damager.getLocation().getX() - nX,
                         damager.getLocation().getY(), damager.getLocation().getZ() - nZ, damager.getLocation().getYaw(), damager.getLocation().getPitch());
                 victim.teleport(newDamagerLoc);
-                victim.sendMessage(Utils.colorTranslator("&6Impostor gem has taken effect!"));
+                sendGemMessage(victim, this.getItemName());
             } // teleport behind the attacker
         }
 
