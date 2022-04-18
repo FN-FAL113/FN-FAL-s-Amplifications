@@ -3,14 +3,13 @@ package ne.fnfal113.fnamplifications.staffs;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AirStriderTask;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +17,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class StaffOfAirStrider extends AbstractStaff {
@@ -53,12 +54,10 @@ public class StaffOfAirStrider extends AbstractStaff {
             }
             return;
         } else {
-            if(Slimefun.getProtectionManager().hasPermission
-                    (Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.PLACE_BLOCK)) {
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "You can now walk on the air for 10 seconds");
+            if(hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
+                player.sendMessage(Utils.colorTranslator("&dYou can now walk on the air for 10 seconds"));
                 taskMap.put(player.getUniqueId(), new AirStriderTask(player).runTaskTimer(FNAmplifications.getInstance(), 0, 1L));
             } else{
-                player.sendMessage(ChatColor.RED  + "You have no permission to cast air strider on this land claim!");
                 return;
             }
         }
@@ -73,7 +72,7 @@ public class StaffOfAirStrider extends AbstractStaff {
                 player.sendMessage(Utils.colorTranslator("&dAir strider will expire in ") + i + " seconds");
             }
             if(i.get() == 0){
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "Air Strider has expired!");
+                player.sendMessage(Utils.colorTranslator("&dAir Strider has expired!"));
                 taskMap.get(player.getUniqueId()).cancel();
                 taskMap.remove(player.getUniqueId());
                 task.cancel();

@@ -1,13 +1,17 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.*;
-import org.bukkit.entity.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Tag;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Damageable;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.RayTraceResult;
@@ -78,12 +82,10 @@ public class ThrowWeaponTask extends BukkitRunnable {
         if(!entityList.isEmpty() && !entityList.contains(getPlayer())){
             for(int i = 0; i < entityList.size(); i++){
                 if(entityList.get(i) instanceof Damageable && entityList.get(i).getUniqueId() != getPlayer().getUniqueId()){
-                    if(Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(getPlayer().getUniqueId()), entityList.get(i).getLocation(), Interaction.BREAK_BLOCK)) {
-                        if(WeaponArmorEnum.SWORDS.isTagged(getItemStack().clone().getType())) {
-                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 8 : 5);
-                        } else {
-                            ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 10 : 6);
-                        }
+                    if(WeaponArmorEnum.SWORDS.isTagged(getItemStack().clone().getType())) {
+                        ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 8 : 5, getPlayer());
+                    } else {
+                        ((Damageable) entityList.get(i)).damage(ThreadLocalRandom.current().nextInt(100) < 35 ? 10 : 6, getPlayer());
                     }
                 }
             }

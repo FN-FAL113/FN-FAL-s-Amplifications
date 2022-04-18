@@ -5,14 +5,15 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AreaOfEffectStaffTask;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,12 +49,7 @@ public class StaffOfDeepFreeze extends AbstractStaff {
             return;
         }
 
-        if (!Slimefun.getProtectionManager().hasPermission(
-                Bukkit.getOfflinePlayer(player.getUniqueId()),
-                block,
-                Interaction.BREAK_BLOCK)
-        ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast deep-freeze there!");
+        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
             return;
         }
 
@@ -67,4 +63,5 @@ public class StaffOfDeepFreeze extends AbstractStaff {
         cloudStaff.spawnCloud();
 
     }
+
 }

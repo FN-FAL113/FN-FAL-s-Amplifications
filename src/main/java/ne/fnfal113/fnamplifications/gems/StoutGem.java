@@ -53,7 +53,7 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler {
     public void onDurabilityChange(PlayerItemDamageEvent event) {
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Utils.colorTranslator("&6Stout gem has taken effect!"));
+            sendGemMessage(event.getPlayer(), this.getItemName());
         }
     }
 

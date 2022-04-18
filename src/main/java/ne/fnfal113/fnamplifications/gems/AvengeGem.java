@@ -11,7 +11,7 @@ import ne.fnfal113.fnamplifications.gems.handlers.OnPlayerDeathHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.*;
+import org.bukkit.Location;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -59,7 +59,7 @@ public class AvengeGem extends AbstractGem implements OnPlayerDeathHandler {
             Creeper creeper = player.getWorld().spawn(loc.clone(), Creeper.class);
             creeper.setPowered(true); // big boomer creeper
             creeper.setExplosionRadius(3);
-            event.getEntity().sendMessage(Utils.colorTranslator("&cAvenge gem has taken effect!"));
+            sendGemMessage(event.getEntity(), this.getItemName());
         }
     }
 

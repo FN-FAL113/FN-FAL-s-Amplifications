@@ -9,7 +9,10 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,7 +21,12 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class StaffOfMinerals extends AbstractStaff {
 
@@ -51,6 +59,10 @@ public class StaffOfMinerals extends AbstractStaff {
         List<String> firstPage = new ArrayList<>();
 
         int amount = 0;
+
+        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
+            return;
+        }
 
         for(int y = WorldUtils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight() - 1; y++) {
             for(int x = 0; x <= 15; x++) {

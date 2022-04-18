@@ -66,7 +66,10 @@ public class DeberserkGem extends AbstractGem implements OnDamageHandler {
         if(WeaponArmorEnum.AXES.isTagged(damager.getEquipment().getItemInMainHand().getType())){
             if(ThreadLocalRandom.current().nextInt(100) < getChance()){
                 event.setDamage(event.getDamage() * 0.75);
-                event.getDamager().sendMessage(Utils.colorTranslator("&6Deberserk gem has taken effect!"));
+
+                if(event.getEntity() instanceof Player) {
+                    sendGemMessage((Player) event.getEntity(), this.getItemName());
+                }
             }
         }
     }

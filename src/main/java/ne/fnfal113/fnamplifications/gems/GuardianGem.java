@@ -15,7 +15,13 @@ import ne.fnfal113.fnamplifications.gems.implementation.GuardianTask;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.*;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.Flying;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Phantom;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -92,7 +98,7 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler {
                     return;
                 }
 
-                player.sendMessage(Utils.colorTranslator("&6Guardian gem has taken effect!"));
+                sendGemMessage(player, this.getItemName());
                 runnableMap.put(player.getUniqueId(),
                         guardianTask.runTaskTimer(FNAmplifications.getInstance(), 5L, 3L));
                 entityUUIDMap.put(player.getUniqueId(), guardianTask.getZombie());

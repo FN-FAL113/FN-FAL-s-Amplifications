@@ -4,32 +4,28 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
+import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHandler {
+public class DisarmGem extends AbstractGem implements OnDamageHandler {
 
     @Getter
     private final int chance;
 
-    public AchillesHeelGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 18);
+    public DisarmGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+        super(itemGroup, item, recipeType, recipe, 8);
 
         this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
@@ -45,25 +41,35 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
 
         if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
+            if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())) {
                 new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
+                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords and axes only"));
             }
         }
     }
 
     @Override
-    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile) {
-        if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(shooter.getUniqueId()),
-                entity.getLocation(), Interaction.ATTACK_ENTITY)) {
+    public void onDamage(EntityDamageByEntityEvent event) {
+        if(!(event.getEntity() instanceof Player)){
             return;
         }
+        Player victim = (Player) event.getEntity();
+        Player damager = (Player) event.getDamager();
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() &&
-                (projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5){
-            event.setDamage(event.getDamage() * 2.0);
-            sendGemMessage(shooter, this.getItemName());
+        if(ThreadLocalRandom.current().nextInt(100) < getChance()) {
+            if(victim.getInventory().getItemInMainHand().getType() != Material.AIR){
+                ItemStack itemInMainHand = victim.getInventory().getItemInMainHand();
+                int slot = victim.getInventory().firstEmpty();
+
+                victim.getInventory().setItemInMainHand(null);
+                if (slot != -1) {
+                    victim.getInventory().setItem(slot, itemInMainHand.clone());
+                } else {
+                    victim.getWorld().dropItem(victim.getLocation(), itemInMainHand.clone());
+                }
+                sendGemMessage(damager, this.getItemName());
+            }
         }
     }
 

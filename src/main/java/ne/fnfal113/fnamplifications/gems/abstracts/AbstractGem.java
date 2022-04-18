@@ -48,6 +48,15 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
     /**
      *
+     * @param player the player who owns the gem
+     * @param gemName the name of the gem
+     */
+    public void sendGemMessage(Player player, String gemName){
+        player.sendMessage(Utils.colorTranslator("&6" + gemName + " has taken effect!"));
+    }
+
+    /**
+     *
      * @param player the thrower of the weapon
      * @return if the player has permission to throw his weapon in the current location
      */

@@ -3,12 +3,13 @@ package ne.fnfal113.fnamplifications.staffs;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.AreaEffectCloud;
 import org.bukkit.entity.EntityType;
@@ -51,12 +52,7 @@ public class StaffOfConfusion extends AbstractStaff {
             return;
         }
 
-        if (!Slimefun.getProtectionManager().hasPermission(
-                Bukkit.getOfflinePlayer(player.getUniqueId()),
-                block,
-                Interaction.BREAK_BLOCK)
-        ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to cast confusion there!");
+        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
             return;
         }
 

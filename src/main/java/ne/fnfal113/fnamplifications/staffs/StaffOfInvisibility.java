@@ -8,7 +8,9 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
-import org.bukkit.*;
+import ne.fnfal113.fnamplifications.utils.Utils;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -45,12 +47,16 @@ public class StaffOfInvisibility extends AbstractStaff {
                 player.isInvisible() : player.hasPotionEffect(PotionEffectType.INVISIBILITY);
 
         if (isInvisible) { // #isInvisible() only supports 1.16 above
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour invisibility is still active!"));
+            player.sendMessage(Utils.colorTranslator("&cYour invisibility is still active!"));
             return;
         }
         ItemStack item = player.getInventory().getItemInMainHand();
 
         ItemMeta meta = item.getItemMeta();
+
+        if (!hasPermissionToCast(meta.getDisplayName(), player, player.getLocation())) {
+            return;
+        }
 
         mainStaff.updateMeta(item, meta, player);
 
@@ -61,7 +67,7 @@ public class StaffOfInvisibility extends AbstractStaff {
         PotionEffect effect2 = new PotionEffect(PotionEffectType.INVISIBILITY,115,1, false, false);
         player.addPotionEffect(effect);
         player.addPotionEffect(effect2);
-        player.sendMessage(ChatColor.GREEN + "You are now invisible to all players!");
+        player.sendMessage(Utils.colorTranslator("&aYou are now invisible to all players!"));
 
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
             if(!player.isOnline()){

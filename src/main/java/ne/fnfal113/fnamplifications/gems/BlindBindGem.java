@@ -66,7 +66,7 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
-            shooter.sendMessage(Utils.colorTranslator("&cBlind bind gem has taken effect!"));
+            sendGemMessage(shooter, this.getItemName());
         }
     }
 

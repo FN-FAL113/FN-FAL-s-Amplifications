@@ -160,6 +160,18 @@ public class RegisterGems {
                 FNAmpItems.POWER_RUNE, null, FNAmpItems.INTELLECT_RUNE})
                 .register(instance);
 
+        new DisarmGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DISARM, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.LINGER_RUNE,
+                new ItemStack(Material.BLAZE_POWDER, 2), new ItemStack(Material.EMERALD), new ItemStack(Material.BLAZE_POWDER, 2),
+                FNAmpItems.PESTILENCE_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.INTELLECT_RUNE})
+                .register(instance);
+
+        new SmokeCriminalGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_SMOKE_CRIMINAL, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.SPIRIT_RUNE, null, FNAmpItems.CLOUD_RUNE,
+                new ItemStack(Material.ROTTEN_FLESH, 1), new ItemStack(Material.EMERALD), new ItemStack(Material.BLAZE_POWDER, 1),
+                FNAmpItems.CLOUD_RUNE, null, FNAmpItems.POWER_RUNE})
+                .register(instance);
+
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
                 FNAmpItems.UNBIND_RUNE, new ItemStack(Material.DIAMOND), FNAmpItems.UNBIND_RUNE,

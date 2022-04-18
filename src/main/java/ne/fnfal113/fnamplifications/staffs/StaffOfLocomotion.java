@@ -11,7 +11,10 @@ import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
 import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -23,7 +26,9 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("ConstantConditions")
 public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl {
@@ -70,18 +75,12 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
         }
 
         LivingEntity en = (LivingEntity) event.getRightClicked();
-
-        if (!Slimefun.getProtectionManager().hasPermission(
-                Bukkit.getOfflinePlayer(player.getUniqueId()),
-                en.getLocation(),
-                Interaction.PLACE_BLOCK)
-        ) {
-            player.sendMessage(ChatColor.DARK_RED + "You don't have permission to select this entity!");
-            return;
-        }
-
         ItemStack item = player.getInventory().getItemInMainHand();
         ItemMeta meta = item.getItemMeta();
+
+        if (!hasPermissionToCast(meta.getDisplayName(), player, en.getLocation())) {
+            return;
+        }
 
         PersistentDataContainer data = meta.getPersistentDataContainer();
         if(!ENTITY_OWNER.containsValue(en)) {

@@ -7,7 +7,7 @@ import lombok.Getter;
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
 import ne.fnfal113.fnamplifications.quivers.implementations.MainQuiver;
 import ne.fnfal113.fnamplifications.utils.Keys;
-import org.bukkit.*;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;

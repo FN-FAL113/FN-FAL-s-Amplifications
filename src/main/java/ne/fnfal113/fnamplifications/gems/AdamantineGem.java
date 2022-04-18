@@ -55,7 +55,7 @@ public class AdamantineGem extends AbstractGem implements OnItemDamageHandler {
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             event.setCancelled(true);
-            event.getPlayer().sendMessage(Utils.colorTranslator("&6Adamantine gem has taken effect!"));
+            sendGemMessage(event.getPlayer(), this.getItemName());
         }
     }
 

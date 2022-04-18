@@ -62,7 +62,9 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler {
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()){
             event.setCancelled(true);
-            event.getEntity().sendMessage(Utils.colorTranslator("&6Thorn away gem has taken effect!"));
+            if(event.getEntity() instanceof Player) {
+                sendGemMessage((Player) event.getEntity(), this.getItemName());
+            }
         } // cancel any thorn damage
 
     }

@@ -8,7 +8,13 @@ import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
-import org.bukkit.*;
+import ne.fnfal113.fnamplifications.utils.Utils;
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -92,7 +98,7 @@ public class FnMysteryStickAltar extends MultiBlockMachine {
             dispenser.getWorld().dropItem(b.getLocation(), output);
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
         }
-        p.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + output.getItemMeta().getDisplayName() + " is now ready to use!");
+        p.sendMessage(Utils.colorTranslator("&d" + output.getItemMeta().getDisplayName() + " is now ready to use!"));
     }
 
     public void craftItem(Inventory inv, ItemStack[] recipe, Block b){
