@@ -8,6 +8,7 @@ import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnGuardianSpawnHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -19,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler {
+public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -42,7 +43,11 @@ public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler 
 
         if(slimefunItem != null && currentItem != null) {
             if ((WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()))) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
             }
@@ -50,9 +55,8 @@ public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler 
     }
 
     @Override
-    public void onGuardianSpawn(GuardianSpawnEvent event){
-        int random = ThreadLocalRandom.current().nextInt(100);
-        if(random < getChance()){
+    public void onGuardianSpawn(GuardianSpawnEvent event, ItemStack itemStack){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             event.setCancelled(true);
             event.getDamager().sendMessage(Utils
                     .colorTranslator("&eYou have redeemed the guardian of your enemy and destroyed it upon spawn"));

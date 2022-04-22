@@ -5,7 +5,6 @@ import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -60,7 +59,7 @@ public class Gem {
             if(!isSameGem(getItemStackToSocket())){ // check if the gem being added already exist
                 getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
                 socketItem();
-                if(retaliateWeapon){
+                if(retaliateWeapon){ // add return weapon pdc value
                     retaliateWeapon();
                 }
             } else{
@@ -78,14 +77,13 @@ public class Gem {
         String name = getSfItemName();
         ItemStack itemStack = getItemStackToSocket();
         ItemMeta meta = itemStack.getItemMeta();
-        Validate.notNull(meta, "Meta must not be null!");
 
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         int amountOfGems = pdc.getOrDefault(getKey2(), PersistentDataType.INTEGER, 0);
 
         if (amountOfGems == 0) { // add the lore when adding a gem for the first time
             List<String> lore;
-            if(meta.hasLore()){
+            if(meta.hasLore()){ // compatibility with other items that has existing lore
                 lore = meta.getLore();
             }else{
                 lore = new ArrayList<>();

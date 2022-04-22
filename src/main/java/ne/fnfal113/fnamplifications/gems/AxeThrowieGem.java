@@ -4,17 +4,17 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.implementation.ThrowableWeapon;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -55,13 +55,22 @@ public class AxeThrowieGem extends AbstractGem implements OnRightClickHandler {
             player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have the permission to throw here!"));
             return;
         }
+
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-
+        ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
-        NamespacedKey key = new NamespacedKey(FNAmplifications.getInstance(), "return_weapon");
 
-        throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), false), itemStack.clone(),
-                true, false, false, Boolean.parseBoolean(pdc.getOrDefault(key, PersistentDataType.STRING, "false")));
+        try{
+            String pdcValue = pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false");
+
+            // creates throw a task from this object instance
+            throwableWeapon.throwWeapon(player, throwableWeapon.spawnArmorstand(player, itemStack.clone(), false), itemStack.clone(),
+                    true, false, false, pdcValue.equalsIgnoreCase("true"));
+        } catch (IllegalArgumentException e){
+            pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
+            itemStack.setItemMeta(meta);
+            return;
+        }
 
         itemStack.setAmount(0);
     }

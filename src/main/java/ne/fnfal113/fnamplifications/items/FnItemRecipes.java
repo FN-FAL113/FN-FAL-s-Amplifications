@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.items;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import ne.fnfal113.fnamplifications.config.ReturnConfValue;
 import ne.fnfal113.fnamplifications.machines.ElectricMachineDowngrader;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
 import ne.fnfal113.fnamplifications.multiblocks.FnMagicAltar;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -234,6 +235,12 @@ public class FnItemRecipes {
                 null, new ItemStack(Material.NETHER_WART, 3), null,
                 new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new SlimefunItemStack(SlimefunItems.MAGIC_SUGAR, 1),
                 new ItemStack(Material.GLISTERING_MELON_SLICE, 2), new ItemStack(Material.NETHER_WART, 3), new ItemStack(Material.GLISTERING_MELON_SLICE, 2)})
+                .register(instance);
+
+        new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, new ItemStack(Material.DIAMOND_ORE, 3),  FNAmpItems.POWER_RUNE,
+                null, new ItemStack(Material.EMERALD_ORE, 2), null,
+                FNAmpItems.INTELLECT_RUNE, new ItemStack(Material.GOLD_ORE, 3), FNAmpItems.INTELLECT_RUNE})
                 .register(instance);
 
     }

@@ -33,9 +33,11 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
         if(chance != 0) {
             setConfigValues(chance);
-            Utils.setLore(this.getItem(), this.getId(), "-percent-chance", "%", "&e", "%");
+            Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
+                    "-percent-chance", "%", "&e", "%", 4);
         }
         GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
+
     }
 
     /**

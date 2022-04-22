@@ -59,7 +59,7 @@ public class GemListener implements Listener {
 
        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-       callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event), itemStack, pdc);
+       callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event, itemStack), itemStack, pdc);
     }
 
     public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack, PersistentDataContainer pdc) {
@@ -86,7 +86,7 @@ public class GemListener implements Listener {
         Player player = event.getEntity();
         for (ItemStack armor: player.getInventory().getArmorContents()) {
             if(armor != null) {
-                callGemHandler(OnPlayerDeathHandler.class, handler -> handler.onPlayerDeath(event), armor, getPersistentDataContainer(armor));
+                callGemHandler(OnPlayerDeathHandler.class, handler -> handler.onPlayerDeath(event, armor), armor, getPersistentDataContainer(armor));
             }
         }
 
@@ -144,7 +144,7 @@ public class GemListener implements Listener {
             PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
 
             callGemHandler(OnProjectileDamageHandler.class,
-                    handler -> handler.onProjectileDamage(event, player, livingEntity, projectile),
+                    handler -> handler.onProjectileDamage(event, player, livingEntity, projectile, itemStackHand),
                     itemStackHand, pdcHand);
         }
 
@@ -161,7 +161,7 @@ public class GemListener implements Listener {
             ItemStack itemStackHand = player.getInventory().getItemInMainHand();
             PersistentDataContainer pdcHand = getPersistentDataContainer(itemStackHand);
 
-            callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), itemStackHand, pdcHand);
+            callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event, itemStackHand), itemStackHand, pdcHand);
 
             if(event.getEntity().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
                 if(Objects.equals(event.getEntity().getPersistentDataContainer().get(Keys.GUARDIAN_KEY, PersistentDataType.STRING), player.getName())) {
@@ -181,7 +181,7 @@ public class GemListener implements Listener {
 
             for (ItemStack armor: player.getInventory().getArmorContents()) {
                 if(armor != null) {
-                    callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event), armor, getPersistentDataContainer(armor));
+                    callGemHandler(OnDamageHandler.class, handler -> handler.onDamage(event, armor), armor, getPersistentDataContainer(armor));
                 }
             }
         }
@@ -241,8 +241,9 @@ public class GemListener implements Listener {
         if(event.isCancelled()){
             return;
         }
+        PersistentDataContainer pdc = getPersistentDataContainer(event.getItem());
 
-        callGemHandler(OnItemDamageHandler.class, handler -> handler.onDurabilityChange(event), event.getItem(), getPersistentDataContainer(event.getItem()));
+        callGemHandler(OnItemDamageHandler.class, handler -> handler.onDurabilityChange(event), event.getItem(), pdc);
     }
 
     @EventHandler

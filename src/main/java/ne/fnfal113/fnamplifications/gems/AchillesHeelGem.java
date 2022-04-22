@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -23,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHandler {
+public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -46,7 +47,11 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
 
         if(slimefunItem != null && currentItem != null) {
             if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
             }
@@ -54,13 +59,13 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
     }
 
     @Override
-    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile) {
+    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile, ItemStack itemStack) {
         if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(shooter.getUniqueId()),
                 entity.getLocation(), Interaction.ATTACK_ENTITY)) {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() &&
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) &&
                 (projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5){
             event.setDamage(event.getDamage() * 2.0);
             sendGemMessage(shooter, this.getItemName());

@@ -1,8 +1,10 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import ne.fnfal113.fnamplifications.gems.*;
 import ne.fnfal113.fnamplifications.gems.unbinder.BlemishedUnbindGem;
 import ne.fnfal113.fnamplifications.gems.unbinder.DamagedUnbindGem;
@@ -10,10 +12,19 @@ import ne.fnfal113.fnamplifications.gems.unbinder.FlawlessUnbindGem;
 import ne.fnfal113.fnamplifications.gems.unbinder.PreciousUnbindGem;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemUpgrader;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class RegisterGems {
+
+    private static final CustomItemStack anyUpgradeableGem = new CustomItemStack(
+            Material.EMERALD,
+            "&dAny Upgradeable Gem",
+            "",
+            "&eSame gem type and must",
+            "&ebe same level or tier"
+    );
 
     public static void setup(SlimefunAddon instance){
         new ArmorImpairGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_ARMOR_IMPAIR, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
@@ -194,6 +205,12 @@ public class RegisterGems {
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), null, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2),
                 null, new ItemStack(Material.DIAMOND), null,
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 2), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 2)})
+                .register(instance);
+
+        new SlimefunItem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_UPGRADES_DISPLAY_ITEM, FnGemUpgrader.RECIPE_TYPE, new ItemStack[]{
+                    anyUpgradeableGem.clone(), null, anyUpgradeableGem.clone(),
+                    null, FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, null,
+                    anyUpgradeableGem.clone(), null, anyUpgradeableGem.clone()})
                 .register(instance);
 
     }
