@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
@@ -24,7 +25,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageHandler {
+public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -47,7 +48,11 @@ public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageH
 
         if(slimefunItem != null && currentItem != null) {
             if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
             }
@@ -56,16 +61,17 @@ public class PsychokinesisGem extends AbstractGem implements OnProjectileDamageH
     }
 
     @Override
-    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile) {
+    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile, ItemStack itemStack) {
         if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(shooter.getUniqueId()),
                 entity.getLocation(), Interaction.ATTACK_ENTITY)) {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance()){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             shooter.getWorld().spawnParticle(Particle.FLASH, entity.getLocation(), 2);
             entity.teleport(shooter);
             sendGemMessage(shooter, this.getItemName());
         }
     }
+
 }

@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.EulerAngle;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 @SuppressWarnings("ConstantConditions")
@@ -44,7 +45,22 @@ public class Utils {
         return new EulerAngle(armorStandX + Math.toRadians(x), armorStandY + Math.toRadians(y), armorStandZ + Math.toRadians(z));
     }
 
-    public static void setLore(ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix){
+    public static void upgradeGemLore(ItemStack itemStack, ItemMeta meta, String configId, String configIdSuffix, String stringToReplace, String color, String suffix, int tier){
+        List<String> lore = meta.getLore();
+        int decrementTier = tier;
+
+        for(int i = 0 ; i < lore.size(); i++){
+            if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
+                String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
+                            Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getValueById(configId + configIdSuffix) / decrementTier--) + suffix));
+                lore.set(i, line);
+            }
+        }
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setLore(@Nonnull ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
         for(int i = 0 ; i < lore.size(); i++){

@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -23,9 +22,7 @@ public class ThrowableWeapon {
 
     private final Map<UUID, Integer> WEAPONS = new HashMap<>();
 
-    public ThrowableWeapon(){
-
-    }
+    public ThrowableWeapon(){}
 
     public ArmorStand spawnArmorstand(Player player, ItemStack itemStack, boolean isTriSword){
         return player.getWorld().spawn(player.getLocation().add(0, 0.9, 0), ArmorStand.class, armorStand ->{
@@ -62,16 +59,16 @@ public class ThrowableWeapon {
         }
     }
 
-    public void floatThrowItem(Player player, ItemStack itemStack, boolean returnWeapon){
+    public void floatThrowItem(Player player, ItemStack itemStack, boolean returnWeapon){ // used by damnation gem
             ArmorStand as = spawnArmorstand(player, itemStack, false);
 
             player.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_MIRROR, 1.0F, 1.0F);
 
             int id = Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), () -> {
                 int x = ThreadLocalRandom.current().nextInt(3);
-                int xFinal = x < 1 ? -2 : 2;
+                double xFinal = x == 2 ? 1.2 : -1.2;
                 int z = ThreadLocalRandom.current().nextInt(3);
-                int zFinal = z < 1 ? -2 : 2;
+                double zFinal = z == 2 ? 1.2 : -1.2;
                 as.teleport(player.getLocation().clone().add(xFinal, 0.8, zFinal));
             }, 5L, 12L).getTaskId();
 

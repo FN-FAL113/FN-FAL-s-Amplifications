@@ -48,6 +48,7 @@ public final class FNAmpItemSetup {
         new FnMysteryStickAltar().register(FNAmplifications.getInstance());
         new FnGemAltar().register(FNAmplifications.getInstance());
         new FnMagicAltar().register(FNAmplifications.getInstance());
+        new FnGemUpgrader().register(FNAmplifications.getInstance());
     }
 
 }

@@ -10,7 +10,6 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import ne.fnfal113.fnamplifications.machines.abstracts.AbstractJukeBox;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;

@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnProjectileDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
@@ -25,8 +26,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@SuppressWarnings("ConstantConditions")
-public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandler {
+public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -47,9 +47,13 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
 
         SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
 
-        if(WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
-            if(slimefunItem != null && currentItem != null) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+        if(slimefunItem != null && currentItem != null) {
+            if(WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bow and crossbows only"));
@@ -58,13 +62,13 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
     }
 
     @Override
-    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile) {
+    public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile, ItemStack itemStack) {
         if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(shooter.getUniqueId()),
                 entity.getLocation(), Interaction.ATTACK_ENTITY)) {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance()){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
             sendGemMessage(shooter, this.getItemName());
         }

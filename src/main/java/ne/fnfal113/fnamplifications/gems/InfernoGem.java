@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -20,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class InfernoGem extends AbstractGem implements OnDamageHandler {
+public class InfernoGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -43,7 +44,11 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
         if(slimefunItem != null && currentItem != null) {
             if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
             }
@@ -52,7 +57,7 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
         if(!(event.getEntity() instanceof LivingEntity)){
             return;
         }
@@ -64,7 +69,7 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
 
         int random = ThreadLocalRandom.current().nextInt(100);
 
-        if(random < getChance()){
+        if(random < getChance() / getTier(itemStack, this.getId())){
             livingEntity.setFireTicks(60);
             if(event.getDamager() instanceof Player) {
                 sendGemMessage((Player) event.getDamager(), this.getItemName());
@@ -78,6 +83,6 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler {
                 } // make sure entity is not the attacker
             }
         } // loop nearby entities in a 7 block bounding box and set them on fire
-
     }
+
 }

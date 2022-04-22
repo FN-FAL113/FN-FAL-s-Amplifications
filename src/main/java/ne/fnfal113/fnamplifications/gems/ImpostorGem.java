@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -20,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ImpostorGem extends AbstractGem implements OnDamageHandler {
+public class ImpostorGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -43,7 +44,11 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
 
         if(slimefunItem != null && currentItem != null) {
             if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on helmets only"));
             }
@@ -52,7 +57,7 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
         if(event.isCancelled()){
             return;
         }
@@ -61,7 +66,8 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
             Player victim = (Player) event.getEntity();
             Player damager = (Player) event.getDamager();
 
-            if (ThreadLocalRandom.current().nextInt(100) < getChance() && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            if (ThreadLocalRandom.current().nextInt(100) < (getChance() / getTier(itemStack, this.getId())) &&
+                    event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                 double nX;
                 double nZ;
                 float nang = victim.getLocation().getYaw() + 90;
@@ -72,11 +78,13 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler {
                 nZ = Math.sin(Math.toRadians(nang));
 
                 Location newDamagerLoc = new Location(victim.getWorld(), damager.getLocation().getX() - nX,
-                        damager.getLocation().getY(), damager.getLocation().getZ() - nZ, damager.getLocation().getYaw(), damager.getLocation().getPitch());
+                        damager.getLocation().getY(), damager.getLocation().getZ() - nZ,
+                        damager.getLocation().getYaw(),
+                        damager.getLocation().getPitch());
                 victim.teleport(newDamagerLoc);
                 sendGemMessage(victim, this.getItemName());
             } // teleport behind the attacker
         }
-
     }
+
 }

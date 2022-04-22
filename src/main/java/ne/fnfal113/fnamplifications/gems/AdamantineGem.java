@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnItemDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -18,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AdamantineGem extends AbstractGem implements OnItemDamageHandler {
+public class AdamantineGem extends AbstractGem implements OnItemDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -43,7 +44,11 @@ public class AdamantineGem extends AbstractGem implements OnItemDamageHandler {
             if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType()) ||
                     WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType()) ||
                     WeaponArmorEnum.BOWS.isTagged(currentItem.getType()) || WeaponArmorEnum.HOES.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on weapons and tools only"));
             }
@@ -52,8 +57,7 @@ public class AdamantineGem extends AbstractGem implements OnItemDamageHandler {
 
     @Override
     public void onDurabilityChange(PlayerItemDamageEvent event) {
-
-        if(ThreadLocalRandom.current().nextInt(100) < getChance()){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(event.getItem(), this.getId())){
             event.setCancelled(true);
             sendGemMessage(event.getPlayer(), this.getItemName());
         }

@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -22,7 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
-public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
+public class ArmorImpairGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
     @Getter
     private final int chance;
@@ -45,7 +46,11 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
 
         if(slimefunItem != null && currentItem != null) {
             if ((WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType()))) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                if(isUpgradeGem(event.getCursor(), this.getId())) {
+                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+                } else {
+                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                }
             } else {
                 player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
             }
@@ -53,7 +58,7 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
         if(event.isCancelled()){
             return;
         }
@@ -62,7 +67,7 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler {
         ItemStack[] armorContents = livingEntity.getEquipment().getArmorContents();
 
         for(ItemStack entityEquipment : armorContents){
-            if(ThreadLocalRandom.current().nextInt(100) < getChance() && entityEquipment != null){
+            if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) && entityEquipment != null){
                 ItemMeta meta = entityEquipment.getItemMeta();
                 if(meta instanceof Damageable){
                     Damageable damageable = (Damageable) meta;
