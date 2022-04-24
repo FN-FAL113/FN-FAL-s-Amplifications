@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.SneakyThrows;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gears.abstracts.AbstractGears;
 import ne.fnfal113.fnamplifications.gears.implementation.MainGears;
 import ne.fnfal113.fnamplifications.utils.Keys;
@@ -43,8 +42,6 @@ public class FnBoots extends AbstractGears {
         this.defaultUsageKey2 = Keys.FN_GEAR_BOOTS_LEVEL;
         this.defaultUsageKey3 = Keys.FN_GEAR_BOOTS_FINAL;
         this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 25, 100);
-        FNAmplifications.getInstance().getConfigManager().setBooleanValues(this.getId() + "-unbreakable", false, "fn-gear-unbreakable-settings");
-        setUnbreakable();
     }
 
     protected @Nonnull
@@ -264,9 +261,4 @@ public class FnBoots extends AbstractGears {
         return false;
     }
 
-    public final void setUnbreakable() {
-        ItemMeta meta = this.getItem().getItemMeta();
-        meta.setUnbreakable(FNAmplifications.getInstance().getConfigManager().getBoolById(this.getId() + "-unbreakable"));
-        this.getItem().setItemMeta(meta);
-    }
 }

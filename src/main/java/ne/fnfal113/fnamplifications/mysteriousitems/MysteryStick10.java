@@ -81,7 +81,7 @@ public class MysteryStick10 extends AbstractStick {
             int playerDefaultHealth = (int) Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
             if(player.getHealth() < playerDefaultHealth - 2)  {
                 player.setHealth(player.getHealth() + 2);
-                victim.setHealth(victim.getHealth() - 2);
+                victim.setHealth(victim.getHealth() < 2 ? victim.getHealth() + (victim.getHealth() * (-1)) : victim.getHealth() - 2);
             } else {
                 player.sendMessage(ChatColor.RED + "Make sure your hearts are not full for Lifesteal to proc!");
             }

@@ -48,7 +48,6 @@ public class Gem {
         this.player = p;
         this.key1 = new NamespacedKey(FNAmplifications.getInstance(), sfItem.getId().toLowerCase());
         this.key2 = new NamespacedKey(FNAmplifications.getInstance(), itemToSocket.getType().toString().toLowerCase() + "_socket_amount");
-
     }
 
     public void onDrag(InventoryClickEvent event, boolean retaliateWeapon){

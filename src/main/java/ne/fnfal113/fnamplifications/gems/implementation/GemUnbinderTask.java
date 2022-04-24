@@ -98,7 +98,7 @@ public class GemUnbinderTask {
                     }
                 }
 
-                Predicate<String> condition =  line ->
+                Predicate<String> condition = line ->
                         line.contains(Utils.colorTranslator(gem.getItemName())) ||
                                 line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥")) ||
                                 line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));

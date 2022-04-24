@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -26,13 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    @Getter
-    private final int chance;
-
     public SmokeCriminalGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 14);
-
-        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
     }
 
     @Override
@@ -73,7 +67,7 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
             int victimMaxHealth = (int) Objects.requireNonNull(victim.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
 
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> { // delay getting the actual hp of the victim
-                if(victim.getHealth() < victimMaxHealth * 0.30){
+                if(victim.getHealth() <= victimMaxHealth * 0.30){
                     sendGemMessage(victim, this.getItemName());
                     victim.setNoDamageTicks(100);
                     AtomicInteger i = new AtomicInteger(0);

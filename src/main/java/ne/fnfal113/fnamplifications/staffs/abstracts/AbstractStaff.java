@@ -24,7 +24,7 @@ public abstract class AbstractStaff extends SlimefunItem {
         super(itemGroup, item, recipeType, recipe);
 
         setConfigValues(maxUses);
-        Utils.setLore(this.getItem(), this.getId(), "-max-uses", "left", "&e", " left");
+        Utils.setLore(this.getItem(), this.getId(), "max-uses", "left", "&e", " left");
     }
 
     public boolean hasPermissionToCast(String staffName, Player player, Location location){
@@ -43,7 +43,7 @@ public abstract class AbstractStaff extends SlimefunItem {
      * @param maxUses the max uses value that will be set in the config
      */
     public void setConfigValues(int maxUses) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-max-uses",  maxUses, "staffs-settings");
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "max-uses",  maxUses, "staffs-settings");
     }
 
     /**

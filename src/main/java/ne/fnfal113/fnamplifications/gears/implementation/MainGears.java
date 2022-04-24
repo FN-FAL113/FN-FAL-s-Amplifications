@@ -67,17 +67,14 @@ public class MainGears {
     public boolean onHit(EntityDamageByEntityEvent event, Player p, ItemStack item){
         ItemMeta meta = item.getItemMeta();
 
-        NamespacedKey key = getStorageKey();
-        NamespacedKey key2 = getStorageKey2();
-        NamespacedKey key3 = getStorageKey3();
         PersistentDataContainer progress = meta.getPersistentDataContainer();
         PersistentDataContainer level = meta.getPersistentDataContainer();
         PersistentDataContainer max = meta.getPersistentDataContainer();
-        int amount = progress.getOrDefault(key, PersistentDataType.INTEGER, 0);
-        int armorLevel = level.getOrDefault(key2, PersistentDataType.INTEGER, 0);
-        int maxReq = max.getOrDefault(key3, PersistentDataType.INTEGER, getStartingProgress());
+        int amount = progress.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, 0);
+        int armorLevel = level.getOrDefault(getStorageKey2(), PersistentDataType.INTEGER, 0);
+        int maxReq = max.getOrDefault(getStorageKey3(), PersistentDataType.INTEGER, getStartingProgress());
         int total = amount + 1;
-        progress.set(key, PersistentDataType.INTEGER, total);
+        progress.set(getStorageKey(), PersistentDataType.INTEGER, total);
 
         List<String> lore = meta.getLore();
 
@@ -98,13 +95,13 @@ public class MainGears {
 
         if (total == maxReq) {
             int totalLevel = armorLevel + 1;
-            progress.set(key, PersistentDataType.INTEGER, 0);
-            level.set(key2, PersistentDataType.INTEGER, totalLevel);
+            progress.set(getStorageKey(), PersistentDataType.INTEGER, 0);
+            level.set(getStorageKey2(), PersistentDataType.INTEGER, totalLevel);
             updateLore(lore);
             lore.set(7, ChatColor.YELLOW + "Level: " + totalLevel);
             lore.set(8, ChatColor.YELLOW + "Progress:");
             lore.set(9, ChatColor.GRAY + "[" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + ChatColor.GRAY + "]");
-            max.set(key3, PersistentDataType.INTEGER, maxReq + getIncrementProgress());
+            max.set(getStorageKey3(), PersistentDataType.INTEGER, maxReq + getIncrementProgress());
             meta.setLore(lore);
             item.setItemMeta(meta);
             levelUp(p);

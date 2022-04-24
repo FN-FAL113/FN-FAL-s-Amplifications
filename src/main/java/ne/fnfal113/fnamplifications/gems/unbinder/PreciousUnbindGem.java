@@ -3,7 +3,6 @@ package ne.fnfal113.fnamplifications.gems.unbinder;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGemUnbinder;
 import ne.fnfal113.fnamplifications.gems.implementation.GemUnbinderTask;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -26,7 +25,7 @@ public class PreciousUnbindGem extends AbstractGemUnbinder {
         }
         new GemUnbinderTask(player, player.getInventory().getItemInOffHand()).getGemsFromItem();
 
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-unbind-chance");
+        return getChance();
     }
 
 }
