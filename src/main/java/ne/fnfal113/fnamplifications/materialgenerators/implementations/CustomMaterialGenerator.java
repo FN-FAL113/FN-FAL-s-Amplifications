@@ -88,8 +88,8 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
         });
 
         try {
-            FNAmplifications.getInstance().getConfigManager().setIntegerValues(item.getItemId(), tickRate, "material-gen-tickrate");
-            Utils.setLore(this.getItem(), this.getId(), "", "ticks", "&6", " ticks");
+            FNAmplifications.getInstance().getConfigManager().setIntegerValues(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate");
+            Utils.setLore(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,8 +164,9 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
 
                     if (invMenu.toInventory() != null && invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aGenerating Material",
-                                "", "&bMaterial: " + this.material, "&bRate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getValueById(this.getId()) + " &aticks", "", "&2Progress: " + progress
-                                + "/"+ FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())));
+                                "", "&bMaterial: " + this.material,
+                                "&bRate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "tickrate") + " &aticks", "",
+                                "&2Progress: " + progress + "/"+ FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "tickrate")));
 
                         if(generatorCondition > 0){
                             if(generatorCondition > 75 && generatorCondition <= 100) {
@@ -187,7 +188,7 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
                         }
                     }
 
-                    if (progress >= FNAmplifications.getInstance().getConfigManager().getValueById(this.getId())) {
+                    if (progress >= FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "tickrate")) {
                         progress = 0;
                         if(ThreadLocalRandom.current().nextInt(100) < 32 && generatorCondition > 0){
                             BlockStorage.addBlockInfo(b.getLocation(), "generator_status", String.valueOf(generatorCondition - 1));

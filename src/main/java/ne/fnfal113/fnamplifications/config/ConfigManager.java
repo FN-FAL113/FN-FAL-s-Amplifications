@@ -29,36 +29,46 @@ public class ConfigManager {
     public ConfigManager(){}
 
     /**
-     * id and bool is stored in a map for later retrieval
-     * @param id the string that will be used as the path for the value
-     * @param bool the boolean value that will be used by the path
+     * id and val is stored in a map for later retrieval
+     * @param itemNameSection the string that will be used as the section for the settings
+     * @param settings the string that will be used as a key for the itemNameSection
+     * @param bool the boolean value that will be used by the key or settings
      * @param fileName the string that will be assigned as the file name
      */
-    public void setBooleanValues(String id, boolean bool, String fileName) throws IOException {
+    public void setBooleanValues(String itemNameSection, String settings, boolean bool, String fileName) throws IOException {
         if(createCustomConfig(fileName)) {
-            if(!getCustomConfig().contains(id)) {
-                getCustomConfig().set(id, bool);
+            if(!getCustomConfig().isConfigurationSection(itemNameSection)) {
+                getCustomConfig().createSection(itemNameSection).set(settings, bool);
+            } else if(getCustomConfig().isConfigurationSection(itemNameSection)) {
+                if(!getCustomConfig().getConfigurationSection(itemNameSection).getKeys(false).contains(settings)){
+                    getCustomConfig().getConfigurationSection(itemNameSection).set(settings, bool);
+                }
             }
             getCustomConfig().save(customConfigFile);
-            boolean value = getCustomConfig().getBoolean(id, false);
-            this.booleanValues.put(id, value);
+            boolean value = getCustomConfig().getConfigurationSection(itemNameSection).getBoolean(settings, false);
+            this.booleanValues.put(itemNameSection + "." + settings, value);
         }
     }
 
     /**
      * id and val is stored in a map for later retrieval
-     * @param id the string that will be used as the path for the value
-     * @param val the integer value that will be used by the path
+     * @param itemNameSection the string that will be used as the section for the settings
+     * @param settings the string that will be used as a key for the itemNameSection
+     * @param val the integer value that will be used by the key or settings
      * @param fileName the string that will be assigned as the file name
      */
-    public void setIntegerValues(String id, Integer val, String fileName) throws IOException {
+    public void setIntegerValues(String itemNameSection, String settings, Integer val, String fileName) throws IOException {
         if(createCustomConfig(fileName)) {
-            if(!getCustomConfig().contains(id)) {
-                getCustomConfig().set(id, val);
+            if(!getCustomConfig().isConfigurationSection(itemNameSection)) {
+                getCustomConfig().createSection(itemNameSection).set(settings, val);
+            } else if(getCustomConfig().isConfigurationSection(itemNameSection)) {
+                if(!getCustomConfig().getConfigurationSection(itemNameSection).getKeys(false).contains(settings)){
+                    getCustomConfig().getConfigurationSection(itemNameSection).set(settings, val);
+                }
             }
             getCustomConfig().save(customConfigFile);
-            int value = getCustomConfig().getInt(id, 0);
-            this.integerValues.put(id, value);
+            int value = getCustomConfig().getConfigurationSection(itemNameSection).getInt(settings, 0);
+            this.integerValues.put(itemNameSection + "." + settings, value);
         }
     }
 
@@ -94,20 +104,22 @@ public class ConfigManager {
 
     /**
      *
-     * @param id the config path as string
-     * @return the assigned value from the given id or path
+     * @param itemSection the config section
+     * @param setting the config section key
+     * @return the assigned integer value from the given section and key
      */
-    public int getValueById(String id){
-        return getIntegerValues().get(id);
+    public int getValueById(String itemSection, String setting){
+        return getIntegerValues().get(itemSection + "." + setting);
     }
 
     /**
      *
-     * @param id the config path as string
-     * @return
+     * @param itemSection the config section
+     * @param setting the config section key
+     * @return the assigned boolean value from the given section and key
      */
-    public boolean getBoolById(String id){
-        return getBooleanValues().get(id);
+    public boolean getBoolById(String itemSection, String setting){
+        return getBooleanValues().get(itemSection + "." + setting);
     }
 
 }

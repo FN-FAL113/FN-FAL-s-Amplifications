@@ -47,23 +47,23 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
     public void setLore(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
-        lore.add(Utils.colorTranslator(LoreBuilder.powerBuffer(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-capacity"))));
-        lore.add(Utils.colorTranslator(LoreBuilder.powerPerSecond(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-dayEnergy"))));
+        lore.add(Utils.colorTranslator(LoreBuilder.powerBuffer(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "capacity"))));
+        lore.add(Utils.colorTranslator(LoreBuilder.powerPerSecond(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayEnergy"))));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
     }
 
     public void setConfigValues(int dayEnergy, int capacity) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-dayEnergy", dayEnergy, "solar-generator-settings");
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId()  + "-capacity", capacity, "solar-generator-settings");
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(),"dayEnergy", dayEnergy, "solar-generator-settings");
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "capacity", capacity, "solar-generator-settings");
     }
 
     public int getDayEnergy() {
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-dayEnergy");
+        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayEnergy");
     }
 
     public int getCapacity() {
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-capacity");
+        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "capacity");
     }
 
     public int getNightEnergy() {

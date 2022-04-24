@@ -52,7 +52,7 @@ public class Utils {
         for(int i = 0 ; i < lore.size(); i++){
             if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
                 String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
-                            Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getValueById(configId + configIdSuffix) / decrementTier--) + suffix));
+                            Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getValueById(configId, configIdSuffix) / decrementTier--) + suffix));
                 lore.set(i, line);
             }
         }
@@ -63,10 +63,11 @@ public class Utils {
     public static void setLore(@Nonnull ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
+
         for(int i = 0 ; i < lore.size(); i++){
             if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
                 String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
-                        Utils.colorTranslator(color + FNAmplifications.getInstance().getConfigManager().getValueById(configId + configIdSuffix) + suffix));
+                        Utils.colorTranslator(color + FNAmplifications.getInstance().getConfigManager().getValueById(configId, configIdSuffix) + suffix));
                 lore.set(i, line);
             }
         }

@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -37,16 +36,11 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("ConstantConditions")
 public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    @Getter
-    private final int chance;
-
     private final Map<UUID, Zombie> entityUUIDMap = new HashMap<>();
     private final Map<UUID, BukkitTask> runnableMap = new HashMap<>();
 
     public GuardianGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 8);
-
-        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-percent-chance");
+        super(itemGroup, item, recipeType, recipe, 11);
     }
 
     @Override

@@ -135,9 +135,9 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-tickrate", tickRate, "block-breaker-tickrate");
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "tickrate", tickRate, "block-breaker-tickrate");
         setRate();
-        Utils.setLore(this.getItem(), this.getId(), "-tickrate", "ticks", "&e", " ticks");
+        Utils.setLore(this.getItem(), this.getId(), "tickrate", "ticks", "&e", " ticks");
         addItemHandler(
             new BlockTicker() {
                 @Override
@@ -314,7 +314,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     }
 
     public final void setRate() {
-        this.rate = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-tickrate");
+        this.rate = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "tickrate");
     }
 
     @Nonnull

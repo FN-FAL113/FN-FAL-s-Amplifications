@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemHandler;
@@ -21,6 +22,9 @@ import java.io.IOException;
 
 public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
+    @Getter
+    private int chance;
+
     public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         this(itemGroup, item, recipeType, recipe, 0);
     }
@@ -34,7 +38,8 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
         if(chance != 0) {
             setConfigValues(chance);
             Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
-                    "-percent-chance", "%", "&e", "%", 4);
+                    "chance", "%", "&e", "%", 4);
+            this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "chance");
         }
         GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
 
@@ -45,7 +50,7 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
      * @param chance the chance to set in the config file
      */
     public void setConfigValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId() + "-percent-chance", chance, "gem-settings");
+        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "chance", chance, "gem-settings");
     }
 
     /**

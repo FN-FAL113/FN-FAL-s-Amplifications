@@ -183,6 +183,12 @@ public class RegisterGems {
                 FNAmpItems.CLOUD_RUNE, null, FNAmpItems.POWER_RUNE})
                 .register(instance);
 
+        new LifestealGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_LIFESTEAL, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.HEART_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.HEART_RUNE,
+                new ItemStack(Material.BLAZE_POWDER, 1), new ItemStack(Material.EMERALD), new ItemStack(Material.BLAZE_POWDER, 1),
+                FNAmpItems.LINGER_RUNE, SlimefunItems.MAGIC_SUGAR, FNAmpItems.PESTILENCE_RUNE})
+                .register(instance);
+
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
                 FNAmpItems.UNBIND_RUNE, new ItemStack(Material.DIAMOND), FNAmpItems.UNBIND_RUNE,

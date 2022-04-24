@@ -35,7 +35,7 @@ public class MainStaff {
      */
     public void updateMeta(ItemStack item, ItemMeta meta, Player player){
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
-        int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, FNAmplifications.getInstance().getConfigManager().getValueById(this.getId() + "-max-uses"));
+        int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "max-uses"));
         int decrement = uses_Left - 1;
 
         if(decrement > 0) { // update the staff uses left the lore

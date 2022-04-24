@@ -9,8 +9,7 @@ import ne.fnfal113.fnamplifications.machines.implementation.RegisterMachines;
 import ne.fnfal113.fnamplifications.materialgenerators.FNMaterialGenerators;
 import ne.fnfal113.fnamplifications.multiblocks.*;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.RegisterSticks;
-import ne.fnfal113.fnamplifications.powergenerators.FNSolarGenerators;
-import ne.fnfal113.fnamplifications.powergenerators.PowahGenerator;
+import ne.fnfal113.fnamplifications.powergenerators.FNPowerGenerators;
 import ne.fnfal113.fnamplifications.quivers.implementations.RegisterQuiver;
 import ne.fnfal113.fnamplifications.staffs.implementations.RegisterStaffs;
 import ne.fnfal113.fnamplifications.tools.implementation.RegisterTools;
@@ -30,11 +29,11 @@ public final class FNAmpItemSetup {
 
         initialised = true;
 
-        FNSolarGenerators.setup(plugin);
-        PowahGenerator.setup(plugin);
         FnItemRecipes.setup(plugin);
         FnScrapRecipes.setup(plugin);
         FNMaterialGenerators.setup(plugin);
+        FNPowerGenerators.setupPowerGens(plugin);
+        FNPowerGenerators.setupSolarGens(plugin);
         RegisterMachines.setup(plugin);
         RegisterSticks.setup(plugin);
         RegisterGears.setup(plugin);
