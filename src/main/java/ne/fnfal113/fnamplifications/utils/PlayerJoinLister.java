@@ -47,7 +47,7 @@ public class PlayerJoinLister implements Listener {
                 "",
                 Utils.colorTranslator("&d&l• &r&d&lAdded Lifesteal Gem"),
                 Utils.colorTranslator("  &bsteal 1 heart from your enemy by chance"),
-                Utils.colorTranslator("  &bas long your health is not full and"),
+                Utils.colorTranslator("  &bas long your health is not full"),
                 Utils.colorTranslator("&d&l• &r&d&lRefactored &r&dconfiguration management (API)"),
                 Utils.colorTranslator("&d&l• &r&dCode refactoring and changes"),
                 Utils.colorTranslator(""),
