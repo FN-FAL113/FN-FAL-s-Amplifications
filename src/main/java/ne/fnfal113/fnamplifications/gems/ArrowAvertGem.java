@@ -26,26 +26,17 @@ public class ArrowAvertGem extends AbstractGem implements OnDamageHandler, GemUp
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player) {
-        if(event.getCursor() == null){
-            return;
-        }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()) ||
-            WeaponArmorEnum.LEGGINGS.isTagged(currentItem.getType()) || WeaponArmorEnum.BOOTS.isTagged(currentItem.getType())) {
-                if(isUpgradeGem(event.getCursor(), this.getId())) {
-                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
-                } else {
-                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-                }
+    @SuppressWarnings("ConstantConditions")
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()) ||
+        WeaponArmorEnum.LEGGINGS.isTagged(currentItem.getType()) || WeaponArmorEnum.BOOTS.isTagged(currentItem.getType())) {
+            if(isUpgradeGem(event.getCursor(), this.getId())) {
+                upgradeGem(slimefunItem, currentItem, event, player, this.getId());
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on armors only"));
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             }
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on armors only"));
         }
     }
 
@@ -59,4 +50,5 @@ public class ArrowAvertGem extends AbstractGem implements OnDamageHandler, GemUp
             event.setCancelled(true);
         }
     }
+
 }

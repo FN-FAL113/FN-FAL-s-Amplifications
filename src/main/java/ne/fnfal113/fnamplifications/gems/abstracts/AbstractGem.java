@@ -75,7 +75,9 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
      *
      * @param event the click event where drag and drop is being listened
      * @param player the player who dragged and dropped the gem
+     * @param slimefunItem the gem in the inventory that were clicked by the cursor
+     * @param currentItem the current item in the inventory the gem was dragged and drop to
      */
-    public abstract void onDrag(InventoryClickEvent event, Player player);
+    public abstract void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem);
 
 }

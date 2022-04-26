@@ -23,25 +23,16 @@ public class RetaliateGem extends AbstractGem {
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player){
-        if(event.getCursor() == null){
-            return;
-        }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType())) {
-                if (hasNeededGem(currentItem.getItemMeta().getPersistentDataContainer())) {
-                    new Gem(slimefunItem, currentItem, player).onDrag(event, true);
-                } else {
-                    player.sendMessage(Utils.colorTranslator("&eWeapon is missing the needed gem in the weapon, please read the lore of the gem!"));
-                }
+    @SuppressWarnings("ConstantConditions")
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType())) {
+            if (hasNeededGem(currentItem.getItemMeta().getPersistentDataContainer())) {
+                new Gem(slimefunItem, currentItem, player).onDrag(event, true);
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
+                player.sendMessage(Utils.colorTranslator("&eWeapon is missing the needed gem in the weapon, please read the lore of the gem!"));
             }
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
         }
     }
 

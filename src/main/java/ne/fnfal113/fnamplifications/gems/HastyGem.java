@@ -26,26 +26,15 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
 
     public HastyGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 16);
-
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player){
-        if(event.getCursor() == null){
-            return;
-        }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType())
-                    || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-            } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on shovels, pickaxes and axes only"));
-            }
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType())
+                || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType())) {
+            new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on shovels, pickaxes and axes only"));
         }
     }
 

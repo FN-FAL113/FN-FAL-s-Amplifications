@@ -4,37 +4,39 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
-import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
-import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
+import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
+import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
+public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    public ThornAwayGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 13);
+    public SedateGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+        super(itemGroup, item, recipeType, recipe, 14);
     }
 
     @Override
     @SuppressWarnings("ConstantConditions")
     public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
-        if (WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType())) {
+        if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType())) {
             if(isUpgradeGem(event.getCursor(), this.getId())) {
                 upgradeGem(slimefunItem, currentItem, event, player, this.getId());
             } else {
                 new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplates only"));
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords and axes only"));
         }
     }
 
@@ -44,16 +46,19 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
             return;
         }
 
-        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS){
-            return;
-        } // if damage cause is not thorns, don't continue
+        Player player = (Player) event.getDamager();
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
-            event.setCancelled(true);
-            if(event.getEntity() instanceof Player) {
-                sendGemMessage((Player) event.getEntity(), this.getItemName());
-            }
-        } // cancel any thorn damage
+        LivingEntity livingEntity = (LivingEntity) event.getEntity();
+
+        int tier = getTier(itemStack, this.getId());
+
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+            int level = Math.abs(tier - 4);
+
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, level));
+            sendGemMessage(player, this.getItemName());
+        }
+
     }
 
 }

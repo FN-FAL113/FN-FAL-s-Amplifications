@@ -96,31 +96,31 @@ public class FNPowerGenerators {
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R8, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R7, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_DAMASCUS, 24), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
-                FNAmpItems.FN_FAL_GENERATOR_TIER4, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.BLISTERING_INGOT_2
+                SlimefunItems.BLISTERING_INGOT_2, FNAmpItems.FN_FAL_GENERATOR_TIER4, SlimefunItems.BLISTERING_INGOT_2
         }, 9420, 6752, 1200, 800000).register(instance);
 
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R9, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R8, FNAmpItems.GEAR_PART,
                 FNAmpItems.HIGHTECH_MACHINE_BLOCK, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 27), FNAmpItems.HIGHTECH_MACHINE_BLOCK,
-                FNAmpItems.FN_FAL_GENERATOR_TIER5, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.REINFORCED_ALLOY_INGOT
+                SlimefunItems.REINFORCED_ALLOY_INGOT, FNAmpItems.FN_FAL_GENERATOR_TIER5, SlimefunItems.REINFORCED_ALLOY_INGOT
         }, 11384, 7431, 1440, 900000).register(instance);
 
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R10, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R9, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_HARDENED, 32), SlimefunItems.ENERGIZED_CAPACITOR,
-                FNAmpItems.FN_FAL_GENERATOR_TIER6, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.URANIUM
+                SlimefunItems.URANIUM, FNAmpItems.FN_FAL_GENERATOR_TIER6, SlimefunItems.URANIUM
         }, 13692, 8128, 1520, 1000000).register(instance);
 
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R11, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R10, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 36), SlimefunItems.ENERGIZED_CAPACITOR,
-                FNAmpItems.FN_FAL_GENERATOR_TIER7, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.NEPTUNIUM
+                SlimefunItems.NEPTUNIUM, FNAmpItems.FN_FAL_GENERATOR_TIER7, SlimefunItems.NEPTUNIUM
         }, 15984, 9462, 1640, 1500000).register(instance);
 
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R12, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, FNAmpItems.FN_XPANSION_POWER_R11, FNAmpItems.GEAR_PART,
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 40), SlimefunItems.ENERGIZED_CAPACITOR,
-                FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_XPANSION_POWER_R7, SlimefunItems.BOOSTED_URANIUM
+                FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.BOOSTED_URANIUM
         }, 17421, 10128, 1780, 2000000).register(instance);
     }
 

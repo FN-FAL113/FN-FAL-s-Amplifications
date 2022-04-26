@@ -28,23 +28,12 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player){
-        if(event.getCursor() == null){
-            return;
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())) {
+            new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
         }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-            } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
-            }
-        }
-
     }
 
     @Override

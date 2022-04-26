@@ -30,25 +30,16 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player) {
-        if(event.getCursor() == null){
-            return;
-        }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
-                if(isUpgradeGem(event.getCursor(), this.getId())) {
-                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
-                } else {
-                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-                }
+    @SuppressWarnings("ConstantConditions")
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.BOWS.isTagged(currentItem.getType())) {
+            if(isUpgradeGem(event.getCursor(), this.getId())) {
+                upgradeGem(slimefunItem, currentItem, event, player, this.getId());
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             }
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on bows and crossbows only"));
         }
     }
 
