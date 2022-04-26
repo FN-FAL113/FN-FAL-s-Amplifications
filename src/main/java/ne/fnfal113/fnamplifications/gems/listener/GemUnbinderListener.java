@@ -6,7 +6,6 @@ import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGemUnbinder;
 import ne.fnfal113.fnamplifications.gems.implementation.GemUnbinderTask;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -17,6 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public class GemUnbinderListener implements Listener {
@@ -27,21 +27,20 @@ public class GemUnbinderListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent event){
         if(event.getView().getTitle().equals(Utils.colorTranslator("&cSelect a gem to unbind"))){
-            if(event.getCurrentItem() == null || event.getCurrentItem().getType() == Material.AIR){
-                return;
-            }
             if(event.getClickedInventory() != null && event.getClickedInventory().getHolder() instanceof Player){
                 event.setCancelled(true);
                 return;
             }
 
-            SlimefunItem gem = SlimefunItem.getByItem(event.getCurrentItem());
+            Optional<SlimefunItem> gem = Optional.ofNullable(SlimefunItem.getByItem(event.getCurrentItem()));
             Player player = (Player) event.getWhoClicked();
 
-            if(gem instanceof AbstractGem){
-                new GemUnbinderTask(player, player.getInventory().getItemInOffHand()).unBindGem(gem, getUnbindChanceMap().get(player.getUniqueId()));
+            if(gem.isPresent() && gem.get() instanceof AbstractGem){
+                new GemUnbinderTask(player, player.getInventory().getItemInOffHand())
+                        .unBindGem(gem.get(), getUnbindChanceMap().get(player.getUniqueId()));
                 event.getWhoClicked().closeInventory();
             }
+
             event.setCancelled(true);
         }
     }

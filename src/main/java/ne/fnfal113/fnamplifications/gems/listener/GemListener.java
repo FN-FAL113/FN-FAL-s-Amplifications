@@ -40,6 +40,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class GemListener implements Listener {
@@ -101,11 +102,13 @@ public class GemListener implements Listener {
         if (event.getAction() != InventoryAction.SWAP_WITH_CURSOR) {
             return;
         }
-        Player player = (Player) event.getWhoClicked();
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
 
-        if(slimefunItem instanceof AbstractGem) {
-            ((AbstractGem) slimefunItem).onDrag(event, player);
+        Player player = (Player) event.getWhoClicked();
+        Optional<SlimefunItem> slimefunItem = Optional.ofNullable(SlimefunItem.getByItem(event.getCursor()));
+        Optional<ItemStack> currentItem = Optional.ofNullable(event.getCurrentItem());
+
+        if(currentItem.isPresent() && slimefunItem.isPresent() && slimefunItem.get() instanceof AbstractGem) {
+            ((AbstractGem) slimefunItem.get()).onDrag(event, player, slimefunItem.get(), currentItem.get());
         }
     }
 
@@ -119,9 +122,7 @@ public class GemListener implements Listener {
             return;
         }
 
-        /*
-         * If the damager is a projectile and the shooter is a player
-         */
+        // if the damager is a projectile and the shooter is a player
         if(event.getDamager() instanceof Projectile && event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE){
             Projectile projectile = (Projectile) event.getDamager();
 
@@ -148,9 +149,7 @@ public class GemListener implements Listener {
                     itemStackHand, pdcHand);
         }
 
-        /*
-         * If the damager is a player and victim is a living entity
-         */
+        // if the damager is a player and victim is a living entity
         if(event.getDamager() instanceof Player && event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             Player player = (Player) event.getDamager();
 
@@ -173,9 +172,7 @@ public class GemListener implements Listener {
             } // check if entity is a guardian and pdc data is same as the owner then cancel event
         }
 
-        /*
-         * If the victim is a player and damager is a living entity or may be projectile
-         */
+        // if the victim is a player and damager is a living entity or may be projectile
         if(event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
 

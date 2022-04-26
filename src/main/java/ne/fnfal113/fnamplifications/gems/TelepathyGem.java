@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
@@ -16,6 +17,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
 
@@ -24,23 +26,12 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player){
-        if(event.getCursor() == null){
-            return;
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType())) {
+            new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on pickaxes and axes only"));
         }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType()) || WeaponArmorEnum.AXES.isTagged(currentItem.getType())) {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-            } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on pickaxes and axes only"));
-            }
-        }
-
     }
 
     @Override
@@ -48,7 +39,14 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
         if (event.isCancelled()){
             return;
         }
+
         Block block = event.getBlock();
+
+        Optional<SlimefunItem> sfItem = Optional.ofNullable(BlockStorage.check(block));
+
+        if(sfItem.isPresent()){ // drop sf blocks instead
+            return;
+        }
 
         Collection<ItemStack> drops = block.getDrops(player.getInventory().getItemInMainHand());
 
@@ -63,6 +61,6 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
         event.setDropItems(false);
 
         player.getInventory().addItem(drops.iterator().next());
-
     }
+
 }

@@ -30,31 +30,21 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player) {
-        if(event.getCursor() == null){
-            return;
-        }
-
-        ItemStack currentItem = event.getCurrentItem();
-
-        SlimefunItem slimefunItem = SlimefunItem.getByItem(event.getCursor());
-
-        if(slimefunItem != null && currentItem != null) {
-            if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType())) {
-                if(isUpgradeGem(event.getCursor(), this.getId())) {
-                    upgradeGem(slimefunItem, currentItem, event, player, this.getId());
-                } else {
-                    new Gem(slimefunItem, currentItem, player).onDrag(event, false);
-                }
+    @SuppressWarnings("ConstantConditions")
+    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+        if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType())) {
+            if(isUpgradeGem(event.getCursor(), this.getId())) {
+                upgradeGem(slimefunItem, currentItem, event, player, this.getId());
             } else {
-                player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on helmet only"));
+                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
             }
+        } else {
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on helmet only"));
         }
     }
 
     @Override
     public void onPlayerDeath(PlayerDeathEvent event, ItemStack itemStack) {
-
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             Player player = event.getEntity();
             Location loc = player.getLocation();
