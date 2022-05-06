@@ -42,6 +42,9 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler, GemU
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
         if(event.isCancelled()){
             return;
         }

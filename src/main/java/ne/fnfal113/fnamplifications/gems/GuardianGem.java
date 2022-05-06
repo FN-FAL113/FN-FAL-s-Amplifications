@@ -62,6 +62,9 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(event.isCancelled()){
             return;
         }
+        if(!(event.getEntity() instanceof Player)){
+            return;
+        }
 
         Player player = (Player) event.getEntity();
 

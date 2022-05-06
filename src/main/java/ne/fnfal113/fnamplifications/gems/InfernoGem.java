@@ -41,10 +41,10 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler, GemUpgra
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getEntity() instanceof LivingEntity)){
+        if(event.isCancelled()){
             return;
         }
-        if(event.isCancelled()){
+        if(!(event.getEntity() instanceof LivingEntity)){
             return;
         }
 

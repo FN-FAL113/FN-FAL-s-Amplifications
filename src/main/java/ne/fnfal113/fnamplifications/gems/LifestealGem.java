@@ -47,6 +47,12 @@ public class LifestealGem extends AbstractGem implements OnDamageHandler, GemUpg
         if(event.isCancelled()){
             return;
         }
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
 
         Player player = (Player) event.getDamager();
 

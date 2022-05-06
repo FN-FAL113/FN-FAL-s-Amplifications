@@ -41,10 +41,18 @@ public class ParryGem extends AbstractGem implements OnDamageHandler, GemUpgrade
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
+        if(event.isCancelled()){
+            return;
+        }
         if(!(event.getDamager() instanceof LivingEntity)){
             return;
         }
+        if(!(event.getEntity() instanceof Player)){
+            return;
+        }
+
         LivingEntity damager = (LivingEntity) event.getDamager();
+        Player player = (Player) event.getEntity();
 
         if(damager.getEquipment() == null){
             return;
@@ -54,7 +62,7 @@ public class ParryGem extends AbstractGem implements OnDamageHandler, GemUpgrade
             if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
                 event.setDamage(event.getDamage() * 0.75);
                 if(event.getEntity() instanceof Player) {
-                    sendGemMessage((Player) event.getEntity(), this.getItemName());
+                    sendGemMessage(player, this.getItemName());
                 }
             }
         } // damager must wield a sword

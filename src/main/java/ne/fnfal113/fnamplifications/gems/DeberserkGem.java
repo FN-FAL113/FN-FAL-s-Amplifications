@@ -44,6 +44,9 @@ public class DeberserkGem extends AbstractGem implements OnDamageHandler, GemUpg
         if(!(event.getDamager() instanceof LivingEntity)){
             return;
         }
+        if(event.isCancelled()){
+            return;
+        }
 
         LivingEntity damager = (LivingEntity) event.getDamager();
 

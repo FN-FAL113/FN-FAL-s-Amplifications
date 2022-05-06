@@ -2336,6 +2336,26 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_LOOT = new SlimefunItemStack(
+            "FN_GEM_LOOT",
+            Material.EMERALD,
+            "&cLoot Gem",
+            "",
+            "&eA chance to steal money from your",
+            "&eenemy worth 4$ of currency. Make",
+            "&eyour enemies lose money!",
+            "",
+            "&c◢◤◢◤◢◤ Tiers &6◥◣◥◣◥◣",
+            "&6⨳ Tier I: " + "&e%",
+            "&6⨳ Tier II: " + "&e%",
+            "&6⨳ Tier III: " + "&e%",
+            "&6⨳ Tier IV: " + "&e%",
+            "&c◢◤◢◤◢◤◢◤◢◤◢&6◣◥◣◥◣◥◣◥◣◥◣",
+            "",
+            "&dDrag and drop on sword or axe",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_UPGRADES_DISPLAY_ITEM = new SlimefunItemStack(
             "FN_GEM_UPGRADES_DISPLAY_ITEM",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("d3623521c8111ad29e9dcf7acc56085a9ab07da732d1518976aee61d0b3e3bd6")),

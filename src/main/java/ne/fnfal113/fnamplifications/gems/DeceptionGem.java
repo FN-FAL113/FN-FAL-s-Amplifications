@@ -46,6 +46,9 @@ public class DeceptionGem extends AbstractGem implements OnDamageHandler, GemUpg
         if(!(event.getDamager() instanceof LivingEntity)){
             return;
         }
+        if(!(event.getEntity() instanceof Player)){
+            return;
+        }
         if(event.isCancelled()){
             return;
         }

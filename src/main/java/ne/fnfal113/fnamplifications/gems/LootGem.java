@@ -4,26 +4,25 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
+public class LootGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    public SedateGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 14);
+    public LootGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+        super(itemGroup, item, recipeType, recipe, 80);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getEntity() instanceof LivingEntity)){
+        if(!(event.getEntity() instanceof Player)){
             return;
         }
         if(!(event.getDamager() instanceof Player)){
@@ -52,17 +51,16 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
             return;
         }
 
-        Player player = (Player) event.getDamager();
+        Player victim = (Player) event.getEntity();
+        Player damager = (Player) event.getDamager();
 
-        LivingEntity livingEntity = (LivingEntity) event.getEntity();
+        int random = ThreadLocalRandom.current().nextInt(100);
 
-        int tier = getTier(itemStack, this.getId());
-
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
-            int level = Math.abs(tier - 4);
-
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, level));
-            sendGemMessage(player, this.getItemName());
+        if(random < getChance() / getTier(itemStack, this.getId())){
+            FNAmplifications.getVaultIntegration().getEconomy().withdrawPlayer(Bukkit.getOfflinePlayer(victim.getUniqueId()), 4.0D);
+            FNAmplifications.getVaultIntegration().getEconomy().depositPlayer(Bukkit.getOfflinePlayer(damager.getUniqueId()), 4.0D);
+            sendGemMessage(damager, this.getItemName());
+            sendGemMessage(victim, Utils.colorTranslator("&cEnemy ") + this.getItemName());
         }
 
     }
