@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LootGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
     public LootGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 80);
+        super(itemGroup, item, recipeType, recipe, 13);
     }
 
     @Override
