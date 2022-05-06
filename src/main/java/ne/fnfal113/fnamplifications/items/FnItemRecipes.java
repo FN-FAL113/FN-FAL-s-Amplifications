@@ -208,9 +208,9 @@ public class FnItemRecipes {
                 .register(instance);
 
         new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.POWER_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{
-                new ItemStack(Material.REDSTONE, 6), new SlimefunItemStack(SlimefunItems.BOOSTED_URANIUM, 1), new ItemStack(Material.REDSTONE, 6),
-                null, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), null,
-                new ItemStack(Material.NETHER_STAR, 2), new SlimefunItemStack(SlimefunItems.BOOSTED_URANIUM, 1), new ItemStack(Material.NETHER_STAR, 2)})
+                new ItemStack(Material.REDSTONE, 6), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1), new ItemStack(Material.REDSTONE, 6),
+                new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1), new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 1), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1),
+                new ItemStack(Material.NETHER_STAR, 2), new SlimefunItemStack(SlimefunItems.BLISTERING_INGOT_3, 1), new ItemStack(Material.NETHER_STAR, 2)})
                 .register(instance);
 
         new UnplaceableBlock(FNAmpItems.MAGICAL_ITEMS, FNAmpItems.LINGER_RUNE, FnMagicAltar.RECIPE_TYPE, new ItemStack[]{

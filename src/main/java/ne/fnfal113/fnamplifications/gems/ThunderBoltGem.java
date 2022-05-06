@@ -43,6 +43,12 @@ public class ThunderBoltGem extends AbstractGem implements OnDamageHandler, GemU
         if(event.isCancelled()){
             return;
         }
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
 
         Player player = (Player) event.getDamager();
         LivingEntity livingEntity = (LivingEntity) event.getEntity();

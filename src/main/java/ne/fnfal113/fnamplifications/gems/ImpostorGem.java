@@ -11,6 +11,7 @@ import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Location;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -44,30 +45,35 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(event.isCancelled()){
             return;
         }
-
-        if(event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-            Player victim = (Player) event.getEntity();
-            Player damager = (Player) event.getDamager();
-
-            if (ThreadLocalRandom.current().nextInt(100) < (getChance() / getTier(itemStack, this.getId())) &&
-                    event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
-                double nX;
-                double nZ;
-                float nang = victim.getLocation().getYaw() + 90;
-
-                if (nang < 0) nang += 360;
-
-                nX = Math.cos(Math.toRadians(nang));
-                nZ = Math.sin(Math.toRadians(nang));
-
-                Location newDamagerLoc = new Location(victim.getWorld(), damager.getLocation().getX() - nX,
-                        damager.getLocation().getY(), damager.getLocation().getZ() - nZ,
-                        damager.getLocation().getYaw(),
-                        damager.getLocation().getPitch());
-                victim.teleport(newDamagerLoc);
-                sendGemMessage(victim, this.getItemName());
-            } // teleport behind the attacker
+        if(!(event.getEntity() instanceof Player)){
+            return;
         }
+        if(!(event.getDamager() instanceof LivingEntity)){
+            return;
+        }
+
+        Player player = (Player) event.getEntity();
+        LivingEntity damager = (LivingEntity) event.getDamager();
+
+        if (ThreadLocalRandom.current().nextInt(100) < (getChance() / getTier(itemStack, this.getId())) &&
+                event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+            double nX;
+            double nZ;
+            float nang = player.getLocation().getYaw() + 90;
+
+            if (nang < 0) nang += 360;
+
+            nX = Math.cos(Math.toRadians(nang));
+            nZ = Math.sin(Math.toRadians(nang));
+
+            Location newDamagerLoc = new Location(player.getWorld(), damager.getLocation().getX() - nX,
+                    damager.getLocation().getY(), damager.getLocation().getZ() - nZ,
+                    damager.getLocation().getYaw(),
+                    damager.getLocation().getPitch());
+            player.teleport(newDamagerLoc);
+            sendGemMessage(player, this.getItemName());
+        } // teleport behind the attacker
+
     }
 
 }

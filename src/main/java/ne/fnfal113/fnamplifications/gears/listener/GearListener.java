@@ -30,7 +30,7 @@ public class GearListener implements Listener {
 
             Player p = (Player) event.getEntity();
 
-            if(ThreadLocalRandom.current().nextInt(100) < 20) {
+            if(ThreadLocalRandom.current().nextInt(100) < 12) {
                 for(ItemStack armour : p.getInventory().getArmorContents()) {
                     if (armour != null) {
                         SlimefunItem armor = SlimefunItem.getByItem(armour);
@@ -50,7 +50,7 @@ public class GearListener implements Listener {
             }
             Player p = (Player) event.getEntity();
 
-            if(ThreadLocalRandom.current().nextInt(100) < 40) {
+            if(ThreadLocalRandom.current().nextInt(100) < 12) {
                 for(ItemStack armour : p.getInventory().getArmorContents()) {
                     if (armour != null) {
                         SlimefunItem armor = SlimefunItem.getByItem(armour);

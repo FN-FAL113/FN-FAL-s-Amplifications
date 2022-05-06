@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>3.2.2-UNOFFICIAL</version>
+    <version>3.2.3-UNOFFICIAL</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -145,6 +145,13 @@
             <groupId>com.github.Sefiraat</groupId>
             <artifactId>SMG</artifactId>
             <version>cce3ce31e7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.MilkBowl</groupId>
+            <artifactId>VaultAPI</artifactId>
+            <version>1.7</version>
             <scope>provided</scope>
         </dependency>
 

@@ -46,6 +46,9 @@ public class DecrepitGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(!(event.getDamager() instanceof LivingEntity)){
             return;
         }
+        if(!(event.getEntity() instanceof Player)){
+            return;
+        }
         if(event.isCancelled()){
             return;
         }

@@ -248,7 +248,6 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
             if (cache.isOn) {
                 invMenu.replaceExistingItem(4, NOT_OPERATING);
 
-
                 if (targetBlock.getType().isSolid() && !ILLEGAL.contains(targetBlock.getType()) && !(BlockStorage.hasBlockInfo(targetBlock))) {
 
                     if (!Slimefun.getProtectionManager().hasPermission(

@@ -42,6 +42,12 @@ public class BaneGem extends AbstractGem implements OnDamageHandler, GemUpgrade 
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
+        if(!(event.getEntity() instanceof LivingEntity)){
+            return;
+        }
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
         if(event.isCancelled()){
             return;
         }

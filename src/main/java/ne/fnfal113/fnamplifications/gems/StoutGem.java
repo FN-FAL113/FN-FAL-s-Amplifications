@@ -40,6 +40,10 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler, GemUpg
 
     @Override
     public void onDurabilityChange(PlayerItemDamageEvent event) {
+        if(event.isCancelled()){
+            return;
+        }
+
         if(ThreadLocalRandom.current().nextInt(100) < getChance()/ getTier(event.getItem(), this.getId())){
             event.setCancelled(true);
             sendGemMessage(event.getPlayer(), this.getItemName());

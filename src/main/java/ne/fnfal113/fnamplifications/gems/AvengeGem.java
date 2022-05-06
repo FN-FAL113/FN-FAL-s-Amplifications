@@ -41,7 +41,6 @@ public class AvengeGem extends AbstractGem implements OnPlayerDeathHandler, GemU
 
     @Override
     public void onPlayerDeath(PlayerDeathEvent event, ItemStack itemStack) {
-
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             Player player = event.getEntity();
             Location loc = player.getLocation();

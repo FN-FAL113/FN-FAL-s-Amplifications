@@ -10,7 +10,6 @@ import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -43,22 +42,22 @@ public class CelerityGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getDamager() instanceof LivingEntity)){
+        if(!(event.getEntity() instanceof Player)){
             return;
         }
         if(event.isCancelled()){
             return;
         }
 
-        Player player = (Player) event.getEntity();
+        Player victim = (Player) event.getEntity();
 
         int tier = getTier(itemStack, this.getId());
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
             int level = Math.abs(tier - 4);
 
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, level));
-            sendGemMessage(player, this.getItemName());
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, level));
+            sendGemMessage(victim, this.getItemName());
         }
 
     }

@@ -43,13 +43,20 @@ public class DisarmGem extends AbstractGem implements OnDamageHandler, GemUpgrad
         if(!(event.getEntity() instanceof Player)){
             return;
         }
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
+        if(event.isCancelled()){
+            return;
+        }
+
         Player victim = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             if(victim.getInventory().getItemInMainHand().getType() != Material.AIR){
                 ItemStack itemInMainHand = victim.getInventory().getItemInMainHand();
-                int slot = victim.getInventory().firstEmpty();
+                int slot = victim.getInventory().firstEmpty(); // get first empty slot from left to right
 
                 victim.getInventory().setItemInMainHand(null);
                 if (slot != -1) {

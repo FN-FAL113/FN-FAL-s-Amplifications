@@ -45,10 +45,10 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(!(event.getEntity() instanceof Player)){
+        if(event.isCancelled()){
             return;
         }
-        if(event.isCancelled()){
+        if(!(event.getEntity() instanceof Player)){
             return;
         }
 
@@ -61,6 +61,7 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
                 if(victim.getHealth() <= victimMaxHealth * 0.30){
                     sendGemMessage(victim, this.getItemName());
                     victim.setNoDamageTicks(100);
+
                     AtomicInteger i = new AtomicInteger(0);
 
                     Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task ->{

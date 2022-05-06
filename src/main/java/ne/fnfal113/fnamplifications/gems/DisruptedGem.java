@@ -40,6 +40,10 @@ public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler,
 
     @Override
     public void onGuardianSpawn(GuardianSpawnEvent event, ItemStack itemStack){
+        if(event.isCancelled()){
+            return;
+        }
+
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             event.setCancelled(true);
             event.getDamager().sendMessage(Utils

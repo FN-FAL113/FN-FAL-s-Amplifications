@@ -43,6 +43,11 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
         if(event.isCancelled()){
             return;
         }
+        if(!(event.getEntity() instanceof Player)){
+            return;
+        }
+
+        Player player = (Player) event.getEntity();
 
         if(event.getCause() != EntityDamageEvent.DamageCause.THORNS){
             return;
@@ -50,9 +55,7 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
             event.setCancelled(true);
-            if(event.getEntity() instanceof Player) {
-                sendGemMessage((Player) event.getEntity(), this.getItemName());
-            }
+            sendGemMessage(player, this.getItemName());
         } // cancel any thorn damage
     }
 

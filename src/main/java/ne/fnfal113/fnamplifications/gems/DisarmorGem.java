@@ -43,11 +43,18 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(!(event.getEntity() instanceof Player)){
             return;
         }
+        if(!(event.getDamager() instanceof Player)){
+            return;
+        }
+        if(event.isCancelled()){
+            return;
+        }
+
         Player victim = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
-            int slot = victim.getInventory().firstEmpty();
+            int slot = victim.getInventory().firstEmpty(); // get first empty slot from left to right
 
             if (victim.getInventory().getHelmet() != null && ThreadLocalRandom.current().nextInt(100) < 50) {
                 ItemStack helmet = victim.getInventory().getHelmet();

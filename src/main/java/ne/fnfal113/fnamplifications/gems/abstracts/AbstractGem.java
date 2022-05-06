@@ -41,8 +41,8 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
                     "chance", "%", "&e", "%", 4);
             this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "chance");
         }
-        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
 
+        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
     }
 
     /**
