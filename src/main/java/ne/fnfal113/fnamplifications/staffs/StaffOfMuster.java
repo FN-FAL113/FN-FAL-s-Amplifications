@@ -5,14 +5,12 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
-import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -21,25 +19,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import javax.annotation.Nonnull;
-
 public class StaffOfMuster extends AbstractStaff {
 
-    private final NamespacedKey defaultUsageKey;
-
-    private final MainStaff mainStaff;
-
     public StaffOfMuster(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 10);
-
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "musterstaff");
-        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey() {
-        return defaultUsageKey;
+        super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("musterstaff"));
     }
 
     @Override
@@ -76,9 +59,7 @@ public class StaffOfMuster extends AbstractStaff {
         block.getWorld().playEffect(block.getLocation().clone().add(0.5, 1, 0.5), Effect.ENDER_SIGNAL, 1);
 
         ItemMeta meta = item.getItemMeta();
-
-        mainStaff.updateMeta(item, meta, player);
-
+        getMainStaff().updateMeta(item, meta, player);
     }
 
 }

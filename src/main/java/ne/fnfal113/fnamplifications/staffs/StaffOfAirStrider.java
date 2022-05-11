@@ -6,17 +6,15 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AirStriderTask;
-import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,22 +22,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class StaffOfAirStrider extends AbstractStaff {
 
-    private final NamespacedKey defaultUsageKey;
-
     private final Map<UUID, BukkitTask> taskMap = new HashMap<>();
 
-    private final MainStaff mainStaff;
-
     public StaffOfAirStrider(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 10);
-
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "airstriderstaff");
-        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey() {
-        return defaultUsageKey;
+        super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("airstriderstaff"));
     }
 
     @Override
@@ -64,7 +50,7 @@ public class StaffOfAirStrider extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        mainStaff.updateMeta(item, meta, player);
+        getMainStaff().updateMeta(item, meta, player);
 
         AtomicInteger i = new AtomicInteger(10);
         Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
@@ -78,7 +64,7 @@ public class StaffOfAirStrider extends AbstractStaff {
                 task.cancel();
             }
             i.getAndDecrement();
-        },0L, 23L);
+        },0L, 21L);
 
     }
 }

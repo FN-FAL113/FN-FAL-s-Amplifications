@@ -42,7 +42,7 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
             return;
         }
         if(!hasPermissionToThrow(player)){
-            player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have the permission to throw here!"));
+            player.sendMessage(Utils.colorTranslator("&eYou don't have the permission to throw here! (Needs block interaction flag enabled)"));
             return;
         } // check if player has permission to build on the current location
 

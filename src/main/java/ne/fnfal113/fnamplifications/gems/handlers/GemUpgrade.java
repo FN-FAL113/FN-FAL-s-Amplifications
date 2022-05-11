@@ -1,9 +1,8 @@
 package ne.fnfal113.fnamplifications.gems.handlers;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.UpgradedGem;
-import org.bukkit.NamespacedKey;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -45,8 +44,7 @@ public interface GemUpgrade {
 
     default int getTier(ItemStack itemStack, String id){
         return itemStack.getItemMeta().getPersistentDataContainer().getOrDefault(
-                new NamespacedKey(FNAmplifications.getInstance(), id + "_gem_tier"),
-                PersistentDataType.INTEGER, 4);
+                Keys.createKey(id + "_gem_tier"), PersistentDataType.INTEGER, 4);
     }
 
 }

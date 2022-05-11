@@ -35,7 +35,7 @@ public class PlayerJoinLister implements Listener {
             for(String string : getChangelog()) {
                 player.sendMessage(string);
             }
-        }, 42L);
+        }, 45L);
 
     }
 
@@ -45,13 +45,18 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("&d&l• &r&d&lAdded Loot Gem!"),
-                Utils.colorTranslator("  &bA chance to steal money from your foes!"),
-                Utils.colorTranslator("  &bGem only gets added if the server"),
-                Utils.colorTranslator("  &beconomy plugin utilizes VaultAPI"),
-                Utils.colorTranslator("&d&l• &r&d&lAdded &r&dVault integration (API)"),
-                Utils.colorTranslator("&d&l• &r&dReadjusted FN Armor set progress chance trigger (balancing)"),
-                Utils.colorTranslator("&d&l• &r&dReadjusted FN Solar Gen recipes (balancing)"),
+                Utils.colorTranslator("&d&l• &r&d&lBug fixes and code improvements!"),
+                Utils.colorTranslator("  &bThis update introduces bug fixes and code"),
+                Utils.colorTranslator("  &bimprovements for quality of life changes"),
+                Utils.colorTranslator("  &bFile size has been reduced, these code changes may not"),
+                Utils.colorTranslator("  &bbe applicable to all players but dev side it helps :)"),
+                Utils.colorTranslator("&d&l• &r&dFixed Quiver bugs"),
+                Utils.colorTranslator("&d&l• &r&dFixed &r&dsmall bugs with staffs"),
+                Utils.colorTranslator("&d&l• &r&dBalanced FN Armor set trigger chance for progress"),
+                Utils.colorTranslator("&d&l• &r&dPermission checking is now based on if players"),
+                Utils.colorTranslator("  &bcan interact blocks on protected claims for "),
+                Utils.colorTranslator("  &bthrowable weapons and staffs, so block interactions must"),
+                Utils.colorTranslator("  &bbe enabled in order to use them on grief protected claims"),
                 Utils.colorTranslator(""),
                 Utils.colorTranslator("&ehttps://fnfal113.tech/pluginStats"),
                 Utils.colorTranslator("&ehttps://github.com/FN-FAL113/"),

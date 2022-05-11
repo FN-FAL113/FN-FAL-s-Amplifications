@@ -5,11 +5,11 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import lombok.Getter;
 import lombok.SneakyThrows;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
-import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,45 +25,30 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
 public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl {
 
+    @Getter
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
-
-    private final NamespacedKey defaultUsageKey;
-
-    private final NamespacedKey defaultUsageKey2;
-
-    private final MainStaff mainStaff;
+    @Getter
+    private final NamespacedKey identifierKey = Keys.createKey("identifier");
+    @Getter
+    private final HashMap<UUID, Boolean> STATE_MAP = new HashMap<>();
 
     @SneakyThrows
     public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 10);
-
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "movestaff");
-        this.defaultUsageKey2 = new NamespacedKey(FNAmplifications.getInstance(), "identifier");
-        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
-
-    }
-
-    public @Nonnull
-    NamespacedKey getStorageKey() {
-        return defaultUsageKey;
-    }
-
-    public @Nonnull
-    NamespacedKey getStorageKey2() {
-        return defaultUsageKey2;
+        super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("movestaff"));
     }
 
     @Override
     public void onEntityClick(PlayerInteractEntityEvent event){
         Player player = event.getPlayer();
+
         if(event.getRightClicked() instanceof Player){
             player.sendMessage(Utils.colorTranslator("&cStaff is not allowed to move players!"));
             return;
@@ -75,20 +60,24 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
         }
 
         LivingEntity en = (LivingEntity) event.getRightClicked();
-        ItemStack item = player.getInventory().getItemInMainHand();
-        ItemMeta meta = item.getItemMeta();
 
-        if (!hasPermissionToCast(meta.getDisplayName(), player, en.getLocation())) {
+        if (!Slimefun.getProtectionManager().hasPermission(
+                Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.BREAK_BLOCK)) {
+            player.sendMessage(Utils.colorTranslator("&cYou don't have permission to cast " + this.getItemName() + " here!"));
             return;
         }
 
+        ItemStack item = player.getInventory().getItemInMainHand();
+        ItemMeta meta = item.getItemMeta();
         PersistentDataContainer data = meta.getPersistentDataContainer();
-        if(!ENTITY_OWNER.containsValue(en)) {
-            ENTITY_OWNER.remove(data);
-            data.set(getStorageKey2(), PersistentDataType.DOUBLE, Math.random()); // for Unique PDC (avoid same pdc contents)
-            ENTITY_OWNER.put(data, en);
+
+        if(!getENTITY_OWNER().containsValue(en)) {
+            getENTITY_OWNER().remove(data);
+            data.set(getIdentifierKey(), PersistentDataType.DOUBLE, Math.random()); // for Unique PDC (avoid same pdc contents)
+            getENTITY_OWNER().put(data, en);
             Utils.updateValueByPdc(item, meta, en.getName(), "Entity stored: ", "&e", "", " entity");
             Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1 ,1);
+            getSTATE_MAP().put(player.getUniqueId(), true);
         } else {
             player.sendMessage(Utils.colorTranslator("&eThis entity has been stored already by others!"));
         }
@@ -104,30 +93,35 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
 
         Block block = player.getTargetBlockExact(100);
 
+        // fixes right click mob at entity interact event triggers
+        // left_click_air in player interact event
+        if(getSTATE_MAP().containsKey(player.getUniqueId()) && getSTATE_MAP().get(player.getUniqueId())){
+            getSTATE_MAP().remove(player.getUniqueId());
+            return;
+        }
+
         if (block == null) {
             return;
         }
 
         if (!Slimefun.getProtectionManager().hasPermission(
                 Bukkit.getOfflinePlayer(player.getUniqueId()),
-                block,
-                Interaction.INTERACT_BLOCK)
-        ) {
+                block, Interaction.BREAK_BLOCK)) {
             player.sendMessage(ChatColor.DARK_RED + "You don't have permission to teleport entity there!");
             return;
         }
 
-        if(ENTITY_OWNER.get(data) == null){
+        if(getENTITY_OWNER().get(data) == null){
             player.sendMessage("You haven't right clicked an entity or Entity ID changed after server restart");
             return;
         }
 
-        if(ENTITY_OWNER.containsKey(data)) {
-            LivingEntity entity = ENTITY_OWNER.get(data);
+        if(getENTITY_OWNER().containsKey(data)) {
+            LivingEntity entity = getENTITY_OWNER().get(data);
             entity.teleport(block.getLocation().add(0.5, 1, 0.5));
-            ENTITY_OWNER.remove(data);
+            getENTITY_OWNER().remove(data);
             Utils.updateValueByPdc(item, meta, "none", "Entity stored: ", "&e", "", "");
-            mainStaff.updateMeta(item, meta, player);
+            getMainStaff().updateMeta(item, meta, player);
         }
     }
 }

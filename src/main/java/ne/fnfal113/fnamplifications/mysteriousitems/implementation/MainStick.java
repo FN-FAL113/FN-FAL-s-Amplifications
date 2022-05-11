@@ -1,7 +1,5 @@
 package ne.fnfal113.fnamplifications.mysteriousitems.implementation;
 
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -31,9 +29,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MainStick {
 
     @Getter
-    public final NamespacedKey storageKey;
+    public final NamespacedKey xpKey;
     @Getter
-    public final NamespacedKey storageKey2;
+    public final NamespacedKey damageInflictedKey;
     @Getter
     public final Map<Enchantment, Integer> enchantmentMap;
     @Getter
@@ -52,8 +50,8 @@ public class MainStick {
 
     @ParametersAreNonnullByDefault
     public MainStick(NamespacedKey key1, NamespacedKey key2, Map<Enchantment, Integer> enchantmentMap, String weaponLore, String stickLore, int effectCount, int levelReq){
-        this.storageKey = key1;
-        this.storageKey2 = key2;
+        this.xpKey = key1;
+        this.damageInflictedKey = key2;
         this.enchantmentMap = enchantmentMap;
         this.weaponLore = weaponLore;
         this.stickLore = stickLore;
@@ -61,12 +59,6 @@ public class MainStick {
         this.requiredLevel = levelReq;
     }
 
-    /**
-     *
-     * @param pdc the persistent data associated with the item meta
-     * @param key the namespaced key or identifier for where the pdc resides
-     * @return the value that the pdc contains
-     */
     public int getPdc(PersistentDataContainer pdc, NamespacedKey key){
         return pdc.getOrDefault(key, PersistentDataType.INTEGER, 0);
     }
@@ -76,7 +68,6 @@ public class MainStick {
      * @param e the interact event
      * @param material the material of the item that will be used for transformation
      */
-    @ParametersAreNonnullByDefault
     public void onInteract(PlayerInteractEvent e, Material material){
         if(!(e.getPlayer().getLevel() >= getRequiredLevel())) {
             darkenVision(e.getPlayer(), getRequiredLevel());
@@ -84,110 +75,110 @@ public class MainStick {
         }
 
         Player player = e.getPlayer();
-        ItemStack item1 = player.getInventory().getItemInMainHand();
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+        ItemMeta meta = itemStack.getItemMeta();
 
-        ItemMeta meta = item1.getItemMeta();
-        List<String> lore2 = meta.getLore();
-
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        getEnchantmentMap().forEach((Key, Value) -> meta.addEnchant(Key, Value, true));
-        meta.setUnbreakable(true);
-        meta.setLore(loreUpdate(lore2, getPdc(pdc, getStorageKey2()), getPdc(pdc, getStorageKey()), getWeaponLore()));
-        item1.setItemMeta(meta);
-
-        if(!(item1.getType() == material)) {
-            item1.setType(material);
-            player.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1, 1);
-            player.getWorld().playEffect(player.getLocation().add(0.3, 0.4, 0.45), Effect.ENDER_SIGNAL, 1);
-            player.getWorld().spawnParticle(Particle.FLASH, player.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
-        }
+        convertToWeapon(itemStack, meta, material, player);
     }
 
-    /**
-     * transform the weapon back to a stick if player doesn't have enough exp levels
-     * @param p the player involved
-     * @param item the weapon used
-     * @param slimefunItem the item as an slimefun item instance
-     * @param finalLore the final changes to the persistent lore before transforming the weapon
-     * @param incrementLevel the value for incrementing the current exp level pdc data
-     */
-    public void transformWeapon(Player p, ItemStack item, SlimefunItemStack slimefunItem, String finalLore, int incrementLevel, int damageAmount, boolean isLevelDeducted) {
-        CustomItemStack item2 = new CustomItemStack(slimefunItem);
+    public void convertToWeapon(ItemStack itemStack, ItemMeta meta ,Material material, Player player){
+        if(itemStack.getType() == material) {
+             return;
+        } // convert the stick to a weapon
+
+        meta.setUnbreakable(true);
+        getEnchantmentMap().forEach((Key, Value) -> meta.addEnchant(Key, Value, true));
+        itemMetaUpdate(itemStack, meta ,getWeaponLore(), 0, getPdc(meta.getPersistentDataContainer(),
+                getXpKey()), false);
+        itemStack.setType(material);
+        player.playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1, 1);
+        player.getWorld().playEffect(player.getLocation().add(0.3, 0.4, 0.45), Effect.ENDER_SIGNAL, 1);
+        player.getWorld().spawnParticle(Particle.FLASH, player.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
+    }
+
+    public void convertToStick(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
 
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        int xpAmount = getPdc(pdc, getStorageKey());
-        int damageInflicted =  damageAmount + getPdc(pdc, getStorageKey2());
-        pdc.set(getStorageKey2(), PersistentDataType.INTEGER, damageInflicted);
+        lore.clear();
+        lore.add(getStickLore());
 
-        if(isLevelDeducted) {
-            int amount = ++xpAmount + incrementLevel;
-            pdc.set(getStorageKey(), PersistentDataType.INTEGER, amount);
-            meta.setLore(loreUpdate(lore, damageInflicted, amount, finalLore));
-        } else {
-            meta.setLore(loreUpdate(lore, damageInflicted, xpAmount, finalLore));
-        }
+        meta.setLore(lore);
+        meta.getEnchants().forEach((enchant, value) -> meta.removeEnchant(enchant));
 
+        item.setType(Material.STICK);
         item.setItemMeta(meta);
-
-        if (p.getLevel() <= getRequiredLevel()) {
-            if (lore.size() >= 4) {
-                lore.subList(3, lore.size()).clear();
-            }
-            meta.setLore(lore);
-            meta.getEnchants().forEach((enchant, value) -> meta.removeEnchant(enchant));
-            item.setItemMeta(meta);
-            item.setType(item2.getType());
-        }
-
     }
 
-    public boolean onSwing(ItemStack item, SlimefunItemStack slimefunItemStack, Player player, double damageAmount, int chance, int levelDeduction){
-        if(player.getLevel() >= getRequiredLevel()) {
-            if (ThreadLocalRandom.current().nextInt(100) < chance) {
-                player.setLevel(player.getLevel() - levelDeduction);
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.
-                        fromLegacyText(Utils.colorTranslator("&d" + levelDeduction + " xp levels has been consumed from you")));
-                transformWeapon(player, item, slimefunItemStack, getStickLore(), levelDeduction - 1, (int) damageAmount, true);
-                return true;
+    /**
+     *
+     * @param item the stick used
+     * @param player the player involved
+     * @param damageAmount the damage inflicted
+     * @param chance the chance to deduct level from the owner
+     * @param levelDeduction the amount of level to be deducted
+     * @return true if xp level deduction is applied
+     */
+    public boolean onSwing(ItemStack item, Player player, double damageAmount, int chance, int levelDeduction){
+        if (player.getLevel() >= getRequiredLevel()) {
+            if(ThreadLocalRandom.current().nextInt(100) > chance){
+                itemMetaUpdate(item, item.getItemMeta(), getWeaponLore(), (int) damageAmount, levelDeduction, false);
+                return false;
             }
-            transformWeapon(player, item, slimefunItemStack, getStickLore(), levelDeduction - 1, (int) damageAmount, false);
-        } else {
-            darkenVision(player, getRequiredLevel());
+
+            player.setLevel(player.getLevel() - levelDeduction);
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.
+                    fromLegacyText(Utils.colorTranslator("&d" + levelDeduction + " xp levels has been consumed from you")));
+
+            itemMetaUpdate(item, item.getItemMeta(), getWeaponLore(), (int) damageAmount, levelDeduction, true);
+
+            return true;
         }
+
+        convertToStick(item);
+        darkenVision(player, getRequiredLevel());
         return false;
     }
 
     /**
-     * updates the item lore with the persistent data changes as the values
-     * @param lore2 the lore of the itemstack
-     * @param get_Damage the damage amount inflicted to the enemy that is store
-     * @param xpamount the amount of xp levels deducted from the player who uses the stick
-     * @param lore the default lore of the item except for persistent lore
-     * @return the lore that has been updated with the current changes to pdc data
+     *
+     * @param item the mystery stick used
+     * @param loreType lore type can be the lore of the stick or as weapon
+     * @param damageInflicted the damage amount inflicted to the enemy
+     * @param xpLevelDeduction the amount of xp levels deducted from the owner
      */
-    public List<String> loreUpdate(List<String> lore2, int get_Damage, int xpamount, String lore){
-        if(lore2.size() == 1) {
-            lore2.remove(0);
-            lore2.add(lore);
-            lore2.add(ChatColor.YELLOW + "Total Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
-            lore2.add(ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
-        } else {
-            lore2.set(0, lore);
-            lore2.set(1, ChatColor.YELLOW + "Total Exp Levels Consumed: " + ChatColor.WHITE + xpamount);
-            lore2.set(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + get_Damage);
+    public void itemMetaUpdate(ItemStack item, ItemMeta meta, String loreType, int damageInflicted, int xpLevelDeduction, boolean isLevelDeducted){
+        List<String> lore2 = meta.getLore();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        int xpAmount = getPdc(pdc, getXpKey());
+        int damageAmount = damageInflicted + getPdc(pdc, getDamageInflictedKey());
+
+        if(isLevelDeducted) { // if level is deducted from the owner when using the stick
+            xpAmount = xpAmount + xpLevelDeduction;
         }
 
-        if(!(lore2.size() >= 4)){
+        pdc.set(getXpKey(), PersistentDataType.INTEGER, xpAmount);
+        pdc.set(getDamageInflictedKey(), PersistentDataType.INTEGER, damageAmount);
+
+        lore2.set(0, loreType);
+        try {
+            lore2.set(1, ChatColor.YELLOW + "Total Exp Levels Consumed: " + ChatColor.WHITE + xpAmount);
+            lore2.set(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageAmount);
+        } catch (IndexOutOfBoundsException e){
+            lore2.add(1, ChatColor.YELLOW + "Total Exp Levels Consumed: " + ChatColor.WHITE + xpAmount);
+            lore2.add(2, ChatColor.YELLOW + "Total Damage inflicted: " + ChatColor.WHITE + damageAmount);
+        }
+
+        if(!(lore2.size() >= 4)){ // add the mystery effect lore
             lore2.add("");
             lore2.add(Utils.colorTranslator("&c◢◤◢◤◢◤◢◤| &4&lEffects &f|◥◣◥◣◥◣◥◣"));
             lore2.add(ChatColor.BLUE + "◆ "  + getEffectCount() + " Mystery effect/s");
             lore2.add(Utils.colorTranslator("&c◢◤◢◤◢◤◢◤| &4◢◤◤◥◤◥◤◥◤◥◥◣ &f|◥◣◥◣◥◣◥◣"));
         }
 
-        return lore2;
+        meta.setLore(lore2);
+        item.setItemMeta(meta);
     }
 
     @ParametersAreNonnullByDefault

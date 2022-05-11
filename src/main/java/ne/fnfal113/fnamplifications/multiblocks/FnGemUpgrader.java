@@ -10,6 +10,7 @@ import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -179,7 +180,7 @@ public class FnGemUpgrader extends MultiBlockMachine {
     public ItemStack setOutput(ItemStack output, String id){
         ItemMeta meta = output.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        NamespacedKey key = new NamespacedKey(FNAmplifications.getInstance(), id + "_gem_tier");
+        NamespacedKey key = Keys.createKey(id + "_gem_tier");
         int tier = pdc.getOrDefault(key, PersistentDataType.INTEGER, 4);
 
         pdc.set(key, PersistentDataType.INTEGER, tier - 1);
