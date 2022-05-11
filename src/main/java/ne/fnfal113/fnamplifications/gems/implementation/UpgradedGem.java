@@ -2,7 +2,7 @@ package ne.fnfal113.fnamplifications.gems.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import lombok.Getter;
-import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,7 +25,7 @@ public class UpgradedGem extends Gem {
     public UpgradedGem(SlimefunItem sfItem, ItemStack itemToSocket, Player p){
         super(sfItem, itemToSocket, p);
 
-        this.key = new NamespacedKey(FNAmplifications.getInstance(), sfItem.getId().toLowerCase() + "_gem_tier");
+        this.key = Keys.createKey(sfItem.getId().toLowerCase() + "_gem_tier");
     }
 
     public void upgradeExistingGem(InventoryClickEvent event, ItemStack gemItem, int gemTier){

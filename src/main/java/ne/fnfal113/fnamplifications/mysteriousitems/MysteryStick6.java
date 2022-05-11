@@ -3,7 +3,7 @@ package ne.fnfal113.fnamplifications.mysteriousitems;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -26,13 +26,17 @@ import java.util.Map;
 
 public class MysteryStick6 extends AbstractStick {
 
-    public final MainStick mainStick;
+    @Getter
+    private final MainStick mainStick;
+    @Getter
+    private final Material material;
 
     @ParametersAreNonnullByDefault
-    public MysteryStick6(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public MysteryStick6(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
         super(itemGroup, item, recipeType, recipe);
 
         this.mainStick = new MainStick(Keys.STICK_6_EXP_LEVELS, Keys.STICK_6_DAMAGE, enchantments(), weaponLore(), stickLore(), 2, 15);
+        this.material = material;
     }
 
     @Override
@@ -57,7 +61,7 @@ public class MysteryStick6 extends AbstractStick {
 
     @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.BOW);
+        getMainStick().onInteract(e, getMaterial());
     }
 
     @Override
@@ -70,11 +74,11 @@ public class MysteryStick6 extends AbstractStick {
 
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != Material.BOW) {
+        if(item.getType() != getMaterial()) {
             return;
         }
 
-        if(mainStick.onSwing(item, FNAmpItems.FN_STICK_6, player, event.getDamage(), 20, 2))  {
+        if(getMainStick().onSwing(item, player, event.getDamage(), 20, 2))  {
             LivingEntity victim = (LivingEntity) event.getEntity();
             victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 40, 0, false, false, false));

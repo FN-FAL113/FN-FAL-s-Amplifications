@@ -3,7 +3,7 @@ package ne.fnfal113.fnamplifications.mysteriousitems;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
@@ -26,13 +26,17 @@ import java.util.Map;
 
 public class MysteryStick9 extends AbstractStick {
 
-    public final MainStick mainStick;
+    @Getter
+    private final MainStick mainStick;
+    @Getter
+    private final Material material;
 
     @ParametersAreNonnullByDefault
-    public MysteryStick9(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public MysteryStick9(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
         super(itemGroup, item, recipeType, recipe);
 
         this.mainStick = new MainStick(Keys.STICK_9_EXP_LEVELS, Keys.STICK_9_DAMAGE, enchantments(), weaponLore(), stickLore(), 3, 20);
+        this.material = material;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class MysteryStick9 extends AbstractStick {
 
     @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.BOW);
+        getMainStick().onInteract(e, getMaterial());
     }
 
     @Override
@@ -70,14 +74,14 @@ public class MysteryStick9 extends AbstractStick {
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
-        if(item.getType() != Material.BOW) {
+        if(item.getType() != getMaterial()) {
             return;
         }
 
-        if(mainStick.onSwing(item, FNAmpItems.FN_STICK_9, player, event.getDamage(), 17, 3)) {
+        if(getMainStick().onSwing(item, player, event.getDamage(), 17, 3)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
             victim.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 1, false, true, false));
-            victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 40, 0, false, true, false));
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 60, 0, false, true, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, false, false));
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }

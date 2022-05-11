@@ -20,8 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
@@ -41,7 +39,7 @@ public class FnChestPlate extends AbstractGears {
         this.defaultUsageKey = Keys.FN_GEAR_CHEST;
         this.defaultUsageKey2 = Keys.FN_GEAR_CHEST_LEVEL;
         this.defaultUsageKey3 = Keys.FN_GEAR_CHEST_FINAL;
-        this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 30, 120);
+        this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), item, 30, 120);
     }
 
     protected @Nonnull
@@ -57,22 +55,6 @@ public class FnChestPlate extends AbstractGears {
     protected @Nonnull
     NamespacedKey getStorageKey3() {
         return defaultUsageKey3;
-    }
-
-    @Override
-    public List<String> defaultLore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Lore " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-        lore.add(1, "");
-        lore.add(2, ChatColor.WHITE + "The armor from the past brought to life");
-        lore.add(3, ChatColor.WHITE + "once again. It becomes more powerful during");
-        lore.add(4, ChatColor.WHITE + "times of war and conflict");
-        lore.add(5, "");
-        lore.add(6, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Stats " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-
-        return lore;
     }
 
     @Override

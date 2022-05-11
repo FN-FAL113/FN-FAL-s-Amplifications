@@ -3,7 +3,7 @@ package ne.fnfal113.fnamplifications.mysteriousitems;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -25,13 +25,17 @@ import java.util.Map;
 
 public class MysteryStick7 extends AbstractStick {
 
-    public final MainStick mainStick;
+    @Getter
+    private final MainStick mainStick;
+    @Getter
+    private final Material material;
 
     @ParametersAreNonnullByDefault
-    public MysteryStick7(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public MysteryStick7(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
         super(itemGroup, item, recipeType, recipe);
 
         this.mainStick = new MainStick(Keys.STICK_7_EXP_LEVELS, Keys.STICK_7_DAMAGE, enchantments(), weaponLore(), stickLore(),  3, 20);
+        this.material = material;
     }
 
     @Override
@@ -53,12 +57,12 @@ public class MysteryStick7 extends AbstractStick {
 
     @Override
     public String stickLore(){
-        return ChatColor.WHITE + "May the force and accuracy be with you";
+        return ChatColor.WHITE + "The aura on this stick is mesmerizing";
     }
 
     @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.DIAMOND_SWORD);
+        getMainStick().onInteract(e, getMaterial());
     }
 
     @Override
@@ -70,13 +74,13 @@ public class MysteryStick7 extends AbstractStick {
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != Material.DIAMOND_SWORD){
+        if(item.getType() != getMaterial()){
             return;
         }
 
-        if(mainStick.onSwing(item, FNAmpItems.FN_STICK_7, player, event.getDamage(), 17, 3)) {
+        if(getMainStick().onSwing(item, player, event.getDamage(), 17, 3)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
-            victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 120, 1, false, false, false));
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60, 0, false, false, false));
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));

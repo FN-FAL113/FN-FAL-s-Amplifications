@@ -36,17 +36,21 @@ public class AirStriderTask extends BukkitRunnable {
             if(diff < 10) { // check if current players time is less than 10 seconds
                 if (blockMap.containsKey(player.getUniqueId())) {
                     List<Block> block = blockMap.get(player.getUniqueId());
-                    for(Block blocks : block) {
-                        if (blocks != null) {
-                            blocks.setType(Material.AIR);
+                    if(block != null) {
+                        for (Block blocks : block) {
+                            if (blocks != null) {
+                                blocks.setType(Material.AIR);
+                            }
                         }
                     }
+
                     blockMap.remove(player.getUniqueId());
                 } // remove the last block saved from the hashmap
                 List<Block> blockList = new ArrayList<>();
                 for(int x = -3; x <= 3; x++) {
                     for (int z = -3; z <= 3; z++) {
                         Block newBlock = player.getLocation().getBlock().getRelative(x, -1, z);
+
                         if (newBlock.getType() == Material.AIR) {
                             blockList.add(newBlock);
                             newBlock.setType(Material.BARRIER);
@@ -56,9 +60,11 @@ public class AirStriderTask extends BukkitRunnable {
                 }
             } else { // when cooldown is due remove remaining blocks
                 List<Block> block = blockMap.get(player.getUniqueId());
-                for(Block blocks: block) {
-                    if (blocks != null) {
-                        blocks.setType(Material.AIR);
+                if(block != null) {
+                    for (Block blocks : block) {
+                        if (blocks != null) {
+                            blocks.setType(Material.AIR);
+                        }
                     }
                 }
                 cooldown.remove(player.getUniqueId());

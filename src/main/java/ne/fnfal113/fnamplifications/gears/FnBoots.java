@@ -20,8 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @SuppressWarnings("ConstantConditions")
@@ -41,7 +39,7 @@ public class FnBoots extends AbstractGears {
         this.defaultUsageKey = Keys.FN_GEAR_BOOTS;
         this.defaultUsageKey2 = Keys.FN_GEAR_BOOTS_LEVEL;
         this.defaultUsageKey3 = Keys.FN_GEAR_BOOTS_FINAL;
-        this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), defaultLore(), item, 25, 100);
+        this.mainGears = new MainGears(getStorageKey(), getStorageKey2(), getStorageKey3(), item, 25, 100);
     }
 
     protected @Nonnull
@@ -57,22 +55,6 @@ public class FnBoots extends AbstractGears {
     protected @Nonnull
     NamespacedKey getStorageKey3() {
         return defaultUsageKey3;
-    }
-
-    @Override
-    public List<String> defaultLore(){
-        List<String> lore = new ArrayList<>();
-        lore.add(0, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Lore " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-        lore.add(1, "");
-        lore.add(2, ChatColor.WHITE + "Soldiers from FN's army only wants to posses");
-        lore.add(3, ChatColor.WHITE + "this historical boots but it was kept");
-        lore.add(4, ChatColor.WHITE + "hidden under the hands of the zion people");
-        lore.add(5, "");
-        lore.add(6, ChatColor.RED + "◬◬◬◬◬◬| "+ ChatColor.LIGHT_PURPLE + ""
-                + ChatColor.BOLD + "Stats " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-
-        return lore;
     }
 
     @Override

@@ -3,7 +3,7 @@ package ne.fnfal113.fnamplifications.mysteriousitems;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
@@ -27,13 +27,17 @@ import java.util.Objects;
 
 public class MysteryStick10 extends AbstractStick {
 
-    public final MainStick mainStick;
+    @Getter
+    private final MainStick mainStick;
+    @Getter
+    private final Material material;
 
     @ParametersAreNonnullByDefault
-    public MysteryStick10(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    public MysteryStick10(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
         super(itemGroup, item, recipeType, recipe);
 
         this.mainStick = new MainStick(Keys.STICK_10_EXP_LEVELS, Keys.STICK_10_DAMAGE, enchantments(), weaponLore(), stickLore(), 4, 25);
+        this.material = material;
     }
 
     @Override
@@ -60,7 +64,7 @@ public class MysteryStick10 extends AbstractStick {
 
     @Override
     public void interact(PlayerInteractEvent e) {
-        mainStick.onInteract(e, Material.DIAMOND_SWORD);
+        getMainStick().onInteract(e, getMaterial());
     }
 
     @Override
@@ -68,14 +72,14 @@ public class MysteryStick10 extends AbstractStick {
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != Material.DIAMOND_SWORD){
+        if(item.getType() != getMaterial()){
             return;
         } // if item material is not a weapon, don't continue further
 
-        if(mainStick.onSwing(item, FNAmpItems.FN_STICK_10, player, event.getDamage(), 13, 4)) {
+        if(getMainStick().onSwing(item, player, event.getDamage(), 13, 4)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
-            victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 3, false, true, false));
-            victim.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 3, false, true, false));
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 2, false, true, false));
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 2, false, true, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 2, false, true, false));
 
             int playerDefaultHealth = (int) Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();

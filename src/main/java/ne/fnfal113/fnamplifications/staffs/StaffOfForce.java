@@ -5,13 +5,11 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AreaOfEffectStaffTask;
-import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -19,24 +17,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import javax.annotation.Nonnull;
-
 public class StaffOfForce extends AbstractStaff {
 
-    private final NamespacedKey defaultUsageKey;
-
-    private final MainStaff mainStaff;
-
     public StaffOfForce(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe, 10);
-
-        this.defaultUsageKey = new NamespacedKey(FNAmplifications.getInstance(), "forcestaff");
-        this.mainStaff = new MainStaff(getStorageKey(), this.getId());
-    }
-
-    protected @Nonnull
-    NamespacedKey getStorageKey() {
-        return defaultUsageKey;
+        super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("forcestaff"));
     }
 
     @Override
@@ -56,7 +40,7 @@ public class StaffOfForce extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        mainStaff.updateMeta(item, meta, player);
+        getMainStaff().updateMeta(item, meta, player);
 
         Particle particle = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17) ? Particle.ELECTRIC_SPARK : Particle.SNEEZE;
 

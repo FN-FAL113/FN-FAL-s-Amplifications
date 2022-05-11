@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
-import java.util.List;
 
 public abstract class AbstractGears extends SlimefunItem {
 
@@ -34,12 +33,6 @@ public abstract class AbstractGears extends SlimefunItem {
         meta.setUnbreakable(FNAmplifications.getInstance().getConfigManager().getBoolById(this.getId(), "unbreakable"));
         this.getItem().setItemMeta(meta);
     }
-
-    /**
-     * the lore used for rebuilding the item lore on update
-     * @return the default lore associated with the gear
-     */
-    public abstract List<String> defaultLore();
 
     /**
      * This is where player gets the progress by being hit by living entities

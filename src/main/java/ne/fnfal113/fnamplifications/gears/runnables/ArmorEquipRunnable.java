@@ -3,8 +3,8 @@ package ne.fnfal113.fnamplifications.gears.runnables;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gears.FnChestPlate;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -48,7 +48,7 @@ public class ArmorEquipRunnable implements Runnable {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        return pdc.getOrDefault(new NamespacedKey(FNAmplifications.getInstance(), "armorlevel"), PersistentDataType.INTEGER, 0);
+        return pdc.getOrDefault(Keys.createKey("armorlevel"), PersistentDataType.INTEGER, 0);
     }
 
 }

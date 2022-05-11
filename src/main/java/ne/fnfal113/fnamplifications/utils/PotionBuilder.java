@@ -5,13 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
- * A simple potion builder based from the given {@link PotionEffectType}
+ * A simple potion builder based from the given {@link PotionType}
  * @author FN_FAL113
  */
 public class PotionBuilder {

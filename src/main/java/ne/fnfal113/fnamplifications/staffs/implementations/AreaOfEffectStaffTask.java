@@ -41,7 +41,7 @@ public class AreaOfEffectStaffTask {
     }
 
     public void spawnCloud(){
-        AreaEffectCloud effectCloud = (AreaEffectCloud) getPlayer().getWorld().spawnEntity(getTargetBlock().getLocation().add(0.5, 1, 0.5) , EntityType.AREA_EFFECT_CLOUD);
+        AreaEffectCloud effectCloud = (AreaEffectCloud) getPlayer().getWorld().spawnEntity(getTargetBlock().getLocation().add(0.5, 1, 0.5), EntityType.AREA_EFFECT_CLOUD);
         effectCloud.setParticle(getParticle());
         effectCloud.setDuration(getDurationInTicks());
         effectCloud.setRadius(getRadius());

@@ -60,7 +60,13 @@ public class MainQuiver {
         return item instanceof AbstractQuiver;
     }
 
-    public void changeState(ItemStack itemState, ItemMeta arrowMeta, PersistentDataContainer arrowsCheck){
+    /**
+     *
+     * @param itemState the itemstack with the state of closed and open
+     * @param meta the meta of the quiver with the current amount as pdc
+     * @param arrowsCheck the pdc instance where current arrow value is checked
+     */
+    public void changeState(ItemStack itemState, ItemMeta meta, PersistentDataContainer arrowsCheck){
         int arrowsCheckPDC = getArrows(arrowsCheck, getStorageKey());
         boolean pdcCheck = arrowsCheckPDC == 0;
         if(pdcCheck){
@@ -68,16 +74,23 @@ public class MainQuiver {
         }
 
         if(itemState.getType() == Material.LEATHER) {
-            arrowMeta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "opened");
+            meta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "opened");
             itemState.setType(getArrowType().getType());
-            Utils.updateValueByPdc(itemState, arrowMeta, "Opened", "State: " ,"&e", "&f", " quiver");
+            Utils.updateValueByPdc(itemState, meta, "Opened", "State: " ,"&e", "&f", " quiver");
         } else {
-            arrowMeta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "closed");
+            meta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "closed");
             itemState.setType(Material.LEATHER);
-            Utils.updateValueByPdc(itemState, arrowMeta, "Closed", "State: " ,"&e", "&f", " quiver");
+            Utils.updateValueByPdc(itemState, meta, "Closed", "State: " ,"&e", "&f", " quiver");
         }
     }
 
+    /**
+     *
+     * @param itemState the itemstack with the state of closed and open
+     * @param meta the meta of the quiver with the current amount as pdc
+     * @param player the player who owns the quiver
+     * @param arrowsCheck the pdc instance where current arrow value is checked
+     */
     public void withdrawArrows(ItemStack itemState, ItemMeta meta, Player player, PersistentDataContainer arrowsCheck){
         int arrowsCheckPDC = getArrows(arrowsCheck, getStorageKey());
         boolean pdcCheck = arrowsCheckPDC == 0;
@@ -160,15 +173,18 @@ public class MainQuiver {
         if(meta == null || bowMeta == null){
             return;
         }
+
         PersistentDataContainer arrow_Left = meta.getPersistentDataContainer();
         int arrows = getArrows(arrow_Left, getStorageKey());
         int decrement = arrows - 1;
+
         if(checkInfinity && bowMeta.hasEnchant(Enchantment.ARROW_INFINITE)) {
             decrement = arrows;
         }
 
-        if (decrement >= 0) {
+        if (decrement >= 0) { // if arrow amount is decremented and greater than 0 then update lore
             arrow_Left.set(getStorageKey(), PersistentDataType.INTEGER, decrement);
+
             if (decrement == 0) {
                 if(arrow_Left.has(getStorageKey3(), PersistentDataType.STRING)) {
                     meta.getPersistentDataContainer().remove(getStorageKey3());
@@ -178,6 +194,6 @@ public class MainQuiver {
             }
             Utils.updateValueByPdc(itemStack, meta, String.valueOf(decrement), "Arrows: " ,"&e", "&f", " left");
         }
-
     }
+
 }

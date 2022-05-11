@@ -1,11 +1,10 @@
 package ne.fnfal113.fnamplifications.staffs.listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
@@ -73,7 +72,7 @@ public class StaffListener implements Listener {
         }
 
         if (Objects.equals(event.getEntity().getCustomName(), "FN_HEALING")){
-            String playerCaster = event.getEntity().getPersistentDataContainer().get(new NamespacedKey(FNAmplifications.getInstance(), "cloudfn"), PersistentDataType.STRING);
+            String playerCaster = event.getEntity().getPersistentDataContainer().get(Keys.createKey("cloudfn"), PersistentDataType.STRING);
             for(LivingEntity entity : event.getAffectedEntities()){
                 boolean health = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH) != null;
                 if(entity instanceof Player) {
@@ -100,12 +99,19 @@ public class StaffListener implements Listener {
         Player p = e.getPlayer();
         SlimefunItem stick = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
         boolean actionRight = (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK);
-        boolean actionLeft = (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK);
         boolean isRightHand = e.getHand() == EquipmentSlot.HAND;
 
-        if (stick instanceof AbstractStaff && !(stick instanceof EntityStaffImpl) && actionRight && isRightHand) {
+        if(!(stick instanceof AbstractStaff)){
+            return;
+        }
+
+        if(!isRightHand){
+            return;
+        }
+
+        if (!(stick instanceof EntityStaffImpl) && actionRight) {
             ((AbstractStaff) stick).onClick(e);
-        } else if (stick instanceof AbstractStaff && stick instanceof EntityStaffImpl && actionLeft && isRightHand) {
+        } else if (stick instanceof EntityStaffImpl && !actionRight) {
             ((AbstractStaff) stick).onClick(e);
         }
 
@@ -123,7 +129,7 @@ public class StaffListener implements Listener {
                 if(skeletonHorse.getCustomName() != null && !skeletonHorse.getPersistentDataContainer().isEmpty()) {
                     if (skeletonHorse.getCustomName().equals("FN_SKELETON_HORSE")) {
                         skeletonHorse.remove();
-                        skeletonHorse.getPersistentDataContainer().remove(new NamespacedKey(FNAmplifications.getInstance(), "Horsey"));
+                        skeletonHorse.getPersistentDataContainer().remove(Keys.createKey("Horsey"));
                     }
                 }
             } // instanceof SkeletonHorse
@@ -152,7 +158,7 @@ public class StaffListener implements Listener {
 
         if (stick instanceof EntityStaffImpl && e.getHand() == EquipmentSlot.HAND) {
             ((EntityStaffImpl) stick).onEntityClick(e);
-        } // check if stick implement EntityStaff interface (Locomotion Staff)
+        } // check if slimefun item reference points to EntityStaff interface (Locomotion Staff)
 
     }
 

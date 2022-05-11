@@ -11,9 +11,9 @@ import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
+import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -42,7 +42,7 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
             this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "chance");
         }
 
-        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(new NamespacedKey(FNAmplifications.getInstance(), this.getId().toLowerCase()));
+        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(Keys.createKey(this.getId().toLowerCase()));
     }
 
     /**
@@ -68,7 +68,8 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
      * @return if the player has permission to throw his weapon in the current location
      */
     public boolean hasPermissionToThrow(Player player){
-        return Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.PLACE_BLOCK);
+        return Slimefun.getProtectionManager().hasPermission(
+                Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
     }
 
     /**
