@@ -2356,6 +2356,30 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_SHOCKWAVE = new SlimefunItemStack(
+            "FN_GEM_SHOCKWAVE",
+            Material.EMERALD,
+            "&cShockwave Gem",
+            "",
+            "&eA chance to deal shockwave damage",
+            "&eto all enemies in a 8 block radius",
+            "&eand bounce them off the ground!",
+            "",
+            "&c◢◤◢◤◢◤ Tiers &6◥◣◥◣◥◣",
+            "&6⨳ Tier I: " + "&e%",
+            "&6  - Damage: &f3",
+            "&6⨳ Tier II: " + "&e%",
+            "&6  - Damage: &f6",
+            "&6⨳ Tier III: " + "&e%",
+            "&6  - Damage: &f9",
+            "&6⨳ Tier IV: " + "&e%",
+            "&6  - Damage: &f12",
+            "&c◢◤◢◤◢◤◢◤◢◤◢&6◣◥◣◥◣◥◣◥◣◥◣",
+            "",
+            "&dDrag and drop on any armor type",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_UPGRADES_DISPLAY_ITEM = new SlimefunItemStack(
             "FN_GEM_UPGRADES_DISPLAY_ITEM",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("d3623521c8111ad29e9dcf7acc56085a9ab07da732d1518976aee61d0b3e3bd6")),
