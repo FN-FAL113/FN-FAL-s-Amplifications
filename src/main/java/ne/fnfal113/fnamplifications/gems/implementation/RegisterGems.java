@@ -212,8 +212,8 @@ public class RegisterGems {
 
         new DecrepitGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DECREPIT, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.LINGER_RUNE, null, FNAmpItems.LINGER_RUNE,
-                new PotionBuilder(PotionType.SLOWNESS).createPotion(), new ItemStack(Material.EMERALD), new PotionBuilder(PotionType.SLOWNESS).createPotion(),
-                FNAmpItems.AGILITY_RUNE, FNAmpItems.LINGER_RUNE, FNAmpItems.AGILITY_RUNE})
+                new PotionBuilder(PotionType.WEAKNESS).createPotion(), new ItemStack(Material.EMERALD), new PotionBuilder(PotionType.WEAKNESS).createPotion(),
+                FNAmpItems.LINGER_RUNE, null, FNAmpItems.LINGER_RUNE})
                 .register(instance);
 
         new DeceptionGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DECEPTION, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
@@ -235,6 +235,12 @@ public class RegisterGems {
                     FNAmpItems.LINGER_RUNE, FNAmpItems.CLOUD_RUNE, FNAmpItems.PESTILENCE_RUNE})
                     .register(instance);
         }
+
+        new ShockwaveGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_SHOCKWAVE, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, FNAmpItems.POWER_RUNE, FNAmpItems.POWER_RUNE,
+                null, new ItemStack(Material.EMERALD), null,
+                FNAmpItems.POWER_RUNE, FNAmpItems.POWER_RUNE, FNAmpItems.POWER_RUNE})
+                .register(instance);
 
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
