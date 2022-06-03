@@ -36,7 +36,7 @@ public class StaffOfHealing extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         AreaOfEffectStaffTask cloudStaff = new AreaOfEffectStaffTask(player, block, "FN_HEALING", 2.85F, 160, Particle.HEART, Keys.createKey("cloudfn"));
         cloudStaff.spawnCloud();

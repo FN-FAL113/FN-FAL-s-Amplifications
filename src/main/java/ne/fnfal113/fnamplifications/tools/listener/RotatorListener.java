@@ -24,8 +24,7 @@ public class RotatorListener implements Listener {
 
             if(sfItem instanceof BlockRotator){
                 event.setCancelled(true);
-                ((BlockRotator) sfItem).onRightClick(event.getClickedBlock(), player);
-
+                ((BlockRotator) sfItem).getBlockRotatorTask().onRightClick(event.getClickedBlock(), player);
             } // instance of Rotator
 
         } // right click action

@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
-import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
@@ -14,7 +13,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -26,15 +24,12 @@ import java.util.Map;
 public class MysteryStick4 extends AbstractStick {
 
     @Getter
-    private final MainStick mainStick;
-    @Getter
     private final Material material;
 
     @ParametersAreNonnullByDefault
     public MysteryStick4(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, Keys.STICK_4_EXP_LEVELS, Keys.STICK_4_DAMAGE, 2, 15);
 
-        this.mainStick = new MainStick(Keys.STICK_4_EXP_LEVELS, Keys.STICK_4_DAMAGE, enchantments(), weaponLore(), stickLore(), 2, 15);
         this.material = material;
     }
 
@@ -59,8 +54,8 @@ public class MysteryStick4 extends AbstractStick {
     }
 
     @Override
-    public void interact(PlayerInteractEvent e) {
-        getMainStick().onInteract(e, getMaterial());
+    public Material getStickMaterial() {
+        return getMaterial();
     }
 
     @Override
@@ -72,7 +67,7 @@ public class MysteryStick4 extends AbstractStick {
             return;
         }
 
-        if(getMainStick().onSwing(item, player, event.getDamage(), 20, 2))  {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 20, 2))  {
             LivingEntity victim = (LivingEntity) event.getEntity();
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 0, false, false, false));

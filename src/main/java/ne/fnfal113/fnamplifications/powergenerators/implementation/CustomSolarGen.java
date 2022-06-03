@@ -54,8 +54,8 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
     }
 
     public void setConfigValues(int dayEnergy, int capacity) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(),"dayEnergy", dayEnergy, "solar-generator-settings");
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "capacity", capacity, "solar-generator-settings");
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(),"dayEnergy", dayEnergy, "solar-generator-settings", true);
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "capacity", capacity, "solar-generator-settings", true);
     }
 
     public int getDayEnergy() {

@@ -33,7 +33,7 @@ public abstract class AbstractGemUnbinder extends SlimefunItem {
      * @param chance the chance to set in the config file
      */
     public void setConfigValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "unbind-chance", chance, "unbind-gem-settings");
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "unbind-chance", chance, "unbind-gem-settings", true);
     }
 
     /**

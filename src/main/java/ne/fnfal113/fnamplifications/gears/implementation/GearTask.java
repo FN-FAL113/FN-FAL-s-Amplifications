@@ -15,11 +15,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 // To DO: Method Documentation
 @SuppressWarnings("ConstantConditions")
-public class MainGears {
+public class GearTask {
 
     @Getter
     private final NamespacedKey storageKey;
@@ -32,19 +34,25 @@ public class MainGears {
     @Getter
     private final int incrementProgress;
     @Getter
+    private final int maxLevel;
+    @Getter
     private final ItemStack itemStack;
 
     @Getter
     @Setter
     private int level;
 
-    public MainGears(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, ItemStack item, int startingProgress, int incrementProgress){
+    private final List<UUID> uuidList = new ArrayList<>();
+
+    public GearTask(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, ItemStack item, int startingProgress, int incrementProgress, int maxLevel){
         this.storageKey = key1;
         this.storageKey2 = key2;
         this.storageKey3 = key3;
         this.itemStack = item;
         this.startingProgress = startingProgress;
         this.incrementProgress = incrementProgress;
+        this.maxLevel = maxLevel;
+
     }
 
     public String getProgressBar(int current, int max, int totalBars, char symbol, ChatColor completedColor,
@@ -67,41 +75,67 @@ public class MainGears {
         int maxReq = progress.getOrDefault(getStorageKey3(), PersistentDataType.INTEGER, getStartingProgress());
         int total = amount + 1;
 
+        if(isMaxLevel(armorLevel)){
+            if(!uuidList.contains(p.getUniqueId())) {
+                p.sendMessage(Utils.colorTranslator(meta.getDisplayName() + "&c has reached max level!"));
+                uuidList.add(p.getUniqueId());
+            }
+            return false;
+        }
+
         progress.set(getStorageKey(), PersistentDataType.INTEGER, total);
 
         List<String> lore = meta.getLore();
 
         if (total >= 0) {
-            lore.set(7, Utils.colorTranslator("&eLevel: ") + armorLevel);
-            lore.set(8, Utils.colorTranslator("&eProgress:"));
-            lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
-            if(WeaponArmorEnum.CHESTPLATE.isTagged(getItemStack().getType()) && armorLevel == 30 && total == 1){
-                lore.add(10,"");
-                lore.add(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""
-                        + ChatColor.BOLD + "Effects " + ChatColor.GOLD + "|◬◬◬◬◬◬");
-                lore.add(12, ChatColor.GREEN + "Permanent Saturation");
-            }
-            meta.setLore(lore);
-            item.setItemMeta(meta);
+           updateArmour(armorLevel, total, maxReq, item, meta, lore);
         }
 
         if (total == maxReq) {
-            int totalLevel = armorLevel + 1;
-
-            progress.set(getStorageKey(), PersistentDataType.INTEGER, 0);
-            progress.set(getStorageKey2(), PersistentDataType.INTEGER, totalLevel);
-
-            lore.set(7, Utils.colorTranslator("&eLevel: ") + totalLevel);
-            lore.set(8, Utils.colorTranslator("&eProgress:"));
-            lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
-            progress.set(getStorageKey3(), PersistentDataType.INTEGER, maxReq + getIncrementProgress());
-            meta.setLore(lore);
-            item.setItemMeta(meta);
-            levelUp(p);
-            setLevel(totalLevel);
-            return true;
+            return levelUpArmour(armorLevel, total, maxReq, item, meta, progress, lore, p);
         }
         return false;
+    }
+
+    public void updateArmour(int armorLevel, int total, int maxReq, ItemStack item, ItemMeta meta, List<String> lore){
+        lore.set(7, Utils.colorTranslator("&eLevel: ") + armorLevel);
+        lore.set(8, Utils.colorTranslator("&eProgress:"));
+        lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
+        if(WeaponArmorEnum.CHESTPLATE.isTagged(getItemStack().getType()) && armorLevel == 30 && total == 1){
+            lore.add(10,"");
+            lore.add(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""
+                    + ChatColor.BOLD + "Effects " + ChatColor.GOLD + "|◬◬◬◬◬◬");
+            lore.add(12, ChatColor.GREEN + "Permanent Saturation");
+        }
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+    }
+
+    public boolean levelUpArmour(int armorLevel, int total, int maxReq, ItemStack item, ItemMeta meta, PersistentDataContainer progress, List<String> lore, Player p){
+        if(isMaxLevel(armorLevel)){
+            p.sendMessage(Utils.colorTranslator(meta.getDisplayName() + "&c has reached max level!"));
+            return false;
+        }
+
+        int totalLevel = armorLevel + 1;
+
+        progress.set(getStorageKey(), PersistentDataType.INTEGER, 0);
+        progress.set(getStorageKey2(), PersistentDataType.INTEGER, totalLevel);
+
+        lore.set(7, Utils.colorTranslator("&eLevel: ") + totalLevel);
+        lore.set(8, Utils.colorTranslator("&eProgress:"));
+        lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
+        progress.set(getStorageKey3(), PersistentDataType.INTEGER, maxReq + getIncrementProgress());
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        levelUp(p);
+        setLevel(totalLevel);
+
+        return true;
+    }
+
+    public boolean isMaxLevel(int armorLevel){
+        return armorLevel >= getMaxLevel();
     }
 
     public void levelUp(Player p){

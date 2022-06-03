@@ -27,7 +27,8 @@ public class MysteryStickListener implements Listener {
 
         if(stick instanceof AbstractStick && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)){
             if(checkStick(stick)) {
-                ((AbstractStick) stick).interact(e);
+                AbstractStick abstractStick = (AbstractStick) stick;
+                abstractStick.getStickTask().onInteract(e, abstractStick.getStickMaterial());
             }
         }
 

@@ -14,7 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 
-public class MainStaff {
+public class StaffTask {
 
     @Getter
     private final NamespacedKey storageKey;
@@ -22,7 +22,7 @@ public class MainStaff {
     private final String id;
 
     @SneakyThrows
-    public MainStaff(NamespacedKey storageKey, String id) {
+    public StaffTask(NamespacedKey storageKey, String id) {
         this.storageKey = storageKey;
         this.id = id;
     }

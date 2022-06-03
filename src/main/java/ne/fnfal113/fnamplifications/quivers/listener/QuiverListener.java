@@ -57,14 +57,14 @@ public class QuiverListener implements Listener {
                 for (int i = 0; i < length; i++) {
                     SlimefunItem sfItem = SlimefunItem.getByItem(player.getInventory().getItem(i));
                     ItemStack item = player.getInventory().getItem(i);
-                    int finalI = i;
 
                     if(getIfQuiver().test(sfItem)) {
                         AbstractQuiver abstractQuiver = (AbstractQuiver) sfItem;
 
                         if (getArrows(item, abstractQuiver.getStorageKey(), abstractQuiver.getQuiverSize()) &&
                                 getState(item, abstractQuiver.getStorageKey3())) {
-                            abstractQuiverConsumer = quiver -> quiver.onArrowDeposit(player, player.getInventory().getItem(finalI));
+                            abstractQuiverConsumer = quiver ->
+                                    quiver.getQuiverTask().depositArrows(item, item.getItemMeta(), item.getItemMeta().getPersistentDataContainer(), player);
                             getAbstractQuiverConsumer().accept(abstractQuiver);
                         }
                     } // is instance of AbstractQuiver
@@ -80,9 +80,11 @@ public class QuiverListener implements Listener {
                 AbstractQuiver abstractQuiver = (AbstractQuiver) item;
 
                 if(player.isSneaking()) {
-                    abstractQuiverConsumer = quiver -> quiver.onArrowWithdraw(event, itemStack);
+                    abstractQuiverConsumer = quiver ->
+                            quiver.getQuiverTask().withdrawArrows(itemStack, itemStack.getItemMeta(), event.getPlayer(), itemStack.getItemMeta().getPersistentDataContainer());
                 } else {
-                    abstractQuiverConsumer = quiver -> quiver.onChangeState(itemStack);
+                    abstractQuiverConsumer = quiver ->
+                            quiver.getQuiverTask().changeState(itemStack, itemStack.getItemMeta(), itemStack.getItemMeta().getPersistentDataContainer());
                 }
 
                 getAbstractQuiverConsumer().accept(abstractQuiver);
@@ -116,8 +118,7 @@ public class QuiverListener implements Listener {
         SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
 
         if (getIfQuiver().test(sfItem)) {
-            ((AbstractQuiver) sfItem).onBowShoot(event, itemStack,
-                    itemStack.getType() == Material.ARROW);
+            ((AbstractQuiver) sfItem).getQuiverTask().bowShoot(event, itemStack, itemStack.getType() == Material.ARROW);
         }
 
     }

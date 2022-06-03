@@ -78,10 +78,10 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
     }
 
     public void setConfigValues(int dayRate, int nightRate, int output, int storage) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "dayrate", dayRate, "power-xpansion-settings");
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "nightrate", nightRate, "power-xpansion-settings");
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "output", output, "power-xpansion-settings");
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "storage", storage, "power-xpansion-settings");
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "dayrate", dayRate, "power-xpansion-settings", true);
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "nightrate", nightRate, "power-xpansion-settings", true);
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "output", output, "power-xpansion-settings", true);
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "storage", storage, "power-xpansion-settings", true);
     }
 
     @Nonnull

@@ -40,7 +40,7 @@ public class StaffOfFangs extends AbstractStaff {
         }
 
         ItemMeta meta = item.getItemMeta();
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
     }
 
 }

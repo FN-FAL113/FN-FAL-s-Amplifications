@@ -40,7 +40,7 @@ public class StaffOfStallion extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         SkeletonHorse skeletonHorse = (SkeletonHorse) player.getWorld().spawnEntity(player.getLocation() , EntityType.SKELETON_HORSE);
         skeletonHorse.setAdult();

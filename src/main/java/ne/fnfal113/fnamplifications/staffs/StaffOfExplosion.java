@@ -35,7 +35,7 @@ public class StaffOfExplosion extends AbstractStaff {
         block.getWorld().createExplosion(block.getLocation().clone().add(0.5, 1, 0.5), 2, false, false);
 
         ItemMeta meta = item.getItemMeta();
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
     }
 
 }

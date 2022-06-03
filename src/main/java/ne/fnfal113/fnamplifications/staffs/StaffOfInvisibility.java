@@ -43,7 +43,7 @@ public class StaffOfInvisibility extends AbstractStaff {
             return;
         }
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         for(Player online : Bukkit.getOnlinePlayers()){
             online.hidePlayer(FNAmplifications.getInstance(), player);

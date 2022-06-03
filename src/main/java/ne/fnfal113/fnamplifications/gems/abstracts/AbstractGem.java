@@ -14,6 +14,7 @@ import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,26 +32,51 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
 
     // This constructor is specifically used for gems that has chances to proc
     // It sets and retrieves data from the config and update the lore to reflect the chance value
-    @SneakyThrows
-    public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int chance) {
+    public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int defaultChance) {
         super(itemGroup, item, recipeType, recipe);
 
-        if(chance != 0) {
-            setConfigValues(chance);
+        initializeSettings(defaultChance);
+        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(Keys.createKey(this.getId().toLowerCase()));
+    }
+
+    @SneakyThrows
+    public void initializeSettings(int defaultChance){
+        if(defaultChance != 0) {
+            setConfigChanceValues(chance);
+            setConfigWorldSettings();
             Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
                     "chance", "%", "&e", "%", 4);
             this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "chance");
+        } else {
+            setConfigWorldSettings();
         }
-
-        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(Keys.createKey(this.getId().toLowerCase()));
     }
 
     /**
      *
      * @param chance the chance to set in the config file
      */
-    public void setConfigValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "chance", chance, "gem-settings");
+    public void setConfigChanceValues(int chance) throws IOException {
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "chance", chance, "gem-settings", true);
+    }
+
+    /**
+     * This sets config world settings for the gems, enabled by default on all worlds
+     */
+    public void setConfigWorldSettings() throws IOException {
+        for (World world: Bukkit.getWorlds()) {
+            FNAmplifications.getInstance().getConfigManager().setConfigBooleanValues(this.getId() + "." + "world-settings", world.getName() + "_enable", true, "gem-settings", true);
+        }
+    }
+
+    /**
+     *
+     * @param worldName the name of the world the player currently resides
+     * @param gemID the slimefun gem identifier
+     * @return true if gem is enabled in the current world
+     */
+    public boolean isEnabledInCurrentWorld(String gemID, String worldName){
+        return FNAmplifications.getInstance().getConfigManager().getBoolById(gemID + "." + "world-settings", worldName + "_enable");
     }
 
     /**

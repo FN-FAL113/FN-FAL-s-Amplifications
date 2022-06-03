@@ -10,6 +10,7 @@ import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnBlockBreakHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -41,6 +42,10 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
         }
 
         Block block = event.getBlock();
+
+        if(block.getType() == Material.LADDER){ // dupe fix against auto ladder
+            return;
+        }
 
         Optional<SlimefunItem> sfItem = Optional.ofNullable(BlockStorage.check(block));
 

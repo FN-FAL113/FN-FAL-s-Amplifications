@@ -37,7 +37,7 @@ public class StaffOfTeleportation extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
         player.teleport(block.getLocation().add(0.5, 1, 0.5).setDirection(directional));
 
     }
