@@ -6,7 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 
 import ne.fnfal113.fnamplifications.config.ConfigManager;
-import ne.fnfal113.fnamplifications.gears.commands.CheckProgress;
+import ne.fnfal113.fnamplifications.gears.commands.GearCommands;
 import ne.fnfal113.fnamplifications.gears.listener.GearListener;
 import ne.fnfal113.fnamplifications.gears.runnables.ArmorEquipRunnable;
 import ne.fnfal113.fnamplifications.gems.listener.GemListener;
@@ -17,6 +17,8 @@ import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListene
 import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
 import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
 import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
+import ne.fnfal113.fnamplifications.tools.listener.LadderListener;
+import ne.fnfal113.fnamplifications.tools.listener.OrientPearlListener;
 import ne.fnfal113.fnamplifications.tools.listener.RotatorListener;
 import ne.fnfal113.fnamplifications.utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
@@ -52,12 +54,13 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
         FNAmpItemSetup.INSTANCE.init();
 
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
         registerEvents();
         registerCommands();
         getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
-        getConfig().options().copyDefaults();
-        saveDefaultConfig();
 
         if (getConfig().getBoolean("auto-update", true) && getDescription().getVersion().startsWith("DEV - ")) {
             new GitHubBuildsUpdater(this, getFile(), "FN-FAL113/FN-FAL-s-Amplifications/main").start();
@@ -71,7 +74,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     }
 
     public void registerCommands(){
-        Objects.requireNonNull(getCommand("fngear")).setExecutor(new CheckProgress());
+        Objects.requireNonNull(getCommand("fngear")).setExecutor(new GearCommands());
     }
 
     public void registerEvents(){
@@ -83,6 +86,8 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new GemListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
         getServer().getPluginManager().registerEvents(new RotatorListener(), this);
+        getServer().getPluginManager().registerEvents(new LadderListener(), this);
+        getServer().getPluginManager().registerEvents(new OrientPearlListener(), this);
         getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
         getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
     }

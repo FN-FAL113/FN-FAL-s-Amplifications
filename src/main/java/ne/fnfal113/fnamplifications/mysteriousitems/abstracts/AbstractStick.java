@@ -4,17 +4,26 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import lombok.Getter;
+import ne.fnfal113.fnamplifications.mysteriousitems.implementation.StickTask;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
 public abstract class AbstractStick extends SlimefunItem {
 
-    public AbstractStick(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    @Getter
+    private final StickTask stickTask;
+
+    public AbstractStick(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe,
+                         NamespacedKey levelKey, NamespacedKey damageKey, int effectCount, int levelReq) {
         super(itemGroup, item, recipeType, recipe);
+
+        this.stickTask = new StickTask(levelKey, damageKey, enchantments(), weaponLore(), stickLore(), effectCount, levelReq);
     }
 
     /**
@@ -37,10 +46,9 @@ public abstract class AbstractStick extends SlimefunItem {
 
     /**
      *
-     * @param e the interact event specifically uses right-click action
-     *          to summon the weapon
+     * @return the weapon material of the stick
      */
-    public abstract void interact(PlayerInteractEvent e);
+    public abstract Material getStickMaterial();
 
     /**
      *

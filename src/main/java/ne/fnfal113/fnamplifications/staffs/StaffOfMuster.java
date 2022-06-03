@@ -59,7 +59,7 @@ public class StaffOfMuster extends AbstractStaff {
         block.getWorld().playEffect(block.getLocation().clone().add(0.5, 1, 0.5), Effect.ENDER_SIGNAL, 1);
 
         ItemMeta meta = item.getItemMeta();
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
     }
 
 }

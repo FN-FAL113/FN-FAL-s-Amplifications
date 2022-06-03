@@ -15,6 +15,7 @@ import java.util.Objects;
  * and will be used to check the instance of the
  * gem based from the class that implements
  * this interface
+ * @author FN-FAL113
  */
 public interface GemUpgrade {
 

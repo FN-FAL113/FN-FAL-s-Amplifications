@@ -42,7 +42,7 @@ public class StaffOfWebs extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         int x = 0, z = 0, i = 0, j = 0;
         boolean isX = true;

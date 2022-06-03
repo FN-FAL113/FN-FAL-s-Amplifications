@@ -88,7 +88,7 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
         });
 
         try {
-            FNAmplifications.getInstance().getConfigManager().setIntegerValues(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate");
+            FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate", true);
             Utils.setLore(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks");
         } catch (IOException e) {
             e.printStackTrace();

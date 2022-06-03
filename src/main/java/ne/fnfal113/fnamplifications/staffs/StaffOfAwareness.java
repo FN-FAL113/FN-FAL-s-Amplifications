@@ -77,7 +77,7 @@ public class StaffOfAwareness extends AbstractStaff {
             bookMeta.addPage(firstPageBook(firstPage));
         }
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         writtenBook.setItemMeta(bookMeta);
         player.openBook(writtenBook);

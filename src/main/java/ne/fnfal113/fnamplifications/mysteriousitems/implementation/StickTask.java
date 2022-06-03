@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("ConstantConditions")
-public class MainStick {
+public class StickTask {
 
     @Getter
     public final NamespacedKey xpKey;
@@ -44,12 +44,12 @@ public class MainStick {
     public final int requiredLevel;
 
     @ParametersAreNonnullByDefault
-    public MainStick(NamespacedKey key1, NamespacedKey key2, Map<Enchantment, Integer> enchantmentMap, String weaponLore, String stickLore){
+    public StickTask(NamespacedKey key1, NamespacedKey key2, Map<Enchantment, Integer> enchantmentMap, String weaponLore, String stickLore){
         this(key1, key2, enchantmentMap, weaponLore, stickLore, 0, 0);
     }
 
     @ParametersAreNonnullByDefault
-    public MainStick(NamespacedKey key1, NamespacedKey key2, Map<Enchantment, Integer> enchantmentMap, String weaponLore, String stickLore, int effectCount, int levelReq){
+    public StickTask(NamespacedKey key1, NamespacedKey key2, Map<Enchantment, Integer> enchantmentMap, String weaponLore, String stickLore, int effectCount, int levelReq){
         this.xpKey = key1;
         this.damageInflictedKey = key2;
         this.enchantmentMap = enchantmentMap;

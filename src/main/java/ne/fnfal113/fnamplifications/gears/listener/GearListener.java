@@ -36,7 +36,7 @@ public class GearListener implements Listener {
                         SlimefunItem armor = SlimefunItem.getByItem(armour);
                         if (armor instanceof AbstractGears) {
                             if(!event.isCancelled()) {
-                                ((AbstractGears) armor).onHit(event);
+                                ((AbstractGears) armor).onHit(event, armour);
                             }
                         } // instance of Gear
                     } // armor is not null
@@ -56,7 +56,7 @@ public class GearListener implements Listener {
                         SlimefunItem armor = SlimefunItem.getByItem(armour);
                         if (armor instanceof AbstractGears) {
                             if(!event.isCancelled()) {
-                                ((AbstractGears) armor).onHit(event);
+                                ((AbstractGears) armor).onHit(event, armour);
                             }
                         } // instance of Gear
                     } // armor is not null

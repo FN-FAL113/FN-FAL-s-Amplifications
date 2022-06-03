@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.concurrent.ThreadLocalRandom;
 
 // To do: Method Documentation
-public class MainQuiver {
+public class QuiverTask {
 
     @Getter
     private final NamespacedKey storageKey;
@@ -38,7 +38,7 @@ public class MainQuiver {
     @Getter
     private final SlimefunItemStack sfItemStack;
 
-    public MainQuiver(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, int quiverSize, ItemStack arrow, SlimefunItemStack slimefunItemStack){
+    public QuiverTask(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, int quiverSize, ItemStack arrow, SlimefunItemStack slimefunItemStack){
         this.storageKey = key1;
         this.storageKey2 = key2;
         this.storageKey3 = key3;

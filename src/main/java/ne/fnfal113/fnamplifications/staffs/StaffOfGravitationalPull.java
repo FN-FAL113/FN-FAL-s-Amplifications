@@ -37,7 +37,7 @@ public class StaffOfGravitationalPull extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         AreaOfEffectStaffTask cloudStaff = new AreaOfEffectStaffTask(player, block, "FN_GRAVITY", 3.8F, 160, Particle.FALLING_NECTAR, null);
         cloudStaff.spawnCloud();

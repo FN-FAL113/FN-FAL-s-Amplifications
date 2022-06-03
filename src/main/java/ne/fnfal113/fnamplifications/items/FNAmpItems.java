@@ -2412,6 +2412,25 @@ public class FNAmpItems {
             "&dor orientable blocks &f(Slabs, stairs, etc)"
     );
 
+    public static final SlimefunItemStack FN_AUTO_LADDER = new SlimefunItemStack(
+            "FN_AUTO_LADDER",
+            Material.LADDER,
+            "&cFN's Auto Ladder",
+            "",
+            "&dAutomatically places a ladder from top to",
+            "&dbottom with a max distance of 8 blocks"
+    );
+
+    public static final SlimefunItemStack FN_ORIENT_PEARL = new SlimefunItemStack(
+            "FN_ORIENT_PEARL",
+            Material.ENDER_PEARL,
+            "&cFN's Orient Pearl",
+            "",
+            "&dAn ender pearl that teleports",
+            "&dthe player together with the",
+            "&dmounted entity (Horse, etc)"
+    );
+
     public static final SlimefunItemStack FN_JUKEBOX_I = new SlimefunItemStack(
             "FN_JUKEBOX_I",
             Material.JUKEBOX, "&5F&dN &fJ&bu&ek&ce&5b&do&4x I",

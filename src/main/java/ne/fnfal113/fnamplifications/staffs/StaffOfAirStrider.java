@@ -50,7 +50,7 @@ public class StaffOfAirStrider extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         AtomicInteger i = new AtomicInteger(10);
         Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {

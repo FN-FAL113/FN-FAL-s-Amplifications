@@ -32,7 +32,7 @@ public class StaffOfSkulls extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         for(int i = 0; i < 7; i++) {
             WitherSkull skull = (WitherSkull) player.getWorld().spawnEntity

@@ -135,7 +135,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "tickrate", tickRate, "block-breaker-tickrate");
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "tickrate", tickRate, "block-breaker-tickrate", true);
         setRate();
         Utils.setLore(this.getItem(), this.getId(), "tickrate", "ticks", "&e", " ticks");
         addItemHandler(

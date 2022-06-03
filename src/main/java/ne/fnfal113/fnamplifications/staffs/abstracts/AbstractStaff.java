@@ -9,32 +9,44 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import lombok.Getter;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.staffs.implementations.MainStaff;
+import ne.fnfal113.fnamplifications.staffs.implementations.StaffTask;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 public abstract class AbstractStaff extends SlimefunItem {
 
     @Getter
     private final NamespacedKey defaultUsageKey;
     @Getter
-    private final MainStaff mainStaff;
+    private final StaffTask staffTask;
 
     @SneakyThrows
     public AbstractStaff(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int maxUses, NamespacedKey identifer) {
         super(itemGroup, item, recipeType, recipe);
 
         this.defaultUsageKey = identifer;
-        this.mainStaff = new MainStaff(getDefaultUsageKey(), this.getId());
-        setConfigValues(maxUses);
+        this.staffTask = new StaffTask(getDefaultUsageKey(), this.getId());
+        setConfigValues(maxUses, this.getItem().getType().toString());
+        setMaterial();
         Utils.setLore(this.getItem(), this.getId(), "max-uses", "left", "&e", " left");
+    }
+
+    public void setMaterial(){
+        Material matchMaterial = Material.matchMaterial(FNAmplifications.getInstance().getConfigManager().getStringById(this.getId(), "staff-material").toUpperCase());
+        if(matchMaterial != null){
+            this.getItem().setType(matchMaterial);
+        } else {
+            FNAmplifications.getInstance().getLogger().log(Level.SEVERE, "Invalid Material ID for " + this.getId() + (". Will use BLAZE_ROD as default material"));
+        }
     }
 
     public boolean hasPermissionToCast(String staffName, Player player, Location location){
@@ -51,8 +63,9 @@ public abstract class AbstractStaff extends SlimefunItem {
      * this adds the config entries if none exist
      * @param maxUses the max uses value that will be set in the config
      */
-    public void setConfigValues(int maxUses) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setIntegerValues(this.getId(), "max-uses",  maxUses, "staffs-settings");
+    public void setConfigValues(int maxUses, String material) throws IOException {
+        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "max-uses", maxUses, "staffs-settings", true);
+        FNAmplifications.getInstance().getConfigManager().setConfigStringValues(this.getId(), "staff-material", material, "staffs-settings", true);
     }
 
     /**

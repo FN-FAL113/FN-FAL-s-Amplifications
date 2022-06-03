@@ -37,7 +37,7 @@ public class StaffOfConfusion extends AbstractStaff {
 
         ItemMeta meta = item.getItemMeta();
 
-        getMainStaff().updateMeta(item, meta, player);
+        getStaffTask().updateMeta(item, meta, player);
 
         AreaOfEffectStaffTask confusionStaff = new AreaOfEffectStaffTask(player, block, "FN_CONFUSION", 2.85F, 160, Particle.CLOUD, null);
         confusionStaff.spawnCloud();

@@ -7,14 +7,12 @@ import lombok.Getter;
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import ne.fnfal113.fnamplifications.mysteriousitems.implementation.MainStick;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -26,15 +24,12 @@ import java.util.Map;
 public class MysteryStick7 extends AbstractStick {
 
     @Getter
-    private final MainStick mainStick;
-    @Getter
     private final Material material;
 
     @ParametersAreNonnullByDefault
     public MysteryStick7(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, Material material) {
-        super(itemGroup, item, recipeType, recipe);
+        super(itemGroup, item, recipeType, recipe, Keys.STICK_7_EXP_LEVELS, Keys.STICK_7_DAMAGE, 3, 20);
 
-        this.mainStick = new MainStick(Keys.STICK_7_EXP_LEVELS, Keys.STICK_7_DAMAGE, enchantments(), weaponLore(), stickLore(),  3, 20);
         this.material = material;
     }
 
@@ -61,8 +56,8 @@ public class MysteryStick7 extends AbstractStick {
     }
 
     @Override
-    public void interact(PlayerInteractEvent e) {
-        getMainStick().onInteract(e, getMaterial());
+    public Material getStickMaterial() {
+        return getMaterial();
     }
 
     @Override
@@ -78,7 +73,7 @@ public class MysteryStick7 extends AbstractStick {
             return;
         }
 
-        if(getMainStick().onSwing(item, player, event.getDamage(), 17, 3)) {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 17, 3)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false, false));
