@@ -42,7 +42,7 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
     @SneakyThrows
     public void initializeSettings(int defaultChance){
         if(defaultChance != 0) {
-            setConfigChanceValues(chance);
+            setConfigChanceValues(defaultChance);
             setConfigWorldSettings();
             Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
                     "chance", "%", "&e", "%", 4);
