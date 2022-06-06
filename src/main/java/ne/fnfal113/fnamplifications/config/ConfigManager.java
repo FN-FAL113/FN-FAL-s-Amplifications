@@ -129,23 +129,23 @@ public class ConfigManager {
             return false;
         }
 
-        if (!getCustomConfig().isConfigurationSection(itemNameSection) && autoUpdateFile.contains(fileName)) {
+        if(autoUpdate){
+            // add newly created or missing settings and sections to the config
+            // does not run by default unless auto update is set to true then it will add missing entries
+            if(!getCustomConfig().isConfigurationSection(itemNameSection)){
+                getCustomConfig().createSection(itemNameSection).set(settings, val);
+            } else if (!getCustomConfig().getConfigurationSection(itemNameSection).getKeys(false).contains(settings)) {
+                getCustomConfig().getConfigurationSection(itemNameSection).set(settings, val);
+            }
+
+            autoUpdateFile.remove(fileName);
+        } else if (!getCustomConfig().isConfigurationSection(itemNameSection) && autoUpdateFile.contains(fileName)) {
             // create a config section if not exist and file name is in the auto update list
             // runs by default if the file is newly created and will add entries
             getCustomConfig().createSection(itemNameSection).set(settings, val);
         } else if (getCustomConfig().isConfigurationSection(itemNameSection) && autoUpdateFile.contains(fileName)) {
             // create settings if the config section exist and file name is in the auto update list
             // runs by default if the file is newly created and will add entries
-            if (!getCustomConfig().getConfigurationSection(itemNameSection).getKeys(false).contains(settings)) {
-                getCustomConfig().getConfigurationSection(itemNameSection).set(settings, val);
-            }
-        } else if(autoUpdateFile.contains(fileName) && autoUpdate){
-            // if the file name is in the auto update list, add newly created or missing settings and sections to the config
-            // does not run by default if the file is not newly created unless auto update is set to true then it will add missing entries
-            if(!getCustomConfig().isConfigurationSection(itemNameSection)){
-                getCustomConfig().createSection(itemNameSection).set(settings, val);
-            }
-
             if (!getCustomConfig().getConfigurationSection(itemNameSection).getKeys(false).contains(settings)) {
                 getCustomConfig().getConfigurationSection(itemNameSection).set(settings, val);
             }
