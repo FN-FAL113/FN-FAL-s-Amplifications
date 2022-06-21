@@ -3,7 +3,7 @@ A slimefun addon that adds different types of items and more content for your se
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
 of crafting, it means harder is fun and the grind is worth it!
 
-Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
+Addon supports 1.15.x, 1.16.x, 1.17.x, 1.18.x and 1.19.x minecraft versions
 
 ## :bulb: Features
 - **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
@@ -15,12 +15,14 @@ Addon supports 1.15.x, 1.16.x, 1.17.x and 1.18.x minecraft versions
 - **Electric Block Breaker** - Can be toggled in side the machine gui to break with or without silk touch!
 - **20+ sets of Staffs** - From area of effect clouds, moving entities, and many more, check them out!
 - **11 sets of Mystery Sticks** - PVP/PVE sticks, these will consume xp levels by chance per use and best for op pvp!
-- **18+ sets of Gems** - Drag and drop these magical gems into your weapons, armors and tools for extra abilities and bonuses!
+- **25+ sets of Gems** - Drag and drop these magical gems into your weapons, armors and tools for extra abilities and bonuses!
 - **Quivers** - Normal and Spectral quivers that can store more arrows saving up spaces in your inventory
 - **FN Gears** - Level up the gears to receive bonus attributes and enchants
 - **FN Hoe** - Soil/till land and harvest crops in a 5x5 square area, can also auto replant!
 - **FN Block Rotator** - Rotate or flip blocks like terracotta, stairs, doors, slabs and many more!
 - **FN Electric Jukebox** - Jukeboxes that can play or traverse music disc in the disc slots gui and can auto play after one has finished playing, ranging from 3 to 12 slots you never have to worry about manually changing each disc!
+- **FN Auto Ladder** - Automatically places a ladder with a max of 8 blocks from below and above
+- **FN Orient Pearl** - Teleport your entity while riding them (horses, etc) with this pearl!
 - **and more coming anytime soon!**
 
 ## :arrow_down: Download from build page with auto updates
@@ -81,8 +83,6 @@ https://github.com/Slimefun/Slimefun4/wiki/Addons
 
 
 ### Special Mentions
-Credits to Jeff(LiteXpansion) and Walshy(SF) for their utils and generator methods
-
 Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
 
 Big credits to the owners of the head textures used in this addon
