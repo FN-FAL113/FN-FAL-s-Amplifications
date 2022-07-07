@@ -17,15 +17,15 @@ public class RegisterTools {
 
     public static void setup(SlimefunAddon instance){
         new FnHoe(FNAmpItems.FN_MISC, FNAmpItems.FN_HOE_5X5, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 4), SlimefunItems.COMMON_TALISMAN,
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 3),
-                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6), new SlimefunItemStack(SlimefunItems.CARBON, 4), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 6)})
+                SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 3), SlimefunItems.COMMON_TALISMAN,
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),
+                new SlimefunItemStack(SlimefunItems.STEEL_INGOT, 6), new SlimefunItemStack(SlimefunItems.CARBON, 4), new SlimefunItemStack(SlimefunItems.STEEL_INGOT, 6)})
                 .register(instance);
 
         new FnHoeAutoPlant(FNAmpItems.FN_MISC, FNAmpItems.FN_HOE_5X5_AUTO_PLANT, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
-                SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 6), SlimefunItems.COMMON_TALISMAN,
-                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 7),
-                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14), new SlimefunItemStack(SlimefunItems.CARBON, 6), new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 14)})
+                SlimefunItems.COMMON_TALISMAN, null, SlimefunItems.COMMON_TALISMAN,
+                new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), FNAmpItems.FN_HOE_5X5, new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4),
+                new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 8), null, new SlimefunItemStack(SlimefunItems.REINFORCED_ALLOY_INGOT, 8)})
                 .register(instance);
 
         new BlockRotator(FNAmpItems.FN_MISC, FNAmpItems.FN_BLOCK_ROTATOR, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
