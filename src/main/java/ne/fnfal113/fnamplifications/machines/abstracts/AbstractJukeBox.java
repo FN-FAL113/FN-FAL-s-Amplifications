@@ -105,7 +105,6 @@ public abstract class AbstractJukeBox extends SlimefunItem implements InventoryB
     }
 
     public void takeCharge(@Nonnull Location l) {
-        Validate.notNull(l, "Can't attempt to take charge from a null location!");
 
         if (isChargeable()) {
             int charge = getCharge(l);
@@ -146,9 +145,8 @@ public abstract class AbstractJukeBox extends SlimefunItem implements InventoryB
     /**
      * Displays the current slow and if there is a music disc being played
      * @param invMenu the menu associated with the block
-     * @param currentSlot the current disc slot
      */
-    public abstract void changeStatus(BlockMenu invMenu, int currentSlot);
+    public abstract void changeStatus(BlockMenu invMenu);
 
     /**
      * The method for toggling the jukebox on or off

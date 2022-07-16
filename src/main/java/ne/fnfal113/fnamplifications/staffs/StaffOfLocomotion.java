@@ -75,7 +75,7 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
             getENTITY_OWNER().remove(data);
             data.set(getIdentifierKey(), PersistentDataType.DOUBLE, Math.random()); // for Unique PDC (avoid same pdc contents)
             getENTITY_OWNER().put(data, en);
-            Utils.updateValueByPdc(item, meta, en.getName(), "Entity stored: ", "&e", "", " entity");
+            Utils.setLoreByPdc(item, meta, en.getName(), "Entity stored: ", "&e", "", " entity");
             Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_MIRROR_MOVE, 1 ,1);
             getSTATE_MAP().put(player.getUniqueId(), true);
         } else {
@@ -120,7 +120,7 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
             LivingEntity entity = getENTITY_OWNER().get(data);
             entity.teleport(block.getLocation().add(0.5, 1, 0.5));
             getENTITY_OWNER().remove(data);
-            Utils.updateValueByPdc(item, meta, "none", "Entity stored: ", "&e", "", "");
+            Utils.setLoreByPdc(item, meta, "none", "Entity stored: ", "&e", "", "");
             getStaffTask().updateMeta(item, meta, player);
         }
     }

@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
+/**
+ * @author FN_FAL113
+ */
 public class ReturnWeaponTask extends BukkitRunnable {
 
     @Getter
@@ -80,6 +83,7 @@ public class ReturnWeaponTask extends BukkitRunnable {
 
     public void stopTask(){ // stop the task once task has been completed
         getArmorStand().remove();
+
         this.cancel();
     }
 }

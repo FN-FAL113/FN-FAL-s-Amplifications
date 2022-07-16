@@ -11,7 +11,6 @@ import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.gems.implementation.TargetReasonEnum;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -48,24 +47,14 @@ import java.util.function.Consumer;
 
 public class GemListener implements Listener {
 
-    @EventHandler
-    @SuppressWarnings("ConstantConditions")
-    public void onGuardianSpawn(GuardianSpawnEvent event){
-       if(!(event.getDamager() instanceof Player)) {
-           return;
-       }
-       Player player = (Player) event.getDamager();
-
-       if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
-           return;
-       }
-       ItemStack itemStack = player.getInventory().getItemInMainHand();
-
-       PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
-
-       callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event, itemStack), itemStack, pdc, player);
-    }
-
+    /**
+     *
+     * @param clazz the interface class for handling such methods
+     * @param consumer the consumer that consumes a function based from the given class interface
+     * @param itemStack the itemstack bound with gem
+     * @param pdc the persistent data container of the itemstack bound with gem
+     * @param p the player involved
+     */
     public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack, PersistentDataContainer pdc, Player p) {
         if (pdc.has(Keys.createKey(itemStack.getType().toString().toLowerCase() + "_socket_amount"), PersistentDataType.INTEGER)) {
             for (NamespacedKey key : GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS()) {
@@ -86,6 +75,24 @@ public class GemListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    @SuppressWarnings("ConstantConditions")
+    public void onGuardianSpawn(GuardianSpawnEvent event){
+       if(!(event.getDamager() instanceof Player)) {
+           return;
+       }
+       Player player = (Player) event.getDamager();
+
+       if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+           return;
+       }
+       ItemStack itemStack = player.getInventory().getItemInMainHand();
+
+       PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
+
+       callGemHandler(OnGuardianSpawnHandler.class, handler -> handler.onGuardianSpawn(event, itemStack), itemStack, pdc, player);
     }
 
     @EventHandler
@@ -290,7 +297,6 @@ public class GemListener implements Listener {
         } // check if zombie entity
     }
 
-
     @EventHandler
     public void entityBlockChange(EntityChangeBlockEvent event){
         if (event.getEntity().getType() == EntityType.FALLING_BLOCK && event.getEntity().hasMetadata("shockwave_gem")) {
@@ -307,7 +313,7 @@ public class GemListener implements Listener {
 
     public PersistentDataContainer getPersistentDataContainer(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
-        Validate.notNull(meta, "Meta must not be null! Item type (for debugging): " + itemStack.getType());
+
         return meta.getPersistentDataContainer();
     }
 

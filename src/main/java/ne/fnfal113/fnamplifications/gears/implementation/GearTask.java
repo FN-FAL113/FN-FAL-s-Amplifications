@@ -101,6 +101,7 @@ public class GearTask {
         lore.set(7, Utils.colorTranslator("&eLevel: ") + armorLevel);
         lore.set(8, Utils.colorTranslator("&eProgress:"));
         lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(total, maxReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
+
         if(WeaponArmorEnum.CHESTPLATE.isTagged(getItemStack().getType()) && armorLevel == 30 && total == 1){
             lore.add(10,"");
             lore.add(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""

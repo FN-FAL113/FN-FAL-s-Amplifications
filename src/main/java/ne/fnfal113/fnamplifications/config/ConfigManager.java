@@ -202,6 +202,7 @@ public class ConfigManager {
                 writer.append(line).append(System.getProperty("line.separator"));
             }
 
+            // on server close, temporary file gets deleted from the system temp folder
             file.deleteOnExit();
 
             // close io streams to prevent leaks
@@ -231,7 +232,7 @@ public class ConfigManager {
      * @param setting the config section key
      * @return the assigned integer value from the given section and key
      */
-    public int getValueById(String itemSection, String setting){
+    public int getIntValueById(String itemSection, String setting){
         return getIntegerValues().getOrDefault(itemSection + "." + setting, 0);
     }
 

@@ -2380,6 +2380,30 @@ public class FNAmpItems {
             "&dto bind this gem"
     );
 
+    public static final SlimefunItemStack FN_GEM_BERSERK = new SlimefunItemStack(
+            "FN_GEM_BERSERK",
+            Material.EMERALD,
+            "&cBerserk Gem",
+            "",
+            "&eA chance to deal more damage against",
+            "&eenemies when your health is below 30%.",
+            "&eHigher tier gem, much deadly!",
+            "",
+            "&c◢◤◢◤◢◤ Tiers &6◥◣◥◣◥◣",
+            "&6⨳ Tier I: " + "&e%",
+            "&6  - Damage: &f+6% base damage",
+            "&6⨳ Tier II: " + "&e%",
+            "&6  - Damage: &f+12% base damage",
+            "&6⨳ Tier III: " + "&e%",
+            "&6  - Damage: &f+18% base damage",
+            "&6⨳ Tier IV: " + "&e%",
+            "&6  - Damage: &f+30% base damage",
+            "&c◢◤◢◤◢◤◢◤◢◤◢&6◣◥◣◥◣◥◣◥◣◥◣",
+            "",
+            "&dDrag and drop on sword or axe",
+            "&dto bind this gem"
+    );
+
     public static final SlimefunItemStack FN_GEM_UPGRADES_DISPLAY_ITEM = new SlimefunItemStack(
             "FN_GEM_UPGRADES_DISPLAY_ITEM",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("d3623521c8111ad29e9dcf7acc56085a9ab07da732d1518976aee61d0b3e3bd6")),
@@ -2429,6 +2453,17 @@ public class FNAmpItems {
             "&dAn ender pearl that teleports",
             "&dthe player together with the",
             "&dmounted entity (Horse, etc)"
+    );
+
+    public static final SlimefunItemStack FN_THROWABLE_TORCH = new SlimefunItemStack(
+            "FN_THROWABLE_TORCH",
+            Material.TORCH,
+            "&cFN's Throwable Torch",
+            "",
+            "&dRight click to throw in the target",
+            "&ddirection and it will be placed if",
+            "&da block got hit. Entities who got hit",
+            "&dwill be set on fire for 4 seconds"
     );
 
     public static final SlimefunItemStack FN_JUKEBOX_I = new SlimefunItemStack(
