@@ -20,6 +20,7 @@ import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
 import ne.fnfal113.fnamplifications.tools.listener.LadderListener;
 import ne.fnfal113.fnamplifications.tools.listener.OrientPearlListener;
 import ne.fnfal113.fnamplifications.tools.listener.RotatorListener;
+import ne.fnfal113.fnamplifications.tools.listener.ThrowableItemListener;
 import ne.fnfal113.fnamplifications.utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -88,6 +89,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new RotatorListener(), this);
         getServer().getPluginManager().registerEvents(new LadderListener(), this);
         getServer().getPluginManager().registerEvents(new OrientPearlListener(), this);
+        getServer().getPluginManager().registerEvents(new ThrowableItemListener(), this);
         getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
         getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
     }

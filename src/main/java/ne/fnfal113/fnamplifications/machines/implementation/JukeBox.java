@@ -59,7 +59,7 @@ public class JukeBox extends AbstractJukeBox {
     }
 
     @Override
-    public void changeStatus(BlockMenu invMenu, int currentSlot){
+    public void changeStatus(BlockMenu invMenu){
         invMenu.replaceExistingItem(49, new CustomItemStack(Material.MAGENTA_STAINED_GLASS_PANE,
                 "&dNo music disc is being played",
                 "&ePlace a music disc then click",
@@ -72,8 +72,10 @@ public class JukeBox extends AbstractJukeBox {
         final JukeboxCache cache = getCACHE_MAP().get(location);
 
         cache.isOn = !cache.isOn;
+
         BlockStorage.addBlockInfo(location, "toggled_On", String.valueOf(cache.isOn));
         blockMenu.replaceExistingItem(50, cache.isOn ? TOGGLED_ON : TOGGLED_OFF);
+
         getCACHE_MAP().put(location, cache);
     }
 
@@ -100,6 +102,7 @@ public class JukeBox extends AbstractJukeBox {
         final JukeboxCache cache = getCACHE_MAP().get(location);
 
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
+
         if(cache.isOn) {
             if (isSlotNotNull(menu, cache, 1)) { // if slot next slot is not null, play disc in the new slot
                 playCurrentSlot(menu, cache, jukebox, location, 1);
@@ -117,12 +120,16 @@ public class JukeBox extends AbstractJukeBox {
         final JukeboxCache cache = getCACHE_MAP().get(location);
 
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
+
         if(cache.isOn) {
             if (cache.isPlaying) { // stop the current song being played
                 cache.isPlaying = false;
                 cache.itemStack = null;
+
                 BlockStorage.addBlockInfo(location, "is_Playing", String.valueOf(false));
+
                 menu.replaceExistingItem(4, STOP);
+
                 stopCurrentSlot(jukebox, location, cache, menu);
                 getCACHE_MAP().put(menu.getLocation(), cache);
             } else { // play the current disc in slot, will use default slot on first jukebox use
@@ -141,29 +148,39 @@ public class JukeBox extends AbstractJukeBox {
     public void playCurrentSlot(BlockMenu menu, JukeboxCache cache, Jukebox jukebox, Location location, int arithmetic){
         unSelectDisc(cache.itemStack != null ? cache.itemStack : menu.getItemInSlot(cache.currentSlot), menu);
         unSelectSlot(menu, cache);
+
         cache.currentSlot = cache.currentSlot + arithmetic;
         cache.isPlaying = true;
         cache.itemStack = menu.getItemInSlot(cache.currentSlot);
+
         menu.replaceExistingItem(4, PLAY);
+
         BlockStorage.addBlockInfo(location, "is_Playing", String.valueOf(true));
         BlockStorage.addBlockInfo(location, "current_Slot", String.valueOf(cache.currentSlot));
+
         selectDisc(menu.getItemInSlot(cache.currentSlot), menu);
+
         jukebox.setPlaying(menu.getItemInSlot(cache.currentSlot).getType());
         jukebox.update(true);
         setNewMusic(true);
+
         getCACHE_MAP().put(menu.getLocation(), cache);
     }
 
     @Override
     public void stopCurrentSlot(Jukebox jukebox, Location location, JukeboxCache cache, BlockMenu menu){
         unSelectDisc(cache.itemStack != null ? cache.itemStack : menu.getItemInSlot(cache.currentSlot), menu);
+
         cache.isPlaying = false;
         cache.itemStack = null;
+
         menu.replaceExistingItem(4, STOP);
         BlockStorage.addBlockInfo(location, "is_Playing", String.valueOf(false));
         // jukebox.stopPlaying(); // No such method in 1.15, set record to null instead
+
         jukebox.setRecord(null);
         jukebox.update(true);
+
         getCACHE_MAP().put(location, cache);
     }
 
@@ -203,13 +220,17 @@ public class JukeBox extends AbstractJukeBox {
         if(cache.isPlaying) {
             stopCurrentSlot(jukebox, location, cache, menu);
         }  // stop jukebox after changing slot
+
         if(isSlotNotNull(menu, cache, arithmetic)) {
             playCurrentSlot(menu, cache, jukebox, location, arithmetic);
+
             return;
         } // if new slot has a disc play it instead
+
         if(goToDefaultSlot){
             unSelectSlot(menu, cache);
             cache.currentSlot = getDefaultSlot();
+
             if(isSlotNotNull(menu, cache, 0)){
                 playCurrentSlot(menu, cache, jukebox, location, 0);
                 return;
@@ -218,12 +239,16 @@ public class JukeBox extends AbstractJukeBox {
 
         // select a new empty slot, remove previous slot indicator
         unSelectSlot(menu, cache);
+
         cache.currentSlot = goToDefaultSlot ? getDefaultSlot() : cache.currentSlot + arithmetic;
+
         BlockStorage.addBlockInfo(location, "current_Slot", String.valueOf(cache.currentSlot));
+
         menu.replaceExistingItem(cache.currentSlot, new CustomItemStack(Material.PINK_STAINED_GLASS_PANE,
                 "&eNo music disc in current slot",
                 "&eplease change the slot"));
         menu.reload();
+
         getCACHE_MAP().put(menu.getLocation(), cache);
     }
 
@@ -243,8 +268,10 @@ public class JukeBox extends AbstractJukeBox {
         }
 
         ItemMeta meta = itemStack.getItemMeta().clone();
+
         meta.addEnchant(Enchantment.BINDING_CURSE, 0, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
         itemStack.setItemMeta(meta);
         menu.reload();
     }
@@ -257,7 +284,9 @@ public class JukeBox extends AbstractJukeBox {
         }
 
         ItemMeta meta = itemStack.getItemMeta();
+
         meta.removeEnchant(Enchantment.BINDING_CURSE);
+
         itemStack.setItemMeta(meta);
         menu.reload();
     }

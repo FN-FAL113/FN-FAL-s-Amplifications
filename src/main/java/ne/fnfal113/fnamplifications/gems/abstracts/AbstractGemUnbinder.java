@@ -24,8 +24,8 @@ public abstract class AbstractGemUnbinder extends SlimefunItem {
         super(itemGroup, item, recipeType, recipe);
 
         setConfigValues(chance);
-        Utils.setLore(this.getItem(), this.getId(), "unbind-chance", "%", "&e", "%");
-        this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "unbind-chance");
+        Utils.setLoreByIntValue(this.getItem(), this.getId(), "unbind-chance", "%", "&e", "%");
+        this.chance = FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "unbind-chance");
     }
 
     /**

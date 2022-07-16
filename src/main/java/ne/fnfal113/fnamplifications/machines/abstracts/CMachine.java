@@ -324,7 +324,6 @@ public abstract class CMachine extends SlimefunItem implements InventoryBlock, E
     }
 
     protected boolean takeCharge(@Nonnull Location l) {
-        Validate.notNull(l, "Can't attempt to take charge from a null location!");
 
         if (isChargeable()) {
             int charge = getCharge(l);

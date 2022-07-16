@@ -76,11 +76,11 @@ public class QuiverTask {
         if(itemState.getType() == Material.LEATHER) {
             meta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "opened");
             itemState.setType(getArrowType().getType());
-            Utils.updateValueByPdc(itemState, meta, "Opened", "State: " ,"&e", "&f", " quiver");
+            Utils.setLoreByPdc(itemState, meta, "Opened", "State: " ,"&e", "&f", " quiver");
         } else {
             meta.getPersistentDataContainer().set(getStorageKey3(), PersistentDataType.STRING, "closed");
             itemState.setType(Material.LEATHER);
-            Utils.updateValueByPdc(itemState, meta, "Closed", "State: " ,"&e", "&f", " quiver");
+            Utils.setLoreByPdc(itemState, meta, "Closed", "State: " ,"&e", "&f", " quiver");
         }
     }
 
@@ -106,10 +106,10 @@ public class QuiverTask {
             }
             itemState.setType(Material.LEATHER);
             player.sendMessage(ChatColor.GOLD + getSfItemStack().getDisplayName() + " is now empty");
-            Utils.updateValueByPdc(itemState, meta, "Closed (No arrows)", "State: " ,"&e", "&f", "");
+            Utils.setLoreByPdc(itemState, meta, "Closed (No arrows)", "State: " ,"&e", "&f", "");
         }
 
-        Utils.updateValueByPdc(itemState, meta, String.valueOf(amount), "Arrows: " ,"&e", "&f", " left");
+        Utils.setLoreByPdc(itemState, meta, String.valueOf(amount), "Arrows: " ,"&e", "&f", " left");
         player.getInventory().addItem(getArrowType().clone());
     }
 
@@ -137,8 +137,8 @@ public class QuiverTask {
             } // pdc to make item un-stackable and unique
             item.setType(getArrowType().getType());
             arrow.setAmount(arrow.getAmount() - 1);
-            Utils.updateValueByPdc(item, meta, String.valueOf(increment), "Arrows: " ,"&e", "&f", " left");
-            Utils.updateValueByPdc(item, meta, "Opened", "State: " ,"&e", "&f", " quiver");
+            Utils.setLoreByPdc(item, meta, String.valueOf(increment), "Arrows: " ,"&e", "&f", " left");
+            Utils.setLoreByPdc(item, meta, "Opened", "State: " ,"&e", "&f", " quiver");
             if(increment == getQuiverSize()){
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', getSfItemStack().getDisplayName() + " is full!"));
             }
@@ -190,9 +190,9 @@ public class QuiverTask {
                     meta.getPersistentDataContainer().remove(getStorageKey3());
                 }
                 itemStack.setType(Material.LEATHER);
-                Utils.updateValueByPdc(itemStack, meta, "Closed (No arrows)", "State: " ,"&e", "&f", "");
+                Utils.setLoreByPdc(itemStack, meta, "Closed (No arrows)", "State: " ,"&e", "&f", "");
             }
-            Utils.updateValueByPdc(itemStack, meta, String.valueOf(decrement), "Arrows: " ,"&e", "&f", " left");
+            Utils.setLoreByPdc(itemStack, meta, String.valueOf(decrement), "Arrows: " ,"&e", "&f", " left");
         }
     }
 

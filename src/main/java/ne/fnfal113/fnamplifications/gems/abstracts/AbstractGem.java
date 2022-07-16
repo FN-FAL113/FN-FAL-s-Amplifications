@@ -44,9 +44,10 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
         if(defaultChance != 0) {
             setConfigChanceValues(defaultChance);
             setConfigWorldSettings();
+
             Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
                     "chance", "%", "&e", "%", 4);
-            this.chance = FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "chance");
+            this.chance = FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "chance");
         } else {
             setConfigWorldSettings();
         }

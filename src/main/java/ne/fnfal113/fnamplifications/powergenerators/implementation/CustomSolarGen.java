@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
@@ -47,8 +46,8 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
     public void setLore(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
-        lore.add(Utils.colorTranslator(LoreBuilder.powerBuffer(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "capacity"))));
-        lore.add(Utils.colorTranslator(LoreBuilder.powerPerSecond(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayEnergy"))));
+        lore.add(Utils.colorTranslator(LoreBuilder.powerBuffer(FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "capacity"))));
+        lore.add(Utils.colorTranslator(LoreBuilder.powerPerSecond(FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "dayEnergy"))));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
     }
@@ -59,11 +58,11 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
     }
 
     public int getDayEnergy() {
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayEnergy");
+        return FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "dayEnergy");
     }
 
     public int getCapacity() {
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "capacity");
+        return FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "capacity");
     }
 
     public int getNightEnergy() {
@@ -76,7 +75,7 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
 
     public int getGeneratedOutput(Location l, Config data) {
         World world = l.getWorld();
-        Validate.notNull(world);
+
         if (world.getEnvironment() != World.Environment.NORMAL) {
             return 0;
         } else {

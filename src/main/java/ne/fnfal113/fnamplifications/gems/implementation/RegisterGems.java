@@ -242,6 +242,12 @@ public class RegisterGems {
                 FNAmpItems.POWER_RUNE, new ItemStack(Material.NETHER_WART), FNAmpItems.POWER_RUNE})
                 .register(instance);
 
+        new BerserkGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_BERSERK, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.POWER_RUNE, SlimefunItems.REINFORCED_ALLOY_INGOT, FNAmpItems.POWER_RUNE,
+                null, new ItemStack(Material.EMERALD), null,
+                new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2), SlimefunItems.REINFORCED_ALLOY_INGOT, new SlimefunItemStack(SlimefunItems.BLANK_RUNE, 2)})
+                .register(instance);
+
         new FlawlessUnbindGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_FLAWLESS_UNBIND, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_3, 5), FNAmpItems.UNBIND_RUNE, new SlimefunItemStack(SlimefunItems.ENDER_LUMP_3, 5),
                 FNAmpItems.UNBIND_RUNE, new ItemStack(Material.DIAMOND), FNAmpItems.UNBIND_RUNE,

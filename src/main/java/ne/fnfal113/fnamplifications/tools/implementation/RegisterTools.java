@@ -10,6 +10,7 @@ import ne.fnfal113.fnamplifications.tools.FnHoe;
 import ne.fnfal113.fnamplifications.tools.FnHoeAutoPlant;
 import ne.fnfal113.fnamplifications.tools.BlockRotator;
 import ne.fnfal113.fnamplifications.tools.OrientPearl;
+import ne.fnfal113.fnamplifications.tools.ThrowableTorch;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -45,6 +46,13 @@ public class RegisterTools {
                 new ItemStack(Material.BONE), new ItemStack(Material.ENDER_PEARL, 1), new ItemStack(Material.BONE),
                 null, new ItemStack(Material.BONE), null})
                 .register(instance);
+
+        new ThrowableTorch(FNAmpItems.FN_MISC, FNAmpItems.FN_THROWABLE_TORCH, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
+                null, new ItemStack(Material.BLAZE_POWDER), null,
+                new ItemStack(Material.BLAZE_POWDER), new ItemStack(Material.TORCH, 1), new ItemStack(Material.BLAZE_POWDER),
+                null, new ItemStack(Material.BLAZE_POWDER), null})
+                .register(instance);
+
     }
 
 }

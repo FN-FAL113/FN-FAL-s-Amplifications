@@ -58,8 +58,8 @@ public abstract class AbstractGears extends SlimefunItem {
         this.defaultUsageKey3 = defaultUsageKey3;
         this.startingProgress = startingProgress;
         this.incrementingProgress = incrementingProgress;
-        this.maxLevel = configManager.getValueById(this.getId(), "max-level");
-        this.maxAttributes = configManager.getValueById(this.getId(), "max-attributes");
+        this.maxLevel = configManager.getIntValueById(this.getId(), "max-level");
+        this.maxAttributes = configManager.getIntValueById(this.getId(), "max-attributes");
         this.equipmentSlot = equipmentSlot;
         this.gearTask = new GearTask(getDefaultUsageKey(), getDefaultUsageKey2(), getDefaultUsageKey3(), item, startingProgress, incrementingProgress, getMaxLevel());
     }
@@ -72,7 +72,7 @@ public abstract class AbstractGears extends SlimefunItem {
 
             JsonObject jsonObject = (JsonObject) configManager.loadJson(this.getId().toLowerCase() + "_default_ench");
 
-            int configMaxLevel = configManager.getValueById(this.getId(), "max-level");
+            int configMaxLevel = configManager.getIntValueById(this.getId(), "max-level");
 
             for(int i = 1; i <= Math.max(configMaxLevel, maxLevel); i++) {
                 String section = this.getId() + "." + "level-" + i;
@@ -179,7 +179,7 @@ public abstract class AbstractGears extends SlimefunItem {
         ItemMeta meta = armor.getItemMeta();
         String section = this.getId() + "." + "level-" + level;
         String enchant = getConfigManager().getStringById(section, "enchantment-name");
-        int enchantLevel = getConfigManager().getValueById(section, "enchantment-level");
+        int enchantLevel = getConfigManager().getIntValueById(section, "enchantment-level");
 
         try {
             if (!enchant.equalsIgnoreCase("null") && enchantLevel != 0) {

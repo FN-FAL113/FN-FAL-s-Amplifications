@@ -18,6 +18,7 @@ import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import ne.fnfal113.fnamplifications.machines.implementation.DiscDurationsEnum;
 import ne.fnfal113.fnamplifications.machines.implementation.JukeBox;
+import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -75,18 +76,20 @@ public class ElectricJukebox extends JukeBox {
                                 if(menu.getItemInSlot(i) != null) {
                                     ItemStack itemStack = menu.getItemInSlot(i);
                                     ItemMeta meta = itemStack.getItemMeta();
+
                                     if(meta.hasEnchant(Enchantment.BINDING_CURSE)) { // un-enchant any disc that is being played/selected
                                         meta.removeEnchant(Enchantment.BINDING_CURSE);
                                         itemStack.setItemMeta(meta);
                                     }
+
                                     if(itemStack.getType() != Material.PINK_STAINED_GLASS_PANE && itemStack.getType() != Material.GRAY_STAINED_GLASS_PANE) {
                                         menu.dropItems(menu.getLocation(), i);
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
+                            } //  bound loop
+                        } // menu null check
+                    } // overridden method
+                } // anonymous
         );
 
         createPreset(this, getItemName(), blockMenuPreset -> { // create inventory gui preset, use the current consumer input
@@ -112,6 +115,15 @@ public class ElectricJukebox extends JukeBox {
                 menuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
             }
         }
+    }
+
+    public boolean isJukeboxPowered(Block b, Player p){
+        if(getCharge(b.getLocation()) > 0){
+            return true;
+        }
+
+        p.sendMessage(Utils.colorTranslator("&eJukebox is not powered, needs power supply."));
+        return false;
     }
 
     @Override
@@ -146,7 +158,10 @@ public class ElectricJukebox extends JukeBox {
                 }
                 menu.replaceExistingItem(50, isOn ? TOGGLED_ON : TOGGLED_OFF);
                 menu.addMenuClickHandler(50, (p, slot, item, action) -> {
-                    toggleOnOrOff(menu);
+                    if(isJukeboxPowered(b, p)) {
+                        toggleOnOrOff(menu);
+                    }
+
                     return false;
                 });
 
@@ -157,13 +172,19 @@ public class ElectricJukebox extends JukeBox {
                 }
                 menu.replaceExistingItem(0, PREVIOUS);
                 menu.addMenuClickHandler(0, (p, slot, item, action) -> {
-                    previousDiscButton(p, menu, false);
+                    if(isJukeboxPowered(b, p)) {
+                        previousDiscButton(p, menu, false);
+                    }
+
                     return false;
                 });
 
                 menu.replaceExistingItem(8, NEXT);
                 menu.addMenuClickHandler(8, (p, slot, item, action) -> {
-                    nextDiscButton(p, menu);
+                    if(isJukeboxPowered(b, p)) {
+                        nextDiscButton(p, menu);
+                    }
+
                     return false;
                 });
 
@@ -175,7 +196,10 @@ public class ElectricJukebox extends JukeBox {
 
                 menu.replaceExistingItem(4, playing ? PLAY : STOP);
                 menu.addMenuClickHandler(4, (p, slot, item, action) -> {
-                    playOrStopButton(p, menu);
+                    if(isJukeboxPowered(b, p)) {
+                        playOrStopButton(p, menu);
+                    }
+
                     return false;
                 });
 
@@ -193,6 +217,7 @@ public class ElectricJukebox extends JukeBox {
 
         Jukebox jukebox = (Jukebox) invMenu.getBlock().getState();
         JukeboxCache cache = getCACHE_MAP().get(b.getLocation());
+
         if (getCharge(b.getLocation()) > 0) { // is jukebox powered
             if(invMenu.hasViewer()) {
                 invMenu.replaceExistingItem(48, NOT_RUNNING);
@@ -206,7 +231,7 @@ public class ElectricJukebox extends JukeBox {
                         durationMap.put(b.getLocation(), 0);
                         setNewMusic(false);
                         return;
-                    }
+                    } // new music being played
 
                     if(invMenu.hasViewer()){
                         invMenu.replaceExistingItem(48, OPERATING);
@@ -215,7 +240,8 @@ public class ElectricJukebox extends JukeBox {
                                     "&d&lPlaying: " + jukebox.getPlaying().toString().replace("_", " "),
                                     "&eDuration : " + durationMap.get(b.getLocation()) + "/" + (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDurationInSec() * 2)));
                         }
-                    }
+                    } // has viewer
+
                     if(durationMap.containsKey(b.getLocation())) {
                         if (durationMap.get(b.getLocation()) >= (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDurationInSec() * 2)) {
                             nextDiscButton(null, invMenu);
@@ -223,28 +249,45 @@ public class ElectricJukebox extends JukeBox {
                         } // when disc duration is done, check next slot if there is a disc else stop the jukebox or go back to default slot when upper bound is reached
                         else { // increment current time if music has not reached the duration
                             currentTime++;
+
                             if(currentTime == 1){ // re-update the jukebox state, for persistent state after server restart (might not work on 1.18 below)
                                 jukebox.update(true);
                             }
                         }
-                    }
+                    } // duration map contains
+
                     durationMap.put(b.getLocation(), currentTime);
                     Objects.requireNonNull(jukebox.getLocation().getWorld()).spawnParticle(Particle.NOTE, b.getLocation().add(0, 0.8, 0), 2);
-                } else { // reset current jukebox duration and change the status of the gui panels
+                } else { // if jukebox is not playing, reset current jukebox duration and change the status of the gui panels
                     durationMap.put(b.getLocation(), 0);
+
                     if(invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(48, NOT_OPERATING);
-                        changeStatus(invMenu, cache.currentSlot);
+
+                        changeStatus(invMenu);
                     }
                 }
+
             takeCharge(b.getLocation());
-            } else if(cache.isPlaying){ // jukebox is turned off. stop current music disc and change status of gui panels
+            } else if(cache.isPlaying){ // if jukebox is turned off, stop current music disc and change status of gui panels
                 stopCurrentSlot(jukebox, invMenu.getLocation(), cache, invMenu);
+
                 durationMap.put(b.getLocation(), 0);
+
                 if(invMenu.hasViewer()) {
-                    changeStatus(invMenu, cache.currentSlot);
+                    changeStatus(invMenu);
                 }
             }
+        } else if(cache.isOn){ // stop the jukebox when there is not enough power
+            if(cache.isPlaying) {
+                stopCurrentSlot(jukebox, invMenu.getLocation(), cache, invMenu);
+            }
+
+            invMenu.replaceExistingItem(48, ChestMenuUtils.getBackground());
+
+            changeStatus(invMenu);
+
+            toggleOnOrOff(invMenu);
         }
 
     }

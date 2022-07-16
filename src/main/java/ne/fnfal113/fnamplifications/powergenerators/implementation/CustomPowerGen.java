@@ -14,7 +14,6 @@ import lombok.SneakyThrows;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
-import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -70,9 +69,9 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
     public void setLore(ItemStack itemStack){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
-        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerBuffer(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "storage"))));
-        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerPerTick(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayrate")) + " (Day Rate)"));
-        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerPerTick(FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "nightrate")) + " (Night Rate)"));
+        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerBuffer(FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "storage"))));
+        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerPerTick(FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "dayrate")) + " (Day Rate)"));
+        lore.add(Utils.colorTranslator(LoreBuilderDynamic.powerPerTick(FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "nightrate")) + " (Night Rate)"));
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
     }
@@ -119,7 +118,6 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
     @Override
     public int getGeneratedOutput(@Nonnull Location l, @Nonnull Config data) {
         final int stored = getCharge(l);
-        Validate.notNull(l.getWorld());
 
         if(!HOLO_CACHE.containsKey(l)){
             if(BlockStorage.getLocationInfo(l, "holo_status") != null){
@@ -168,15 +166,15 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
 
     @Override
     public int getCapacity() {
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "storage");
+        return FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "storage");
     }
 
     public int getDayRate(){
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "dayrate");
+        return FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "dayrate");
     }
 
     public int getNightRate(){
-        return FNAmplifications.getInstance().getConfigManager().getValueById(this.getId(), "nightrate");
+        return FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "nightrate");
     }
 
 }
