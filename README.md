@@ -23,6 +23,7 @@ Addon supports 1.15.x, 1.16.x, 1.17.x, 1.18.x and 1.19.x minecraft versions
 - **FN Electric Jukebox** - Jukeboxes that can play or traverse music disc in the disc slots gui and can auto play after one has finished playing, ranging from 3 to 12 slots you never have to worry about manually changing each disc!
 - **FN Auto Ladder** - Automatically places a ladder with a max of 8 blocks from below and above
 - **FN Orient Pearl** - Teleport your entity while riding them (horses, etc) with this pearl!
+- **FN Throwable Torch** - Right click to throw this torch in a target location, gets auto placed if it hits a block!
 - **and more coming anytime soon!**
 
 ## :arrow_down: Download from build page with auto updates
