@@ -78,11 +78,6 @@ You can change them if you think they need balancing or for several reasons
   </a>
 </p>
 
-### Slimefun addons
-Addon is now part of Slimefun Community Addons! Go check out others addon here:
-https://github.com/Slimefun/Slimefun4/wiki/Addons
-
-
 ### Special Mentions
 Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
 
