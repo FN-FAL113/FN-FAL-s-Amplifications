@@ -73,6 +73,7 @@ public abstract class AbstractGears extends SlimefunItem {
             JsonObject jsonObject = (JsonObject) configManager.loadJson(this.getId().toLowerCase() + "_default_ench");
 
             int configMaxLevel = configManager.getIntValueById(this.getId(), "max-level");
+            int configMaxAttributes = configManager.getIntValueById(this.getId(), "max-attributes");
 
             for(int i = 1; i <= Math.max(configMaxLevel, maxLevel); i++) {
                 String section = this.getId() + "." + "level-" + i;
@@ -80,7 +81,7 @@ public abstract class AbstractGears extends SlimefunItem {
                 initializeEnchants(section, i, jsonObject);
 
                 if(i % 5 == 0){
-                    initializeAttributes(section, maxAttributes, i, jsonObject);
+                    initializeAttributes(section, Math.max(configMaxAttributes, maxAttributes), i, jsonObject);
                 }
             }
 
@@ -103,7 +104,7 @@ public abstract class AbstractGears extends SlimefunItem {
                 configManager.setConfigIntegerValues(section, settingEnchantLevel, jsonObject.getAsJsonObject("level-" + i).get(settingEnchantLevel).getAsInt(), "fn-gear-level-settings", false);
             }
 
-            // read and add to map the added config section and values over the config max level
+            // read and add to map the added config section and values for enchants over the max level
             if(configManager.getCustomConfig().isConfigurationSection(section)) {
                 String enchantment = configManager.getCustomConfig().getConfigurationSection(section).getString(settingEnchant, "null");
                 int enchantLevel = configManager.getCustomConfig().getConfigurationSection(section).getInt(settingEnchantLevel, 0);
@@ -131,7 +132,7 @@ public abstract class AbstractGears extends SlimefunItem {
                     configManager.setConfigDoubleValues(attributeSection, settingAttributeValue, jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").get("attribute-" + x).getAsJsonObject().get(settingAttributeValue).getAsDouble(), "fn-gear-level-settings", false);
                 }
 
-                // read and add to map the added config section and values over the config max level
+                // read and add to map the added config section and values for attributes over the max level
                 if (configManager.getCustomConfig().isConfigurationSection(attributeSection)) {
                     String attribute = configManager.getCustomConfig().getConfigurationSection(attributeSection).getString(settingAttribute, "null");
                     double attributeValue = configManager.getCustomConfig().getConfigurationSection(attributeSection).getDouble(settingAttributeValue, 0.0);
@@ -202,6 +203,7 @@ public abstract class AbstractGears extends SlimefunItem {
                         if(meta.getAttributeModifiers(getEquipmentSlot()).asMap().containsKey(Attribute.valueOf(attribute))) {
                             meta.removeAttributeModifier(Attribute.valueOf(attribute));
                         }
+
                         meta.addAttributeModifier(Attribute.valueOf(attribute), new AttributeModifier(
                                 UUID.randomUUID(),
                                 "generic." + attribute.toLowerCase() + "." + armor.getType().toString().toLowerCase(),
