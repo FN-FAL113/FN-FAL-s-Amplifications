@@ -9,19 +9,18 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import lombok.Getter;
 import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.gems.handlers.GemHandler;
+import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 
-public abstract class AbstractGem extends SlimefunItem implements GemHandler {
+public abstract class AbstractGem extends SlimefunItem {
 
     @Getter
     private int chance;
@@ -36,7 +35,7 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
         super(itemGroup, item, recipeType, recipe);
 
         initializeSettings(defaultChance);
-        GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS().add(Keys.createKey(this.getId().toLowerCase()));
+        GemKeysEnum.GEM_KEYS.getGemKeyList().add(Keys.createKey(this.getId().toLowerCase()));
     }
 
     @SneakyThrows
@@ -99,13 +98,17 @@ public abstract class AbstractGem extends SlimefunItem implements GemHandler {
                 Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
     }
 
+    public void bindGem(SlimefunItem gem, ItemStack currentItem, Player player, boolean retaliate){
+        new Gem(gem, currentItem, player).onDrag(retaliate);
+    }
+
     /**
      *
-     * @param event the click event where drag and drop is being listened
      * @param player the player who dragged and dropped the gem
-     * @param slimefunItem the gem in the inventory that were clicked by the cursor
-     * @param currentItem the current item in the inventory the gem was dragged and drop to
+     * @param slimefunItem the slimefun gem in the inventory that is attached to the cursor
+     * @param gemItem the itemstack gem in the inventory that is attached to the cursor
+     * @param currentItem the current item in the inventory that the gem was dragged and dropped to
      */
-    public abstract void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem);
+    public abstract void onDrag(Player player, SlimefunItem slimefunItem, ItemStack gemItem, ItemStack currentItem);
 
 }

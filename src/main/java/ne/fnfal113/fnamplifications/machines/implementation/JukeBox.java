@@ -176,7 +176,6 @@ public class JukeBox extends AbstractJukeBox {
 
         menu.replaceExistingItem(4, STOP);
         BlockStorage.addBlockInfo(location, "is_Playing", String.valueOf(false));
-        // jukebox.stopPlaying(); // No such method in 1.15, set record to null instead
 
         jukebox.setRecord(null);
         jukebox.update(true);

@@ -1,7 +1,7 @@
 name: FNAmplifications
 version: '${project.version}'
 main: ne.fnfal113.fnamplifications.FNAmplifications
-api-version: 1.15
+api-version: 1.16
 authors: [ FN_FAL113 ]
 description: Custom Addon that includes my other addons for slimefun
 website: https://github.com/FN-FAL113

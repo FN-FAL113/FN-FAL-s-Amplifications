@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
 import ne.fnfal113.fnamplifications.gems.implementation.ThrowWeaponTask;
@@ -14,14 +13,12 @@ import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
-@SuppressWarnings("ConstantConditions")
 public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
 
     public TriSwordGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -29,9 +26,9 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
         if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType())) {
-            new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+            bindGem(gem, currentItem, player, false);
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
         }

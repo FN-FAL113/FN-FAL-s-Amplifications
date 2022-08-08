@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.gems.implementation.UpgradedGem;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -31,16 +30,16 @@ public interface GemUpgrade {
 
     /**
      *
-     * @param slimefunItem the gem that will be used
+     * @param slimefunGemItem the gem as an SlimefunItem instead of ItemStack
      * @param currentItem the item to socket
-     * @param event the click event to listen for
+     * @param gem the gem as an itemstack instead of SlimefunItemStack
      * @param player the player who initiated the process for binding
      * @param id the slimefun id of the gem
      */
-    default void upgradeGem(SlimefunItem slimefunItem, ItemStack currentItem, InventoryClickEvent event, Player player, String id){
-        int currentTier = getTier(Objects.requireNonNull(event.getCursor()), id);
+    default void upgradeGem(SlimefunItem slimefunGemItem, ItemStack currentItem, ItemStack gem, Player player, String id){
+        int currentTier = getTier(Objects.requireNonNull(gem), id);
 
-        new UpgradedGem(slimefunItem, currentItem, player).upgradeExistingGem(event, event.getCursor(), currentTier);
+        new UpgradedGem(slimefunGemItem, currentItem, player).upgradeExistingGem(gem, currentTier);
     }
 
     default int getTier(ItemStack itemStack, String id){

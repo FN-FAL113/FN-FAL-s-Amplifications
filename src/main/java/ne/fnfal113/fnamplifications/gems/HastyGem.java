@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
-import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnBlockBreakHandler;
@@ -15,7 +14,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -29,10 +27,10 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler {
     }
 
     @Override
-    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
         if (WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType())
                 || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType())) {
-            new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+            bindGem(gem, currentItem, player, false);
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on shovels, pickaxes and axes only"));
         }
