@@ -57,7 +57,7 @@ public class GemListener implements Listener {
      */
     public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack, PersistentDataContainer pdc, Player p) {
         if (pdc.has(Keys.createKey(itemStack.getType().toString().toLowerCase() + "_socket_amount"), PersistentDataType.INTEGER)) {
-            for (NamespacedKey key : GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS()) {
+            for (NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()) {
                 if (pdc.has(key, PersistentDataType.STRING)) {
                     SlimefunItem item = getSfItem(key, pdc);
 
@@ -118,11 +118,20 @@ public class GemListener implements Listener {
         }
 
         Player player = (Player) event.getWhoClicked();
-        Optional<SlimefunItem> slimefunItem = Optional.ofNullable(SlimefunItem.getByItem(event.getCursor()));
+
+        Optional<ItemStack> gemItem = Optional.ofNullable(event.getCursor());
+
+        if(!gemItem.isPresent()){
+            return;
+        }
+
+        Optional<SlimefunItem> slimefunGemItem = Optional.ofNullable(SlimefunItem.getByItem(gemItem.get()));
         Optional<ItemStack> currentItem = Optional.ofNullable(event.getCurrentItem());
 
-        if(currentItem.isPresent() && slimefunItem.isPresent() && slimefunItem.get() instanceof AbstractGem) {
-            ((AbstractGem) slimefunItem.get()).onDrag(event, player, slimefunItem.get(), currentItem.get());
+        if(currentItem.isPresent() && slimefunGemItem.isPresent() && slimefunGemItem.get() instanceof AbstractGem) {
+            ((AbstractGem) slimefunGemItem.get()).onDrag(player, slimefunGemItem.get(), gemItem.get(), currentItem.get());
+
+            event.setCancelled(true);
         }
     }
 

@@ -8,9 +8,9 @@ import java.util.List;
 
 public enum GemKeysEnum {
 
-    GEM_KEYS_ENUM;
+    GEM_KEYS;
 
     @Getter
-    private final List<NamespacedKey> GEM_KEYS = new ArrayList<>();
+    private final List<NamespacedKey> gemKeyList = new ArrayList<>();
 
 }

@@ -46,7 +46,7 @@ public class GemUnbinderTask {
         }
 
         List<ItemStack> gemArray = new ArrayList<>();
-        for(NamespacedKey key : GemKeysEnum.GEM_KEYS_ENUM.getGEM_KEYS()){
+        for(NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()){
             if(pdc.has(key, PersistentDataType.STRING)) { // get all the pdc value based from the gem key enum
                 SlimefunItem gem = SlimefunItem.getById(pdc.get(key, PersistentDataType.STRING));
                 if(gem instanceof AbstractGem) {

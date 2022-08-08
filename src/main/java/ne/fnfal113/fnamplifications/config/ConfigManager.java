@@ -193,7 +193,7 @@ public class ConfigManager {
 
             // get the json in the resource folder as input stream
             // and deserialize the contents to the temporary file line by line
-            InputStream inputStream = FNAmplifications.class.getResourceAsStream("/" + jsonName + ".json");
+            InputStream inputStream = FNAmplifications.class.getResourceAsStream("/json/" + jsonName + ".json");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
             PrintWriter writer = new PrintWriter(file);
@@ -214,7 +214,7 @@ public class ConfigManager {
             return parser.parse(new FileReader(file));
         } catch (IOException | JsonParseException | NullPointerException e) {
             e.printStackTrace();
-            return new FileReader("test");
+            return new FileReader("resource_not_found");
         }
     }
 

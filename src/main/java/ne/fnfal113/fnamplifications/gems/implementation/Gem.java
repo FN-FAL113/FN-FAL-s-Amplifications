@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -49,7 +48,7 @@ public class Gem {
         this.key2 = Keys.createKey(itemToSocket.getType().toString().toLowerCase() + "_socket_amount");
     }
 
-    public void onDrag(InventoryClickEvent event, boolean retaliateWeapon){
+    public void onDrag(boolean retaliateWeapon){
         ItemMeta meta = getItemStackToSocket().getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
 
@@ -68,7 +67,6 @@ public class Gem {
             getPlayer().sendMessage(Utils.colorTranslator("&eOnly 5 gems per item is allowed!"));
             getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 1.0F);
         }
-        event.setCancelled(true);
     }
 
     public void socketItem(){

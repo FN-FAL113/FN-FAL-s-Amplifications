@@ -8,7 +8,6 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
-import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import org.bukkit.Bukkit;
@@ -16,7 +15,6 @@ import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
@@ -30,13 +28,12 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
     }
 
     @Override
-    @SuppressWarnings("ConstantConditions")
-    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
         if (WeaponArmorEnum.BOOTS.isTagged(currentItem.getType())) {
-            if(isUpgradeGem(event.getCursor(), this.getId())) {
-                upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+            if(isUpgradeGem(gemItem, this.getId())) {
+                upgradeGem(gem, currentItem, gemItem, player, this.getId());
             } else {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                bindGem(gem, currentItem, player, false);
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on boots only"));

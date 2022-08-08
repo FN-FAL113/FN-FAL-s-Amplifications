@@ -28,7 +28,7 @@ public class UpgradedGem extends Gem {
         this.key = Keys.createKey(sfItem.getId().toLowerCase() + "_gem_tier");
     }
 
-    public void upgradeExistingGem(InventoryClickEvent event, ItemStack gemItem, int gemTier){
+    public void upgradeExistingGem(ItemStack gemItem, int gemTier){
         ItemMeta meta = getItemStackToSocket().getItemMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
         int itemTier = container.getOrDefault(getKey(), PersistentDataType.INTEGER, 4);
@@ -46,8 +46,6 @@ public class UpgradedGem extends Gem {
         } else {
             getPlayer().sendMessage(Utils.colorTranslator("&eYou do not have a similar gem that can be upgraded!"));
         }
-
-        event.setCancelled(true);
     }
 
     public void upgradeItem(int itemTier, String gemDisplayName){

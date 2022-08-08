@@ -7,7 +7,6 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
-import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Keys;
@@ -23,7 +22,6 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitTask;
@@ -33,7 +31,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-@SuppressWarnings("ConstantConditions")
 public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
     private final Map<UUID, Zombie> entityUUIDMap = new HashMap<>();
@@ -44,13 +41,12 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
     }
 
     @Override
-    @SuppressWarnings("ConstantConditions")
-    public void onDrag(InventoryClickEvent event, Player player, SlimefunItem slimefunItem, ItemStack currentItem){
+    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
         if ((WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()))) {
-            if(isUpgradeGem(event.getCursor(), this.getId())) {
-                upgradeGem(slimefunItem, currentItem, event, player, this.getId());
+            if(isUpgradeGem(gemItem, this.getId())) {
+                upgradeGem(gem, currentItem, gemItem, player, this.getId());
             } else {
-                new Gem(slimefunItem, currentItem, player).onDrag(event, false);
+                bindGem(gem, currentItem, player, false);
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplate only"));
