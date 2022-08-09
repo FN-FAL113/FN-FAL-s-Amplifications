@@ -3,7 +3,7 @@ A slimefun addon that adds different types of items and more content for your se
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
 of crafting, it means harder is fun and the grind is worth it!
 
-Addon supports 1.15.x, 1.16.x, 1.17.x, 1.18.x and 1.19.x minecraft versions
+Addon supports 1.16.x, 1.17.x, 1.18.x and 1.19.x minecraft versions
 
 ## :bulb: Features
 - **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
