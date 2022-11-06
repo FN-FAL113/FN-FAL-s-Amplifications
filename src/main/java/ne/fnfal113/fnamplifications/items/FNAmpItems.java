@@ -71,6 +71,12 @@ public class FNAmpItems {
             new CustomItemStack(Material.EMERALD_BLOCK,
             "&eFN Material Generators"));
 
+    public static final SubItemGroup MATERIAL_GENERATORS_UPGRADES = new SubItemGroup(
+            new NamespacedKey(FNAmplifications.getInstance(), "MATERIAL_GENERATORS_UPGRADES"),
+            FN_MAIN_GROUP,
+            new CustomItemStack(Material.GOLD_BLOCK,
+                    "&eFN Material Generators Upgrades"));
+
     public static final SubItemGroup SOLAR_GENERATORS = new SubItemGroup(
             new NamespacedKey(FNAmplifications.getInstance(), "SOLAR_GENERATORS"),
             FN_MAIN_GROUP,
@@ -553,6 +559,30 @@ public class FNAmpItems {
             );
         }
     }
+
+    public static final SlimefunItemStack FN_MAT_GEN_UPGRADES_REPAIR_ITEM = new SlimefunItemStack(
+            "FN_MAT_GEN_UPGRADES_REPAIR_ITEM",
+            Material.BLACK_DYE,
+            "&fFN Mat Gen Repair Item",
+            "&6Repairs or add durability",
+            "",
+            "&e+20 durability",
+            "",
+            "&aRight click on a material generator",
+            "&d&oFN Material Generators Upgrades"
+    );
+
+    public static final SlimefunItemStack FN_MAT_GEN_UPGRADES_FAST_PRODUCE = new SlimefunItemStack(
+            "FN_MAT_GEN_UPGRADES_FAST_PRODUCE",
+            Material.YELLOW_DYE,
+            "&fFN Mat Gen Fast Produce",
+            "&6Faster production",
+            "",
+            "&e+1.75x Mat gen speed for 30 minutes",
+            "",
+            "&aRight click on a material generator",
+            "&d&oFN Material Generators Upgrades"
+    );
 
     public static final SlimefunItemStack FN_FAL_GENERATOR_TIER1 = new SlimefunItemStack(
             "FN_FAL_GENERATOR_TIER1",
@@ -1258,6 +1288,12 @@ public class FNAmpItems {
             "&dFN Gem Upgrader"
     );
 
+    public static final SlimefunItemStack FN_GEM_DOWNGRADER = new SlimefunItemStack(
+            "FN_GEM_DOWNGRADER",
+            Material.STONECUTTER,
+            "&dFN Gem Downgrader"
+    );
+
     public static final SlimefunItemStack FN_MAGIC_ALTAR = new SlimefunItemStack(
             "FN_MAGIC_ALTAR",
             PlayerHead.getItemStack(PlayerSkin.fromHashCode("e34930125767c2e34ac939ec94a2aa4e79c381ee336760695c6c874cf12")),
@@ -1829,10 +1865,10 @@ public class FNAmpItems {
             Material.EMERALD,
             "&cRetaliate Gem",
             "",
-            "&eAllows your weapons to return back to ",
-            "&eyou after throwing and hitting an object",
-            "&eor entity, weapon must have any of these",
-            "&egems bound to it before binding this gem:",
+            "&eAllows your weapons to return back to",
+            "&eyou after throwing it despite the distance.",
+            "&eThis gem requires throwable weapon gem",
+            "&efrom which one below:",
             "&e- Damnation Gem",
             "&e- Tri-Sword Gem",
             "&e- Axe Throwie Gem",
@@ -2412,6 +2448,16 @@ public class FNAmpItems {
             "&dClick this item to know how to upgrade",
             "&dgems and what recipe are needed in the",
             "&dFN Gem Upgrader Multiblock"
+    );
+
+    public static final SlimefunItemStack FN_GEM_DOWNGRADES_DISPLAY_ITEM = new SlimefunItemStack(
+            "FN_GEM_DOWNGRADE_DISPLAY_ITEM",
+            PlayerHead.getItemStack(PlayerSkin.fromHashCode("36161daa3589ec9c8187459ac36fd4dd2646c040678d3bfacb72a2210c6c801c")),
+            "&bGem Tier Downgrades",
+            "",
+            "&dClick this item to know how to downgrade",
+            "&dgems and what recipe are needed in the",
+            "&dFN Gem Downgrader Multiblock"
     );
 
     public static final SlimefunItemStack FN_GEM_FINE_JASPER_CRAFTING = new SlimefunItemStack(

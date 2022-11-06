@@ -10,8 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.Tag;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Damageable;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -40,7 +40,7 @@ public class ThrowWeaponTask extends BukkitRunnable {
     @Getter
     private final boolean isTriWeapon;
     @Getter
-    private final boolean returnWeapon;
+    private final boolean isRetaliated;
     @Getter
     private final ReturnWeaponTask returnWeaponTask;
 
@@ -52,12 +52,12 @@ public class ThrowWeaponTask extends BukkitRunnable {
        this(player, itemStack, rotateWeapon, isTriWeapon, returnWeapon, new Vector(0, 0, 0));
     }
 
-    public ThrowWeaponTask(Player player, ItemStack itemStack, boolean rotateWeapon, boolean isTriWeapon, boolean returnWeapon, Vector vector){
+    public ThrowWeaponTask(Player player, ItemStack itemStack, boolean rotateWeapon, boolean isTriWeapon, boolean isRetaliated, Vector vector){
         this.player = player;
         this.itemStack = itemStack;
         this.rotateWeapon = rotateWeapon;
         this.isTriWeapon = isTriWeapon;
-        this.returnWeapon = returnWeapon;
+        this.isRetaliated = isRetaliated;
         this.vector = vector;
         this.armorStand = spawnArmorstand(player, itemStack);
         this.returnWeaponTask = new ReturnWeaponTask(getItemStack(), getArmorStand(), getPlayer());
@@ -104,14 +104,14 @@ public class ThrowWeaponTask extends BukkitRunnable {
 
         // check if the raytrace result has a block within the max distance
         // if it hits a block, the weapon is either returned or dropped
-        if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS && !Tag.FLOWERS.isTagged(result.getHitBlock().getType())){
-            if(isReturnWeapon()) {
-                returnWeapon();
-
+        if(result != null &&
+                Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS &&
+                    !Tag.FLOWERS.isTagged(result.getHitBlock().getType())){
+            if(shouldReturnWeapon(false)) {
                 return;
             }
 
-            dropWeaponTask(getArmorStand(), getPlayer(), getItemStack().clone());
+            dropWeapon();
             return;
         }
 
@@ -129,14 +129,12 @@ public class ThrowWeaponTask extends BukkitRunnable {
                 }
             }
 
-            if(isReturnWeapon() && !isTriWeapon()) {
-                returnWeapon();
-
+            if(shouldReturnWeapon(true)) {
                 return;
             }
 
             if(!isTriWeapon()) {
-                dropWeaponTask(getArmorStand(), getPlayer(), getItemStack().clone());
+                dropWeapon();
 
                 return;
             }
@@ -146,22 +144,34 @@ public class ThrowWeaponTask extends BukkitRunnable {
         if(getArmorStand().getLocation().distanceSquared(getPlayer().getLocation()) > 3600){
             getPlayer().sendMessage(Utils.colorTranslator("&eYour weapon has reached the max distance of 60 blocks!"));
 
-            dropWeaponTask(getArmorStand(), getPlayer(), getItemStack().clone());
+            if(shouldReturnWeapon(false)) {
+                return;
+            }
+            dropWeapon();
         }
     }
 
-    public void dropWeaponTask(ArmorStand as, Player player, ItemStack itemStack){
-        Item droppedItem = as.getWorld().dropItem(as.getLocation(), itemStack.clone());
-        Location locInfo = droppedItem.getLocation();
+    public boolean shouldReturnWeapon(boolean entityHit){
+        if(!isRetaliated() || (isTriWeapon() && entityHit)) {
+            return false;
+        }
+        returnWeapon();
 
-        droppedItem.setOwner(player.getUniqueId()); // only the player who threw can pick up the weapon
-        droppedItem.setGlowing(true);
+        return true;
+    }
 
-        as.remove();
-
+    public void dropWeapon(){
         this.cancel();
 
-        player.sendMessage(Utils.colorTranslator("&6Weapon dropped near at " +
+        Item droppedItem = getArmorStand().getWorld().dropItem(getArmorStand().getLocation(), getItemStack().clone());
+        Location locInfo = droppedItem.getLocation();
+
+        droppedItem.setOwner(getPlayer().getUniqueId()); // only the player who threw can pick up the weapon
+        droppedItem.setGlowing(true);
+
+        getArmorStand().remove();
+
+        getPlayer().sendMessage(Utils.colorTranslator("&6Weapon dropped near at " +
                 "x: " + (int) locInfo.getX() + ", " +
                 "y: " + (int) locInfo.getY() + ", " +
                 "z: " + (int) locInfo.getZ()));

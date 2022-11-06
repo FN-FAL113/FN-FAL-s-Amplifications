@@ -62,6 +62,8 @@ public class GemListener implements Listener {
                     SlimefunItem item = getSfItem(key, pdc);
 
                     if(item instanceof AbstractGem) {
+                        // consumer requires an instance of the class that
+                        // extends a sub-interface of the gem handler interface
                         AbstractGem gem = (AbstractGem) item;
 
                         if(clazz.isInstance(gem)) {

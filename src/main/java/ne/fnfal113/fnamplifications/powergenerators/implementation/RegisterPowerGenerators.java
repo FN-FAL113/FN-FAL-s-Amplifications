@@ -1,4 +1,4 @@
-package ne.fnfal113.fnamplifications.powergenerators;
+package ne.fnfal113.fnamplifications.powergenerators.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
@@ -15,7 +15,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 
-public class FNPowerGenerators {
+public class RegisterPowerGenerators {
 
     private static final ReturnConfValue value = new ReturnConfValue();
 
@@ -49,7 +49,7 @@ public class FNPowerGenerators {
         }
     }
 
-    public static void setupPowerGens(SlimefunAddon instance) {
+    public static void setup(SlimefunAddon instance) {
         new CustomPowerGen(FNAmpItems.POWER_GENERATORS, FNAmpItems.FN_XPANSION_POWER_R1, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.POWER_COMPONENT, new CustomItemStack(LITEX_ITEMSTACK_TIN, 3), FNAmpItems.POWER_COMPONENT,
                 FNAmpItems.BASIC_MACHINE_BLOCK, SlimefunItems.SOLAR_GENERATOR_4, FNAmpItems.BASIC_MACHINE_BLOCK,
@@ -121,9 +121,8 @@ public class FNPowerGenerators {
                 SlimefunItems.ENERGIZED_CAPACITOR, new CustomItemStack(LITEX_ITEMSTACK_REINFORCED, 20), SlimefunItems.ENERGIZED_CAPACITOR,
                 FNAmpItems.REINFORCED_CASING, FNAmpItems.FN_XPANSION_POWER_R5, SlimefunItems.BOOSTED_URANIUM
         }, 17421, 10128, 1780, 2000000).register(instance);
-    }
 
-    public static void setupSolarGens(SlimefunAddon instance){
+        // Solar Generators
         new CustomSolarGen(FNAmpItems.SOLAR_GENERATORS, FNAmpItems.FN_FAL_GENERATOR_TIER1, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
                 SlimefunItems.SOLAR_GENERATOR_2, SlimefunItems.SOLAR_GENERATOR, SlimefunItems.SOLAR_GENERATOR_2,
                 SlimefunItems.BIG_CAPACITOR, SlimefunItems.POWER_CRYSTAL, SlimefunItems.BIG_CAPACITOR,

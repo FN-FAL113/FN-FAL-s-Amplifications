@@ -15,7 +15,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 public class CustomGeneratorMultiblock extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
-    public CustomGeneratorMultiblock(ItemGroup itemGroup , SlimefunItemStack item) {
+    public CustomGeneratorMultiblock(ItemGroup itemGroup, SlimefunItemStack item) {
         super(itemGroup, item, RecipeType.MULTIBLOCK, new ItemStack[] {
                 null, null, null,
                 null, new ItemStack(Material.CHEST), null,
