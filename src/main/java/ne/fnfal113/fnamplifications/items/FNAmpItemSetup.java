@@ -6,10 +6,11 @@ import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gears.implementation.RegisterGears;
 import ne.fnfal113.fnamplifications.gems.implementation.RegisterGems;
 import ne.fnfal113.fnamplifications.machines.implementation.RegisterMachines;
-import ne.fnfal113.fnamplifications.materialgenerators.FNMaterialGenerators;
+import ne.fnfal113.fnamplifications.materialgenerators.implementations.RegisterMaterialGeneratorUpgrades;
+import ne.fnfal113.fnamplifications.materialgenerators.implementations.RegisterMaterialGenerators;
 import ne.fnfal113.fnamplifications.multiblocks.*;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.RegisterSticks;
-import ne.fnfal113.fnamplifications.powergenerators.FNPowerGenerators;
+import ne.fnfal113.fnamplifications.powergenerators.implementation.RegisterPowerGenerators;
 import ne.fnfal113.fnamplifications.quivers.implementations.RegisterQuiver;
 import ne.fnfal113.fnamplifications.staffs.implementations.RegisterStaffs;
 import ne.fnfal113.fnamplifications.tools.implementation.RegisterTools;
@@ -29,11 +30,14 @@ public final class FNAmpItemSetup {
 
         initialised = true;
 
+        // Item Recipes
         FnItemRecipes.setup(plugin);
         FnScrapRecipes.setup(plugin);
-        FNMaterialGenerators.setup(plugin);
-        FNPowerGenerators.setupPowerGens(plugin);
-        FNPowerGenerators.setupSolarGens(plugin);
+
+        // Items and Blocks
+        RegisterMaterialGenerators.setup(plugin);
+        RegisterMaterialGeneratorUpgrades.setup(plugin);
+        RegisterPowerGenerators.setup(plugin);
         RegisterMachines.setup(plugin);
         RegisterSticks.setup(plugin);
         RegisterGears.setup(plugin);
@@ -42,12 +46,14 @@ public final class FNAmpItemSetup {
         RegisterStaffs.setup(plugin);
         RegisterTools.setup(plugin);
 
+        // MultiBlocks
         new FnAssemblyStation().register(FNAmplifications.getInstance());
         new FnScrapRecycler().register(FNAmplifications.getInstance());
         new FnMysteryStickAltar().register(FNAmplifications.getInstance());
-        new FnGemAltar().register(FNAmplifications.getInstance());
         new FnMagicAltar().register(FNAmplifications.getInstance());
+        new FnGemAltar().register(FNAmplifications.getInstance());
         new FnGemUpgrader().register(FNAmplifications.getInstance());
+        new FnGemDowngrader().register(FNAmplifications.getInstance());
     }
 
 }

@@ -13,6 +13,7 @@ import ne.fnfal113.fnamplifications.gems.listener.GemListener;
 import ne.fnfal113.fnamplifications.gems.listener.GemUnbinderListener;
 import ne.fnfal113.fnamplifications.integrations.VaultIntegration;
 import ne.fnfal113.fnamplifications.machines.listener.JukeBoxClickListener;
+import ne.fnfal113.fnamplifications.materialgenerators.listener.UpgradesListener;
 import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListener;
 import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
 import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
@@ -92,6 +93,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getServer().getPluginManager().registerEvents(new ThrowableItemListener(), this);
         getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
         getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
+        getServer().getPluginManager().registerEvents(new UpgradesListener(), this);
     }
 
     @Nonnull

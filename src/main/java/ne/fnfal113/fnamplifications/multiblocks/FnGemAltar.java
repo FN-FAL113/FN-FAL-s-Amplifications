@@ -88,14 +88,12 @@ public class FnGemAltar extends MultiBlockMachine {
         Inventory fakeInv = createVirtualInventory(inv);
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
+        craftItem(inv, recipe, b);
         if (outputInv != null) {
-            craftItem(inv, recipe, b);
-
             outputInv.addItem(output);
         } else {
-            craftItem(inv, recipe, b);
-
             dispenser.getWorld().dropItem(b.getLocation(), output);
+
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
             p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
         }

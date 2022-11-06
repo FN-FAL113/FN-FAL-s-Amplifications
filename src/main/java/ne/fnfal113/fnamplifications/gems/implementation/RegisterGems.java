@@ -13,6 +13,7 @@ import ne.fnfal113.fnamplifications.gems.unbinder.FlawlessUnbindGem;
 import ne.fnfal113.fnamplifications.gems.unbinder.PreciousUnbindGem;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.multiblocks.FnGemAltar;
+import ne.fnfal113.fnamplifications.multiblocks.FnGemDowngrader;
 import ne.fnfal113.fnamplifications.multiblocks.FnGemUpgrader;
 import ne.fnfal113.fnamplifications.utils.PotionBuilder;
 import org.bukkit.Material;
@@ -27,6 +28,13 @@ public class RegisterGems {
             "",
             "&eSame gem type and must",
             "&ebe same level or tier"
+    );
+
+    private static final CustomItemStack anyUpgradedGem = new CustomItemStack(
+            Material.EMERALD,
+            "&dAny Upgraded Gem",
+            "",
+            "&eTier 2 to 4 gem"
     );
 
     public static void setup(SlimefunAddon instance){
@@ -276,6 +284,12 @@ public class RegisterGems {
                     anyUpgradeableGem.clone(), null, anyUpgradeableGem.clone(),
                     null, FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, null,
                     anyUpgradeableGem.clone(), null, anyUpgradeableGem.clone()})
+                .register(instance);
+
+        new SlimefunItem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_DOWNGRADES_DISPLAY_ITEM, FnGemDowngrader.RECIPE_TYPE, new ItemStack[]{
+                FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, null, FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING,
+                null, anyUpgradedGem.clone(), null,
+                FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, null, FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING})
                 .register(instance);
 
     }
