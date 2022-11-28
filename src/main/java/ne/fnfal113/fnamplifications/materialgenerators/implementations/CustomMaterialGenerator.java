@@ -230,7 +230,7 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
                         progress = 0;
                         // if generator condition is greater than 0, check
                         if(getGeneratorCondition().get(pos) != 0) {
-                            if (ThreadLocalRandom.current().nextInt(100) < 30) {
+                            if (ThreadLocalRandom.current().nextInt(100) < 25) {
                                 BlockStorage.addBlockInfo(b.getLocation(), "generator_status", String.valueOf(generatorCondition - 1));
                                 getGeneratorCondition().put(pos, generatorCondition - 1);
                             }

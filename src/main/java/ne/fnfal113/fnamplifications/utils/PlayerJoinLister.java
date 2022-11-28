@@ -26,7 +26,8 @@ public class PlayerJoinLister implements Listener {
             return;
         }
 
-        if(players.contains(player.getUniqueId())){ // only send once when player joins fresh after server restart
+        // only send once when player joins fresh after server restart
+        if(players.contains(player.getUniqueId())){
            return;
         }
 
@@ -45,15 +46,9 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("  &d- Retaliate gem now returns weapon to player without dropping it on the ground"),
-                Utils.colorTranslator("  &d- Fixed block rotator able to rotate wall attachable items that " +
-                        "shouldn't be rotated if the next block being attached to is not solid"),
-                Utils.colorTranslator("  &d- Downgrade gems through FN Gem Downgrader multiblock and" +
-                        "yield back 2 or 3 previous tier gem"),
-                Utils.colorTranslator("  &d- Fixed mat gen not resetting progress on break at the block placed location"),
-                Utils.colorTranslator("  &d- Introducing material generator upgrades:"),
-                Utils.colorTranslator("  &f  + Repair item - repair your mat gens"),
-                Utils.colorTranslator("  &f  + Fast Produce - +1.75x speed to your mat gens for 30 minutes"),
+                Utils.colorTranslator("  &d- Changed material gen upgrades multiblock to FN Assembly Station and " +
+                        "rebalanced the recipes"),
+                Utils.colorTranslator("  &d- Mat gen chance for 1 durability wear decreased from 30% to 25%"),
                 Utils.colorTranslator(""),
                 Utils.colorTranslator("&eChangelog notification can be disabled in config.yml"),
                 Utils.colorTranslator(""),
