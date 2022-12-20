@@ -46,10 +46,9 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&e&lFN &c&lAmpli&b&lfications &r&e" + FNAmplifications.getInstance().getDescription().getVersion()),
                 Utils.colorTranslator("&fChangelog"),
                 "",
-                Utils.colorTranslator("  &d- Changed material gen upgrades multiblock to FN Assembly Station and " +
-                        "rebalanced the recipes"),
-                Utils.colorTranslator("  &d- Mat gen chance for 1 durability wear decreased from 30% to 25%"),
+                Utils.colorTranslator("  &d- Fixed Hasty Gem not being upgradeable"),
                 Utils.colorTranslator(""),
+                Utils.colorTranslator("&fHappy Holidays Gamer! Hope you have a bright day ahead!"),
                 Utils.colorTranslator("&eChangelog notification can be disabled in config.yml"),
                 Utils.colorTranslator(""),
                 Utils.colorTranslator("&eYou may visit this website for the fn items wiki:"),
