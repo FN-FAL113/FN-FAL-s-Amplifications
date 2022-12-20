@@ -34,7 +34,7 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
     }
 
     @Override
-    public void onBlockBreak(BlockBreakEvent event, Player player){
+    public void onBlockBreak(BlockBreakEvent event, Player player, ItemStack itemStack){
         if (event.isCancelled()){
             return;
         }

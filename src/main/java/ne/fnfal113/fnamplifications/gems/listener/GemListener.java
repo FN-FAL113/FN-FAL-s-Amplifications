@@ -233,7 +233,7 @@ public class GemListener implements Listener {
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         PersistentDataContainer pdc = getPersistentDataContainer(itemStack);
 
-        callGemHandler(OnBlockBreakHandler.class, handler -> handler.onBlockBreak(event, player), itemStack, pdc, player);
+        callGemHandler(OnBlockBreakHandler.class, handler -> handler.onBlockBreak(event, player, itemStack), itemStack, pdc, player);
     }
 
     @EventHandler
