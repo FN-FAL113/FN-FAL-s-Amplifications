@@ -125,6 +125,8 @@ public class ElectricMachineDowngrader extends CMachine implements RecipeDisplay
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CARBON_PRESS_2, 1)});
         registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CARBON_PRESS_2, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.CARBON_PRESS, 1)});
+        registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.FREEZER_3, 1)},
+                new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.FREEZER_2, 1)});
         registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.FREEZER_2, 1)},
                 new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.FREEZER, 1)});
         registerRecipe(20, new SlimefunItemStack[]{new SlimefunItemStack(SlimefunItems.FOOD_FABRICATOR_2, 1)},

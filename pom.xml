@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>Unoffical-3.3.5</version>
+    <version>Unoffical-3.3.6</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -104,7 +104,7 @@
         <dependency>
             <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>e42700dc98</version>
+            <version>62c7324e6d</version>
             <scope>provided</scope>
         </dependency>
 
