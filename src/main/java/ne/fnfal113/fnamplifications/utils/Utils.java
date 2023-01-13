@@ -25,7 +25,6 @@ public class Utils {
         return stringSequence;
     }
 
-
     // Armorstand methods for setting euler angles
     public static EulerAngle setRightArmAngle(ArmorStand armorStand, int x, int y, int z){
         double armorStandX = armorStand.getRightArmPose().getX();
@@ -52,14 +51,15 @@ public class Utils {
     }
 
     // lore methods, specifically used for updating the lore
-    public static void upgradeGemLore(ItemStack itemStack, ItemMeta meta, String configId, String configIdSuffix, String stringToReplace, String color, String suffix, int tier){
+    public static void upgradeGemLore(ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix, int tier, String fileName){
+        ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
         int decrementTier = tier;
 
         for(int i = 0 ; i < lore.size(); i++){
             if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
                 String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
-                            Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getIntValueById(configId, configIdSuffix) / decrementTier--) + suffix));
+                            Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getCustomConfig(fileName).getInt(configId + "." + configIdSuffix) / decrementTier--) + suffix));
                 lore.set(i, line);
             }
         }
@@ -68,14 +68,14 @@ public class Utils {
         itemStack.setItemMeta(meta);
     }
 
-    public static void setLoreByIntValue(@Nonnull ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix){
+    public static void setLoreByIntValue(@Nonnull ItemStack itemStack, String configId, String configIdSuffix, String stringToReplace, String color, String suffix, String fileName){
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
 
         for(int i = 0 ; i < lore.size(); i++){
             if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
                 String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
-                        Utils.colorTranslator(color + FNAmplifications.getInstance().getConfigManager().getIntValueById(configId, configIdSuffix) + suffix));
+                        Utils.colorTranslator(color + FNAmplifications.getInstance().getConfigManager().getCustomConfig(fileName).getInt(configId + "." + configIdSuffix) + suffix));
                 lore.set(i, line);
             }
         }

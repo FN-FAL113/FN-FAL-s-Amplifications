@@ -37,15 +37,16 @@ public abstract class AbstractStaff extends SlimefunItem {
         this.staffTask = new StaffTask(getDefaultUsageKey(), this.getId());
         setConfigValues(maxUses, this.getItem().getType().toString());
         setMaterial();
-        Utils.setLoreByIntValue(this.getItem(), this.getId(), "max-uses", "left", "&e", " left");
+        Utils.setLoreByIntValue(this.getItem(), this.getId(), "max-uses", "left", "&e", " left", "staffs-settings");
     }
 
     public void setMaterial(){
-        Material matchMaterial = Material.matchMaterial(FNAmplifications.getInstance().getConfigManager().getStringById(this.getId(), "staff-material").toUpperCase());
+        Material matchMaterial = Material.matchMaterial(FNAmplifications.getInstance().getConfigManager().getCustomConfig("staffs-settings").getString(this.getId() + "." + "staff-material").toUpperCase());
+
         if(matchMaterial != null){
             this.getItem().setType(matchMaterial);
         } else {
-            FNAmplifications.getInstance().getLogger().log(Level.SEVERE, "Invalid Material ID for " + this.getId() + (". Will use BLAZE_ROD as default material"));
+            FNAmplifications.getInstance().getLogger().log(Level.INFO, "Invalid Material ID for " + this.getId() + (". Using BLAZE_ROD as default material."));
         }
     }
 
@@ -65,8 +66,8 @@ public abstract class AbstractStaff extends SlimefunItem {
      * @param maxUses the max uses value that will be set in the config
      */
     public void setConfigValues(int maxUses, String material) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "max-uses", maxUses, "staffs-settings", true);
-        FNAmplifications.getInstance().getConfigManager().setConfigStringValues(this.getId(), "staff-material", material, "staffs-settings", true);
+        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "max-uses", maxUses, "staffs-settings");
+        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "staff-material", material, "staffs-settings");
     }
 
     /**

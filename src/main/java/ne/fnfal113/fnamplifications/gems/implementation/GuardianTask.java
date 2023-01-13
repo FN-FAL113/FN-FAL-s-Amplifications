@@ -5,6 +5,7 @@ import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Zombie;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.LivingEntity;
@@ -35,8 +36,18 @@ public class GuardianTask extends BukkitRunnable {
     public void run() {
         if(getZombie().getTarget() == null) {
             Vector vec = getPlayer().getLocation().getDirection();
-            Vector finalVec = vec.clone().setX(-vec.getZ()).setZ(vec.getX()).setY(0.8);
-            getZombie().teleport(getPlayer().getLocation().add(finalVec.multiply(1)));
+            Vector finalVec;
+
+            // since get direction returns a normalized vector, its x and z components can be used to
+            // position the guardian at right side of the player, the two components value can vary from which direction
+            // the player is facing
+            if(getPlayer().getFacing() == BlockFace.EAST || getPlayer().getFacing() == BlockFace.WEST) {
+                finalVec = vec.clone().setX(vec.getZ()).setZ(vec.getX()).setY(0.8);
+            } else {
+                finalVec = vec.clone().setX(-vec.getZ()).setZ(-vec.getX()).setY(0.8);
+            }
+
+            getZombie().teleport(getPlayer().getLocation().add(finalVec));
         }
 
         if(getZombie().isDead() || !getPlayer().isOnline() || getPlayer().getEquipment().getChestplate() == null){

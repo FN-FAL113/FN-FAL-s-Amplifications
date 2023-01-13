@@ -15,7 +15,7 @@ commands:
     description: Command for checking FN Gears progress
     default: true
     usage: /<command>
+permissions:
   fngear.levelupgears:
-    description: Command for levelling up FN Gears
-    usage: /<command>
+    description: for levelling up player worn FN Gears
     default: op

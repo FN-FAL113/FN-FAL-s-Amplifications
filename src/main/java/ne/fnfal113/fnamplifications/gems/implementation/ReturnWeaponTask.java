@@ -32,11 +32,37 @@ public class ReturnWeaponTask extends BukkitRunnable {
     @Override
     public void run() {
         Location asLocation = getArmorStand().getLocation();
-        Vector asVector = asLocation.toVector();
         Location pLocation = getPlayer().getLocation();
+        Vector asVector = asLocation.toVector();
         Vector pVector = pLocation.toVector();
 
-        getArmorStand().teleport(asLocation.subtract(asVector.subtract(pVector).normalize()).setDirection(pLocation.getDirection()));
+        // player vector subtracted to armorstand vector then normalize the
+        // vector to be subtracted to armorstand location
+        /*  This is my example to remind myself how I came up with this logic for future reference
+            initial vector of the armorstand is the last hit location
+
+            player location =
+            x 15 y 4 z 4
+
+            as location to vector =
+            x 20 y 4 z 4
+
+            player location to vector =
+            x 15 y 4 z 4
+
+            as location - (as location to vector - player location to vector)
+            x 20 y 4 z 4
+            x  5 y 0 z 0
+            is going to equal to
+            ↓
+            player location
+
+            this is an instant teleport to player but if (as to vector - player location to vector)
+            value is converted to unit vector(normalized) then we are slowly decrementing the as location
+            until it equals to player location
+         */
+        Location asLocationNormalized = asLocation.subtract(asVector.subtract(pVector).normalize()).setDirection(pLocation.getDirection());
+        getArmorStand().teleport(asLocationNormalized);
 
         // if player is not online, drop the throwable immediately
         if(!getPlayer().isOnline()){
@@ -44,7 +70,7 @@ public class ReturnWeaponTask extends BukkitRunnable {
             stopTask();
         }
 
-        // drop the item if the distance between player and throwable is square root of 150 blocks away
+        // drop the item if the distance between player and throwable is 150 blocks away
         if(distanceBetween(asLocation, pLocation) > 150){
             Location dropLoc = dropItem(asLocation);
             getPlayer().sendMessage(Utils.colorTranslator("&cWeapon has not been returned because you're too far!"));
@@ -63,6 +89,7 @@ public class ReturnWeaponTask extends BukkitRunnable {
             } else {
                 getPlayer().getInventory().addItem(getItemStack().clone());
             }
+
             getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
             stopTask();
         }
