@@ -26,6 +26,7 @@ public class ArmorEquipRunnable implements Runnable {
 
             if(SlimefunItem.getByItem(itemStack) instanceof FnChestPlate){
                 if(getArmorLevel(itemStack) >= 30){
+                    // add potion effect synchronously to prevent api level async usage errors
                     Bukkit.getScheduler().runTask(FNAmplifications.getInstance(), () ->
                             p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, 600, 1, false, false, false))
                     );

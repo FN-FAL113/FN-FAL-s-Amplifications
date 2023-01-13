@@ -3,7 +3,6 @@ package ne.fnfal113.fnamplifications.materialgenerators.implementations;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +90,9 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
     public CustomMaterialGenerator(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 
+        FNAmplifications.getInstance().getConfigManager().initializeConfig(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate");
+        Utils.setLoreByIntValue(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks", "material-gen-tickrate");
+
         createPreset(this, getInventoryTitle(), blockMenuPreset -> {
             for (int i = 0; i < 9; i++) {
                 blockMenuPreset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
@@ -98,13 +100,6 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
             blockMenuPreset.addItem(4, NOT_GENERATING);
             blockMenuPreset.addItem(0, CONDITION);
         });
-
-        try {
-            FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate", true);
-            Utils.setLoreByIntValue(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         addItemHandler(
                 new BlockPlaceHandler(false) {
@@ -195,12 +190,12 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
                     double fastProduce = getGeneratorFastProduce().get(pos).getMultiplier() != 0 ? getGeneratorFastProduce().get(pos).getMultiplier() : 1;
                     int progress = getGeneratorProgress().getOrDefault(pos, 0);
                     int generatorCondition = getGeneratorCondition().get(pos);
-                    int tickRate = (int) (FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "tickrate") / fastProduce);
+                    int tickRate = (int) (FNAmplifications.getInstance().getConfigManager().getCustomConfig("material-gen-tickrate").getInt(this.getId() + "." + "tickrate") / fastProduce);
 
                     if (invMenu.toInventory() != null && invMenu.hasViewer()) {
                         invMenu.replaceExistingItem(4, new CustomItemStack(Material.GREEN_STAINED_GLASS_PANE, "&aGenerating Material",
                                 "", "&bMaterial: " + this.materialName,
-                                "&bDefault Rate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "tickrate") + " &aticks", "",
+                                "&bDefault Rate: " + "" + ChatColor.GREEN + FNAmplifications.getInstance().getConfigManager().getCustomConfig("material-gen-tickrate").getInt(this.getId() + "." + "tickrate") + " &aticks", "",
                                 "&2Progress: " + progress + "/" + tickRate, "",
                                 getGeneratorFastProduce().get(pos).getMultiplier() != 0 ? "&2Fast Produce Lifetime: " +
                                         getGeneratorFastProduce().get(pos).getCurrentLifetime() + "/" + getGeneratorFastProduce().get(pos).getMaxLifetime() : "&2Fast Produce: &cInactive"

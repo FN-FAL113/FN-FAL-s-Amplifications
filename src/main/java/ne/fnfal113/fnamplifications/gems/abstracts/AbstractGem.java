@@ -44,9 +44,9 @@ public abstract class AbstractGem extends SlimefunItem {
             setConfigChanceValues(defaultChance);
             setConfigWorldSettings();
 
-            Utils.upgradeGemLore(this.getItem(), this.getItem().getItemMeta(), this.getId(),
-                    "chance", "%", "&e", "%", 4);
-            this.chance = FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "chance");
+            Utils.upgradeGemLore(this.getItem(), this.getId(),
+                    "chance", "%", "&e", "%", 4, "gem-settings");
+            this.chance = FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getInt(this.getId() + "." + "chance");
         } else {
             setConfigWorldSettings();
         }
@@ -57,7 +57,7 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param chance the chance to set in the config file
      */
     public void setConfigChanceValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "chance", chance, "gem-settings", true);
+        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "chance", chance, "gem-settings");
     }
 
     /**
@@ -65,18 +65,17 @@ public abstract class AbstractGem extends SlimefunItem {
      */
     public void setConfigWorldSettings() throws IOException {
         for (World world: Bukkit.getWorlds()) {
-            FNAmplifications.getInstance().getConfigManager().setConfigBooleanValues(this.getId() + "." + "world-settings", world.getName() + "_enable", true, "gem-settings", true);
+            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId() + "." + "world-settings", world.getName() + "_enable", true, "gem-settings");
         }
     }
 
     /**
      *
      * @param worldName the name of the world the player currently resides
-     * @param gemID the slimefun gem identifier
      * @return true if gem is enabled in the current world
      */
-    public boolean isEnabledInCurrentWorld(String gemID, String worldName){
-        return FNAmplifications.getInstance().getConfigManager().getBoolById(gemID + "." + "world-settings", worldName + "_enable");
+    public boolean isEnabledInCurrentWorld(String worldName){
+        return FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getBoolean(this.getId() + "." + "world-settings" + "." + worldName + "_enable");
     }
 
     /**

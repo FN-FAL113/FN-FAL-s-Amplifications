@@ -62,17 +62,16 @@ public class GemListener implements Listener {
                     SlimefunItem item = getSfItem(key, pdc);
 
                     if(item instanceof AbstractGem) {
-                        // consumer requires an instance of the class that
-                        // extends a sub-interface of the gem handler interface
+                        // consumer requires an instance of the implementing class
                         AbstractGem gem = (AbstractGem) item;
 
                         if(clazz.isInstance(gem)) {
-                            if(gem.isEnabledInCurrentWorld(gem.getId(), p.getWorld().getName())) {
+                            if(gem.isEnabledInCurrentWorld(p.getWorld().getName())) {
                                 consumer.accept(clazz.cast(gem));
                             } else {
                                 p.sendMessage(Utils.colorTranslator(gem.getItemName() + "&6 is disabled in your current world!"));
                             }
-                        } // is gem instance of sub interface of GemHandler
+                        } // is gem an instance of the given interface class
                     } // is gem instance of AbstractGem
                 }
             }

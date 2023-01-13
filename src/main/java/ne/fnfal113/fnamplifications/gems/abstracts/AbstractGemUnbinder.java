@@ -12,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.IOException;
-
 public abstract class AbstractGemUnbinder extends SlimefunItem {
 
     @Getter
@@ -24,16 +22,16 @@ public abstract class AbstractGemUnbinder extends SlimefunItem {
         super(itemGroup, item, recipeType, recipe);
 
         setConfigValues(chance);
-        Utils.setLoreByIntValue(this.getItem(), this.getId(), "unbind-chance", "%", "&e", "%");
-        this.chance = FNAmplifications.getInstance().getConfigManager().getIntValueById(this.getId(), "unbind-chance");
+        Utils.setLoreByIntValue(this.getItem(), this.getId(), "unbind-chance", "%", "&e", "%", "unbind-gem-settings");
+        this.chance = FNAmplifications.getInstance().getConfigManager().getCustomConfig("unbind-gem-settings").getInt(this.getId() + "." + "unbind-chance");
     }
 
     /**
      *
      * @param chance the chance to set in the config file
      */
-    public void setConfigValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().setConfigIntegerValues(this.getId(), "unbind-chance", chance, "unbind-gem-settings", true);
+    public void setConfigValues(int chance) {
+        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "unbind-chance", chance, "unbind-gem-settings");
     }
 
     /**

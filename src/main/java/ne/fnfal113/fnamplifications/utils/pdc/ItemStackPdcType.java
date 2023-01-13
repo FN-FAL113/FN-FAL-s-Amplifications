@@ -1,6 +1,6 @@
 package ne.fnfal113.fnamplifications.utils.pdc;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -16,28 +16,23 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-@RequiredArgsConstructor
-public class ItemStackPdcType<T, Z> implements PersistentDataType<byte[], ItemStack> {
+@NoArgsConstructor
+public class ItemStackPdcType implements PersistentDataType<byte[], ItemStack> {
 
-    private final Class<T> primitive;
-    private final Class<Z> complex;
+    public static final PersistentDataType<byte[], ItemStack> ITEM_STACK_PDC = new ItemStackPdcType();
 
-    public static final PersistentDataType<byte[], ItemStack> ITEM_STACK_PDC = new ItemStackPdcType<>(byte[].class, ItemStack.class);
-
-    @SuppressWarnings("unchecked")
     @Nonnull
     @Override
     public Class<byte[]> getPrimitiveType() {
-        return (Class<byte[]>) primitive;
+        return byte[].class;
     }
 
     @Nonnull
     @Override
     public Class<ItemStack> getComplexType() {
-        return (Class<ItemStack>) complex;
+        return ItemStack.class;
     }
 
-    @SuppressWarnings("unchecked")
     @Nonnull
     @Override
     public byte[] toPrimitive(@Nonnull ItemStack itemStack, @Nonnull PersistentDataAdapterContext context) {

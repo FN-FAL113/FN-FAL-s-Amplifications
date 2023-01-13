@@ -19,8 +19,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
-import java.io.IOException;
 import java.util.UUID;
 
 public abstract class AbstractGears extends SlimefunItem {
@@ -53,46 +53,46 @@ public abstract class AbstractGears extends SlimefunItem {
         super(itemGroup, item, recipeType, recipe);
 
         initializeSettings(maxLevel, maxAttributes);
-        this.defaultUsageKey = defaultUsageKey;
-        this.defaultUsageKey2 = defaultUsageKey2;
-        this.defaultUsageKey3 = defaultUsageKey3;
+        this.defaultUsageKey = defaultUsageKey; //
+        this.defaultUsageKey2 = defaultUsageKey2; // current armor level pdc key
+        this.defaultUsageKey3 = defaultUsageKey3; // max level pdc key
         this.startingProgress = startingProgress;
         this.incrementingProgress = incrementingProgress;
-        this.maxLevel = configManager.getIntValueById(this.getId(), "max-level");
-        this.maxAttributes = configManager.getIntValueById(this.getId(), "max-attributes");
+        this.maxLevel = getConfigManager().getCustomConfig("fn-gear-level-settings").getInt(this.getId() + "." + "max-level");
+        this.maxAttributes = getConfigManager().getCustomConfig("fn-gear-level-settings").getInt(this.getId() + "." + "max-attributes");
         this.equipmentSlot = equipmentSlot;
         this.gearTask = new GearTask(getDefaultUsageKey(), getDefaultUsageKey2(), getDefaultUsageKey3(), item, startingProgress, incrementingProgress, getMaxLevel());
     }
 
     public void initializeSettings(int maxLevel, int maxAttributes){
         try {
-            configManager.setConfigBooleanValues(this.getId(), "unbreakable", false, "fn-gear-unbreakable-settings", true);
-            configManager.setConfigIntegerValues(this.getId(), "max-level", maxLevel, "fn-gear-level-settings", false);
-            configManager.setConfigIntegerValues(this.getId(), "max-attributes", maxAttributes, "fn-gear-level-settings", false);
+            getConfigManager().initializeConfig(this.getId(), "unbreakable", false, "fn-gear-unbreakable-settings");
+            getConfigManager().initializeConfig(this.getId(), "max-level", maxLevel, "fn-gear-level-settings");
+            getConfigManager().initializeConfig(this.getId(), "max-attributes", maxAttributes, "fn-gear-level-settings");
 
-            JsonObject jsonObject = (JsonObject) configManager.loadJson(this.getId().toLowerCase() + "_default_ench");
+            int configMaxLevel = getConfigManager().getCustomConfig("fn-gear-level-settings").getInt(this.getId() + "." + "max-level");
+            int configMaxAttributes = getConfigManager().getCustomConfig("fn-gear-level-settings").getInt(this.getId() + "." + "max-attributes");
 
-            int configMaxLevel = configManager.getIntValueById(this.getId(), "max-level");
-            int configMaxAttributes = configManager.getIntValueById(this.getId(), "max-attributes");
+            JsonObject jsonObject = getConfigManager().loadJson(this.getId().toLowerCase() + "_default_ench");
 
             for(int i = 1; i <= Math.max(configMaxLevel, maxLevel); i++) {
-                String section = this.getId() + "." + "level-" + i;
+                String levelSection = this.getId() + "." + "level-" + i;
 
-                initializeEnchants(section, i, jsonObject);
+                initializeEnchants(levelSection, i, jsonObject);
 
                 if(i % 5 == 0){
-                    initializeAttributes(section, Math.max(configMaxAttributes, maxAttributes), i, jsonObject);
+                    initializeAttributes(levelSection, Math.max(configMaxAttributes, maxAttributes), i, jsonObject);
                 }
             }
 
             setUnbreakable();
-        } catch (IOException | NullPointerException | IllegalArgumentException e){
+        } catch (NullPointerException | IllegalArgumentException e){
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear config settings! Please report on github with logs!");
             e.printStackTrace();
         }
     }
 
-    public void initializeEnchants(String section, int i, JsonObject jsonObject){
+    public void initializeEnchants(String levelSection, int i, JsonObject jsonObject){
         try{
             String settingEnchant = "enchantment-name";
             String settingEnchantLevel = "enchantment-level";
@@ -100,48 +100,31 @@ public abstract class AbstractGears extends SlimefunItem {
             // initialize default enchant and levels under the default max level from the json resource stream
             if(jsonObject.has("level-" + i) && jsonObject.getAsJsonObject("level-" + i).has(settingEnchant)
                     && jsonObject.getAsJsonObject("level-" + i).has(settingEnchantLevel)) {
-                configManager.setConfigStringValues(section, settingEnchant, jsonObject.getAsJsonObject("level-" + i).get(settingEnchant).getAsString(), "fn-gear-level-settings", false);
-                configManager.setConfigIntegerValues(section, settingEnchantLevel, jsonObject.getAsJsonObject("level-" + i).get(settingEnchantLevel).getAsInt(), "fn-gear-level-settings", false);
+                getConfigManager().initializeConfig(levelSection, settingEnchant, jsonObject.getAsJsonObject("level-" + i).get(settingEnchant).getAsString(), "fn-gear-level-settings");
+                getConfigManager().initializeConfig(levelSection, settingEnchantLevel, jsonObject.getAsJsonObject("level-" + i).get(settingEnchantLevel).getAsInt(), "fn-gear-level-settings");
             }
 
-            // read and add to map the added config section and values for enchants over the max level
-            if(configManager.getCustomConfig().isConfigurationSection(section)) {
-                String enchantment = configManager.getCustomConfig().getConfigurationSection(section).getString(settingEnchant, "null");
-                int enchantLevel = configManager.getCustomConfig().getConfigurationSection(section).getInt(settingEnchantLevel, 0);
-
-                configManager.setMapStringValue(section, settingEnchant, enchantment);
-                configManager.setMapIntValue(section, settingEnchantLevel, enchantLevel);
-            }
-        } catch (IOException | NullPointerException | IllegalArgumentException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear enchants setting! Please report on github with logs!");
             e.printStackTrace();
         }
     }
 
-    public void initializeAttributes(String section, int maxAttributes, int i, JsonObject jsonObject){
+    public void initializeAttributes(String levelSection, int maxAttributes, int i, JsonObject jsonObject){
         try {
             for (int x = 1; x <= maxAttributes; x++) {
-                String attributeSection = section + "." + "bonus-attributes" + "." + "attribute-" + x;
+                String attributeSection = levelSection + "." + "bonus-attributes" + "." + "attribute-" + x;
                 String settingAttribute = "attribute-name";
                 String settingAttributeValue = "attribute-value";
 
-                // initialize default attribute and values under the default max level from the json resource stream
+                // initialize default attribute and values from parsed json resource stream under the default max level
                 if (jsonObject.has("level-" + i) && jsonObject.getAsJsonObject("level-" + i).has("attributes")
                         && jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").has("attribute-" + x)) {
-                    configManager.setConfigStringValues(attributeSection, settingAttribute, jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").get("attribute-" + x).getAsJsonObject().get(settingAttribute).getAsString(), "fn-gear-level-settings", false);
-                    configManager.setConfigDoubleValues(attributeSection, settingAttributeValue, jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").get("attribute-" + x).getAsJsonObject().get(settingAttributeValue).getAsDouble(), "fn-gear-level-settings", false);
-                }
-
-                // read and add to map the added config section and values for attributes over the max level
-                if (configManager.getCustomConfig().isConfigurationSection(attributeSection)) {
-                    String attribute = configManager.getCustomConfig().getConfigurationSection(attributeSection).getString(settingAttribute, "null");
-                    double attributeValue = configManager.getCustomConfig().getConfigurationSection(attributeSection).getDouble(settingAttributeValue, 0.0);
-
-                    configManager.setMapStringValue(attributeSection, settingAttribute, attribute);
-                    configManager.setMapDoubleValue(attributeSection, settingAttributeValue, attributeValue);
+                    getConfigManager().initializeConfig(attributeSection, settingAttribute, jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").get("attribute-" + x).getAsJsonObject().get(settingAttribute).getAsString(), "fn-gear-level-settings");
+                    getConfigManager().initializeConfig(attributeSection, settingAttributeValue, jsonObject.getAsJsonObject("level-" + i).getAsJsonObject("attributes").get("attribute-" + x).getAsJsonObject().get(settingAttributeValue).getAsDouble(), "fn-gear-level-settings");
                 }
             }
-        } catch (IOException | NullPointerException | IllegalArgumentException e){
+        } catch (NullPointerException | IllegalArgumentException e){
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear bonus attributes setting! Please report on github with logs!");
             e.printStackTrace();
         }
@@ -149,7 +132,8 @@ public abstract class AbstractGears extends SlimefunItem {
 
     public final void setUnbreakable() {
         ItemMeta meta = this.getItem().getItemMeta();
-        meta.setUnbreakable(configManager.getBoolById(this.getId(), "unbreakable"));
+        meta.setUnbreakable(getConfigManager().getCustomConfig("fn-gear-unbreakable-settings").getBoolean(this.getId() + "." + "unbreakable"));
+
         this.getItem().setItemMeta(meta);
     }
 
@@ -165,7 +149,7 @@ public abstract class AbstractGears extends SlimefunItem {
         }
 
         if(gearTask.onHit(event, p, armour)){
-            upgradeArmor(armour, gearTask.getLevel(), p, getEquipmentSlot());
+            upgradeArmor(armour, armour.getItemMeta().getPersistentDataContainer().getOrDefault(getDefaultUsageKey2(), PersistentDataType.INTEGER, 0), p, getEquipmentSlot());
         }
 
     }
@@ -173,17 +157,18 @@ public abstract class AbstractGears extends SlimefunItem {
     /**
      * When the armor levels up, add or upgrade any enchants/attributes
      * @param armor the armor that leveled up
-     * @param level the new level of the armor
+     * @param armorLevel the new level of the armor
      * @param p the player who wore the armor
      */
-    public void upgradeArmor(ItemStack armor, int level, Player p, EquipmentSlot slot){
+    public void upgradeArmor(ItemStack armor, int armorLevel, Player p, EquipmentSlot slot){
         ItemMeta meta = armor.getItemMeta();
-        String section = this.getId() + "." + "level-" + level;
-        String enchant = getConfigManager().getStringById(section, "enchantment-name");
-        int enchantLevel = getConfigManager().getIntValueById(section, "enchantment-level");
+        String levelSection = this.getId() + "." + "level-" + armorLevel;
+        String enchant = getConfigManager().getCustomConfig("fn-gear-level-settings").getString(levelSection + "." + "enchantment-name");
+        int enchantLevel = getConfigManager().getCustomConfig("fn-gear-level-settings").getInt(levelSection + "." + "enchantment-level");
 
+        // add armor enchant
         try {
-            if (!enchant.equalsIgnoreCase("null") && enchantLevel != 0) {
+            if (enchant != null && enchantLevel != 0) {
                 if(EnchantmentWrapper.getByKey(NamespacedKey.minecraft(enchant)) != null) {
                     meta.addEnchant(EnchantmentWrapper.getByKey(NamespacedKey.minecraft(enchant)), enchantLevel, true);
                 }
@@ -193,13 +178,14 @@ public abstract class AbstractGears extends SlimefunItem {
             e.printStackTrace();
         }
 
-        if (level % 5 == 0) {
+        // add bonus attribute
+        if (armorLevel % 5 == 0) {
             try {
                 for (int i = 1; i <= getMaxAttributes(); i++) {
-                    String attribute = getConfigManager().getStringById(section + "." + "bonus-attributes" + "." + "attribute-" + i, "attribute-name");
-                    double attributeValue = getConfigManager().getDoubleValueById(section + "." + "bonus-attributes" + "." + "attribute-" + i, "attribute-value");
+                    String attribute = getConfigManager().getCustomConfig("fn-gear-level-settings").getString(levelSection + "." + "bonus-attributes" + "." + "attribute-" + i + "." + "attribute-name");
+                    double attributeValue = getConfigManager().getCustomConfig("fn-gear-level-settings").getDouble(levelSection + "." + "bonus-attributes" + "." + "attribute-" + i + "." + "attribute-value");
 
-                    if (!attribute.equalsIgnoreCase("null") && attributeValue != 0.0) {
+                    if (attribute != null && attributeValue != 0.0) {
                         if(meta.getAttributeModifiers(getEquipmentSlot()).asMap().containsKey(Attribute.valueOf(attribute))) {
                             meta.removeAttributeModifier(Attribute.valueOf(attribute));
                         }
