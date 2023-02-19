@@ -18,11 +18,11 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class StaffOfAirStrider extends AbstractStaff {
 
-    private final Map<UUID, BukkitTask> taskMap = new HashMap<>();
+    private final Map<UUID, AirStriderTask> taskMap = new HashMap<>();
+    private final Map<UUID, Long> playerCooldowMap = new HashMap<>();
 
     public StaffOfAirStrider(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("airstriderstaff"));
@@ -34,37 +34,40 @@ public class StaffOfAirStrider extends AbstractStaff {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(taskMap.containsKey(player.getUniqueId())) {
-            if(!taskMap.get(player.getUniqueId()).isCancelled()){
-                player.sendMessage(Utils.colorTranslator("&6Air strider is not yet expired!"));
-            }
+        if(taskMap.get(player.getUniqueId()) != null) {
+            player.sendMessage(Utils.colorTranslator("&6Air strider is not yet expired!"));
+            
             return;
+        } else if(hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
+            player.sendMessage(Utils.colorTranslator("&dYou can now walk on the air for 10 seconds"));
+            
+            playerCooldowMap.put(player.getUniqueId(), System.currentTimeMillis());
+            taskMap.put(player.getUniqueId(), new AirStriderTask(player));
+            taskMap.get(player.getUniqueId()).runTaskTimer(FNAmplifications.getInstance(), 0, 1L);
         } else {
-            if(hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
-                player.sendMessage(Utils.colorTranslator("&dYou can now walk on the air for 10 seconds"));
-                taskMap.put(player.getUniqueId(), new AirStriderTask(player).runTaskTimer(FNAmplifications.getInstance(), 0, 1L));
-            } else{
-                return;
-            }
+            return;
         }
 
         ItemMeta meta = item.getItemMeta();
-
         getStaffTask().updateMeta(item, meta, player);
 
-        AtomicInteger i = new AtomicInteger(10);
         Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
-            if(i.get() <= 5){
-                player.sendMessage(Utils.colorTranslator("&dAir strider will expire in ") + i + " seconds");
+            Long timer = Utils.cooldownHelper(playerCooldowMap.get(player.getUniqueId()));
+
+            if(timer >= 7){
+                player.sendMessage(Utils.colorTranslator("&dAir strider will expire in ") + 
+                    (12 - timer) + " seconds!");
             }
-            if(i.get() == 0){
+
+            if(timer >= 12 || !player.isOnline()){
                 player.sendMessage(Utils.colorTranslator("&dAir Strider has expired!"));
-                taskMap.get(player.getUniqueId()).cancel();
+                playerCooldowMap.remove(player.getUniqueId());
+                taskMap.get(player.getUniqueId()).setDone(true);;
                 taskMap.remove(player.getUniqueId());
+                
                 task.cancel();
             }
-            i.getAndDecrement();
-        },0L, 21L);
+        }, 0L, 20L);
 
     }
 }

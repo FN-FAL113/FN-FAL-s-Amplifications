@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -31,16 +32,31 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    private final Boolean checkMcVersion = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17);
+    @Getter
+    private final List<Double> cosine = new ArrayList<>();
+    @Getter
+    private final List<Double> sine = new ArrayList<>();
+
+    @Getter
+    private final Map<UUID, Long> playerCooldownMap = new HashMap<>();
 
     public ShockwaveGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 15);
+
+        for (int x = 0; x <= 360; x++) {
+            cosine.add(x, Math.cos(x));
+            sine.add(x, Math.sin(x));
+        }
     }
 
     @Override
@@ -76,6 +92,16 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         double amount = 3.0D * (tier == 4 ? 1 : Math.abs(tier - 5)); // damage multiplier per tier
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+             // cooldown check
+            if(Utils.cooldownHelper(getPlayerCooldownMap().getOrDefault(player.getUniqueId(), 15L)) < 5) {
+                Long cd = Utils.cooldownHelper(getPlayerCooldownMap().get(player.getUniqueId()));
+
+                player.sendMessage(Utils.colorTranslator("&dShockwave gem in cooldown for " + (5 - cd) + " seconds!"));
+                return;
+            } else {
+                getPlayerCooldownMap().put(player.getUniqueId(), System.currentTimeMillis());
+            }
+
             sendGemMessage(player, this.getItemName());
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_END_GATEWAY_SPAWN, 1.0F, 1.0F);
             livingEntity.damage(amount, player);
@@ -84,43 +110,36 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
             for (Entity entity: livingEntity.getNearbyEntities(8, 8, 8)) {
                 if(entity instanceof LivingEntity && !entity.getUniqueId().equals(player.getUniqueId())){
                     ((Damageable) entity).damage(amount, player);
-                    entity.setVelocity(new Vector(0, 0.8, 0));
+                    entity.setVelocity(new Vector(0, 0.75, 0));
                 }
             }
 
-            AtomicInteger integer = new AtomicInteger(0);
-            AtomicDouble height = new AtomicDouble(0.1);
-            List<Block> blocks = new ArrayList<>();
-
-            Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task ->{
-                int rad = integer.getAndIncrement();
-
-                for (double c = 0; c <= 360; c++) {
-                    double x = rad * Math.cos(c);
-                    double z = rad * Math.sin(c);
+          
+    
+            Set<Block> blocks = new HashSet<>();
+            double height = 0.1;
+           
+            for (int i = 0; i < 8; i++) {
+                for (int c = 0; c <= 360; c++) {
+                    double x = i * getCosine().get(c);
+                    double z = i * getSine().get(c);
                     Block block = player.getLocation().getBlock().getRelative((int) x, -1, (int) z);
-
-                    if(block.getRelative(BlockFace.UP).getType() == Material.AIR && !blocks.contains(block) && block.getType() != Material.AIR) {
+    
+                    // check block below if applicable to be queued
+                    if(!blocks.contains(block) && block.getType() != Material.AIR && block.getRelative(BlockFace.UP).getType() == Material.AIR) {
                         blocks.add(block);
-                        spawnJumpingBlock(block, height.get());
-                        height.getAndAdd(0.003);
+                        spawnJumpingBlock(block, height);
+                        height += 0.003475;
                     }
-
-                    player.getWorld().spawnParticle(Particle.PORTAL, player.getLocation().add(x, 0.5, z), 0);
-                    player.getWorld().spawnParticle(this.checkMcVersion ? Particle.ELECTRIC_SPARK : Particle.CLOUD, player.getLocation().add(x, 0.5, z), 0);
                 }
-
-                if(rad == 8){
-                    task.cancel();
-                }
-
-            }, 0L, 1L);
+            }
         }
     }
 
     public void spawnJumpingBlock(Block blockOnGround, double height){
-        Location loc = blockOnGround.getRelative(BlockFace.UP).getLocation().add(0.5, 0.0, 0.5);
+        Location loc = blockOnGround.getRelative(BlockFace.UP).getLocation();
         FallingBlock block = blockOnGround.getWorld().spawnFallingBlock(loc, blockOnGround.getBlockData());
+        
         block.setDropItem(false);
         block.setVelocity(new Vector(0, height, 0));
         block.setMetadata("shockwave_gem", new FixedMetadataValue(FNAmplifications.getInstance(), "ghost_block"));

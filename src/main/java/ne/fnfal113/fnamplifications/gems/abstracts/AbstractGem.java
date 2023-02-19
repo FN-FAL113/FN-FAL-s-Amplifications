@@ -40,11 +40,12 @@ public abstract class AbstractGem extends SlimefunItem {
 
     @SneakyThrows
     public void initializeSettings(int defaultChance){
-        if(defaultChance != 0) {
+        // only gem with default chance above 0 but must also implement gem upgrade interface
+        if(defaultChance != 0) { 
             setConfigChanceValues(defaultChance);
             setConfigWorldSettings();
 
-            Utils.upgradeGemLore(this.getItem(), this.getId(),
+            Utils.setGemTierLore(this.getItem(), this.getId(),
                     "chance", "%", "&e", "%", 4, "gem-settings");
             this.chance = FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getInt(this.getId() + "." + "chance");
         } else {
