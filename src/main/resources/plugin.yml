@@ -12,10 +12,17 @@ softdepend:
   - Vault
 commands:
   fngear:
-    description: Command for checking FN Gears progress
+    description: command for checking FN Gears progress
     default: true
+    usage: /<command>
+  fnshockwavetest:
+    description: base command for testing shockwave
+    default: op
     usage: /<command>
 permissions:
   fngear.levelupgears:
     description: for levelling up player worn FN Gears
+    default: op
+  fnshockwave.test:
+    description: for testing shockwave
     default: op

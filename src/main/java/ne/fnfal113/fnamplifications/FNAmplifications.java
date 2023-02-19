@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
-
 import ne.fnfal113.fnamplifications.config.ConfigManager;
 import ne.fnfal113.fnamplifications.gears.commands.GearCommands;
 import ne.fnfal113.fnamplifications.gears.listener.GearListener;
@@ -17,6 +16,7 @@ import ne.fnfal113.fnamplifications.materialgenerators.listener.UpgradesListener
 import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListener;
 import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
 import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
+import ne.fnfal113.fnamplifications.test.ShockwaveTest;
 import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
 import ne.fnfal113.fnamplifications.tools.listener.LadderListener;
 import ne.fnfal113.fnamplifications.tools.listener.OrientPearlListener;
@@ -77,6 +77,7 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
 
     public void registerCommands(){
         Objects.requireNonNull(getCommand("fngear")).setExecutor(new GearCommands());
+        getCommand("fnshockwavetest").setExecutor(new ShockwaveTest());
     }
 
     public void registerEvents(){

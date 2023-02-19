@@ -91,7 +91,7 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
         super(itemGroup, item, recipeType, recipe);
 
         FNAmplifications.getInstance().getConfigManager().initializeConfig(item.getItemId(), "tickrate" , tickRate, "material-gen-tickrate");
-        Utils.setLoreByIntValue(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks", "material-gen-tickrate");
+        Utils.setLoreByConfigValue(this.getItem(), this.getId(), "tickrate", "ticks", "&6", " ticks", "material-gen-tickrate");
 
         createPreset(this, getInventoryTitle(), blockMenuPreset -> {
             for (int i = 0; i < 9; i++) {

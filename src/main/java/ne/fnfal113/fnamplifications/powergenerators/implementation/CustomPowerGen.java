@@ -119,6 +119,7 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
     public int getGeneratedOutput(@Nonnull Location l, @Nonnull Config data) {
         final int stored = getCharge(l);
 
+        // for first server boot up, cache location and hologram status per generator
         if(!HOLO_CACHE.containsKey(l)){
             if(BlockStorage.getLocationInfo(l, "holo_status") != null){
                 HOLO_CACHE.put(l, Boolean.parseBoolean(BlockStorage.getLocationInfo(l, "holo_status")));
@@ -126,7 +127,6 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
                 BlockStorage.addBlockInfo(l, "holo_status", "true");
                 HOLO_CACHE.put(l, true);
             }
-
         } else {
             if(HOLO_CACHE.get(l)) {
                 String charge = getCharge(l) <= 0 ? Utils.colorTranslator("&8" + getCharge(l)) : Utils.colorTranslator("&a" + getCharge(l));
