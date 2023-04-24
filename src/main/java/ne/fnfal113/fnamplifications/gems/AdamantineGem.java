@@ -22,14 +22,14 @@ public class AdamantineGem extends AbstractGem implements OnItemDamageHandler, G
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
-        if (WeaponArmorEnum.SWORDS.isTagged(currentItem.getType()) || WeaponArmorEnum.PICKAXE.isTagged(currentItem.getType()) ||
-                WeaponArmorEnum.AXES.isTagged(currentItem.getType()) || WeaponArmorEnum.SHOVELS.isTagged(currentItem.getType()) ||
-                WeaponArmorEnum.BOWS.isTagged(currentItem.getType()) || WeaponArmorEnum.HOES.isTagged(currentItem.getType())) {
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+        if (WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.PICKAXE.isTagged(itemStackToSocket.getType()) ||
+                WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.SHOVELS.isTagged(itemStackToSocket.getType()) ||
+                WeaponArmorEnum.BOWS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.HOES.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
-                upgradeGem(gem, currentItem, gemItem, player, this.getId());
+                upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
             } else {
-                bindGem(gem, currentItem, player, false);
+                bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on weapons and tools only"));

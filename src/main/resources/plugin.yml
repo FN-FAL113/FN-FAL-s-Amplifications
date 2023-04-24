@@ -3,7 +3,7 @@ version: '${project.version}'
 main: ne.fnfal113.fnamplifications.FNAmplifications
 api-version: 1.16
 authors: [ FN_FAL113 ]
-description: Custom Addon that includes my other addons for slimefun
+description: Explore plethora of in-game items from machines, tools, pvp and many more!
 website: https://github.com/FN-FAL113
 depend: [Slimefun]
 softdepend:

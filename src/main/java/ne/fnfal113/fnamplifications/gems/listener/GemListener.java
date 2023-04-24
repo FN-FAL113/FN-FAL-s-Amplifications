@@ -61,7 +61,7 @@ public class GemListener implements Listener {
                     SlimefunItem item = getSfItem(key, pdc);
 
                     if(item instanceof AbstractGem) {
-                        // consumer requires an instance of the implementing class
+                        // consumer requires an instance of the implementing class (gem implements given clazz param)
                         AbstractGem gem = (AbstractGem) item;
 
                         if(clazz.isInstance(gem)) {
@@ -126,10 +126,10 @@ public class GemListener implements Listener {
         }
 
         Optional<SlimefunItem> slimefunGemItem = Optional.ofNullable(SlimefunItem.getByItem(gemItem.get()));
-        Optional<ItemStack> currentItem = Optional.ofNullable(event.getCurrentItem());
+        Optional<ItemStack> itemStackToSocket = Optional.ofNullable(event.getCurrentItem());
 
-        if(currentItem.isPresent() && slimefunGemItem.isPresent() && slimefunGemItem.get() instanceof AbstractGem) {
-            ((AbstractGem) slimefunGemItem.get()).onDrag(player, slimefunGemItem.get(), gemItem.get(), currentItem.get());
+        if(itemStackToSocket.isPresent() && slimefunGemItem.isPresent() && slimefunGemItem.get() instanceof AbstractGem) {
+            ((AbstractGem) slimefunGemItem.get()).onDrag(player, slimefunGemItem.get(), gemItem.get(), itemStackToSocket.get());
 
             event.setCancelled(true);
         }

@@ -22,7 +22,7 @@ public interface GemUpgrade {
      *
      * @param itemStack the gem as itemstack instead of SlimefunItemStack
      * @param id the id of the gem
-     * @return true if gem is an upgraded variant otherwise gem is not an upgraded gem
+     * @return true if gem is an upgraded variant
      */
     default boolean isUpgradeGem(ItemStack itemStack, String id){
         return getTier(itemStack, id) != 4;
@@ -31,15 +31,14 @@ public interface GemUpgrade {
     /**
      *
      * @param slimefunGemItem the gem as an SlimefunItem instead of ItemStack
-     * @param currentItem the item to socket
-     * @param gem the gem as an itemstack instead of SlimefunItemStack
+     * @param itemStackToSocket the item to socket
+     * @param gemItemStack the gem as an itemstack instead of SlimefunItemStack
      * @param player the player who initiated the process for binding
-     * @param id the slimefun id of the gem
      */
-    default void upgradeGem(SlimefunItem slimefunGemItem, ItemStack currentItem, ItemStack gem, Player player, String id){
-        int currentTier = getTier(Objects.requireNonNull(gem), id);
+    default void upgradeGem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, ItemStack gemItemStack, Player player){
+        int gemTier = getTier(Objects.requireNonNull(gemItemStack), slimefunGemItem.getId());
 
-        new UpgradedGem(slimefunGemItem, currentItem, player).upgradeExistingGem(gem, currentTier);
+        new UpgradedGem(slimefunGemItem, itemStackToSocket, player).upgradeExistingGem(gemItemStack, gemTier);
     }
 
     default int getTier(ItemStack itemStack, String id){

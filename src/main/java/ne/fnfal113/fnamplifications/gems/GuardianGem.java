@@ -41,12 +41,12 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
-        if ((WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()))) {
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+        if ((WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType()))) {
             if(isUpgradeGem(gemItem, this.getId())) {
-                upgradeGem(gem, currentItem, gemItem, player, this.getId());
+                upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
             } else {
-                bindGem(gem, currentItem, player, false);
+                bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplate only"));

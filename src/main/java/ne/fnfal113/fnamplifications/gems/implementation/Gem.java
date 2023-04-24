@@ -23,92 +23,80 @@ import java.util.Locale;
 public class Gem {
 
     @Getter
-    private final SlimefunItem slimefunItem;
+    private final SlimefunItem slimefunGemItem;
+    @Getter
+    private final String SlimefunGemItemName;
     @Getter
     private final ItemStack itemStackToSocket;
     @Getter
-    private final String sfItemName;
-    @Getter
-    private final String gemID;
+    private final String SlimefunGemItemID;
     @Getter
     private final Player player;
     @Getter
-    private final NamespacedKey key1;
+    private final NamespacedKey SlimefunGemItemIDKey;
     @Getter
-    private final NamespacedKey key2;
+    private final NamespacedKey socketAmountKey;
 
     @ParametersAreNonnullByDefault
-    public Gem(SlimefunItem sfItem, ItemStack itemToSocket, Player p){
-        this.slimefunItem = sfItem;
-        this.itemStackToSocket = itemToSocket;
-        this.sfItemName = sfItem.getItemName();
-        this.gemID = sfItem.getId();
-        this.player = p;
-        this.key1 = Keys.createKey(sfItem.getId().toLowerCase());
-        this.key2 = Keys.createKey(itemToSocket.getType().toString().toLowerCase() + "_socket_amount");
+    public Gem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, Player player){
+        this.slimefunGemItem = slimefunGemItem;
+        this.itemStackToSocket = itemStackToSocket;
+        this.player = player;
+        this.SlimefunGemItemName = slimefunGemItem.getItemName();
+        this.SlimefunGemItemID = slimefunGemItem.getId();
+        this.SlimefunGemItemIDKey = Keys.createKey(slimefunGemItem.getId().toLowerCase());
+        this.socketAmountKey = Keys.createKey(itemStackToSocket.getType().toString().toLowerCase() + "_socket_amount");
     }
 
-    public void onDrag(boolean retaliateWeapon){
+    public void startSocket(){
         ItemMeta meta = getItemStackToSocket().getItemMeta();
-        PersistentDataContainer container = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        int itemGemAmount = checkGemAmount(pdc, getItemStackToSocket());
 
-        if(checkGemAmount(container, getItemStackToSocket()) < 5) { // gem amount must be below 5
+        if(itemGemAmount < 5) { // gem amount must be below 5
             if(!isSameGem(getItemStackToSocket())){ // check if the gem being added already exist
                 getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
-                socketItem();
-                if(retaliateWeapon){ // add return weapon pdc value
-                    retaliateWeapon();
-                }
-            } else{
-                getPlayer().sendMessage(Utils.colorTranslator("&6Your item has " + getSfItemName() + " &6socketed already!"));
+                socketGemToItemStack(meta, pdc, itemGemAmount);
+            } else {
+                getPlayer().sendMessage(Utils.colorTranslator("&6Your item has " + getSlimefunGemItemName() + " &6socketed already!"));
                 getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1.0F, 1.0F);
             }
-        } else {
-            getPlayer().sendMessage(Utils.colorTranslator("&eOnly 5 gems per item is allowed!"));
-            getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 1.0F);
-        }
+
+            return;
+        } 
+
+        getPlayer().sendMessage(Utils.colorTranslator("&eOnly 5 gems per item are allowed!"));
+        getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_HURT, 1.0F, 1.0F);
     }
 
-    public void socketItem(){
-        String name = getSfItemName();
-        ItemStack itemStack = getItemStackToSocket();
-        ItemMeta meta = itemStack.getItemMeta();
-
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        int amountOfGems = pdc.getOrDefault(getKey2(), PersistentDataType.INTEGER, 0);
-
-        if (amountOfGems == 0) { // add the lore when adding a gem for the first time
-            List<String> lore;
-            if(meta.hasLore()){ // compatibility with other items that has existing lore
-                lore = meta.getLore();
-            }else{
-                lore = new ArrayList<>();
-            }
+    public void socketGemToItemStack(ItemMeta meta, PersistentDataContainer pdc, int itemGemAmount){
+        String gemSlimefunItemname = getSlimefunGemItemName();
+        List<String> lore = meta.hasLore() ? lore = meta.getLore() : new ArrayList<>();
+        
+        if (itemGemAmount == 0) { // add the lore when adding a gem for the first time
             lore.add("");
             lore.add(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"));
-            lore.add(ChatColor.RED + "◬ " + name);
+            lore.add(ChatColor.RED + "◬ " + gemSlimefunItemname);
             lore.add(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));
 
             meta.setLore(lore);
         } else { // append the new added gem to existing lore
-            List<String> lore2 = meta.getLore();
-            if (lore2 != null) {
-                for (int i = 0; i < lore2.size(); i++) {
-                    if(lore2.get(i).startsWith(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"))){
-                        lore2.add(i + 1, ChatColor.RED + "◬ " + name);
-                    }
+            for (int i = 0; i < lore.size(); i++) {
+                if(lore.get(i).startsWith(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"))){
+                    lore.add(i + 1, ChatColor.RED + "◬ " + gemSlimefunItemname);
                 }
-
-                meta.setLore(lore2);
             }
+
+            meta.setLore(lore);
         }
 
-        pdc.set(getKey1(), PersistentDataType.STRING, getGemID());
-        pdc.set(getKey2(), PersistentDataType.INTEGER, amountOfGems + 1);
-        itemStack.setItemMeta(meta);
+        pdc.set(getSlimefunGemItemIDKey(), PersistentDataType.STRING, getSlimefunGemItemID());
+        pdc.set(getSocketAmountKey(), PersistentDataType.INTEGER, itemGemAmount + 1);
+        
+        getItemStackToSocket().setItemMeta(meta);
 
-        getPlayer().sendMessage(Utils.colorTranslator("&eSuccessfully bound " + name + " &eto " +
-                itemStack.getType().name().replace("_", " ").toLowerCase(Locale.ROOT)));
+        getPlayer().sendMessage(Utils.colorTranslator("&eSuccessfully bound " + gemSlimefunItemname + " &eto " +
+            getItemStackToSocket().getType().name().replace("_", " ").toLowerCase(Locale.ROOT)));
         getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1.0F, 1.0F);
     }
 
@@ -137,19 +125,7 @@ public class Gem {
            return false;
         }
 
-        return container.has(getKey1(), PersistentDataType.STRING);
-    }
-
-    /**
-     * This makes throwable weapons return to the owner by
-     * adding the needed pdc to check whether it has retaliate gem
-     */
-    public void retaliateWeapon(){
-        ItemMeta meta = getItemStackToSocket().getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
-        getItemStackToSocket().setItemMeta(meta);
+        return container.has(getSlimefunGemItemIDKey(), PersistentDataType.STRING);
     }
 
 }
