@@ -47,15 +47,11 @@ public class PlayerJoinLister implements Listener {
                 Utils.colorTranslator("&fChangelog"),
                 "",
                 Utils.colorTranslator("&eChanges"),
-                Utils.colorTranslator("  &d- Refactored shockwave gem, added 5 seconds cooldown and server load optimizations"),
+                Utils.colorTranslator("  &d- Fixed multiblock empty inventory crafting non-breaking error"),
                 Utils.colorTranslator("  &d- Codebase Chores"),
                 "",
-                Utils.colorTranslator("  &fNote: Addon requires Slimefun Dev 1031+ (Previously Dev 980+) as of Build 83"),
-                "",
-                Utils.colorTranslator("&eChangelog notification can be disabled in config.yml"),
-                "",
-                Utils.colorTranslator("&eYou may visit this website for the fn items wiki:"),
-                Utils.colorTranslator("&e&nhttps://fnfal113.tech/fnAmpItems"),
+                Utils.colorTranslator("&aNote: Addon requires Slimefun Dev 1031+ (Previously Dev 980+) as of Build 83"),
+                Utils.colorTranslator("&aChangelog notification can be disabled in config.yml"),
                 "||---------------------------------------------------||"
         );
     }

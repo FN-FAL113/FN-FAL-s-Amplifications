@@ -22,13 +22,13 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler, GemUpg
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem gem, ItemStack gemItem, ItemStack currentItem){
-        if (WeaponArmorEnum.HELMET.isTagged(currentItem.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(currentItem.getType()) ||
-                WeaponArmorEnum.LEGGINGS.isTagged(currentItem.getType()) || WeaponArmorEnum.BOOTS.isTagged(currentItem.getType())) {
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+        if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType()) ||
+                WeaponArmorEnum.LEGGINGS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.BOOTS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
-                upgradeGem(gem, currentItem, gemItem, player, this.getId());
+                upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
             } else {
-                bindGem(gem, currentItem, player, false);
+                bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
             player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on armors only"));

@@ -98,8 +98,8 @@ public abstract class AbstractGem extends SlimefunItem {
                 Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
     }
 
-    public void bindGem(SlimefunItem gem, ItemStack currentItem, Player player, boolean retaliate){
-        new Gem(gem, currentItem, player).onDrag(retaliate);
+    public void bindGem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, Player player){
+        new Gem(slimefunGemItem, itemStackToSocket, player).startSocket();
     }
 
     /**
@@ -107,8 +107,8 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param player the player who dragged and dropped the gem
      * @param slimefunItem the slimefun gem in the inventory that is attached to the cursor
      * @param gemItem the itemstack gem in the inventory that is attached to the cursor
-     * @param currentItem the current item in the inventory that the gem was dragged and dropped to
+     * @param itemStackToSocket the itemstack to socket the gem
      */
-    public abstract void onDrag(Player player, SlimefunItem slimefunItem, ItemStack gemItem, ItemStack currentItem);
+    public abstract void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket);
 
 }
