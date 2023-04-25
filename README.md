@@ -54,4 +54,5 @@ You can change them if you think they need balancing or for several reasons
 ### Special Mentions
 Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
 
-Big credits to the owners of the head textures used in this addon
+Big credits to the owners of the head textures used in this addon, most are from:<br>
+https://minecraft-heads.com/
