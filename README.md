@@ -51,8 +51,7 @@ You can change them if you think they need balancing or for several reasons
   </a>
 </p>
 
-### Special Mentions
-Credits to waleks for the SMG based gens (now under the hands of Sefiraat and Variananora)
-
-Big credits to the owners of the head textures used in this addon, most are from:<br>
+## :label: Credits
+Waleks for  SMG based generators<br>
+Big credits to minecraft-heads for the head textures used by this addon:<br>
 https://minecraft-heads.com/
