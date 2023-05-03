@@ -14,10 +14,23 @@ SMG-Recipe-Integration: true
 # This will only work if server is running 1.17 and value is set to true
 New-Recipe-Integration: true
 
-# Armor Effects Update, the time to update the armor effects in seconds (i.e FN Gears of Friction permanent effects)
+# Armor effect validator, the time to update the armor effects in seconds (i.e FN Gears of Friction permanent effects)
 # For now the chestplate only has a permanent effect at level 30
 armor-update-period: 10
 
 # Enable or disable chat changelogs, this changelog get sent only when players join the server for the first time after server restart
 # If disabled no more changelogs will be sent, requires server restart
 Enable-One-Time-Chat-Changelog: true
+
+# Enable or disable modules of the addon
+# Sub-categories will be removed from the guide upon disabling 
+Enable-Machineries: true
+Enable-Material-Generators: true
+Enable-Gems: true
+Enable-Gears: true
+Enable-Mystery-Sticks: true
+Enable-Solar-Generators: true
+Enable-PowerXpansion: true
+Enable-Staffs: true
+Enable-Quivers: true
+Enable-Misc: true
