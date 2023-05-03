@@ -6,22 +6,9 @@ import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.GitHubBuildsUpdater;
 import ne.fnfal113.fnamplifications.config.ConfigManager;
 import ne.fnfal113.fnamplifications.gears.commands.GearCommands;
-import ne.fnfal113.fnamplifications.gears.listener.GearListener;
 import ne.fnfal113.fnamplifications.gears.runnables.ArmorEquipRunnable;
-import ne.fnfal113.fnamplifications.gems.listener.GemListener;
-import ne.fnfal113.fnamplifications.gems.listener.GemUnbinderListener;
 import ne.fnfal113.fnamplifications.integrations.VaultIntegration;
-import ne.fnfal113.fnamplifications.machines.listener.JukeBoxClickListener;
-import ne.fnfal113.fnamplifications.materialgenerators.listener.UpgradesListener;
-import ne.fnfal113.fnamplifications.mysteriousitems.listener.MysteryStickListener;
-import ne.fnfal113.fnamplifications.quivers.listener.QuiverListener;
-import ne.fnfal113.fnamplifications.staffs.listener.StaffListener;
 import ne.fnfal113.fnamplifications.test.ShockwaveTest;
-import ne.fnfal113.fnamplifications.tools.listener.HoeListener;
-import ne.fnfal113.fnamplifications.tools.listener.LadderListener;
-import ne.fnfal113.fnamplifications.tools.listener.OrientPearlListener;
-import ne.fnfal113.fnamplifications.tools.listener.RotatorListener;
-import ne.fnfal113.fnamplifications.tools.listener.ThrowableItemListener;
 import ne.fnfal113.fnamplifications.utils.PlayerJoinLister;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -52,17 +39,18 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
         getLogger().info("*                https://discord.gg/SqD3gg5SAU             *");
         getLogger().info("************************************************************");
 
-        setVaultIntegration(this);
-
-        FNAmpItemSetup.INSTANCE.init();
-
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
-        registerEvents();
-        registerCommands();
-        getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
+        // instantiate vault integration
+        setVaultIntegration(this);
 
+        // setup items
+        FNAmpItemSetup.INSTANCE.init();
+
+        registerCommands();
+        getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
+        getServer().getScheduler().runTaskTimerAsynchronously(this, new ArmorEquipRunnable(), 0L, getConfig().getInt("armor-update-period") * 20L);
 
         if (getConfig().getBoolean("auto-update", true) && getDescription().getVersion().startsWith("DEV - ")) {
             new GitHubBuildsUpdater(this, getFile(), "FN-FAL113/FN-FAL-s-Amplifications/main").start();
@@ -78,23 +66,6 @@ public final class FNAmplifications extends JavaPlugin implements SlimefunAddon 
     public void registerCommands(){
         Objects.requireNonNull(getCommand("fngear")).setExecutor(new GearCommands());
         getCommand("fnshockwavetest").setExecutor(new ShockwaveTest());
-    }
-
-    public void registerEvents(){
-        getServer().getPluginManager().registerEvents(new MysteryStickListener(), this);
-        getServer().getPluginManager().registerEvents(new GearListener(), this);
-        getServer().getPluginManager().registerEvents(new StaffListener(), this);
-        getServer().getPluginManager().registerEvents(new QuiverListener(), this);
-        getServer().getPluginManager().registerEvents(new HoeListener(), this);
-        getServer().getPluginManager().registerEvents(new GemListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinLister(), this);
-        getServer().getPluginManager().registerEvents(new RotatorListener(), this);
-        getServer().getPluginManager().registerEvents(new LadderListener(), this);
-        getServer().getPluginManager().registerEvents(new OrientPearlListener(), this);
-        getServer().getPluginManager().registerEvents(new ThrowableItemListener(), this);
-        getServer().getPluginManager().registerEvents(new JukeBoxClickListener(), this);
-        getServer().getPluginManager().registerEvents(new GemUnbinderListener(), this);
-        getServer().getPluginManager().registerEvents(new UpgradesListener(), this);
     }
 
     @Nonnull
