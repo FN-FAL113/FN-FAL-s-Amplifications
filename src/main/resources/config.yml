@@ -18,10 +18,6 @@ New-Recipe-Integration: true
 # For now the chestplate only has a permanent effect at level 30
 armor-update-period: 10
 
-# Enable or disable chat changelogs, this changelog get sent only when players join the server for the first time after server restart
-# If disabled no more changelogs will be sent, requires server restart
-Enable-One-Time-Chat-Changelog: true
-
 # Enable or disable modules of the addon
 # Sub-categories will be removed from the guide upon disabling 
 Enable-Machineries: true
