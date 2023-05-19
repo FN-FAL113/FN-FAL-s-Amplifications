@@ -30,3 +30,10 @@ Enable-PowerXpansion: true
 Enable-Staffs: true
 Enable-Quivers: true
 Enable-Misc: true
+
+# Allow material generators to break over time
+Enable-Mat-Gen-Break-Over-Time: true
+# Allow material generators to drop broken variant only on block break
+Enable-Mat-Gen-Broken-Drop: true
+
+
