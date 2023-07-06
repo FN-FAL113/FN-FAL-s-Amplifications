@@ -1,0 +1,23 @@
+name: Deploy to maven builds repo
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: builds repo workflow dispatch
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: "FN-FAL113",
+              repo: "MavenBuilds",
+              workflow_id: 'deploy.yml',
+              ref: 'main',
+            })
+      
