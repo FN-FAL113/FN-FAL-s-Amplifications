@@ -1,4 +1,4 @@
-name: Build with Maven and Run Runtime Test
+name: Build with Maven and Do Runtime Test
 
 on:
   workflow_dispatch:
@@ -29,10 +29,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: artifact-${{ github.event.number }}
-        path: 'target/FNAmplifications*.jar' # Change this according to the location and filename of your packaged jar, you may use wildcards
+        path: 'target/FNAmplifications*.jar'
   
-  e2e-test:
-    name: End to End Test
+  runtime-test:
+    name: Plugin Runtime Test 
     needs: [build]
     runs-on: ubuntu-latest
     strategy:
@@ -50,7 +50,7 @@ jobs:
             javaVersion: '20'  
     
     steps:        
-      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1 # specify action version, use latest as possible
+      - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2
         with:
           server-version: ${{ matrix.mcVersion }}
           java-version: ${{ matrix.javaVersion }}
