@@ -37,30 +37,36 @@ public class GemUnbinderTask {
      * Retrieve the gems from the item in the offhand and display it in a inventory gui
      */
     @SuppressWarnings("ConstantConditions")
-    public void getGemsFromItem(){
-        Inventory inventory = Bukkit.createInventory(null, 9, Utils.colorTranslator("&cSelect a gem to unbind"));
+    public void showAvailableGemsUI(){
         PersistentDataContainer pdc = getItemInOffhand().getItemMeta().getPersistentDataContainer();
 
-        if(pdc.isEmpty()){
+        if(pdc.isEmpty()) {
+            getPlayer().sendMessage(Utils.colorTranslator("&eOffhand item doesn't have bounded gems!"));
+
             return;
         }
 
         List<ItemStack> gemArray = new ArrayList<>();
-        for(NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()){
+        
+        for(NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()) {
             if(pdc.has(key, PersistentDataType.STRING)) { // get all the pdc value based from the gem key enum
                 SlimefunItem gem = SlimefunItem.getById(pdc.get(key, PersistentDataType.STRING));
+                
                 if(gem instanceof AbstractGem) {
                     gemArray.add(gem.getItem().clone());
                 }
             }
         }
 
-        if(gemArray.isEmpty()){
-            getPlayer().sendMessage(Utils.colorTranslator("&eItem doesn't have any gems bound to it"));
+        if(gemArray.isEmpty()) {
+            getPlayer().sendMessage(Utils.colorTranslator("&eOffhand item doesn't have bounded gems!"));
+            
             return;
         }
 
-        for (ItemStack gems: gemArray) { // add all gems inside the inventory ui
+        Inventory inventory = Bukkit.createInventory(null, 9, Utils.colorTranslator("&cSelect a gem to unbind"));
+
+        for (ItemStack gems: gemArray) { // add all gems inside the inventory UI
             inventory.addItem(gems);
         }
 
@@ -74,7 +80,7 @@ public class GemUnbinderTask {
      * @param chance the chance to remove the gem from the item
      */
     @SuppressWarnings("ConstantConditions")
-    public void unBindGem(SlimefunItem gem, int chance){
+    public void unbindGem(SlimefunItem gem, int chance){
         getPlayer().getInventory().getItemInMainHand().setAmount(0);
 
         if(ThreadLocalRandom.current().nextInt(100) <= chance) {
@@ -91,7 +97,9 @@ public class GemUnbinderTask {
             pdc.remove(gemKey);
             pdc.set(socketAmountKey, PersistentDataType.INTEGER, pdc.get(socketAmountKey, PersistentDataType.INTEGER) - 1);
 
-            if (pdc.get(socketAmountKey, PersistentDataType.INTEGER) == 0) { // remove excess space above the gem lore
+            
+            if (pdc.get(socketAmountKey, PersistentDataType.INTEGER) == 0) { 
+                // if item does not contain any games, clear gem lore header and footer text and remove newline space above the gem lore
                 for (int i = 0; i < lore.indexOf(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥")) + 1; i++) {
                     if (lore.get(i).contains(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥"))) {
                         lore.remove(i - 1);
@@ -100,16 +108,20 @@ public class GemUnbinderTask {
 
                 Predicate<String> condition = line ->
                         line.contains(Utils.colorTranslator(gem.getItemName())) ||
-                                line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥")) ||
-                                line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));
+                        line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤| &d&lGems &c|◥◥◥◥◥◥")) ||
+                        line.contains(Utils.colorTranslator("&6◤◤◤◤◤◤◤◤◤◤◤&c◥◥◥◥◥◥◥◥◥◥◥"));
+                
                 lore.removeIf(condition);
+                
                 pdc.remove(socketAmountKey);
             } else {
+                // if item still contain gems after unbind, then remove the unbinded game name from the lore
                 lore.removeIf(line -> line.contains(Utils.colorTranslator(gem.getItemName())));
             }
 
             meta.setLore(lore);
             getItemInOffhand().setItemMeta(meta);
+            
             getPlayer().sendMessage(Utils.colorTranslator("&aSuccessfully removed selected gem!"));
             getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_VILLAGER_WORK_WEAPONSMITH, 1.0F, 1.0F);
         } else {

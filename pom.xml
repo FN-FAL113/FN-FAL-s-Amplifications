@@ -6,12 +6,12 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>Unoffical-4.0.1</version>
+    <version>Unoffical-4.0.2</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
 
-    <description>Adds different kind of items in-game! Explore and have fun!</description>
+    <description>Adds different kind of items in-game! Take part on exploring FN's offerings!</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,12 +1,9 @@
 package ne.fnfal113.fnamplifications.gems;
 
-import com.google.common.util.concurrent.AtomicDouble;
-import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
@@ -14,10 +11,8 @@ import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -53,6 +48,7 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
     public ShockwaveGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 15);
 
+        // cache angle values
         for (int x = 0; x <= 360; x++) {
             cosine.add(x, Math.cos(x));
             sine.add(x, Math.sin(x));
@@ -74,14 +70,16 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
-        if(!(event.getDamager() instanceof LivingEntity)){
+
+        if(!(event.getDamager() instanceof LivingEntity)) {
             return;
         }
 
@@ -97,38 +95,42 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
                 Long cd = Utils.cooldownHelper(getPlayerCooldownMap().get(player.getUniqueId()));
 
                 player.sendMessage(Utils.colorTranslator("&dShockwave gem in cooldown for " + (5 - cd) + " seconds!"));
+                
                 return;
             } else {
                 getPlayerCooldownMap().put(player.getUniqueId(), System.currentTimeMillis());
             }
 
             sendGemMessage(player, this.getItemName());
+            
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_END_GATEWAY_SPAWN, 1.0F, 1.0F);
+            
             livingEntity.damage(amount, player);
             livingEntity.setVelocity(new Vector(0, 0.8, 0));
 
             for (Entity entity: livingEntity.getNearbyEntities(8, 8, 8)) {
-                if(entity instanceof LivingEntity && !entity.getUniqueId().equals(player.getUniqueId())){
+                if(entity instanceof LivingEntity && !entity.getUniqueId().equals(player.getUniqueId())) {
                     ((Damageable) entity).damage(amount, player);
-                    entity.setVelocity(new Vector(0, 0.75, 0));
+                    
+                    entity.setVelocity(new Vector(0, 0.75, 0)); // bounce off the entity from the ground
                 }
             }
-
-          
     
             Set<Block> blocks = new HashSet<>();
             double height = 0.1;
            
-            for (int i = 0; i < 8; i++) {
-                for (int c = 0; c <= 360; c++) {
+            for (int i = 0; i < 8; i++) { // radius
+                for (int c = 0; c <= 360; c++) { // loop the radius angles
                     double x = i * getCosine().get(c);
                     double z = i * getSine().get(c);
-                    Block block = player.getLocation().getBlock().getRelative((int) x, -1, (int) z);
+                    Block block = player.getLocation().getBlock().getRelative((int) x, -1, (int) z); // get block from player ground level
     
-                    // check block below if applicable to be queued
+                    // check block below if applicable to be a falling block
                     if(!blocks.contains(block) && block.getType() != Material.AIR && block.getRelative(BlockFace.UP).getType() == Material.AIR) {
                         blocks.add(block);
+                        
                         spawnJumpingBlock(block, height);
+                        
                         height += 0.003475;
                     }
                 }
@@ -142,6 +144,7 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         
         block.setDropItem(false);
         block.setVelocity(new Vector(0, height, 0));
+        // this metadata gets check on entity block change event, since falling blocks are converted to placed blocks on land
         block.setMetadata("shockwave_gem", new FixedMetadataValue(FNAmplifications.getInstance(), "ghost_block"));
     }
 
