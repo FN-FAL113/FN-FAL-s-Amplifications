@@ -308,8 +308,10 @@ public class GemListener implements Listener {
 
     @EventHandler
     public void entityBlockChange(EntityChangeBlockEvent event){
+        // clear spawned falling block on land which gets converted to a placed block
         if (event.getEntity().getType() == EntityType.FALLING_BLOCK && event.getEntity().hasMetadata("shockwave_gem")) {
             event.setCancelled(true);
+            
             event.getEntity().remove();
         }
     }
