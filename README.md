@@ -1,9 +1,9 @@
 # :part_alternation_mark: FN Amplifications
 A slimefun addon that adds different types of items and more content for your server! From solar panels, machines, block breakers, gears, staffs and more!
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
-of crafting, come and explore FN's Amplifications! 
+of crafting. Come and explore FN's Amplifications! 
 
-Addon supports 1.16.x, 1.17.x, 1.18.x and 1.19.x minecraft versions
+Addon supports 1.16.x, 1.17.x, 1.18.x, 1.19.x, and 1.20.x minecraft versions
 
 ## :bulb: Features
 - **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
