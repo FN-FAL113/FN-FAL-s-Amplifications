@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>Unoffical-4.0.2</version>
+    <version>Unoffical-4.1.0</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -44,6 +44,7 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -62,31 +63,26 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                        <pattern>org.bstats</pattern>
-                        <shadedPattern>ne.fnfal113.fnamplifications.bstats</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>dev.j3fftw.extrautils</pattern>
-                            <shadedPattern>ne.fnfal113.fnamplifications.ExtraUtils</shadedPattern>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>ne.fnfal113.fnamplifications.bstats</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
 
     <repositories>
-
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-
+        
         <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
@@ -123,30 +119,10 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.slimefun-addon-community</groupId>
-            <artifactId>extrautils</artifactId>
-            <version>73e76ac06c</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.0</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.Slimefun-Addon-Community</groupId>
-            <artifactId>LiteXpansion</artifactId>
-            <version>13eea12c8f</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.Sefiraat</groupId>
-            <artifactId>SMG</artifactId>
-            <version>cce3ce31e7</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>

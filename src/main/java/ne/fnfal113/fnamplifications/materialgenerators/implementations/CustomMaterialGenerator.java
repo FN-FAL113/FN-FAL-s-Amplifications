@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dev.j3fftw.extrautils.interfaces.InventoryBlock;
-
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
@@ -45,6 +43,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.BlockPosition;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 
 public class CustomMaterialGenerator extends SlimefunItem implements InventoryBlock {

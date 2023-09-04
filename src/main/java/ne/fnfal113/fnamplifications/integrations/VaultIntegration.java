@@ -20,9 +20,9 @@ public class VaultIntegration {
         this.slimefunAddon = addon;
 
         if(!setupEconomy()){
-            getSlimefunAddon().getLogger().info("Vault not detected! Successfully unregistered items that need vault.");
+            getSlimefunAddon().getLogger().info("Vault API not detected! Loot Gem will not be registered.");
         } else {
-            getSlimefunAddon().getLogger().info("Vault detected! Successfully registered items that need vault.");
+            getSlimefunAddon().getLogger().info("Vault API detected! Loot Gem will be registered.");
         }
 
     }

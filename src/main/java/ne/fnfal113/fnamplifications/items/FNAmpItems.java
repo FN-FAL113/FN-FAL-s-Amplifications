@@ -2,6 +2,11 @@ package ne.fnfal113.fnamplifications.items;
 
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -17,9 +22,9 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerHead;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.skins.PlayerSkin;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 
-import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
-
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +37,7 @@ public class FNAmpItems {
     private static final ItemStack ARMOR = Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16) ?
             new ItemStack(Material.NETHERITE_CHESTPLATE) : new ItemStack(Material.DIAMOND_CHESTPLATE);
 
-    static{
+    static {
         ItemMeta meta = STICK.getItemMeta();
         if(meta != null) {
             meta.addEnchant(Enchantment.BINDING_CURSE, 1, false);
@@ -1159,8 +1164,9 @@ public class FNAmpItems {
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.AVERAGE, MachineType.MACHINE),
             LoreBuilder.powerBuffer(512),
-            LoreBuilderDynamic.powerPerTick(32)
+            "&8\u21E8 &e\u26A1 &7" + Utils.powerFormat.format(32) + " J/t"
     );
+
 
     public static final SlimefunItemStack FN_BLOCK_BREAKER_2 = new SlimefunItemStack(
             "FN_BLOCK_BREAKER_II",
@@ -1176,7 +1182,7 @@ public class FNAmpItems {
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
             LoreBuilder.powerBuffer(1024),
-            LoreBuilderDynamic.powerPerTick(64)
+            "&8\u21E8 &e\u26A1 &7" + Utils.powerFormat.format(64) + " J/t"
     );
 
     public static final SlimefunItemStack FN_BLOCK_BREAKER_3 = new SlimefunItemStack(
@@ -1193,7 +1199,7 @@ public class FNAmpItems {
             "&d&oFN Machinery",
             LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
             LoreBuilder.powerBuffer(2048),
-            LoreBuilderDynamic.powerPerTick(128)
+            "&8\u21E8 &e\u26A1 &7" + Utils.powerFormat.format(128) + " J/t"
     );
 
     public static final SlimefunItemStack FN_STICK = new SlimefunItemStack(
