@@ -5,18 +5,17 @@ api-version: 1.16
 authors: [ FN_FAL113 ]
 description: Explore plethora of in-game items from machines, tools, pvp and many more!
 website: https://github.com/FN-FAL113
-depend: [Slimefun]
+depend: [ Slimefun ]
 softdepend:
-  - LiteXpansion
   - SimpleMaterialGenerators
   - Vault
 commands:
   fngear:
-    description: command for checking FN Gears progress
+    description: command for checking player worn FN Gears progress
     default: true
     usage: /<command>
   fnshockwavetest:
-    description: base command for testing shockwave
+    description: command for testing shockwave effect from shockwave gem
     default: op
     usage: /<command>
 permissions:
@@ -24,5 +23,5 @@ permissions:
     description: for levelling up player worn FN Gears
     default: op
   fnshockwave.test:
-    description: for testing shockwave
+    description: for testing shockwave shockwave effect from shockwave gem
     default: op

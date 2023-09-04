@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.machines;
 
-import dev.j3fftw.extrautils.interfaces.InventoryBlock;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemState;
@@ -14,16 +13,20 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
-import lombok.SneakyThrows;
+
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.apache.commons.lang.Validate;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -49,6 +52,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+@SuppressWarnings("deprecation")
 public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
 
     public static final Map<Location, BlockBreakerCache> CACHE_MAP = new HashMap<>();
@@ -131,7 +135,6 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
     private int rate = 2;
 
     @ParametersAreNonnullByDefault
-    @SneakyThrows
     public ElectricBlockBreaker(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int tickRate) {
         super(itemGroup, item, recipeType, recipe);
 

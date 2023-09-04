@@ -8,14 +8,20 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.EulerAngle;
 
 import javax.annotation.Nonnull;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 /**
- * util class for FNAmplifications
+ * utility class for FNAmplifications
  * @author FN_FAL113
  */
-@SuppressWarnings("ConstantConditions")
 public class Utils {
+
+    public static final DecimalFormat powerFormat = new DecimalFormat("###,###.##",
+        DecimalFormatSymbols.getInstance(Locale.ROOT));
 
     public static String colorTranslator(String strings){
         return ChatColor.translateAlternateColorCodes('&', strings);

@@ -102,7 +102,7 @@ public abstract class CMachine extends SlimefunItem implements InventoryBlock, E
     }
 
     public int[] getBorder() {
-        return new int[] { 0, 2, 4, 8, 9, 13, 17, 18, 26, 27, 31, 35, 36, 38, 40, 44};
+        return new int[] { 0, 2, 4, 8, 9, 13, 17, 18, 26, 27, 31, 35, 36, 38, 40, 44 };
     }
 
     public int[] getInputBorder() {
@@ -110,7 +110,7 @@ public abstract class CMachine extends SlimefunItem implements InventoryBlock, E
     }
 
     public int[] getOutputBorder() {
-        return new int[] { 5, 6, 7, 14, 16, 23, 24, 25, 32, 34, 41, 42, 43};
+        return new int[] { 5, 6, 7, 14, 16, 23, 24, 25, 32, 34, 41, 42, 43 };
     }
 
     public int getProgressBarSlot() {
