@@ -157,7 +157,7 @@
   },
   "level-25": {
     "enchantment-name": "thorns",
-    "enchantment-level": 3,
+    "enchantment-level": 15,
     "attributes": {
       "attribute-1": {
         "attribute-name": "GENERIC_ARMOR",

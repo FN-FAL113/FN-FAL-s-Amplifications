@@ -22,41 +22,40 @@ public class ItemStackListPdcType implements PersistentDataType<byte[], List<Ite
 
     public static final PersistentDataType<byte[], List<ItemStack>> ITEM_STACK_LIST_PDC = new ItemStackListPdcType();
 
-    @Nonnull
     @Override
     public Class<byte[]> getPrimitiveType() {
         return byte[].class;
     }
 
-    @SuppressWarnings("unchecked")
-    @Nonnull
     @Override
     public Class<List<ItemStack>> getComplexType() {
         return (Class<List<ItemStack>>) (Class) new ArrayList<>().getClass();
     }
 
     @Override
-    @Nonnull
     public byte[] toPrimitive(@Nonnull List<ItemStack> complex, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        try(BukkitObjectOutputStream inputStream = new BukkitObjectOutputStream(new BufferedOutputStream(bytes))){
-            inputStream.writeObject(complex);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        
+        try(BukkitObjectOutputStream objectOutputStream = new BukkitObjectOutputStream(new BufferedOutputStream(byteArrayOutputStream))){
+            objectOutputStream.writeObject(complex);
         } catch (IOException | SecurityException | NullPointerException e){
             e.printStackTrace();
         }
-        return bytes.toByteArray();
+
+        return byteArrayOutputStream.toByteArray();
     }
 
     @SneakyThrows
     @Override
-    @Nonnull
     public List<ItemStack> fromPrimitive(@Nonnull byte[] primitive, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(primitive);
-        try(BukkitObjectInputStream bytes = new BukkitObjectInputStream(new BufferedInputStream(inputStream))){
-            return (List<ItemStack>) bytes.readObject();
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(primitive);
+
+        try(BukkitObjectInputStream objectInputStream = new BukkitObjectInputStream(new BufferedInputStream(byteArrayInputStream))){
+            return (List<ItemStack>) objectInputStream.readObject();
         } catch (IOException | ClassCastException e){
             e.printStackTrace();
-            return new ArrayList<>();
         }
+
+        return null;
     }
 }

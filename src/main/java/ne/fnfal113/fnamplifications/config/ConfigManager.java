@@ -64,12 +64,10 @@ public class ConfigManager {
     @SneakyThrows
     public JsonObject loadJson(String jsonName) {
         try {
-            // get the json in the resource folder as input stream
-            // and deserialize the contents to the temporary file line by line
+            // byte stream => char stream => json
             InputStream resource = FNAmplifications.class.getResourceAsStream("/json/" + jsonName + ".json");
 
-            JsonParser parser = new JsonParser();
-            return parser.parse(new InputStreamReader(resource)).getAsJsonObject();
+            return new JsonParser().parse(new InputStreamReader(resource)).getAsJsonObject();
         } catch (JsonParseException | NullPointerException e) {
             e.printStackTrace();
             return new JsonObject();

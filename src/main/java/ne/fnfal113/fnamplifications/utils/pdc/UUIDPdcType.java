@@ -20,43 +20,40 @@ public class UUIDPdcType implements PersistentDataType<byte[], UUID> {
 
     public static final PersistentDataType<byte[], UUID> UUID_PDC = new UUIDPdcType();
 
-    @Nonnull
     @Override
     public Class<byte[]> getPrimitiveType() {
         return byte[].class;
     }
 
-    @Nonnull
     @Override
     public Class<UUID> getComplexType() {
         return UUID.class;
     }
 
     @Override
-    @Nonnull
     public byte[] toPrimitive(@Nonnull UUID complex, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        try(ObjectOutputStream inputStream = new ObjectOutputStream(new BufferedOutputStream(bytes))){
-            inputStream.writeObject(complex);
+        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(byteArrayOutputStream))){
+            objectOutputStream.writeObject(complex);
         } catch (IOException | SecurityException | NullPointerException e){
             e.printStackTrace();
         }
 
-        return bytes.toByteArray();
+        return byteArrayOutputStream.toByteArray();
     }
 
     @SneakyThrows
     @Override
-    @Nonnull
     public UUID fromPrimitive(@Nonnull byte[] primitive, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(primitive);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(primitive);
 
-        try(ObjectInputStream bytes = new ObjectInputStream(new BufferedInputStream(inputStream))){
-            return (UUID) bytes.readObject();
+        try(ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(byteArrayInputStream))){
+            return (UUID) objectInputStream.readObject();
         } catch (IOException | ClassCastException e){
             e.printStackTrace();
-            return new UUID(0,0);
         }
+
+        return null;
     }
 }

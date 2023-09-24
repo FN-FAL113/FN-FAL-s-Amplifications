@@ -64,7 +64,7 @@ public abstract class AbstractGears extends SlimefunItem {
         this.gearTask = new GearTask(getDefaultUsageKey(), getDefaultUsageKey2(), getDefaultUsageKey3(), item, startingProgress, incrementingProgress, getMaxLevel());
     }
 
-    public void initializeSettings(int maxLevel, int maxAttributes){
+    public void initializeSettings(int maxLevel, int maxAttributes) {
         try {
             getConfigManager().initializeConfig(this.getId(), "unbreakable", false, "fn-gear-unbreakable-settings");
             getConfigManager().initializeConfig(this.getId(), "max-level", maxLevel, "fn-gear-level-settings");
@@ -86,13 +86,13 @@ public abstract class AbstractGears extends SlimefunItem {
             }
 
             setUnbreakable();
-        } catch (NullPointerException | IllegalArgumentException e){
+        } catch (NullPointerException | IllegalArgumentException e) {
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear config settings! Please report on github with logs!");
             e.printStackTrace();
         }
     }
 
-    public void initializeEnchants(String levelSection, int i, JsonObject jsonObject){
+    public void initializeEnchants(String levelSection, int i, JsonObject jsonObject) {
         try{
             String settingEnchant = "enchantment-name";
             String settingEnchantLevel = "enchantment-level";
@@ -106,11 +106,12 @@ public abstract class AbstractGears extends SlimefunItem {
 
         } catch (NullPointerException | IllegalArgumentException e) {
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear enchants setting! Please report on github with logs!");
+            
             e.printStackTrace();
         }
     }
 
-    public void initializeAttributes(String levelSection, int maxAttributes, int i, JsonObject jsonObject){
+    public void initializeAttributes(String levelSection, int maxAttributes, int i, JsonObject jsonObject) {
         try {
             for (int x = 1; x <= maxAttributes; x++) {
                 String attributeSection = levelSection + "." + "bonus-attributes" + "." + "attribute-" + x;
@@ -126,6 +127,7 @@ public abstract class AbstractGears extends SlimefunItem {
             }
         } catch (NullPointerException | IllegalArgumentException e){
             FNAmplifications.getInstance().getLogger().info("An error has occurred upon initializing gear bonus attributes setting! Please report on github with logs!");
+            
             e.printStackTrace();
         }
     }
@@ -137,7 +139,7 @@ public abstract class AbstractGears extends SlimefunItem {
         this.getItem().setItemMeta(meta);
     }
 
-    public void onHit(EntityDamageByEntityEvent event, ItemStack armour){
+    public void onHit(EntityDamageByEntityEvent event, ItemStack armour) {
         if(!(event.getEntity() instanceof Player)){
             return;
         }
@@ -160,7 +162,7 @@ public abstract class AbstractGears extends SlimefunItem {
      * @param armorLevel the new level of the armor
      * @param p the player who wore the armor
      */
-    public void upgradeArmor(ItemStack armor, int armorLevel, Player p, EquipmentSlot slot){
+    public void upgradeArmor(ItemStack armor, int armorLevel, Player p, EquipmentSlot slot) {
         ItemMeta meta = armor.getItemMeta();
         String levelSection = this.getId() + "." + "level-" + armorLevel;
         String enchant = getConfigManager().getCustomConfig("fn-gear-level-settings").getString(levelSection + "." + "enchantment-name");
@@ -202,6 +204,7 @@ public abstract class AbstractGears extends SlimefunItem {
                 p.sendMessage(Utils.colorTranslator("&6FN Gear attributes has been increased!"));
             } catch (NullPointerException | IllegalArgumentException e){
                 p.sendMessage(Utils.colorTranslator("&cAn error has occurred upon adding bonus armor attributes, please ask the admin to check the console for errors and report it on github"));
+                
                 e.printStackTrace();
             }
 

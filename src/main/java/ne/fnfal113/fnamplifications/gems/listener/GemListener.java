@@ -55,25 +55,33 @@ public class GemListener implements Listener {
      * @param p the player involved
      */
     public <T extends GemHandler> void callGemHandler(Class<T> clazz, Consumer<T> consumer, ItemStack itemStack, PersistentDataContainer pdc, Player p) {
-        if (pdc.has(Keys.createKey(itemStack.getType().toString().toLowerCase() + "_socket_amount"), PersistentDataType.INTEGER)) {
-            for (NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()) {
-                if (pdc.has(key, PersistentDataType.STRING)) {
-                    SlimefunItem item = getSfItem(key, pdc);
+        if (pdc.getOrDefault(Keys.createKey(itemStack.getType().toString().toLowerCase() + "_socket_amount"), PersistentDataType.INTEGER, 0) <= 0) { 
+            return;
+        }
 
-                    if(item instanceof AbstractGem) {
-                        // consumer requires an instance of the implementing class (gem implements given clazz param)
-                        AbstractGem gem = (AbstractGem) item;
-
-                        if(clazz.isInstance(gem)) {
-                            if(gem.isEnabledInCurrentWorld(p.getWorld().getName())) {
-                                consumer.accept(clazz.cast(gem));
-                            } else {
-                                p.sendMessage(Utils.colorTranslator(gem.getItemName() + "&6 is disabled in your current world!"));
-                            }
-                        } // is gem an instance of the given interface class
-                    } // is gem instance of AbstractGem
-                }
+        for(NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()) {
+            if (!pdc.has(key, PersistentDataType.STRING)) {
+                return;
             }
+        
+            SlimefunItem item = getSfItem(key, pdc);
+
+            if(!(item instanceof AbstractGem)) {
+                return;
+            }
+
+            // consumer requires an instance of the implementing class (gem implements given clazz param)
+            AbstractGem gem = (AbstractGem) item;
+
+            if(!clazz.isInstance(gem)) { 
+                return;
+            }
+
+            if(!gem.isEnabledInCurrentWorld(p.getWorld().getName())) {
+                p.sendMessage(Utils.colorTranslator(gem.getItemName() + "&6 is disabled in your current world!"));
+            }
+
+            consumer.accept(clazz.cast(gem));
         }
     }
 
@@ -83,6 +91,7 @@ public class GemListener implements Listener {
        if(!(event.getDamager() instanceof Player)) {
            return;
        }
+
        Player player = (Player) event.getDamager();
 
        if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
@@ -97,8 +106,8 @@ public class GemListener implements Listener {
 
     @EventHandler
     public void onEntityDeath(PlayerDeathEvent event){
-
         Player player = event.getEntity();
+        
         for (ItemStack armor: player.getInventory().getArmorContents()) {
             if(armor != null) {
                 callGemHandler(OnPlayerDeathHandler.class, handler -> handler.onPlayerDeath(event, armor), armor, getPersistentDataContainer(armor), player);
@@ -121,7 +130,7 @@ public class GemListener implements Listener {
 
         Optional<ItemStack> gemItem = Optional.ofNullable(event.getCursor());
 
-        if(!gemItem.isPresent()){
+        if(!gemItem.isPresent()) {
             return;
         }
 
@@ -136,12 +145,12 @@ public class GemListener implements Listener {
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent event){
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
         if(!(event.getEntity() instanceof LivingEntity)){
             return;
         }
 
-        if(event.getCause() == EntityDamageEvent.DamageCause.FALL){
+        if(event.getCause() == EntityDamageEvent.DamageCause.FALL) {
             return;
         }
 
@@ -149,11 +158,11 @@ public class GemListener implements Listener {
         if(event.getDamager() instanceof Projectile && event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE){
             Projectile projectile = (Projectile) event.getDamager();
 
-            if(!(projectile.getShooter() instanceof Player)){
+            if(!(projectile.getShooter() instanceof Player)) {
                 return;
             }
 
-            if(!(event.getEntity() instanceof LivingEntity)){
+            if(!(event.getEntity() instanceof LivingEntity)) {
                 return;
             }
 
@@ -209,7 +218,7 @@ public class GemListener implements Listener {
     }
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent event){
+    public void onBlockBreak(BlockBreakEvent event) {
         if(event.isCancelled()){
             return;
         }
@@ -220,11 +229,11 @@ public class GemListener implements Listener {
             return;
         }
 
-        if(event.getBlock().getState() instanceof Container){
+        if(event.getBlock().getState() instanceof Container) {
             return;
         }
 
-        if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+        if(player.getInventory().getItemInMainHand().getType() == Material.AIR) {
             return;
         }
 
@@ -235,18 +244,18 @@ public class GemListener implements Listener {
     }
 
     @EventHandler
-    public void onClick(PlayerInteractEvent event){
+    public void onClick(PlayerInteractEvent event) {
         if(event.getHand() != EquipmentSlot.HAND){
             return;
         }
 
-        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK){
+        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
 
         Player player = event.getPlayer();
 
-        if(player.getInventory().getItemInMainHand().getType() == Material.AIR){
+        if(player.getInventory().getItemInMainHand().getType() == Material.AIR) {
             return;
         }
 
@@ -257,17 +266,18 @@ public class GemListener implements Listener {
     }
 
     @EventHandler
-    public void onItemDamage(PlayerItemDamageEvent event){
-        if(event.isCancelled()){
+    public void onItemDamage(PlayerItemDamageEvent event) {
+        if(event.isCancelled()) {
             return;
         }
+
         PersistentDataContainer pdc = getPersistentDataContainer(event.getItem());
 
         callGemHandler(OnItemDamageHandler.class, handler -> handler.onDurabilityChange(event), event.getItem(), pdc, event.getPlayer());
     }
 
     @EventHandler
-    public void onMobTarget(EntityTargetLivingEntityEvent event){
+    public void onMobTarget(EntityTargetLivingEntityEvent event) {
         if(!(event.getEntity() instanceof LivingEntity)){
             return;
         }

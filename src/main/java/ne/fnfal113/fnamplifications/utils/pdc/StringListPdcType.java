@@ -21,43 +21,41 @@ public class StringListPdcType implements PersistentDataType<byte[], List<String
 
     public static final PersistentDataType<byte[], List<String>> STRING_LIST_PDC = new StringListPdcType();
 
-    @Nonnull
     @Override
     public Class<byte[]> getPrimitiveType() {
         return byte[].class;
     }
 
     @SuppressWarnings("unchecked")
-    @Nonnull
     @Override
     public Class<List<String>> getComplexType() {
         return (Class<List<String>>) (Class) new ArrayList<>().getClass();
     }
 
     @Override
-    @Nonnull
     public byte[] toPrimitive(@Nonnull List<String> complex, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
-        try(ObjectOutputStream inputStream = new ObjectOutputStream(new BufferedOutputStream(bytes))){
-            inputStream.writeObject(complex);
+        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(byteArrayOutputStream))){
+            objectOutputStream.writeObject(complex);
         } catch (IOException | SecurityException | NullPointerException e){
             e.printStackTrace();
         }
-        return bytes.toByteArray();
+
+        return byteArrayOutputStream.toByteArray();
     }
 
     @SneakyThrows
     @Override
-    @Nonnull
     public List<String> fromPrimitive(@Nonnull byte[] primitive, @Nonnull PersistentDataAdapterContext context) {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(primitive);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(primitive);
 
-        try(ObjectInputStream bytes = new ObjectInputStream(new BufferedInputStream(inputStream))){
-            return (List<String>) bytes.readObject();
+        try(ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(byteArrayInputStream))){
+            return (List<String>) objectInputStream.readObject();
         } catch (IOException | ClassCastException e){
             e.printStackTrace();
-            return new ArrayList<>();
         }
+
+        return null;
     }
 }
