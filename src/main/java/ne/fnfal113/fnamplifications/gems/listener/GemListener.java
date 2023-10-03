@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.gems.listener;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.handlers.*;
@@ -10,6 +11,7 @@ import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.gems.implementation.TargetReasonEnum;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -40,6 +42,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -60,25 +63,27 @@ public class GemListener implements Listener {
         }
 
         for(NamespacedKey key : GemKeysEnum.GEM_KEYS.getGemKeyList()) {
-            if (!pdc.has(key, PersistentDataType.STRING)) {
-                return;
+            if(!pdc.has(key, PersistentDataType.STRING)) {
+                continue;
             }
         
             SlimefunItem item = getSfItem(key, pdc);
 
             if(!(item instanceof AbstractGem)) {
-                return;
+                continue;
             }
 
             // consumer requires an instance of the implementing class (gem implements given clazz param)
             AbstractGem gem = (AbstractGem) item;
 
             if(!clazz.isInstance(gem)) { 
-                return;
+                continue;
             }
 
             if(!gem.isEnabledInCurrentWorld(p.getWorld().getName())) {
                 p.sendMessage(Utils.colorTranslator(gem.getItemName() + "&6 is disabled in your current world!"));
+
+                continue;
             }
 
             consumer.accept(clazz.cast(gem));

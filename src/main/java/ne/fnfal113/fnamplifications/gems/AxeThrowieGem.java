@@ -34,11 +34,12 @@ public class AxeThrowieGem extends AbstractGem implements OnRightClickHandler {
     }
 
     @Override
-    public void onRightClick(Player player){
-        if(player.isSneaking()){
+    public void onRightClick(Player player) {
+        if(player.isSneaking()) {
             return;
         }
-        if(!hasPermissionToThrow(player)){
+
+        if(!hasPermissionToThrow(player)) {
             player.sendMessage(Utils.colorTranslator("&eYou don't have the permission to throw here! (Needs block interaction flag enabled)"));
             return;
         }
