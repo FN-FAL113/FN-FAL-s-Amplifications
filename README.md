@@ -1,4 +1,12 @@
 # :part_alternation_mark: FN Amplifications
+
+<div align="center">
+
+![bStats Servers](https://img.shields.io/bstats/servers/13219)
+![bStats Players](https://img.shields.io/bstats/players/13219)
+
+</div>
+
 A slimefun addon that adds different types of items and more content for your server! From solar panels, machines, block breakers, gears, staffs and more!
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
 of crafting. Come and explore FN's Amplifications! 
