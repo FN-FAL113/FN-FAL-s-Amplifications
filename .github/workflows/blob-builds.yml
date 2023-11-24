@@ -31,5 +31,5 @@ jobs:
         with:
           project: FNAmplifications
           apiToken: ${{ secrets.BLOB_BUILDS_API_TOKEN }}
-          file: ./target/$PROJECT_NAME v$PROJECT_VERSION.jar
+          file: ./target/${{ env.PROJECT_NAME}} v${{ env.PROJECT_VERSION }}.jar
           releaseNotes: ${{ github.event.head_commit.message }}
