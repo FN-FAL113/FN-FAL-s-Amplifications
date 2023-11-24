@@ -2,6 +2,8 @@ package ne.fnfal113.fnamplifications.tools.implementation;
 
 import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -30,7 +32,7 @@ public class ThrowableItemTask extends BukkitRunnable {
 
     public ThrowableItemTask(Player player, ItemStack itemStack, Vector vector, Consumer<ThrowableItemTask> throwableItemTaskConsumer){
         this.player = player;
-        this.itemStack = itemStack;
+        this.itemStack = itemStack.clone(); // don't mutate original itemstack else item amout will be set to 1 when dropping the torch
         this.vector = vector;
         this.armorStand = spawnArmorstand();
         this.throwableItemTaskConsumer = throwableItemTaskConsumer;
@@ -57,19 +59,19 @@ public class ThrowableItemTask extends BukkitRunnable {
         getThrowableItemTaskConsumer().accept(this);
     }
 
-    public void dropItemTask(ArmorStand as, ItemStack itemStack){
-        itemStack.setAmount(1); // prevent cloning the exact itemstack amount in the main hand
+    public void dropTorch() {
+        if(getItemStack() != null && getItemStack().getType() != Material.AIR) {
+            getItemStack().setAmount(1); // prevent cloning the exact itemstack amount in the main hand
 
-        Item droppedItem = as.getWorld().dropItemNaturally(as.getLocation(), itemStack.clone());
-        droppedItem.setGlowing(true);
+            Item droppedItem = getArmorStand().getWorld().dropItemNaturally(getArmorStand().getLocation(), getItemStack());
+            droppedItem.setGlowing(true);
+        }
 
-        as.remove();
-
-        this.cancel();
+        stopTask();
     }
 
-    public void removeItemTask(ArmorStand as){
-        as.remove();
+    public void stopTask() {
+        getArmorStand().remove();
 
         this.cancel();
     }

@@ -24,16 +24,19 @@ public class Gem {
 
     @Getter
     private final SlimefunItem slimefunGemItem;
-    @Getter
-    private final String SlimefunGemItemName;
+
     @Getter
     private final ItemStack itemStackToSocket;
+
     @Getter
     private final String SlimefunGemItemID;
+
     @Getter
     private final Player player;
+
     @Getter
     private final NamespacedKey SlimefunGemItemIDKey;
+
     @Getter
     private final NamespacedKey socketAmountKey;
 
@@ -42,7 +45,6 @@ public class Gem {
         this.slimefunGemItem = slimefunGemItem;
         this.itemStackToSocket = itemStackToSocket;
         this.player = player;
-        this.SlimefunGemItemName = slimefunGemItem.getItemName();
         this.SlimefunGemItemID = slimefunGemItem.getId();
         this.SlimefunGemItemIDKey = Keys.createKey(slimefunGemItem.getId().toLowerCase());
         this.socketAmountKey = Keys.createKey(itemStackToSocket.getType().toString().toLowerCase() + "_socket_amount");
@@ -55,10 +57,17 @@ public class Gem {
 
         if(itemGemAmount < 5) { // gem amount must be below 5
             if(!isSameGem(getItemStackToSocket())){ // check if the gem being added already exist
-                getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
+                ItemStack cursorGemItem = getPlayer().getItemOnCursor();
+
+                if(cursorGemItem.getAmount() > 1) { // prevent consuming stacked gem
+                    cursorGemItem.setAmount(cursorGemItem.getAmount() - 1);
+                } else { 
+                    getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
+                }
+
                 socketGemToItemStack(meta, pdc, itemGemAmount);
             } else {
-                getPlayer().sendMessage(Utils.colorTranslator("&6Your item has " + getSlimefunGemItemName() + " &6socketed already!"));
+                getPlayer().sendMessage(Utils.colorTranslator("&6Your item has " + getSlimefunGemItem().getItemName() + " &6socketed already!"));
                 getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1.0F, 1.0F);
             }
 
@@ -70,7 +79,7 @@ public class Gem {
     }
 
     public void socketGemToItemStack(ItemMeta meta, PersistentDataContainer pdc, int itemGemAmount){
-        String gemSlimefunItemname = getSlimefunGemItemName();
+        String gemSlimefunItemname = getSlimefunGemItem().getItemName();
         List<String> lore = meta.hasLore() ? lore = meta.getLore() : new ArrayList<>();
         
         if (itemGemAmount == 0) { // add the lore when adding a gem for the first time
@@ -114,18 +123,18 @@ public class Gem {
 
     /**
      *
-     * @param itemStack the item to check whether it has already the gem
-     * @return if it has the same existing gem
+     * @param itemStackToSocket the itemstack to check
+     * @return a boolean if it has same existing gem
      */
-    public boolean isSameGem(ItemStack itemStack){
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer container = meta.getPersistentDataContainer();
+    public boolean isSameGem(ItemStack itemStackToSocket){
+        ItemMeta meta = itemStackToSocket.getItemMeta();
+        PersistentDataContainer itemPdc = meta.getPersistentDataContainer();
 
-        if(container.isEmpty()) {
+        if(itemPdc.isEmpty()) {
            return false;
         }
 
-        return container.has(getSlimefunGemItemIDKey(), PersistentDataType.STRING);
+        return itemPdc.has(getSlimefunGemItemIDKey(), PersistentDataType.STRING);
     }
 
 }

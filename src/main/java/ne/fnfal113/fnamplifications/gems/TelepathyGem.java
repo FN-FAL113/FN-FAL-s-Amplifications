@@ -26,10 +26,12 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
 
     @Override
     public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
-        if (WeaponArmorEnum.PICKAXE.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType())) {
+        if (WeaponArmorEnum.PICKAXE.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.HOES.isTagged(itemStackToSocket.getType())
+            || WeaponArmorEnum.SHOVELS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType())
+        ) {
             bindGem(slimefunGemItem, itemStackToSocket, player);
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on pickaxes and axes only"));
+            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on pickaxes, hoes, shovels and axes only"));
         }
     }
 
