@@ -1,9 +1,14 @@
-name: Java CI
+name: Build and Deploy to Blob-Builds
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 
 jobs:
-  build:
+  blob-build-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,10 +21,15 @@ jobs:
       - name: Build with Maven
         run: mvn package
 
+      - name: Set Filename Env Variables
+        run: |
+          echo "PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)" >> "$GITHUB_ENV" && |
+          echo "PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_ENV"
+
       - name: Upload to Blob Builds
         uses: WalshyDev/blob-builds/gh-action@main
         with:
-          project: LiteXpansion
+          project: FNAmplifications
           apiToken: ${{ secrets.BLOB_BUILDS_API_TOKEN }}
-          file: ./target/FNAmplifications*.jar
+          file: ./target/$NAME v$VERSION.jar
           releaseNotes: ${{ github.event.head_commit.message }}
