@@ -23,7 +23,7 @@ jobs:
 
       - name: Set Filename Env Variables
         run: |
-          echo "PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)" >> "$GITHUB_ENV" && |
+          echo "PROJECT_NAME=$(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)" >> "$GITHUB_ENV"
           echo "PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> "$GITHUB_ENV"
 
       - name: Upload to Blob Builds
