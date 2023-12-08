@@ -59,6 +59,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
                 </executions>
@@ -71,8 +72,13 @@
                         </relocation>
 
                         <relocation>
-                                <pattern>io.github.bakedlibs.dough.updater</pattern>
-                                <shadedPattern>ne.fnfal113.fnamplifications.dough.updater</shadedPattern>
+                            <pattern>io.github.bakedlibs.dough.updater</pattern>
+                            <shadedPattern>ne.fnfal113.fnamplifications.dough.updater</shadedPattern>
+                        </relocation>
+                        <!-- a transitive dependency, necessary for dough-updater -->
+                        <relocation>
+                            <pattern>io.github.bakedlibs.dough.versions</pattern>
+                            <shadedPattern>ne.fnfal113.fnamplifications.dough.versions</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -115,6 +121,13 @@
         <dependency>
             <groupId>com.github.baked-libs.dough</groupId>
             <artifactId>dough-updater</artifactId>
+            <version>4b28bd408e</version>
+             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.baked-libs.dough</groupId>
+            <artifactId>dough-common</artifactId>
             <version>4b28bd408e</version>
              <scope>compile</scope>
         </dependency>
