@@ -123,11 +123,11 @@ public class GemListener implements Listener {
 
     @EventHandler
     public void onDragDrop(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player)) {
+        if(!(event.getWhoClicked() instanceof Player)) {
             return;
         }
 
-        if (event.getAction() != InventoryAction.SWAP_WITH_CURSOR) {
+        if(event.getAction() != InventoryAction.SWAP_WITH_CURSOR) {
             return;
         }
 

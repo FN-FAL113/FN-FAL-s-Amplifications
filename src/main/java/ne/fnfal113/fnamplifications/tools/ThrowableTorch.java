@@ -69,7 +69,7 @@ public class ThrowableTorch extends SlimefunItem {
         itemInMainHand.setAmount(itemInMainHand.getAmount() - 1);
     }
 
-    public Consumer<ThrowableItemTask> torchConsumer(){
+    public Consumer<ThrowableItemTask> torchConsumer() {
         return throwableItemTask -> {
             Player owner = throwableItemTask.getPlayer();
             ArmorStand armorStand = throwableItemTask.getArmorStand();
@@ -81,12 +81,14 @@ public class ThrowableTorch extends SlimefunItem {
             RayTraceResult result = armorStand.rayTraceBlocks(0.80);
             List<Entity> entityList = armorStand.getNearbyEntities(0.3, 0.3, 0.3);
 
-            if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS && !Tag.FLOWERS.isTagged(result.getHitBlock().getType())){
+            if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS 
+                && !Tag.FLOWERS.isTagged(result.getHitBlock().getType())
+            ) {
                 Block blockHit = result.getHitBlock();
 
                 if(blockHit == null || blockTypePredicate.test(blockHit) || IGNORED_SOLID_BLOCKS.contains(blockHit.getType())
                         || blockNameContains(blockHit, "gate") || blockNameContains(blockHit, "leaves")){
-                    throwableItemTask.dropItemTask(armorStand, torch.clone());
+                    throwableItemTask.dropTorch();
 
                     return;
                 }
@@ -98,7 +100,7 @@ public class ThrowableTorch extends SlimefunItem {
                     Predicate<Block> blockPredicate = block -> block.getType() == Material.AIR || block.getType() == Material.CAVE_AIR;
 
                     if(blockHit.getType() == Material.TORCH || blockHit.getType() == Material.WALL_TORCH){
-                        throwableItemTask.dropItemTask(armorStand, torch.clone());
+                        throwableItemTask.dropTorch();
 
                         return;
                     }
@@ -112,12 +114,14 @@ public class ThrowableTorch extends SlimefunItem {
                     } else if(blockPredicate.test(blockHit.getRelative(BlockFace.UP))){
                         placeTorch(blockHit.getRelative(BlockFace.UP), BlockFace.UP);
                     } else {
-                        throwableItemTask.dropItemTask(armorStand, torch.clone());
+                        throwableItemTask.dropTorch();;
 
                         return;
                     }
 
-                    throwableItemTask.removeItemTask(armorStand);
+
+                    throwableItemTask.stopTask();
+
                     return;
                 }
             }
@@ -127,16 +131,17 @@ public class ThrowableTorch extends SlimefunItem {
                     if (entityList.get(i) instanceof Damageable && entityList.get(i).getUniqueId() != owner.getUniqueId()) {
                         entityList.get(i).setFireTicks(80);
 
-                        throwableItemTask.removeItemTask(armorStand);
+                        throwableItemTask.stopTask();
+
                         return;
                     }
                 }
 
-                throwableItemTask.dropItemTask(armorStand, torch.clone());
+                throwableItemTask.dropTorch();;
             }
 
             if(armorStand.getLocation().distanceSquared(owner.getLocation()) > 6400){ // drop the torch if it reaches 80 blocks away
-                throwableItemTask.dropItemTask(armorStand, torch.clone());
+                throwableItemTask.dropTorch();;
             }
         };
     }
