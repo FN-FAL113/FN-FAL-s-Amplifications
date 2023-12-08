@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.5.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -63,10 +63,16 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- shaded packages -->
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
                             <shadedPattern>ne.fnfal113.fnamplifications.bstats</shadedPattern>
+                        </relocation>
+
+                        <relocation>
+                                <pattern>io.github.bakedlibs.dough.updater</pattern>
+                                <shadedPattern>ne.fnfal113.fnamplifications.dough.updater</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -104,6 +110,13 @@
             <artifactId>Slimefun4</artifactId>
             <version>62c7324e6d</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.baked-libs.dough</groupId>
+            <artifactId>dough-updater</artifactId>
+            <version>4b28bd408e</version>
+             <scope>compile</scope>
         </dependency>
 
         <dependency>
