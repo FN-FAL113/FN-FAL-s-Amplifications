@@ -39,13 +39,15 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
-        if(!(event.getDamager() instanceof LivingEntity)){
+        
+        if(!(event.getDamager() instanceof LivingEntity)) {
             return;
         }
 

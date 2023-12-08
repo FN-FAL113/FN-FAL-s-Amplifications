@@ -40,11 +40,11 @@ public class BlindBindGem extends AbstractGem implements OnProjectileDamageHandl
 
     @Override
     public void onProjectileDamage(EntityDamageByEntityEvent event, Player shooter, LivingEntity entity, Projectile projectile, ItemStack itemStack) {
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, true, false, false));
             sendGemMessage(shooter, this.getItemName());
         }

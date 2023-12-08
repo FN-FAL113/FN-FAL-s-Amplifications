@@ -38,7 +38,7 @@ public class AdamantineGem extends AbstractGem implements OnItemDamageHandler, G
 
     @Override
     public void onDurabilityChange(PlayerItemDamageEvent event) {
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(event.getItem(), this.getId())){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(event.getItem(), this.getId())) {
             event.setCancelled(true);
             sendGemMessage(event.getPlayer(), this.getItemName());
         }

@@ -43,9 +43,10 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler, GemUpg
 
     @Override
     public void onBlockBreak(BlockBreakEvent event, Player player, ItemStack itemStack){
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
+        
         Block block = event.getBlock();
 
         if(SlimefunTag.ORES.isTagged(block.getType()) || SlimefunTag.STONE_VARIANTS.isTagged(block.getType())) {

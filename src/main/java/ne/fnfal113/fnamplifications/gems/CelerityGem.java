@@ -39,10 +39,11 @@ public class CelerityGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getEntity() instanceof Player)){
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
-        if(event.isCancelled()){
+
+        if(event.isCancelled()) {
             return;
         }
 
@@ -50,7 +51,7 @@ public class CelerityGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
         int tier = getTier(itemStack, this.getId());
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, level));

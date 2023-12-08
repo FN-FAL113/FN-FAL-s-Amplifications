@@ -37,7 +37,7 @@ public class DisruptedGem extends AbstractGem implements OnGuardianSpawnHandler,
 
     @Override
     public void onGuardianSpawn(GuardianSpawnEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
 

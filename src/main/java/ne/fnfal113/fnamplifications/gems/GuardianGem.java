@@ -55,21 +55,22 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
 
         Player player = (Player) event.getEntity();
 
-        if(event.getDamager() instanceof Phantom || event.getDamager() instanceof Flying || event.getDamager() instanceof EnderDragon){
+        if(event.getDamager() instanceof Phantom || event.getDamager() instanceof Flying || event.getDamager() instanceof EnderDragon) {
             return;
         } // prevent guardian from attacking flying entities
 
-        if(runnableMap.containsKey(player.getUniqueId())){
-            if(runnableMap.get(player.getUniqueId()).isCancelled()){
+        if(runnableMap.containsKey(player.getUniqueId())) {
+            if(runnableMap.get(player.getUniqueId()).isCancelled()) {
                 entityUUIDMap.remove(player.getUniqueId());
                 runnableMap.remove(player.getUniqueId());
                 return;

@@ -40,13 +40,15 @@ public class DecrepitGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getDamager() instanceof LivingEntity)){
+        if(!(event.getDamager() instanceof LivingEntity)) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
-        if(event.isCancelled()){
+
+        if(event.isCancelled()) {
             return;
         }
 
@@ -56,7 +58,7 @@ public class DecrepitGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
         int tier = getTier(itemStack, this.getId());
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
             livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, level));

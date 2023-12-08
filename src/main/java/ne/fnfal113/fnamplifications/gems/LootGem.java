@@ -38,13 +38,15 @@ public class LootGem extends AbstractGem implements OnDamageHandler, GemUpgrade 
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getEntity() instanceof Player)){
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
-        if(!(event.getDamager() instanceof Player)){
+        
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
-        if(event.isCancelled()){
+
+        if(event.isCancelled()) {
             return;
         }
 

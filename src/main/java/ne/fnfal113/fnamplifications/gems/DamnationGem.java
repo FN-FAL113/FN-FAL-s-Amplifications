@@ -45,11 +45,12 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
     }
 
     @Override
-    public void onRightClick(Player player){
+    public void onRightClick(Player player) {
         if(!player.isSneaking()){
             return;
         }
-        if(!hasPermissionToThrow(player)){
+        
+        if(!hasPermissionToThrow(player)) {
             player.sendMessage(Utils.colorTranslator("&eYou don't have the permission to use damnation here! (Needs block interaction flag enabled)"));
             return;
         } // check if player has the permission to build on current location
