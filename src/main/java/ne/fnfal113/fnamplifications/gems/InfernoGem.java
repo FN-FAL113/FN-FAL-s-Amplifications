@@ -24,7 +24,7 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler, GemUpgra
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -37,7 +37,7 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler, GemUpgra
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
         if(event.isCancelled()) {
             return;
         }
@@ -50,17 +50,17 @@ public class InfernoGem extends AbstractGem implements OnDamageHandler, GemUpgra
 
         int random = ThreadLocalRandom.current().nextInt(100);
 
-        if(random < getChance() / getTier(itemStack, this.getId())){
+        if(random < getChance() / getTier(itemStack, this.getId())){ 
             livingEntity.setFireTicks(60);
             if(event.getDamager() instanceof Player) {
                 sendGemMessage((Player) event.getDamager(), this.getItemName());
             }
         } // set the attacked entity on fire
 
-        for(Entity entity : livingEntity.getNearbyEntities(7, 4,7)){
-            if(random < getChance()){
-                if(entity.getUniqueId() != event.getDamager().getUniqueId()){
-                    entity.setFireTicks(60);
+        for(Entity entity : livingEntity.getNearbyEntities(8, 4,8)) {
+            if(random < getChance()) {
+                if(entity.getUniqueId() != event.getDamager().getUniqueId()) {
+                    entity.setFireTicks(80);
                 } // make sure entity is not the attacker
             }
         } // loop nearby entities in a 7 block bounding box and set them on fire

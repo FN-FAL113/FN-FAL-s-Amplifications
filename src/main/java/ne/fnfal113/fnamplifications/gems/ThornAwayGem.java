@@ -23,7 +23,7 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -36,22 +36,24 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+        
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
 
         Player player = (Player) event.getEntity();
 
-        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS){
+        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS) {
             return;
         } // if damage cause is not thorns, don't continue
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             event.setCancelled(true);
+            
             sendGemMessage(player, this.getItemName());
         } // cancel any thorn damage
     }

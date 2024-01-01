@@ -42,10 +42,11 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
 
@@ -61,15 +62,16 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
 
                     AtomicInteger i = new AtomicInteger(0);
 
-                    Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task ->{
-                        for(double a = 0; a < 50; a += 0.15){
+                    Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
+                        for(double a = 0; a < 50; a += 0.15) {
                             double x = Math.cos(a) * 0.65;
                             double z = Math.sin(a) * 0.65;
                             double y = a / 25;
+                            
                             victim.getWorld().spawnParticle(Particle.SMOKE_NORMAL, victim.getLocation().clone().add(x, y, z), 0);
                         }
 
-                        if(i.get() == 10 || victim.isDead() || !victim.isValid()){
+                        if(i.get() == 10 || victim.isDead() || !victim.isValid()) {
                             task.cancel();
                         }
 

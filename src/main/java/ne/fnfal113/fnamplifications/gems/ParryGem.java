@@ -23,7 +23,7 @@ public class ParryGem extends AbstractGem implements OnDamageHandler, GemUpgrade
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType()) ||
                 WeaponArmorEnum.LEGGINGS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.BOOTS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
@@ -38,26 +38,29 @@ public class ParryGem extends AbstractGem implements OnDamageHandler, GemUpgrade
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getDamager() instanceof LivingEntity)){
+
+        if(!(event.getDamager() instanceof LivingEntity)) {
             return;
         }
-        if(!(event.getEntity() instanceof Player)){
+
+        if(!(event.getEntity() instanceof Player)) {
             return;
         }
 
         LivingEntity damager = (LivingEntity) event.getDamager();
         Player player = (Player) event.getEntity();
 
-        if(damager.getEquipment() == null){
+        if(damager.getEquipment() == null) {
             return;
         }
 
-        if(WeaponArmorEnum.SWORDS.isTagged(damager.getEquipment().getItemInMainHand().getType())){
-            if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
-                event.setDamage(event.getDamage() * 0.75);
+        if(WeaponArmorEnum.SWORDS.isTagged(damager.getEquipment().getItemInMainHand().getType())) {
+            if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
+                event.setDamage(event.getDamage() * 0.6);
+                
                 if(event.getEntity() instanceof Player) {
                     sendGemMessage(player, this.getItemName());
                 }

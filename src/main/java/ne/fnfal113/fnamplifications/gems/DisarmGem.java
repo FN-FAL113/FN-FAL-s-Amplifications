@@ -58,11 +58,13 @@ public class DisarmGem extends AbstractGem implements OnDamageHandler, GemUpgrad
                 int slot = victim.getInventory().firstEmpty(); // get first empty slot from left to right
 
                 victim.getInventory().setItemInMainHand(null);
+                
                 if (slot != -1) {
                     victim.getInventory().setItem(slot, itemInMainHand.clone());
                 } else {
                     victim.getWorld().dropItem(victim.getLocation(), itemInMainHand.clone());
                 }
+
                 sendGemMessage(damager, this.getItemName());
             }
         }

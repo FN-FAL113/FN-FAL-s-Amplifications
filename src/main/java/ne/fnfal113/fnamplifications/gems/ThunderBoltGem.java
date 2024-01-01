@@ -37,22 +37,26 @@ public class ThunderBoltGem extends AbstractGem implements OnDamageHandler, GemU
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
-        if(!(event.getEntity() instanceof LivingEntity)){
+
+        if(!(event.getEntity() instanceof LivingEntity)) {
             return;
         }
-        if(!(event.getDamager() instanceof Player)){
+
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
 
         Player player = (Player) event.getDamager();
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             livingEntity.getWorld().strikeLightning(livingEntity.getLocation());
+            
             player.setNoDamageTicks(20);
+            
             sendGemMessage(player, this.getItemName());
         } // if below the chance, strike lightning at the victim and set no damage for the attacker for 1 second
     }

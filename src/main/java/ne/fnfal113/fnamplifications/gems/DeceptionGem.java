@@ -61,7 +61,8 @@ public class DeceptionGem extends AbstractGem implements OnDamageHandler, GemUpg
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, level));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, level));
+            
             sendGemMessage(player, this.getItemName());
         }
 

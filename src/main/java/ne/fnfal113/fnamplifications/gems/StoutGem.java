@@ -22,7 +22,7 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler, GemUpg
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType()) ||
                 WeaponArmorEnum.LEGGINGS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.BOOTS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
@@ -37,12 +37,13 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler, GemUpg
 
     @Override
     public void onDurabilityChange(PlayerItemDamageEvent event) {
-        if(event.isCancelled()){
+        if(event.isCancelled()) {
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance()/ getTier(event.getItem(), this.getId())){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance()/ getTier(event.getItem(), this.getId())) {
             event.setCancelled(true);
+            
             sendGemMessage(event.getPlayer(), this.getItemName());
         }
     }

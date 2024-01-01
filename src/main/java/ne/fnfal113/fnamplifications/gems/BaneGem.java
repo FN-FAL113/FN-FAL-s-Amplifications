@@ -60,7 +60,7 @@ public class BaneGem extends AbstractGem implements OnDamageHandler, GemUpgrade 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, level));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 120, level));
             sendGemMessage(player, this.getItemName());
         }
 

@@ -28,7 +28,7 @@ public class BerserkGem extends AbstractGem implements OnDamageHandler, GemUpgra
         tierDamageMap.put(4, 0.06);
         tierDamageMap.put(3, 0.12);
         tierDamageMap.put(2, 0.18);
-        tierDamageMap.put(1, 0.30);
+        tierDamageMap.put(1, 0.36);
     }
 
     public BerserkGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -65,7 +65,7 @@ public class BerserkGem extends AbstractGem implements OnDamageHandler, GemUpgra
                 return;
             }
 
-            if (playerCurrentHealth <= playerDefaultHealth * 0.30 && !damager.isDead()) {
+            if (playerCurrentHealth <= playerDefaultHealth * 0.40 && !damager.isDead()) {
                 double damage = event.getDamage();
                 double finalDamage = (tierDamageMap.get(tier) * damage) + damage;
 
