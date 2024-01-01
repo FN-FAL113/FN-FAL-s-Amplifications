@@ -17,16 +17,22 @@ import org.bukkit.util.Vector;
 public class ReturnWeaponTask extends BukkitRunnable {
 
     @Getter
-    private final ItemStack itemStack;
-    @Getter
-    private final ArmorStand armorStand;
-    @Getter
     private final Player player;
 
-    public ReturnWeaponTask(ItemStack itemStack, ArmorStand armorStand, Player player){
+    @Getter
+    private final ItemStack itemStack;
+    
+    @Getter
+    private final ArmorStand armorStand;
+
+    @Getter
+    private final boolean isTriWeapon;
+
+    public ReturnWeaponTask(Player player, ItemStack itemStack, ArmorStand armorStand, boolean isTriWeapon) {
+        this.player = player;
         this.itemStack = itemStack;
         this.armorStand = armorStand;
-        this.player = player;
+        this.isTriWeapon = isTriWeapon;
     }
 
     @Override
@@ -64,14 +70,19 @@ public class ReturnWeaponTask extends BukkitRunnable {
         Location asLocationNormalized = asLocation.subtract(asVector.subtract(pVector).normalize()).setDirection(pLocation.getDirection());
         getArmorStand().teleport(asLocationNormalized);
 
+        if(isTriWeapon()) {
+            getArmorStand().setHeadPose(Utils.setHeadAngle(getArmorStand(), 18, 30, 18));
+        }
+
         // if player is not online, drop the throwable immediately
-        if(!getPlayer().isOnline()){
+        if(!getPlayer().isOnline()) {
             dropItem(asLocation);
+            
             stopTask();
         }
 
         // drop the item if the distance between player and throwable is 150 blocks away
-        if(distanceBetween(asLocation, pLocation) > 150){
+        if(distanceBetween(asLocation, pLocation) > 150) {
             Location dropLoc = dropItem(asLocation);
             getPlayer().sendMessage(Utils.colorTranslator("&cWeapon has not been returned because you're too far!"));
             getPlayer().sendMessage(Utils.colorTranslator("&cit was dropped at: &e" +
@@ -82,7 +93,7 @@ public class ReturnWeaponTask extends BukkitRunnable {
             stopTask();
         }
 
-        if(distanceBetween(asLocation, pLocation) < 0.5){
+        if(distanceBetween(asLocation, pLocation) < 0.5) {
             if(getPlayer().getInventory().firstEmpty() == -1){
                 getPlayer().sendMessage(Utils.colorTranslator("&eInventory full! dropped the item instead"));
                 dropItem(pLocation);
@@ -95,7 +106,7 @@ public class ReturnWeaponTask extends BukkitRunnable {
         }
     }
 
-    public Location dropItem(Location location){ // drop the throwable weapon if player inventory is full
+    public Location dropItem(Location location) { // drop the throwable weapon if player inventory is full
         Item droppedItem = getPlayer().getWorld().dropItem(location, getItemStack().clone());
         droppedItem.setOwner(getPlayer().getUniqueId());
         droppedItem.setGlowing(true);
@@ -104,13 +115,13 @@ public class ReturnWeaponTask extends BukkitRunnable {
     }
 
     // get the distance between two locations and return the square root of the distance
-    public double distanceBetween(Location asLoc, Location pLoc){
+    public double distanceBetween(Location asLoc, Location pLoc) {
         return asLoc.distance(pLoc);
     }
 
     public void stopTask(){ // stop the task once task has been completed
-        getArmorStand().remove();
-
         this.cancel();
+
+        getArmorStand().remove();
     }
 }

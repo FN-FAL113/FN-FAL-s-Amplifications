@@ -42,9 +42,10 @@ public class AchillesHeelGem extends AbstractGem implements OnProjectileDamageHa
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) &&
-                (projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5) {
-            event.setDamage(event.getDamage() * 2.0);
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) 
+            && (projectile.getLocation().getY() - entity.getLocation().getY()) < 0.5) {
+            event.setDamage(event.getDamage() * 3.5);
+            
             sendGemMessage(shooter, this.getItemName());
         }
     }

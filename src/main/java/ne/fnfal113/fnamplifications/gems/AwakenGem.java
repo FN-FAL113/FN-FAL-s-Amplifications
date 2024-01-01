@@ -51,15 +51,20 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
                 player.spigot().respawn();
                 player.teleport(loc.clone());
                 player.playSound(loc, Sound.ENTITY_VINDICATOR_CELEBRATE, 1.0F, 1.0F);
+                
                 sendGemMessage(player, this.getItemName());
+                
                 for (int d = 0; d <= 90; d++) {
                     int r = ThreadLocalRandom.current().nextInt(255);
                     int g = ThreadLocalRandom.current().nextInt(255);
                     int b = ThreadLocalRandom.current().nextInt(255);
+                    
                     Location particleLoc = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ());
+                    
                     // calculate the angle of x, z and multiply it by the size
                     particleLoc.setX(loc.getX() + Math.cos(d) * 2);
                     particleLoc.setZ(loc.getZ() + Math.sin(d) * 2);
+                    
                     player.getWorld().spawnParticle(Particle.REDSTONE, particleLoc, 2,
                             new Particle.DustOptions(Color.fromRGB(r, g, b), 2));
                 }

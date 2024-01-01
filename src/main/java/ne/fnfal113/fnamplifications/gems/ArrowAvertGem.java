@@ -42,11 +42,12 @@ public class ArrowAvertGem extends AbstractGem implements OnDamageHandler, GemUp
             return;
         }
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) &&
-                event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId()) 
+            && event.getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
             if(event.getEntity() instanceof Player) {
                 sendGemMessage((Player) event.getEntity(), this.getItemName());
             }
+
             event.setCancelled(true);
         }
     }

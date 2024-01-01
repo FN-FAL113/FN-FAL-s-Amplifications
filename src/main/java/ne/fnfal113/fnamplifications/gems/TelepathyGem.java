@@ -25,7 +25,7 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.PICKAXE.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.HOES.isTagged(itemStackToSocket.getType())
             || WeaponArmorEnum.SHOVELS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType())
         ) {
@@ -36,30 +36,30 @@ public class TelepathyGem extends AbstractGem implements OnBlockBreakHandler {
     }
 
     @Override
-    public void onBlockBreak(BlockBreakEvent event, Player player, ItemStack itemStack){
-        if (event.isCancelled()){
+    public void onBlockBreak(BlockBreakEvent event, Player player, ItemStack itemStack) {
+        if (event.isCancelled()) {
             return;
         }
 
         Block block = event.getBlock();
 
-        if(block.getType() == Material.LADDER){ // dupe fix against auto ladder
+        if(block.getType() == Material.LADDER) { // dupe fix against auto ladder
             return;
         }
 
         Optional<SlimefunItem> sfItem = Optional.ofNullable(BlockStorage.check(block));
 
-        if(sfItem.isPresent()){ // drop sf blocks instead
+        if(sfItem.isPresent()) { // drop sf blocks instead
             return;
         }
 
         Collection<ItemStack> drops = block.getDrops(player.getInventory().getItemInMainHand());
 
-        if(drops.isEmpty()){
+        if(drops.isEmpty()) {
             return;
         } // if collection is empty don't do anything further
 
-        if(player.getInventory().firstEmpty() == -1){
+        if(player.getInventory().firstEmpty() == -1) {
             return;
         } // if player inventory is full drop item instead
 

@@ -25,7 +25,7 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -38,14 +38,16 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(!(event.getEntity() instanceof LivingEntity)){
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
+        if(!(event.getEntity() instanceof LivingEntity)) {
             return;
         }
-        if(!(event.getDamager() instanceof Player)){
+
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
-        if(event.isCancelled()){
+
+        if(event.isCancelled()) {
             return;
         }
 
@@ -55,10 +57,10 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
 
         int tier = getTier(itemStack, this.getId());
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, level));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level));
             sendGemMessage(player, this.getItemName());
         }
 

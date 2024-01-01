@@ -54,7 +54,8 @@ public class CelerityGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            victim.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 80, level));
+            victim.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, level));
+            
             sendGemMessage(victim, this.getItemName());
         }
 

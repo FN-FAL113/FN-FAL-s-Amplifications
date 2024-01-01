@@ -60,7 +60,7 @@ public class AtrohpyGem extends AbstractGem implements OnDamageHandler, GemUpgra
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, level));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 120, level));
             sendGemMessage(player, this.getItemName());
         }
 

@@ -55,9 +55,10 @@ public class LootGem extends AbstractGem implements OnDamageHandler, GemUpgrade 
 
         int random = ThreadLocalRandom.current().nextInt(100);
 
-        if(random < getChance() / getTier(itemStack, this.getId())){
+        if(random < getChance() / getTier(itemStack, this.getId())) {
             FNAmplifications.getVaultIntegration().getEconomy().withdrawPlayer(Bukkit.getOfflinePlayer(victim.getUniqueId()), 4.0D);
             FNAmplifications.getVaultIntegration().getEconomy().depositPlayer(Bukkit.getOfflinePlayer(damager.getUniqueId()), 4.0D);
+            
             sendGemMessage(damager, this.getItemName());
             sendGemMessage(victim, Utils.colorTranslator("&cEnemy ") + this.getItemName());
         }

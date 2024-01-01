@@ -57,9 +57,10 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
             ThrowWeaponTask throwWeaponTask = new ThrowWeaponTask(player, itemStack.clone(), false, true, pdcValue.equalsIgnoreCase("true"), vector);
             ArmorStand armorStand = throwWeaponTask.getArmorStand();
 
-            armorStand.setRightArmPose(Utils.setRightArmAngle(armorStand, 0, 348, 0));
-            armorStand.setLeftArmPose(Utils.setLeftArmAngle(armorStand, 0, 12, 0));
-            armorStand.setHeadPose(Utils.setHeadAngle(armorStand, 98, 32, 97));
+            int pitch = (int) player.getLocation().getPitch();
+
+            armorStand.setRightArmPose(Utils.setRightArmAngle(armorStand, 0 + pitch, 348, 0));
+            armorStand.setLeftArmPose(Utils.setLeftArmAngle(armorStand, 0 + pitch, 12, 0));
 
             throwWeaponTask.runTaskTimer(FNAmplifications.getInstance(), 0L, 1L);
         } catch (IllegalArgumentException e){

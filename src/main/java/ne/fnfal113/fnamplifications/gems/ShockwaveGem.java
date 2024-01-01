@@ -87,7 +87,7 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         LivingEntity livingEntity = (LivingEntity) event.getDamager();
 
         int tier = getTier(itemStack, this.getId());
-        double amount = 3.0D * (tier == 4 ? 1 : Math.abs(tier - 5)); // damage multiplier per tier
+        double amount = 3.5D * (5 - tier); // damage multiplier per tier
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
              // cooldown check

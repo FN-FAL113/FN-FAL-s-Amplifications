@@ -61,7 +61,7 @@ public class DecrepitGem extends AbstractGem implements OnDamageHandler, GemUpgr
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, level));
+            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 120, level));
             sendGemMessage(player, this.getItemName());
         }
 
