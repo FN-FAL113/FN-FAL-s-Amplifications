@@ -6,7 +6,7 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>Unoffical-4.1.6</version>
+    <version>Unoffical-4.1.7</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
@@ -121,15 +121,15 @@
         <dependency>
             <groupId>com.github.baked-libs.dough</groupId>
             <artifactId>dough-updater</artifactId>
-            <version>4b28bd408e</version>
-             <scope>compile</scope>
+            <version>c4231a4d1a</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.baked-libs.dough</groupId>
             <artifactId>dough-common</artifactId>
-            <version>4b28bd408e</version>
-             <scope>compile</scope>
+            <version>c4231a4d1a</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
