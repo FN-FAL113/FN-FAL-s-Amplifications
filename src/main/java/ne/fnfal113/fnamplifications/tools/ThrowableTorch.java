@@ -73,7 +73,6 @@ public class ThrowableTorch extends SlimefunItem {
         return throwableItemTask -> {
             Player owner = throwableItemTask.getPlayer();
             ArmorStand armorStand = throwableItemTask.getArmorStand();
-            ItemStack torch = throwableItemTask.getItemStack().clone();
             Predicate<Block> blockTypePredicate = block -> block.isLiquid() || !block.getType().isSolid();
 
             armorStand.teleport(armorStand.getLocation().add(throwableItemTask.getVector().subtract(new Vector(0, 0.045, 0))));
