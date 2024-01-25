@@ -121,14 +121,14 @@
         <dependency>
             <groupId>com.github.baked-libs.dough</groupId>
             <artifactId>dough-updater</artifactId>
-            <version>c4231a4d1a</version>
+            <version>1108163a49</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.baked-libs.dough</groupId>
             <artifactId>dough-common</artifactId>
-            <version>c4231a4d1a</version>
+            <version>1108163a49</version>
             <scope>compile</scope>
         </dependency>
 
