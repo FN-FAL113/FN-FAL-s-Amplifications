@@ -20,7 +20,6 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.machines.abstracts.AbstractJukeBox;
 import ne.fnfal113.fnamplifications.machines.implementation.DiscDurationsEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -303,17 +302,22 @@ public class ElectricJukebox extends AbstractJukeBox {
                     menu.replaceExistingItem(48, OPERATING);
 
                     if(jukebox.getPlaying() != Material.AIR) {
-                        menu.replaceExistingItem(49, new CustomItemStack(Material.PINK_STAINED_GLASS_PANE,
-                            "&d&lPlaying: " + jukebox.getPlaying().toString().replace("_", " "),
-                            "&eDuration : " + 
-                            durationMap.get(b.getLocation()) + "/" + 
-                            (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDurationInSec() * 2)));
+                        menu.replaceExistingItem(
+                            49, 
+                            new CustomItemStack(
+                                Material.PINK_STAINED_GLASS_PANE,
+                                "&d&lPlaying: " + jukebox.getPlaying().toString().replace("_", " "),
+                                "&eDuration : " + 
+                                durationMap.get(b.getLocation()) + "/" + 
+                                (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDuration())
+                            )
+                        );
                     }
                 } 
 
                 // when disc duration has elapsed, check next slot if there is a disc else stop the jukebox or go back to default slot when upper bound is reached
                 if(durationMap.containsKey(b.getLocation())) {
-                    if (durationMap.get(b.getLocation()) >= (DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDurationInSec() * 2)) {
+                    if (durationMap.get(b.getLocation()) >= DiscDurationsEnum.valueOf(jukebox.getPlaying().toString().toUpperCase()).getDuration()) {
                         goToNextSlot(menu, null);
                         
                         currentTime = 0;

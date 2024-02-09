@@ -6,12 +6,12 @@
 
     <groupId>ne.fnfal113</groupId>
     <artifactId>FNAmplifications</artifactId>
-    <version>Unoffical-4.1.7</version>
+    <version>Unoffical-4.1.8</version>
     <packaging>jar</packaging>
 
     <name>FNAmplifications</name>
 
-    <description>Adds different kind of items in-game from machines, utilities to pvp related items! Take part on exploring FN's offering!</description>
+    <description>Adds different kind of in-game items from machines, utilities to pvp related items! Take part on exploring FN's offering!</description>
     
     <properties>
         <java.version>1.8</java.version>
