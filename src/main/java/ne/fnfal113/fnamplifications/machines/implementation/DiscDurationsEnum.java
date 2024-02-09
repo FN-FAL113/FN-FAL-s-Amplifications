@@ -1,5 +1,7 @@
 package ne.fnfal113.fnamplifications.machines.implementation;
 
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+
 public enum DiscDurationsEnum {
 
     MUSIC_DISC_13(180),
@@ -16,16 +18,18 @@ public enum DiscDurationsEnum {
     MUSIC_DISC_WAIT(235),
     MUSIC_DISC_OTHERSIDE(180),
     MUSIC_DISC_PIGSTEP(148),
+    MUSIC_DISC_5(178),
+    MUSIC_DISC_RELIC(216),
     ;
 
-    private final int durationInSec;
+    private final int duration;
 
-    DiscDurationsEnum(int durationInSec) {
-        this.durationInSec = durationInSec;
+    DiscDurationsEnum(int durationInSeconds) {
+        this.duration = durationInSeconds * (int) 20.0 / Slimefun.getTickerTask().getTickRate();
     }
 
-    public int getDurationInSec(){
-        return durationInSec;
+    public int getDuration() {
+        return duration;
     }
 
 }
