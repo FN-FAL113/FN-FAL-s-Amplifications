@@ -35,7 +35,7 @@ public class MysteryStick11 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.DAMAGE_ARTHROPODS, 10);
         enchantments.put(Enchantment.DAMAGE_ALL, 7);
@@ -46,12 +46,12 @@ public class MysteryStick11 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Behind your enemies awaits danger";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "The stick of the nords";
     }
 
@@ -61,24 +61,32 @@ public class MysteryStick11 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
+            return;
+        }
+        
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != getMaterial()){
+        if(item.getType() != getMaterial()) {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 13, 4))   {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 28, 4))   {
             LivingEntity victim = (LivingEntity) event.getEntity();
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 2, false, true, false));
+           
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 2, false, true, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 100, 2, false, true, false));
 
             Location loc = victim.getLocation();
+            
             loc.setYaw(loc.getYaw() + 180);
+            
             victim.teleport(loc);
             victim.sendMessage(ChatColor.DARK_RED + "You have been disoriented! your opponent's mysterious stick is deadly");
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 

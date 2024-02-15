@@ -34,7 +34,7 @@ public class MysteryStick7 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.SWEEPING_EDGE, 7);
         enchantments.put(Enchantment.DAMAGE_ALL, 6);
@@ -46,12 +46,12 @@ public class MysteryStick7 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Blood will spit across the land";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "The aura on this stick is mesmerizing";
     }
 
@@ -61,23 +61,25 @@ public class MysteryStick7 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
-        if(!(event.getDamager() instanceof Player)){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
 
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != getMaterial()){
+        if(item.getType() != getMaterial()) {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 17, 3)) {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 26, 3)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60, 0, false, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 
