@@ -48,12 +48,12 @@ public class MysteryStick10 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Why is this stick too good";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "Deadly or creepy stick";
     }
 
@@ -63,27 +63,34 @@ public class MysteryStick10 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
+            return;
+        }
+
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != getMaterial()){
+        if(item.getType() != getMaterial()) {
             return;
         } // if item material is not a weapon, don't continue further
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 13, 4)) {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 28, 4)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 80, 2, false, true, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 2, false, true, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 80, 2, false, true, false));
 
             int playerDefaultHealth = (int) Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue();
-            if(player.getHealth() < playerDefaultHealth - 2)  {
+            
+            if(player.getHealth() < playerDefaultHealth - 2) {
                 player.setHealth(player.getHealth() + 2);
                 victim.setHealth(victim.getHealth() < 2 ? victim.getHealth() + (victim.getHealth() * (-1)) : victim.getHealth() - 2);
             } else {
                 player.sendMessage(ChatColor.RED + "Make sure your hearts are not full for Lifesteal to proc!");
             }
+
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
     }

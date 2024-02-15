@@ -34,7 +34,7 @@ public class MysteryStick5 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.DAMAGE_ARTHROPODS, 4);
         enchantments.put(Enchantment.DAMAGE_ALL, 3);
@@ -44,12 +44,12 @@ public class MysteryStick5 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Another stick of somewhat reckoning";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "I know you are tired of this stick thing";
     }
 
@@ -59,18 +59,24 @@ public class MysteryStick5 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
-        Player player = (Player) event.getDamager();
-        ItemStack item = player.getInventory().getItemInMainHand();
-
-        if(item.getType() != getMaterial()){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 20, 2))  {
+        Player player = (Player) event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
+
+        if(item.getType() != getMaterial()) {
+            return;
+        }
+
+        if(getStickTask().onSwing(item, player, event.getDamage(), 24, 2))  {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 40, 0, false, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 

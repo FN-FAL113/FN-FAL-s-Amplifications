@@ -34,7 +34,7 @@ public class MysteryStick8 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.DAMAGE_ARTHROPODS, 7);
         enchantments.put(Enchantment.DAMAGE_ALL, 5);
@@ -45,12 +45,12 @@ public class MysteryStick8 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "I'm out of words using this";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "This stick is kinda heavy";
     }
 
@@ -60,19 +60,25 @@ public class MysteryStick8 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
-        Player player = (Player) event.getDamager();
-        ItemStack item = player.getInventory().getItemInMainHand();
-
-        if(item.getType() != getMaterial()){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 18, 3))  {
+        Player player = (Player) event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
+
+        if(item.getType() != getMaterial()) {
+            return;
+        }
+
+        if(getStickTask().onSwing(item, player, event.getDamage(), 26, 3))  {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 60, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 40, 0, false, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 

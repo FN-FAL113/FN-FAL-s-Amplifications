@@ -35,7 +35,7 @@ public class MysteryStick3 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.ARROW_DAMAGE, 2);
         enchantments.put(Enchantment.ARROW_INFINITE, 1);
@@ -44,12 +44,12 @@ public class MysteryStick3 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "I knew it was something about shooting arrows";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "I feel coordinated when holding this stick";
     }
 
@@ -59,10 +59,15 @@ public class MysteryStick3 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Arrow)) {
+            return;
+        }
+
         Arrow arrow = (Arrow) event.getDamager();
         Player player = ((Player) arrow.getShooter());
-        if(player == null){
+        
+        if(player == null) {
             return;
         }
 
@@ -72,9 +77,11 @@ public class MysteryStick3 extends AbstractStick {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 27, 1)) {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 20, 1)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 0, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 

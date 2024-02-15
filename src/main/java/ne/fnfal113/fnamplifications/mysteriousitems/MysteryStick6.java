@@ -35,7 +35,7 @@ public class MysteryStick6 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.ARROW_DAMAGE, 4);
         enchantments.put(Enchantment.ARROW_INFINITE, 1);
@@ -45,12 +45,12 @@ public class MysteryStick6 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Make them take an arrow to the knee";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "May the force and accuracy be with you";
     }
 
@@ -60,10 +60,15 @@ public class MysteryStick6 extends AbstractStick {
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Arrow)) {
+            return;
+        }
+
         Arrow arrow = (Arrow) event.getDamager();
         Player player = ((Player) arrow.getShooter());
-        if(player == null){
+        
+        if(player == null) {
             return;
         }
 
@@ -73,10 +78,12 @@ public class MysteryStick6 extends AbstractStick {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 20, 2))  {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 24, 2)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 1, false, false, false));
             victim.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 40, 0, false, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 

@@ -34,7 +34,7 @@ public class MysteryStick2 extends AbstractStick {
     }
 
     @Override
-    public Map<Enchantment, Integer> enchantments(){
+    public Map<Enchantment, Integer> enchantments() {
         Map<Enchantment, Integer> enchantments = new HashMap<>();
         enchantments.put(Enchantment.DAMAGE_ARTHROPODS, 3);
         enchantments.put(Enchantment.DAMAGE_ALL, 2);
@@ -44,22 +44,26 @@ public class MysteryStick2 extends AbstractStick {
     }
 
     @Override
-    public String weaponLore(){
+    public String weaponLore() {
         return ChatColor.GOLD + "Another stick of wrecking";
     }
 
     @Override
-    public String stickLore(){
+    public String stickLore() {
         return ChatColor.WHITE + "Another stick of no matter what is it";
     }
 
     @Override
-    public Material getStickMaterial(){
+    public Material getStickMaterial() {
         return getMaterial();
     }
 
     @Override
-    public void onSwing(EntityDamageByEntityEvent event){
+    public void onSwing(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
+            return;
+        }
+
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
@@ -67,9 +71,11 @@ public class MysteryStick2 extends AbstractStick {
             return;
         }
 
-        if(getStickTask().onSwing(item, player, event.getDamage(), 27, 1))  {
+        if(getStickTask().onSwing(item, player, event.getDamage(), 20, 1))  {
             LivingEntity victim = (LivingEntity) event.getEntity();
+            
             victim.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 80, 0, false, false, false));
+            
             player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
         }
 
