@@ -101,16 +101,21 @@ public class QuiverListener implements Listener {
 
         Inventory playerInven = player.getInventory();
         
+        // get first quiver item slot
+        int slot = playerInven.first(quiverMaterial);
+
+        if(slot == -1) {
+            return;
+        }
 
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
 
-                isItemInHandQuiver(itemInOffHand) ? itemInOffHand :
-                        (slot == -1) ? null : playerInven.getItem(slot);
+        ItemStack quiverItemStack = isItemInHandQuiver(itemInMainHand) ? itemInMainHand :
+            isItemInHandQuiver(itemInOffHand) ? itemInOffHand : playerInven.getItem(slot);
 
-        SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
-
-        if (getIfQuiver().test(sfItem)) {
+        if(quiverItemStack == null) {
+            return;
         }
 
         SlimefunItem sfItem = SlimefunItem.getByItem(quiverItemStack);
@@ -124,6 +129,5 @@ public class QuiverListener implements Listener {
     public boolean isItemInHandQuiver(ItemStack itemStack) {
         return SlimefunItem.getByItem(itemStack) instanceof AbstractQuiver && itemStack.getType() != Material.LEATHER;
     }
-
 
 }
