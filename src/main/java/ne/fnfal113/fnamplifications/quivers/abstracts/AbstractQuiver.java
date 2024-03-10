@@ -17,28 +17,33 @@ import org.bukkit.inventory.ItemStack;
 public abstract class AbstractQuiver extends SlimefunItem {
 
     @Getter
-    private final NamespacedKey storageKey;
+    private final NamespacedKey storedArrowsKey;
+    
     @Getter
-    private final NamespacedKey storageKey2;
+    private final NamespacedKey randomIdKey;
+    
     @Getter
-    private final NamespacedKey storageKey3;
-    @Getter
-    private final QuiverTask quiverTask;
+    private final NamespacedKey stateKey;
+    
     @Getter
     private final int quiverSize;
+    
     @Getter
     private final ItemStack arrowType;
 
+    @Getter
+    private final QuiverTask quiverTask;
+
     public AbstractQuiver(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe,
-                          NamespacedKey arrowKey, NamespacedKey arrowIDKey, NamespacedKey quiverStateKey, int quiverSize, ItemStack arrowType) {
+        NamespacedKey storedArrowKey, NamespacedKey randomIdKey, NamespacedKey stateKey, int quiverSize, ItemStack arrowType) {
         super(itemGroup, item, recipeType, recipe);
 
-        this.storageKey = arrowKey;
-        this.storageKey2 = arrowIDKey;
-        this.storageKey3 = quiverStateKey;
+        this.storedArrowsKey = storedArrowKey;
+        this.randomIdKey = randomIdKey;
+        this.stateKey = stateKey;
         this.quiverSize = quiverSize;
         this.arrowType = arrowType;
-        this.quiverTask = new QuiverTask(arrowKey, arrowIDKey, quiverStateKey, getQuiverSize(), getArrowType(), item);
+        this.quiverTask = new QuiverTask(this);
     }
 
 }
