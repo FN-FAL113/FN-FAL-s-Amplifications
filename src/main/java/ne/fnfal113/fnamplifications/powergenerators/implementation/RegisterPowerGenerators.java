@@ -1,15 +1,14 @@
 package ne.fnfal113.fnamplifications.powergenerators.implementation;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
-
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
+import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
 
 public class RegisterPowerGenerators {
 

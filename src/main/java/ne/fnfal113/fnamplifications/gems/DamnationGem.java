@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
@@ -28,7 +27,6 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("ConstantConditions")
 public class DamnationGem extends AbstractGem implements OnRightClickHandler {
 
-    @Getter
     private final Map<UUID, Integer> currentWeaponMap = new HashMap<>();
 
     public DamnationGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -122,6 +120,10 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
             }, 1L);
         }, 160L);
 
+    }
+
+    public Map<UUID, Integer> getCurrentWeaponMap() {
+        return currentWeaponMap;
     }
 
 }

@@ -1,14 +1,14 @@
 package ne.fnfal113.fnamplifications.quivers.implementations;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
 import ne.fnfal113.fnamplifications.utils.Utils;
+import ne.fnfal113.fnamplifications.utils.compatibility.VersionedEnchantmentPlus;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SpectralArrow;
@@ -24,8 +24,9 @@ import java.util.concurrent.ThreadLocalRandom;
 // To do: Method Documentation
 public class QuiverTask {
 
-    @Getter
     private final AbstractQuiver quiver;
+
+    
 
     public QuiverTask(AbstractQuiver quiver) {
         this.quiver = quiver;
@@ -155,7 +156,8 @@ public class QuiverTask {
     public void bowShoot(EntityShootBowEvent event, ItemStack quiverItemStack, boolean isNormalArrow) {
         Player player = (Player) event.getEntity();
 
-        event.setCancelled(true);
+        // broken on 1.20.6, arrows are consumed and paper recommends to update to 1.21.1 instead lol rip
+        event.setCancelled(true); 
         
         // emulate bow shoot due to event cancellation
         float bowForce = event.getForce();
@@ -183,7 +185,7 @@ public class QuiverTask {
         PersistentDataContainer quiverPdc = meta.getPersistentDataContainer();
         
         int currentStoredArrowCount = getArrows(quiverPdc, getQuiver().getStoredArrowsKey());
-        int newStoredArrowCount = isNormalArrow && bowMeta.hasEnchant(Enchantment.ARROW_INFINITE) ?
+        int newStoredArrowCount = isNormalArrow && bowMeta.hasEnchant(VersionedEnchantmentPlus.INFINITY) ?
             currentStoredArrowCount : currentStoredArrowCount - 1;
 
         if(newStoredArrowCount >= 0) { // update quiver lore and pdc
@@ -204,4 +206,7 @@ public class QuiverTask {
 
     }
 
+    public AbstractQuiver getQuiver() {
+        return quiver;
+    }
 }

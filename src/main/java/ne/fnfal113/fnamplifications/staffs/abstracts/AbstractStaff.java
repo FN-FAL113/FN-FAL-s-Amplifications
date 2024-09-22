@@ -6,8 +6,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import lombok.Getter;
-import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.staffs.implementations.StaffTask;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -19,17 +17,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.IOException;
 import java.util.logging.Level;
 
 public abstract class AbstractStaff extends SlimefunItem {
 
-    @Getter
     private final NamespacedKey defaultUsageKey;
-    @Getter
+
     private final StaffTask staffTask;
 
-    @SneakyThrows
     public AbstractStaff(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int maxUses, NamespacedKey identifer) {
         super(itemGroup, item, recipeType, recipe);
 
@@ -65,9 +60,13 @@ public abstract class AbstractStaff extends SlimefunItem {
      * this adds the config entries if none exist
      * @param maxUses the max uses value that will be set in the config
      */
-    public void setConfigValues(int maxUses, String material) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "max-uses", maxUses, "staffs-settings");
-        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "staff-material", material, "staffs-settings");
+    public void setConfigValues(int maxUses, String material) {
+        try {
+            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "max-uses", maxUses, "staffs-settings");
+            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "staff-material", material, "staffs-settings");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -75,5 +74,13 @@ public abstract class AbstractStaff extends SlimefunItem {
      * @param event the interact event specifically used here for right or left click action
      */
     public abstract void onClick(PlayerInteractEvent event);
+
+    public NamespacedKey getDefaultUsageKey() {
+        return defaultUsageKey;
+    }
+
+    public StaffTask getStaffTask() {
+        return staffTask;
+    }
 
 }

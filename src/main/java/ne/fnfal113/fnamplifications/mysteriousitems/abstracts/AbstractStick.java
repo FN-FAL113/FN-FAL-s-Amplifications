@@ -5,19 +5,35 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
-import lombok.Getter;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedPotionEffectType;
 import ne.fnfal113.fnamplifications.mysteriousitems.implementation.StickTask;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class AbstractStick extends SlimefunItem implements NotPlaceable {
 
-    @Getter
+    public static final List<PotionEffectType> potionEffectTypes = new ArrayList<>(Arrays.asList(
+        PotionEffectType.BLINDNESS,
+        PotionEffectType.POISON,
+        PotionEffectType.BLINDNESS,
+        PotionEffectType.LEVITATION,
+        PotionEffectType.WITHER,
+        VersionedPotionEffectType.NAUSEA,
+        VersionedPotionEffectType.SLOWNESS,
+        VersionedPotionEffectType.MINING_FATIGUE,
+        VersionedPotionEffectType.INSTANT_DAMAGE
+    ));
+
     private final StickTask stickTask;
 
     public AbstractStick(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe,
@@ -71,6 +87,14 @@ public abstract class AbstractStick extends SlimefunItem implements NotPlaceable
     @Override
     public boolean isUseableInWorkbench() {
         return false;
+    }
+
+    public StickTask getStickTask() {
+        return stickTask;
+    }
+
+    public PotionEffectType getRandomPotionEffectType() {
+        return potionEffectTypes.get(ThreadLocalRandom.current().nextInt(0, potionEffectTypes.size()));
     }
 
 }

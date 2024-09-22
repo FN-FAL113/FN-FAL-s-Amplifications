@@ -1,12 +1,11 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
-import lombok.Getter;
-import lombok.Setter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+import ne.fnfal113.fnamplifications.utils.compatibility.VersionedMaterial;
+
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.Tag;
@@ -29,29 +28,20 @@ import java.util.Objects;
  */
 public class ThrowWeaponTask extends BukkitRunnable {
 
-    @Getter
     private final ArmorStand armorStand;
     
-    @Getter
     private final Player player;
     
-    @Getter
     private final ItemStack itemStack;
     
-    @Getter
     private final boolean rotateWeapon;
     
-    @Getter
     private final boolean isTriWeapon;
     
-    @Getter
     private final boolean isRetaliated;
     
-    @Getter
     private final ReturnWeaponTask returnWeaponTask;
 
-    @Getter
-    @Setter
     private Vector vector;
 
     public ThrowWeaponTask(Player player, ItemStack itemStack, boolean rotateWeapon, boolean isTriWeapon, boolean returnWeapon) {
@@ -70,30 +60,32 @@ public class ThrowWeaponTask extends BukkitRunnable {
     }
 
     public ArmorStand spawnArmorstand(Player player, ItemStack itemStack) {
-        return player.getWorld().spawn(player.getLocation().add(0, 0.9, 0), ArmorStand.class, armorStand -> {
-            armorStand.setArms(true);
-            armorStand.setGravity(false);
-            armorStand.setVisible(false);
-            armorStand.setSmall(true);
-            armorStand.setMarker(true);
-            armorStand.setCustomNameVisible(false);
-            armorStand.setPersistent(false);
+        ArmorStand as = player.getWorld().spawn(player.getLocation().add(0, 0.9, 0), ArmorStand.class);
 
-            getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_WITCH_THROW, 1.0F, 1.0F);
+        as.setArms(true);
+        as.setGravity(false);
+        as.setVisible(false);
+        as.setSmall(true);
+        as.setMarker(true);
+        as.setCustomNameVisible(false);
+        as.setPersistent(false);
 
-            ItemStack weapon = itemStack.clone();
+        getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_WITCH_THROW, 1.0F, 1.0F);
 
-            // sets armor stand arm item and body angle
-            if(isTriWeapon()) { // tri-weapon variant
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInMainHand(weapon);
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInOffHand(weapon);
-                Objects.requireNonNull(armorStand.getEquipment()).setHelmet(weapon);
-            } else { // not a tri-weapon variant
-                armorStand.setRightArmPose(Utils.setRightArmAngle(armorStand, 270, 0, 0));
+        ItemStack weapon = itemStack.clone();
 
-                Objects.requireNonNull(armorStand.getEquipment()).setItemInMainHand(weapon);
-            }
-        });
+        // sets armor stand arm item and body angle
+        if(isTriWeapon()) { // tri-weapon variant
+            Objects.requireNonNull(as.getEquipment()).setItemInMainHand(weapon);
+            Objects.requireNonNull(as.getEquipment()).setItemInOffHand(weapon);
+            Objects.requireNonNull(as.getEquipment()).setHelmet(weapon);
+        } else {
+            as.setRightArmPose(Utils.setRightArmAngle(as, 270, 0, 0));
+
+            Objects.requireNonNull(as.getEquipment()).setItemInMainHand(weapon);
+        }
+
+        return as;
     }
 
     @Override
@@ -115,7 +107,7 @@ public class ThrowWeaponTask extends BukkitRunnable {
 
         // check if the raytrace result has a block within the max distance
         // if it hits a block, the weapon is either returned or dropped
-        if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != Material.GRASS 
+        if(result != null && Objects.requireNonNull(result.getHitBlock()).getType() != VersionedMaterial.SHORT_GRASS
             && !Tag.FLOWERS.isTagged(result.getHitBlock().getType())) {
             if(shouldReturnWeapon(false)) {
                 returnWeapon();
@@ -208,5 +200,41 @@ public class ThrowWeaponTask extends BukkitRunnable {
 
     public void resetArmorstandArmPos() {
         getArmorStand().setRightArmPose(new EulerAngle(0, 0, 0));
+    }
+
+    public ArmorStand getArmorStand() {
+        return armorStand;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
+
+    public boolean isRotateWeapon() {
+        return rotateWeapon;
+    }
+
+    public boolean isTriWeapon() {
+        return isTriWeapon;
+    }
+
+    public boolean isRetaliated() {
+        return isRetaliated;
+    }
+
+    public ReturnWeaponTask getReturnWeaponTask() {
+        return returnWeaponTask;
+    }
+
+    public Vector getVector() {
+        return vector;
+    }
+
+    public void setVector(Vector vector) {
+        this.vector = vector;
     }
 }

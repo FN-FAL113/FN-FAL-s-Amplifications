@@ -1,7 +1,6 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
@@ -18,7 +17,6 @@ import java.util.List;
 
 public class UpgradedGem extends Gem {
 
-    @Getter
     private final NamespacedKey key;
 
     public UpgradedGem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, Player p) {
@@ -61,6 +59,10 @@ public class UpgradedGem extends Gem {
         } else {
             getPlayer().sendMessage(Utils.colorTranslator("&eYou do not have a similar gem that can be upgraded!"));
         }
+    }
+
+    public NamespacedKey getKey() {
+        return key;
     }
 
 }

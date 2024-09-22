@@ -3,9 +3,6 @@ package ne.fnfal113.fnamplifications.config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,10 +19,8 @@ import java.util.Map;
  * Main config manager class for FN Amplifications
  * @author FN_FAL113
  */
-@NoArgsConstructor
 public class ConfigManager {
 
-    @Getter
     private final Map<String, FileConfiguration> fileConfigurationMap = new HashMap<>();
 
     /**
@@ -61,7 +56,6 @@ public class ConfigManager {
      *
      * @param jsonName the name of the json file that will be saved
      */
-    @SneakyThrows
     public JsonObject loadJson(String jsonName) {
         try {
             // byte stream => char stream => json
@@ -105,6 +99,10 @@ public class ConfigManager {
             return customConfig;
         }
 
+    }
+
+    public Map<String, FileConfiguration> getFileConfigurationMap() {
+        return fileConfigurationMap;
     }
 
 }

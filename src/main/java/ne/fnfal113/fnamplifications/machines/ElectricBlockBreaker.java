@@ -13,7 +13,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
-
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
@@ -282,7 +282,7 @@ public class ElectricBlockBreaker extends SlimefunItem implements InventoryBlock
                             }
                         }
                         targetLocation.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.UI_STONECUTTER_TAKE_RESULT, 1, 1);
-                        b.getWorld().spawnParticle(Particle.SMOKE_LARGE, b.getLocation().add(1, 1, 1), 2, 0.1, 0.1, 0.1);
+                        b.getWorld().spawnParticle(VersionedParticle.SMOKE, b.getLocation().add(1, 1, 1), 2, 0.1, 0.1, 0.1);
                     } else {
                         progress++;
                         targetLocation.playSound(b.getLocation().add(0.5, 0.5, 0.5), Sound.BLOCK_STONE_HIT, 1, 1);

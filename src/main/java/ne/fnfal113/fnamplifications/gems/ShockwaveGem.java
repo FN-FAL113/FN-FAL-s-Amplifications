@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -37,12 +36,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    @Getter
     private final List<Double> cosine = new ArrayList<>();
-    @Getter
+
     private final List<Double> sine = new ArrayList<>();
 
-    @Getter
     private final Map<UUID, Long> playerCooldownMap = new HashMap<>();
 
     public ShockwaveGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -146,6 +143,18 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         block.setVelocity(new Vector(0, height, 0));
         // this metadata gets check on entity block change event, since falling blocks are converted to placed blocks on land
         block.setMetadata("shockwave_gem", new FixedMetadataValue(FNAmplifications.getInstance(), "ghost_block"));
+    }
+
+    public List<Double> getCosine() {
+        return cosine;
+    }
+
+    public List<Double> getSine() {
+        return sine;
+    }
+
+    public Map<UUID, Long> getPlayerCooldownMap() {
+        return playerCooldownMap;
     }
 
 }

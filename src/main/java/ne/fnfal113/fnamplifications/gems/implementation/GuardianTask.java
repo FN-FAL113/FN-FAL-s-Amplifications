@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,9 +20,8 @@ import org.bukkit.util.Vector;
 @SuppressWarnings("ConstantConditions")
 public class GuardianTask extends BukkitRunnable {
     
-    @Getter
     private final Zombie zombie;
-    @Getter
+    
     private final Player player;
 
     public GuardianTask(Player player, EntityDamageByEntityEvent event) {
@@ -39,8 +37,8 @@ public class GuardianTask extends BukkitRunnable {
             Vector finalVec;
 
             // since get direction returns a normalized vector, its x and z components can be used to
-            // position the guardian at right side of the player, the two components value can vary from which direction
-            // the player is facing
+            // position the guardian at right side of the player, the two components value can vary from 
+            // which direction the player is facing
             if(getPlayer().getFacing() == BlockFace.EAST || getPlayer().getFacing() == BlockFace.WEST) {
                 finalVec = vec.clone().setX(vec.getZ()).setZ(vec.getX()).setY(0.8);
             } else {
@@ -52,11 +50,12 @@ public class GuardianTask extends BukkitRunnable {
 
         if(getZombie().isDead() || !getPlayer().isOnline() || getPlayer().getEquipment().getChestplate() == null){
             getZombie().remove();
+
             this.cancel();
         }
     }
 
-    public void spawnZombie(EntityDamageByEntityEvent event){
+    public void spawnZombie(EntityDamageByEntityEvent event) {
         getZombie().setCustomName(getPlayer().getName() + "'s Guardian");
         getZombie().setCustomNameVisible(true);
         getZombie().setGlowing(true);
@@ -86,6 +85,14 @@ public class GuardianTask extends BukkitRunnable {
             getZombie().setTarget(event.getDamager() instanceof Projectile ?
                     (LivingEntity) ((Projectile) event.getDamager()).getShooter() : (LivingEntity) event.getDamager());
         }
+    }
+
+    public Zombie getZombie() {
+        return zombie;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
 }

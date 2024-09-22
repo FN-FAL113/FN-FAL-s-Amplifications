@@ -15,18 +15,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class LadderTask {
 
     public LadderTask() {}
 
-    private void cancelLadderPlace(Block relativeBlock, Block autoLadder){
-        if(autoLadder.getType() == Material.AIR){
+    private void cancelLadderPlace(Block relativeBlock, Block autoLadder) {
+        if(autoLadder.getType() == Material.AIR) {
             relativeBlock.setType(Material.AIR);
         }
     }
 
-    public void doPlaceTask(PlayerInteractEvent event, Block clickedBlock, BlockFace blockFace){
+    public void doPlaceTask(PlayerInteractEvent event, Block clickedBlock, BlockFace blockFace) {
         AtomicReference<BlockData> ladderData = new AtomicReference<>();
 
         if(clickedBlock.getType() == Material.AIR) {
@@ -39,39 +40,51 @@ public class LadderTask {
                 ladderData.set(clickedBlock.getRelative(blockFace).getBlockData()), 3L);
 
         AtomicInteger i = new AtomicInteger(0);
+        AtomicBoolean shouldPlaceAbove = new AtomicBoolean(true);
+        AtomicBoolean shouldPlaceBelow = new AtomicBoolean(true);
 
         Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task ->{
             Block relativeBottom = clickedBlock.getRelative(0, i.get(), 0);
             Block relativeUp = clickedBlock.getRelative(0, Math.abs(i.get()), 0);
+            
             boolean isAbovePlaceable = relativeUp.getType() != Material.AIR && relativeUp.getRelative(blockFace).getType() == Material.AIR;
             boolean isBottomPlaceable = relativeBottom.getType() != Material.AIR && relativeBottom.getRelative(blockFace).getType() == Material.AIR;
-
+            
             if(i.get() != 0) {
-                if (isAbovePlaceable) {
+                if(isAbovePlaceable && shouldPlaceAbove.get()) {
                     relativeUp.getRelative(blockFace).setType(Material.LADDER);
+                } else if(shouldPlaceAbove.get()) {
+                    shouldPlaceAbove.set(false);
                 }
-                if (isBottomPlaceable) {
+
+                if(isBottomPlaceable && shouldPlaceBelow.get()) {
                     relativeBottom.getRelative(blockFace).setType(Material.LADDER);
+                } else if(shouldPlaceBelow.get()) {
+                    shouldPlaceBelow.set(false);
                 }
 
-                // a delayed task to set the block data (rotation, etc) using the placed auto ladder
-                // of the ladder that will be added or below the auto ladder
-                Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
-                    if (isAbovePlaceable) {
+                // a delayed task to set the block data (rotation, etc) of other ladders using the placed auto ladder
+                Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), task2 -> {
+                    if(isAbovePlaceable && shouldPlaceAbove.get()) {
                         relativeUp.getRelative(event.getBlockFace()).setBlockData(ladderData.get());
+                       
                         cancelLadderPlace(relativeUp.getRelative(blockFace), clickedBlock.getRelative(blockFace));
-                    }
-                    if (isBottomPlaceable) {
-                        relativeBottom.getRelative(blockFace).setBlockData(ladderData.get());
-                        cancelLadderPlace(relativeBottom.getRelative(event.getBlockFace()), clickedBlock.getRelative(blockFace));
-                    }
 
-                    event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_LADDER_PLACE, 1.0F, 1.0F);
+                        event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_LADDER_PLACE, 1.0F, 1.0F);
+                    }
+                    if(isBottomPlaceable && shouldPlaceBelow.get()) {
+                        relativeBottom.getRelative(blockFace).setBlockData(ladderData.get());
+                        
+                        cancelLadderPlace(relativeBottom.getRelative(event.getBlockFace()), clickedBlock.getRelative(blockFace));
+
+                        event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_LADDER_PLACE, 1.0F, 1.0F);
+                    }                    
                 }, 3L);
             }
 
-            if(i.get() == -8){
+            if(i.get() == -8) {
                 task.cancel();
+
                 return;
             }
 

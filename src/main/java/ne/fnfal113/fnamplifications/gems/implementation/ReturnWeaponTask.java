@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -16,16 +15,12 @@ import org.bukkit.util.Vector;
  */
 public class ReturnWeaponTask extends BukkitRunnable {
 
-    @Getter
     private final Player player;
 
-    @Getter
     private final ItemStack itemStack;
     
-    @Getter
     private final ArmorStand armorStand;
 
-    @Getter
     private final boolean isTriWeapon;
 
     public ReturnWeaponTask(Player player, ItemStack itemStack, ArmorStand armorStand, boolean isTriWeapon) {
@@ -123,5 +118,21 @@ public class ReturnWeaponTask extends BukkitRunnable {
         this.cancel();
 
         getArmorStand().remove();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ItemStack getItemStack() {
+        return itemStack;
+    }
+
+    public ArmorStand getArmorStand() {
+        return armorStand;
+    }
+
+    public boolean isTriWeapon() {
+        return isTriWeapon;
     }
 }

@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedPotionType;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.*;
 import ne.fnfal113.fnamplifications.gems.unbinder.BlemishedUnbindGem;
@@ -232,10 +233,11 @@ public class RegisterGems {
 
         new CelerityGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_CELERITY, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                 FNAmpItems.AGILITY_RUNE, null, FNAmpItems.AGILITY_RUNE,
-                new PotionBuilder(PotionType.SPEED).createPotion(), new ItemStack(Material.EMERALD), new PotionBuilder(PotionType.SPEED).createPotion(),
+                new PotionBuilder(VersionedPotionType.SWIFTNESS).createPotion(), new ItemStack(Material.EMERALD), new PotionBuilder(VersionedPotionType.SWIFTNESS).createPotion(),
                 null, FNAmpItems.POWER_RUNE, null})
                 .register(instance);
 
+                
         if(FNAmplifications.getVaultIntegration().isVaultInstalled()){
             new LootGem(FNAmpItems.FN_GEMS, FNAmpItems.FN_GEM_LOOT, FnGemAltar.RECIPE_TYPE, new ItemStack[]{
                     FNAmpItems.PESTILENCE_RUNE, FNAmpItems.AGILITY_RUNE, FNAmpItems.LINGER_RUNE,

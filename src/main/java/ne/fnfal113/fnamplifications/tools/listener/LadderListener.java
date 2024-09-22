@@ -1,7 +1,6 @@
 package ne.fnfal113.fnamplifications.tools.listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import lombok.Getter;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import ne.fnfal113.fnamplifications.tools.AutoLadder;
 import org.bukkit.Material;
@@ -21,17 +20,20 @@ import java.util.List;
 public class LadderListener implements Listener {
 
     @EventHandler
-    public void onRightClick(PlayerInteractEvent event){
-        if(event.getAction() != Action.RIGHT_CLICK_BLOCK){
+    public void onRightClick(PlayerInteractEvent event) {
+        if(event.getAction() != Action.RIGHT_CLICK_BLOCK) {
             return;
         }
-        if(event.getClickedBlock() == null){
+
+        if(event.getClickedBlock() == null) {
             return;
         }
-        if(!event.getClickedBlock().getType().isSolid()){
+
+        if(!event.getClickedBlock().getType().isSolid()) {
             return;
         }
-        if(event.getPlayer().getInventory().getItemInMainHand().getType() != Material.LADDER){
+
+        if(event.getPlayer().getInventory().getItemInMainHand().getType() != Material.LADDER) { 
             return;
         }
 
@@ -39,7 +41,7 @@ public class LadderListener implements Listener {
 
         SlimefunItem sfItem = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
 
-        if(!(sfItem instanceof AutoLadder)){
+        if(!(sfItem instanceof AutoLadder)) {
             return;
         }
 
@@ -47,7 +49,7 @@ public class LadderListener implements Listener {
     }
 
     @EventHandler
-    public void onLadderPlace(BlockBreakEvent event){
+    public void onLadderPlace(BlockBreakEvent event) {
         Block block = event.getBlock();
 
         for (int i = -8; i <= 8; i++) {
@@ -88,10 +90,13 @@ enum BlockLadderFaces{
 
     BLOCK_LADDER_FACES(BlockFace.WEST, BlockFace.EAST, BlockFace.SOUTH, BlockFace.NORTH);
 
-    @Getter
     private final List<BlockFace> blockFaces = new ArrayList<>();
 
     BlockLadderFaces(BlockFace... faces) {
         this.blockFaces.addAll(Arrays.asList(faces));
+    }
+
+    public List<BlockFace> getBlockFaces() {
+        return blockFaces;
     }
 }

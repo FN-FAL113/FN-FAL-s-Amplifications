@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -68,7 +69,7 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
                             double z = Math.sin(a) * 0.65;
                             double y = a / 25;
                             
-                            victim.getWorld().spawnParticle(Particle.SMOKE_NORMAL, victim.getLocation().clone().add(x, y, z), 0);
+                            victim.getWorld().spawnParticle(VersionedParticle.SMOKE, victim.getLocation().clone().add(x, y, z), 0);
                         }
 
                         if(i.get() == 10 || victim.isDead() || !victim.isValid()) {

@@ -6,8 +6,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import lombok.Getter;
-import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
@@ -18,11 +16,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.IOException;
-
 public abstract class AbstractGem extends SlimefunItem {
 
-    @Getter
     private int chance;
 
     public AbstractGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -38,15 +33,14 @@ public abstract class AbstractGem extends SlimefunItem {
         GemKeysEnum.GEM_KEYS.getGemKeyList().add(Keys.createKey(this.getId().toLowerCase()));
     }
 
-    @SneakyThrows
-    public void initializeSettings(int defaultChance){
+    public void initializeSettings(int defaultChance) {
         // only gem with default chance above 0 but must also implement gem upgrade interface
         if(defaultChance != 0) { 
             setConfigChanceValues(defaultChance);
             setConfigWorldSettings();
 
             Utils.setGemTierLore(this.getItem(), this.getId(),
-                    "chance", "%", "&e", "%", 4, "gem-settings");
+                "chance", "%", "&e", "%", 4, "gem-settings");
             this.chance = FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getInt(this.getId() + "." + "chance");
         } else {
             setConfigWorldSettings();
@@ -57,16 +51,24 @@ public abstract class AbstractGem extends SlimefunItem {
      *
      * @param chance the chance to set in the config file
      */
-    public void setConfigChanceValues(int chance) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "chance", chance, "gem-settings");
+    public void setConfigChanceValues(int chance) {
+        try {
+            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "chance", chance, "gem-settings");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * This sets config world settings for the gems, enabled by default on all worlds
      */
-    public void setConfigWorldSettings() throws IOException {
-        for (World world: Bukkit.getWorlds()) {
-            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId() + "." + "world-settings", world.getName() + "_enable", true, "gem-settings");
+    public void setConfigWorldSettings() {
+        try {
+            for (World world: Bukkit.getWorlds()) {
+                FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId() + "." + "world-settings", world.getName() + "_enable", true, "gem-settings");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -75,7 +77,7 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param worldName the name of the world the player currently resides
      * @return true if gem is enabled in the current world
      */
-    public boolean isEnabledInCurrentWorld(String worldName){
+    public boolean isEnabledInCurrentWorld(String worldName) {
         return FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getBoolean(this.getId() + "." + "world-settings" + "." + worldName + "_enable");
     }
 
@@ -93,7 +95,7 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param player the thrower of the weapon
      * @return if the player has permission to throw his weapon in the current location
      */
-    public boolean hasPermissionToThrow(Player player){
+    public boolean hasPermissionToThrow(Player player) {
         return Slimefun.getProtectionManager().hasPermission(
                 Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
     }
@@ -110,5 +112,9 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param itemStackToSocket the itemstack to socket the gem
      */
     public abstract void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket);
+
+    public int getChance() {
+        return chance;
+    }
 
 }

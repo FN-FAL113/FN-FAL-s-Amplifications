@@ -54,16 +54,17 @@ public enum WeaponArmorEnum {
         this.materialSet = materials;
     }
 
-    public Material[] getMaterialSet(){
+    public Material[] getMaterialSet(){ 
         return materialSet;
     }
 
-    public boolean isTagged(Material material){
-        for(Material i : getMaterialSet()){
-            if(i == material){
+    public boolean isTagged(Material material) {
+        for(Material mat : getMaterialSet()) {
+            if(mat == material) {
                 return true;
             }
         }
+        
         return false;
     }
 

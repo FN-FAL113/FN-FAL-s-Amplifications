@@ -1,12 +1,11 @@
 package ne.fnfal113.fnamplifications.powergenerators.implementation;
 
-import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
-import lombok.SneakyThrows;
-import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.utils.Utils;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -15,11 +14,11 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
-
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
+import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.Utils;
 
 public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
 
@@ -27,7 +26,6 @@ public class CustomSolarGen extends SlimefunItem implements EnergyNetProvider {
     private final int nightEnergy;
     private final int capacity;
 
-    @SneakyThrows
     public CustomSolarGen(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int dayEnergy, int nightEnergy, int capacity) {
         super(itemGroup, item, recipeType, recipe);
         this.dayEnergy = dayEnergy;

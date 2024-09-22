@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.mysteriousitems.implementation;
 
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -28,19 +27,18 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("ConstantConditions")
 public class StickTask {
 
-    @Getter
     public final NamespacedKey xpKey;
-    @Getter
+
     public final NamespacedKey damageInflictedKey;
-    @Getter
+
     public final Map<Enchantment, Integer> enchantmentMap;
-    @Getter
+
     public final String weaponLore;
-    @Getter
+
     public final String stickLore;
-    @Getter
+
     public final int effectCount;
-    @Getter
+
     public final int requiredLevel;
 
     @ParametersAreNonnullByDefault
@@ -205,6 +203,34 @@ public class StickTask {
         player.sendTitle(ChatColor.DARK_RED + "Your vision darkens!", ChatColor.RED + "The stick is unpredictable", 40, 120, 40);
         
         player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD  + "[FNAmpli" + ChatColor.AQUA + "" + ChatColor.BOLD + "fications] > " + ChatColor.YELLOW + "You're too weak, make sure your exp level is higher than " + level);
+    }
+
+    public NamespacedKey getXpKey() {
+        return xpKey;
+    }
+
+    public NamespacedKey getDamageInflictedKey() {
+        return damageInflictedKey;
+    }
+
+    public Map<Enchantment, Integer> getEnchantmentMap() {
+        return enchantmentMap;
+    }
+
+    public String getWeaponLore() {
+        return weaponLore;
+    }
+
+    public String getStickLore() {
+        return stickLore;
+    }
+
+    public int getEffectCount() {
+        return effectCount;
+    }
+
+    public int getRequiredLevel() {
+        return requiredLevel;
     }
 
 }

@@ -1,7 +1,5 @@
 package ne.fnfal113.fnamplifications.staffs.implementations;
 
-import lombok.Getter;
-import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.NamespacedKey;
@@ -16,12 +14,10 @@ import java.util.Objects;
 
 public class StaffTask {
 
-    @Getter
     private final NamespacedKey storageKey;
-    @Getter
+
     private final String id;
 
-    @SneakyThrows
     public StaffTask(NamespacedKey storageKey, String id) {
         this.storageKey = storageKey;
         this.id = id;
@@ -33,7 +29,7 @@ public class StaffTask {
      * @param meta the item meta of the staff
      * @param player the player who used the staff
      */
-    public void updateMeta(ItemStack item, ItemMeta meta, Player player){
+    public void updateMeta(ItemStack item, ItemMeta meta, Player player) {
         PersistentDataContainer max_Uses = meta.getPersistentDataContainer();
         int uses_Left = max_Uses.getOrDefault(getStorageKey(), PersistentDataType.INTEGER, FNAmplifications.getInstance().getConfigManager().getCustomConfig("staffs-settings").getInt(this.getId() + "." + "max-uses"));
         int decrement = uses_Left - 1;
@@ -46,7 +42,16 @@ public class StaffTask {
             player.sendMessage(Utils.colorTranslator(meta.getDisplayName() + " &d&lhas reached max uses!"));
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
+
         Objects.requireNonNull(player.getLocation().getWorld()).playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_CAST_SPELL, 1, 1);
+    }
+
+    public NamespacedKey getStorageKey() {
+        return storageKey;
+    }
+
+    public String getId() {
+        return id;
     }
 
 }

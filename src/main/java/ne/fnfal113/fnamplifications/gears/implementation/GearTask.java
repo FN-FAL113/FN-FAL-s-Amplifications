@@ -1,7 +1,6 @@
 package ne.fnfal113.fnamplifications.gears.implementation;
 
 import com.google.common.base.Strings;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
@@ -18,23 +17,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// To DO: Method Documentation
 @SuppressWarnings("ConstantConditions")
 public class GearTask {
 
-    @Getter
     private final NamespacedKey storageKey;
-    @Getter
+
     private final NamespacedKey storageKey2;
-    @Getter
+
     private final NamespacedKey storageKey3;
-    @Getter
+
     private final int startingProgress;
-    @Getter
+
     private final int incrementProgress;
-    @Getter
+
     private final int maxLevel;
-    @Getter
+
     private final ItemStack itemStack;
 
     private final List<UUID> uuidList = new ArrayList<>();
@@ -142,6 +139,34 @@ public class GearTask {
     public void sendLevelUpMessage(Player p){
         p.sendMessage(Utils.colorTranslator("&c&l[FNAmpli&b&lfications]> " + getItemStack().getItemMeta().getDisplayName()  + " leveled up!"));
         p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1 , 1);
+    }
+
+    public NamespacedKey getStorageKey() {
+        return storageKey;
+    }
+
+    public NamespacedKey getStorageKey2() {
+        return storageKey2;
+    }
+
+    public NamespacedKey getStorageKey3() {
+        return storageKey3;
+    }
+
+    public int getStartingProgress() {
+        return startingProgress;
+    }
+
+    public int getIncrementProgress() {
+        return incrementProgress;
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    public ItemStack getItemStack() {
+        return itemStack;
     }
 
 }

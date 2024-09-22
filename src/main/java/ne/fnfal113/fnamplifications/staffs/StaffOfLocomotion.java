@@ -5,8 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import lombok.Getter;
-import lombok.SneakyThrows;
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.handlers.EntityStaffImpl;
 import ne.fnfal113.fnamplifications.utils.Keys;
@@ -33,14 +31,13 @@ import java.util.UUID;
 @SuppressWarnings("ConstantConditions")
 public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl {
 
-    @Getter
+
     private final Map<PersistentDataContainer, LivingEntity> ENTITY_OWNER = new HashMap<>();
-    @Getter
+
     private final NamespacedKey identifierKey = Keys.createKey("identifier");
-    @Getter
+
     private final HashMap<UUID, Boolean> STATE_MAP = new HashMap<>();
 
-    @SneakyThrows
     public StaffOfLocomotion(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe, 10, Keys.createKey("movestaff"));
     }
@@ -124,4 +121,17 @@ public class StaffOfLocomotion extends AbstractStaff implements EntityStaffImpl 
             getStaffTask().updateMeta(item, meta, player);
         }
     }
+
+    public Map<PersistentDataContainer, LivingEntity> getENTITY_OWNER() {
+        return ENTITY_OWNER;
+    }
+
+    public NamespacedKey getIdentifierKey() {
+        return identifierKey;
+    }
+
+    public HashMap<UUID, Boolean> getSTATE_MAP() {
+        return STATE_MAP;
+    }
+
 }

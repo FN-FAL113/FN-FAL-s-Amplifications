@@ -1,7 +1,7 @@
 name: FNAmplifications
 version: '${project.version}'
 main: ne.fnfal113.fnamplifications.FNAmplifications
-api-version: 1.16
+api-version: 1.17
 authors: [ FN_FAL113 ]
 description: Explore plethora of in-game items from machines, tools, pvp and many more!
 website: https://github.com/FN-FAL113

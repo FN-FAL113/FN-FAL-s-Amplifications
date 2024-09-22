@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedPotionEffectType;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
@@ -60,7 +61,7 @@ public class SedateGem extends AbstractGem implements OnDamageHandler, GemUpgrad
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
             int level = Math.abs(tier - 4);
 
-            livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, level));
+            livingEntity.addPotionEffect(new PotionEffect(VersionedPotionEffectType.SLOWNESS, 120, level));
             sendGemMessage(player, this.getItemName());
         }
 

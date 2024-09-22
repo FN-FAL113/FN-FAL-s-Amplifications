@@ -14,8 +14,6 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 
-import lombok.Getter;
-import lombok.Setter;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
@@ -48,22 +46,16 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 
 public class CustomMaterialGenerator extends SlimefunItem implements InventoryBlock {
 
-    @Getter
     private final Map<BlockPosition, Integer> generatorProgress = new HashMap<>();
 
-    @Getter
     private final Map<BlockPosition, Integer> generatorCondition = new HashMap<>();
 
-    @Getter
     private final Map<BlockPosition, FastProduceCache> generatorFastProduce = new HashMap<>();
 
-    @Getter
     private final int sfTickerDelay = Slimefun.getTickerTask().getTickRate();
 
-    @Getter
     private final boolean breakOverTime = FNAmplifications.getInstance().getConfig().getBoolean("Enable-Mat-Gen-Break-Over-Time", true);
 
-    @Getter
     private final boolean dropBrokenVariantOnBreak = FNAmplifications.getInstance().getConfig().getBoolean("Enable-Mat-Gen-Broken-Drop", true);
 
     private static final CustomItemStack NOT_GENERATING = new CustomItemStack(Material.RED_STAINED_GLASS_PANE,
@@ -315,16 +307,11 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
     }
 
     public static class FastProduceCache{
-        @Getter
-        @Setter
+
         private double multiplier;
 
-        @Getter
-        @Setter
         private int currentLifetime;
 
-        @Getter
-        @Setter
         private int maxLifetime;
 
         public FastProduceCache(double multiplier, int currentLifetime, int maxLifetime) {
@@ -333,11 +320,60 @@ public class CustomMaterialGenerator extends SlimefunItem implements InventoryBl
             this.maxLifetime = maxLifetime;
         }
 
-        public void reset(){
+        public void reset() {
             this.multiplier = 0;
             this.currentLifetime = 0;
             this.maxLifetime = 0;
-
         }
+
+        public double getMultiplier() {
+            return multiplier;
+        }
+
+        public int getCurrentLifetime() {
+            return currentLifetime;
+        }
+
+        public int getMaxLifetime() {
+            return maxLifetime;
+        }
+
+        public void setMultiplier(double multiplier) {
+            this.multiplier = multiplier;
+        }
+
+        public void setCurrentLifetime(int currentLifetime) {
+            this.currentLifetime = currentLifetime;
+        }
+
+        public void setMaxLifetime(int maxLifetime) {
+            this.maxLifetime = maxLifetime;
+        }
+
+        
+    }
+
+    public Map<BlockPosition, Integer> getGeneratorProgress() {
+        return generatorProgress;
+    }
+
+    public Map<BlockPosition, Integer> getGeneratorCondition() {
+        return generatorCondition;
+    }
+
+    public Map<BlockPosition, FastProduceCache> getGeneratorFastProduce() {
+        return generatorFastProduce;
+    }
+
+    public int getSfTickerDelay() {
+        return sfTickerDelay;
+    }
+
+    public boolean isBreakOverTime() {
+        return breakOverTime;
+    }
+
+    public boolean isDropBrokenVariantOnBreak() {
+        return dropBrokenVariantOnBreak;
     }
 }

@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedPotionEffectType;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -51,7 +52,7 @@ public class HastyGem extends AbstractGem implements OnBlockBreakHandler, GemUpg
 
         if(SlimefunTag.ORES.isTagged(block.getType()) || SlimefunTag.STONE_VARIANTS.isTagged(block.getType())) {
             if (ThreadLocalRandom.current().nextInt(100) < (getChance() / getTier(itemStack, this.getId()))) {
-                PotionEffect potionEffect = new PotionEffect(PotionEffectType.FAST_DIGGING, 120, 2, true, false, false);
+                PotionEffect potionEffect = new PotionEffect(VersionedPotionEffectType.HASTE, 120, 2, true, false, false);
                 
                 player.addPotionEffect(potionEffect);
                 

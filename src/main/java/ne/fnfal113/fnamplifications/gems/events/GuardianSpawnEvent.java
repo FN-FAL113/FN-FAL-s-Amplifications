@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.gems.events;
 
-import lombok.Getter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
@@ -15,12 +14,12 @@ public class GuardianSpawnEvent extends Event implements Cancellable, Listener {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
-    @Getter
     private final Player guardianOwner;
-    @Getter
+
     private final Entity damager;
-    @Getter
+
     private final Zombie zombieGuardian;
+
     private boolean isCancelled;
 
     public GuardianSpawnEvent(Player guardianOwner, Zombie zombieGuardian, Entity damager){
@@ -50,5 +49,16 @@ public class GuardianSpawnEvent extends Event implements Cancellable, Listener {
         return HANDLERS_LIST;
     }
 
+    public Player getGuardianOwner() {
+        return guardianOwner;
+    }
+
+    public Entity getDamager() {
+        return damager;
+    }
+
+    public Zombie getZombieGuardian() {
+        return zombieGuardian;
+    }
 
 }

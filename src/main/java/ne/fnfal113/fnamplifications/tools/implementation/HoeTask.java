@@ -4,6 +4,8 @@ import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.compatibility.VersionedMaterial;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -23,14 +25,15 @@ import java.util.Set;
 
 public class HoeTask {
 
-    private static Material GRASS = Material.matchMaterial("GRASS_PATH");
+    private static Material GRASS_PATH = Material.matchMaterial("GRASS_PATH");
 
     private static final Set<Material> MAT = new HashSet<>();
 
     static {
         if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
-            GRASS = Material.DIRT_PATH;
+            GRASS_PATH = Material.DIRT_PATH;
         }
+        
         MAT.addAll(Tag.FLOWERS.getValues());
         MAT.addAll(Tag.SMALL_FLOWERS.getValues());
         MAT.addAll(Tag.TALL_FLOWERS.getValues());
@@ -40,19 +43,19 @@ public class HoeTask {
     private final Set<Material> dirtBlocks = EnumSet.of(
             Material.DIRT,
             Material.GRASS_BLOCK,
-            GRASS
+            GRASS_PATH
     );
 
     private final Set<Material> grass = EnumSet.of(
-            Material.GRASS,
+            VersionedMaterial.SHORT_GRASS,
             Material.FERN,
             Material.LARGE_FERN,
             Material.TALL_GRASS
     );
 
-    public HoeTask(){}
+    public HoeTask() {}
 
-    public void tillLand(Player player, Block clickedBlock){
+    public void tillLand(Player player, Block clickedBlock) {
         if(!dirtBlocks.contains(clickedBlock.getType())){
             return;
         }
@@ -85,20 +88,23 @@ public class HoeTask {
                 if (Tag.CROPS.isTagged(clickedBlock.getRelative(a, 0, b).getType()) &&
                         clickedBlock.getRelative(a, 0, b).getBlockData().clone() instanceof Ageable) {
                     Ageable ageable = (Ageable) clickedBlock.getRelative(a, 0, b).getBlockData().clone();
+                    
                     if (Slimefun.getProtectionManager().hasPermission
                             (Bukkit.getOfflinePlayer(player.getUniqueId()), clickedBlock.getRelative(a, 0, b), Interaction.BREAK_BLOCK)) {
 
                         Block block = clickedBlock.getRelative(a, 0, b);
                         Material material = block.getBlockData().getMaterial();
+
                         clickedBlock.getRelative(a, 0, b).breakNaturally(itemStack);
-                        if(willReplant){
-                            if (ageable.getAge() == ageable.getMaximumAge()) {
-                                k = k + 1;
-                                Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> block.setType(material), 5L);
-                            }
+
+                        if(willReplant && ageable.getAge() == ageable.getMaximumAge()) {
+                            k = k + 1;
+                            Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> block.setType(material), 5L);
                         }
                     } // perm check
+
                 } // check if block is a crop
+
             } // z axis loop
         } // x axis loop
 
@@ -107,9 +113,10 @@ public class HoeTask {
         }
     }
 
-    public Map<String, Integer> setValues(Player player){
+    public Map<String, Integer> setValues(Player player) {
         Map<String, Integer> integers = new HashMap<>();
         int x = 0, z = 0;
+
         if (player.getFacing() == BlockFace.EAST) {
             integers.put("x", x);
             integers.put("i", 5);

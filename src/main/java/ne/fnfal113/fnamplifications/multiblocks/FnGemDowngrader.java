@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
@@ -153,12 +154,12 @@ public class FnGemDowngrader extends MultiBlockMachine {
 
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
                 b.getWorld().spawnParticle(Particle.FLAME, b.getLocation().add(0.4, 0.45, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
-                b.getWorld().spawnParticle(Particle.SMOKE_LARGE, b.getLocation().add(0.4, 0.5, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
+                b.getWorld().spawnParticle(Particle.SMOKE, b.getLocation().add(0.4, 0.5, 0.5), 2, 0.1, 0.1, 0.1, 0.1);
                 b.getWorld().playSound(b.getLocation(), Sound.BLOCK_GRINDSTONE_USE, 1, 1);
 
                 Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
                     b.getWorld().playEffect(b.getLocation().add(0.35, 0.75, 0.35), Effect.MOBSPAWNER_FLAMES, 1);
-                    b.getWorld().spawnParticle(Particle.SMOKE_LARGE, b.getLocation().add(0.2, 1.7, 0.2), 2, 0.1, 0.1, 0.1, 0.1);
+                    b.getWorld().spawnParticle(VersionedParticle.SMOKE, b.getLocation().add(0.2, 1.7, 0.2), 2, 0.1, 0.1, 0.1, 0.1);
                     b.getWorld().playSound(b.getLocation(), Sound.UI_STONECUTTER_TAKE_RESULT, 1, 1);
 
                     Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {

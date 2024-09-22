@@ -1,7 +1,6 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.ChatColor;
@@ -22,22 +21,16 @@ import java.util.Locale;
 @SuppressWarnings("ConstantConditions")
 public class Gem {
 
-    @Getter
     private final SlimefunItem slimefunGemItem;
 
-    @Getter
     private final ItemStack itemStackToSocket;
 
-    @Getter
     private final String SlimefunGemItemID;
 
-    @Getter
     private final Player player;
 
-    @Getter
     private final NamespacedKey SlimefunGemItemIDKey;
 
-    @Getter
     private final NamespacedKey socketAmountKey;
 
     @ParametersAreNonnullByDefault
@@ -135,6 +128,30 @@ public class Gem {
         }
 
         return itemPdc.has(getSlimefunGemItemIDKey(), PersistentDataType.STRING);
+    }
+
+    public SlimefunItem getSlimefunGemItem() {
+        return slimefunGemItem;
+    }
+
+    public ItemStack getItemStackToSocket() {
+        return itemStackToSocket;
+    }
+
+    public String getSlimefunGemItemID() {
+        return SlimefunGemItemID;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public NamespacedKey getSlimefunGemItemIDKey() {
+        return SlimefunGemItemIDKey;
+    }
+
+    public NamespacedKey getSocketAmountKey() {
+        return socketAmountKey;
     }
 
 }
