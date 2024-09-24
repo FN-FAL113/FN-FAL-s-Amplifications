@@ -8,11 +8,13 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -59,12 +61,12 @@ public class FnGemUpgrader extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = PaperLib.getBlockState(dispBlock, false).getState();
 
-        if (state instanceof Dispenser) {
+        if(state instanceof Dispenser) {
             Dispenser disp = (Dispenser) state;
             Inventory inv = disp.getInventory();
 
             if(inv.getContents()[0] != null && inv.getContents()[4] != null) {
-                if (canCraft(inv, inv.getContents()[0].clone(), p)) {
+                if(canCraft(inv, inv.getContents()[0].clone(), p)) {
                     String id = Objects.requireNonNull(SlimefunItem.getByItem(inv.getContents()[0])).getId();
                     ItemStack output = Objects.requireNonNull(inv.getItem(0)).clone();
 
@@ -74,7 +76,7 @@ public class FnGemUpgrader extends MultiBlockMachine {
                 }
             }
 
-            if (inv.isEmpty()) {
+            if(inv.isEmpty()) {
                 Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
             } else {
                 Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
@@ -83,29 +85,27 @@ public class FnGemUpgrader extends MultiBlockMachine {
     }
 
     private boolean canCraft(Inventory inv, ItemStack gem, Player p) {
-        for (int i : blankSlots) {
-            if(inv.getContents()[i] != null){
+        for(int i : blankSlots) {
+            if(inv.getContents()[i] != null) {
                 return false;
             }
         }
 
-        if(!SlimefunUtils.isItemSimilar(inv.getContents()[4], FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, true, false)){
-            return false;
-        }
+        if(!SlimefunUtils.isItemSimilar(inv.getContents()[4], FNAmpItems.FN_GEM_FINE_JASPER_CRAFTING, true, false)) return true;
 
-        for (int i : slot) {
-            if(i == 4){
-                continue;
-            }
+        for(int i : slot) {
+            if(i == 4) continue;
 
             if(SlimefunItem.getByItem(gem) instanceof GemUpgrade) {
                 ItemStack itemStack = inv.getContents()[i];
                 SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
 
-                if (sfItem instanceof GemUpgrade && SlimefunUtils.isItemSimilar(itemStack, gem, true, false)) {
+                if(sfItem instanceof GemUpgrade && SlimefunUtils.isItemSimilar(itemStack, gem, true, false)) {
                     if(((GemUpgrade) sfItem).getTier(itemStack, sfItem.getId()) == 1){
                         p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
-                        p.sendMessage(Utils.colorTranslator("&cMax tier reached! Gem cannot be upgraded anymore!"));
+                       
+                        Utils.sendMessage("Max tier reached! Gem cannot be upgraded anymore!", p);
+
                         return false;
                     }
                 } else {
@@ -125,24 +125,26 @@ public class FnGemUpgrader extends MultiBlockMachine {
         Inventory outputInv = findOutputInventory(finalOutput, dispenser, inv, fakeInv);
 
         craftItem(inv, b);
-        if (outputInv != null) {
+        if(outputInv != null) {
 
             outputInv.addItem(finalOutput);
         } else {
             dispenser.getWorld().dropItem(b.getLocation(), finalOutput);
+            
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-            p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
+            
+            Utils.sendMessage("Crafted item has been dropped instead", p);
         }
 
-        if(output.getItemMeta().hasDisplayName()){
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully upgraded to " + output.getItemMeta().getDisplayName() + "!"));
+        if(output.getItemMeta().hasDisplayName()) {
+            Utils.sendMessage("Successfully upgraded to " + output.getItemMeta().getDisplayName() + "!", p);
         } else{
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully upgraded the gem!"));
+            Utils.sendMessage("Successfully upgraded the gem!", p);
         }
     }
 
-    public void craftItem(Inventory inv, Block b){
-        for (int i : slot) {
+    public void craftItem(Inventory inv, Block b) {
+        for(int i : slot) {
             ItemStack item = inv.getContents()[i];
 
             if(item != null && item.getType() != Material.AIR) {
@@ -177,41 +179,44 @@ public class FnGemUpgrader extends MultiBlockMachine {
         }, 30);
     }
 
-    public ItemStack setOutput(ItemStack output, String id){
+    public ItemStack setOutput(ItemStack output, String id) {
         ItemMeta meta = output.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
         NamespacedKey key = Keys.createKey(id + "_gem_tier");
+
         int tier = pdc.getOrDefault(key, PersistentDataType.INTEGER, 4);
 
         pdc.set(key, PersistentDataType.INTEGER, tier - 1);
+
         if(tier == 4) {
             meta.setDisplayName(meta.getDisplayName() + " " + getTierRomanNumeral(tier - 1));
         } else {
             meta.setDisplayName(meta.getDisplayName().replace(getTierRomanNumeral(tier), getTierRomanNumeral(tier - 1)));
         }
+
         output.setItemMeta(meta);
 
         return output.clone();
     }
 
-    public String getTierRomanNumeral(int tier){
-        if(tier == 3){
+    public String getTierRomanNumeral(int tier) {
+        if(tier == 3) { 
             return "II";
-        } else if(tier == 2){
+        } else if(tier == 2) {
             return "III";
         }
 
         return "IV";
     }
 
-    protected @Nonnull
-    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+    protected @Nonnull Inventory createVirtualInventory(@Nonnull Inventory inv) {
         Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
 
-        for (int i : slot) {
+        for(int i : slot) {
             ItemStack stack = inv.getContents()[i];
 
-            if (stack != null) {
+            if(stack != null) {
                 stack = stack.clone();
                 ItemUtils.consumeItem(stack, true);
             }

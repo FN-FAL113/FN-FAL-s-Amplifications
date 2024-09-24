@@ -4,11 +4,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnPlayerDeathHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+
 import org.bukkit.Location;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Player;
@@ -32,7 +34,7 @@ public class AvengeGem extends AbstractGem implements OnPlayerDeathHandler, GemU
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on boots only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on boots only", player);
         }
     }
 
@@ -40,7 +42,9 @@ public class AvengeGem extends AbstractGem implements OnPlayerDeathHandler, GemU
     public void onPlayerDeath(PlayerDeathEvent event, ItemStack itemStack) {
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             Player player = event.getEntity();
+            
             Location loc = player.getLocation();
+            
             Creeper creeper = player.getWorld().spawn(loc.clone(), Creeper.class);
             
             creeper.setPowered(true); // big boomer creeper

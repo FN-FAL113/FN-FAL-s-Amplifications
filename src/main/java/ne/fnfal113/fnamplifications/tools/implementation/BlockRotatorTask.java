@@ -1,10 +1,13 @@
 package ne.fnfal113.fnamplifications.tools.implementation;
 
 import com.google.common.collect.Sets;
+
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,9 +39,9 @@ public class BlockRotatorTask {
         }
 
         directionalBlocks.addAll(Sets.newHashSet(
-                Material.TRIPWIRE_HOOK, Material.LADDER,
-                Material.WALL_TORCH, Material.LEVER,
-                Material.REDSTONE_WALL_TORCH, Material.SOUL_WALL_TORCH));
+            Material.TRIPWIRE_HOOK, Material.LADDER,
+            Material.WALL_TORCH, Material.LEVER,
+            Material.REDSTONE_WALL_TORCH, Material.SOUL_WALL_TORCH));
 
         directionalBlocks.addAll(Tag.BUTTONS.getValues());
         directionalBlocks.addAll(Tag.WALL_SIGNS.getValues());
@@ -51,15 +54,17 @@ public class BlockRotatorTask {
 
     public BlockRotatorTask () {}
 
-    public void onRightClick(Block block, Player player){
+    public void onRightClick(Block block, Player player) {
         if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()),
-                player.getLocation(), Interaction.BREAK_BLOCK)){
-            player.sendMessage(Utils.colorTranslator("&c&l[FNAmpli" + "&b&lfications] > " + "&eYou don't have permission to rotate that block!"));
+            player.getLocation(), Interaction.BREAK_BLOCK)) {
+            Utils.sendMessage("You don't have permission to rotate that block!", player);
+
             return;
         }
+
         BlockData blockData = block.getBlockData();
 
-        if(player.isSneaking()){
+        if(player.isSneaking()) {
             if(Tag.DOORS.isTagged(block.getType()) || Tag.TALL_FLOWERS.isTagged(block.getType()) ||
                     Tag.FLOWERS.isTagged(block.getType())){
                 return;

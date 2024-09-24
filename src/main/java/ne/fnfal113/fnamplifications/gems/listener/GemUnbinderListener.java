@@ -15,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.InventoryView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,9 +58,7 @@ public class GemUnbinderListener implements Listener {
      */
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
-        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
+        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Player player = event.getPlayer();
         SlimefunItem slimefunItem = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
@@ -71,7 +68,7 @@ public class GemUnbinderListener implements Listener {
             player.updateInventory(); // refresh player inventory to prevent visual bugs
 
             if(player.getInventory().getItemInOffHand().getType() == Material.AIR) {
-                player.sendMessage(Utils.colorTranslator("&cYou have no item in your offhand that contain bounded gems!"));
+                Utils.sendMessage("You have no item in your offhand that contain bounded gems!", player);
                 
                 return;
             }

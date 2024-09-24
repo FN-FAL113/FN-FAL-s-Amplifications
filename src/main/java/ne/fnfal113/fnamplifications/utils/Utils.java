@@ -1,14 +1,16 @@
 package ne.fnfal113.fnamplifications.utils;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
+
 import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.EulerAngle;
 
 import javax.annotation.Nonnull;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -23,16 +25,20 @@ public class Utils {
     public static final DecimalFormat powerFormat = new DecimalFormat("###,###.##",
         DecimalFormatSymbols.getInstance(Locale.ROOT));
 
-    public static String colorTranslator(String strings){
+    public static String colorTranslator(String strings) {
         return ChatColor.translateAlternateColorCodes('&', strings);
     }
 
-    public static String[] stringSequence(String... stringSequence){
+    public static void sendMessage(String message, LivingEntity livingEntity) {
+        livingEntity.sendMessage(colorTranslator("&c&l[FNAmpli" + "&b&lfications] > &6" + message));
+    }
+
+    public static String[] stringSequence(String... stringSequence) {
         return stringSequence;
     }
 
     // Armorstand methods for setting euler angles
-    public static EulerAngle setRightArmAngle(ArmorStand armorStand, int x, int y, int z){
+    public static EulerAngle setRightArmAngle(ArmorStand armorStand, int x, int y, int z) {
         double armorStandX = armorStand.getRightArmPose().getX();
         double armorStandY = armorStand.getRightArmPose().getY();
         double armorStandZ = armorStand.getRightArmPose().getZ();
@@ -40,7 +46,7 @@ public class Utils {
         return new EulerAngle(armorStandX + Math.toRadians(x), armorStandY + Math.toRadians(y), armorStandZ + Math.toRadians(z));
     }
 
-    public static EulerAngle setLeftArmAngle(ArmorStand armorStand, int x, int y, int z){
+    public static EulerAngle setLeftArmAngle(ArmorStand armorStand, int x, int y, int z) {
         double armorStandX = armorStand.getLeftArmPose().getX();
         double armorStandY = armorStand.getLeftArmPose().getY();
         double armorStandZ = armorStand.getLeftArmPose().getZ();
@@ -48,7 +54,7 @@ public class Utils {
         return new EulerAngle(armorStandX + Math.toRadians(x), armorStandY + Math.toRadians(y), armorStandZ + Math.toRadians(z));
     }
 
-    public static EulerAngle setHeadAngle(ArmorStand armorStand, int x, int y, int z){
+    public static EulerAngle setHeadAngle(ArmorStand armorStand, int x, int y, int z) {
         double armorStandX = armorStand.getHeadPose().getX();
         double armorStandY = armorStand.getHeadPose().getY();
         double armorStandZ = armorStand.getHeadPose().getZ();
@@ -67,11 +73,11 @@ public class Utils {
      * @param tier the current gem tier
      * @param fileName the filename of the config for retrieving the value
      */
-    public static void setGemTierLore(ItemStack itemStack, String configSection, String configSectionSetting, String stringToReplace, String color, String suffix, int tier, String fileName){
+    public static void setGemTierLore(ItemStack itemStack, String configSection, String configSectionSetting, String stringToReplace, String color, String suffix, int tier, String fileName) {
         ItemMeta meta = itemStack.getItemMeta();
         List<String> lore = meta.getLore();
 
-        for(int i = 0; i < lore.size(); i++){
+        for(int i = 0; i < lore.size(); i++) {
             if(lore.get(i).contains(Utils.colorTranslator(color + stringToReplace))){
                 String line = lore.get(i).replace(Utils.colorTranslator(color + stringToReplace),
                         Utils.colorTranslator(color + (FNAmplifications.getInstance().getConfigManager().getCustomConfig(fileName).getInt(configSection + "." + configSectionSetting) / tier--) + suffix));

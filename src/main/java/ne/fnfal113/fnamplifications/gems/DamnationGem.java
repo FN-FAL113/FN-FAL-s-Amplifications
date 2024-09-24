@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
@@ -11,6 +12,7 @@ import ne.fnfal113.fnamplifications.gems.implementation.ThrowWeaponTask;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -34,22 +36,21 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if ((WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType()))) {
             bindGem(slimefunGemItem, itemStackToSocket, player);
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on axes and swords only", player);
         }
     }
 
     @Override
     public void onRightClick(Player player) {
-        if(!player.isSneaking()){
-            return;
-        }
+        if(!player.isSneaking()) return;
         
         if(!hasPermissionToThrow(player)) {
-            player.sendMessage(Utils.colorTranslator("&eYou don't have the permission to use damnation here! (Needs block interaction flag enabled)"));
+            Utils.sendMessage("You don't have the permission to use damnation here! (Needs block interaction flag enabled)", player);
+            
             return;
         } // check if player has the permission to build on current location
 
@@ -60,7 +61,7 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
         if(isBelowWeaponLimit(player)) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-            try{
+            try {
                 String pdcValue = pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false");
 
                 // creates throw a task from this object instance
@@ -77,23 +78,23 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
         }
     }
 
-    public boolean isBelowWeaponLimit(Player player){
-        if(!getCurrentWeaponMap().containsKey(player.getUniqueId())){
+    public boolean isBelowWeaponLimit(Player player) {
+        if(!getCurrentWeaponMap().containsKey(player.getUniqueId())) {
             getCurrentWeaponMap().put(player.getUniqueId(), 0);
         }
 
-        if(getCurrentWeaponMap().get(player.getUniqueId()) < 4){
+        if(getCurrentWeaponMap().get(player.getUniqueId()) < 4) {
             getCurrentWeaponMap().put(player.getUniqueId(), getCurrentWeaponMap().get(player.getUniqueId()) + 1);
 
             return true;
-        } else{
-            player.sendMessage(Utils.colorTranslator("&eLimit reached! You can only have 4 weapons simultaneously"));
+        } else {
+            Utils.sendMessage("Limit reached! You can only have 4 weapons simultaneously", player);
 
             return false;
         }
     }
 
-    public void floatAndThrowWeapon(ThrowWeaponTask throwWeaponTask){ // used by damnation gem
+    public void floatAndThrowWeapon(ThrowWeaponTask throwWeaponTask) { // used by damnation gem
         ArmorStand as = throwWeaponTask.getArmorStand();
         Player player = throwWeaponTask.getPlayer();
 
@@ -114,7 +115,7 @@ public class DamnationGem extends AbstractGem implements OnRightClickHandler {
 
             Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () ->{
                 throwWeaponTask.setVector(player.getLocation().add(player.getLocation().getDirection().multiply(9).normalize())
-                        .subtract(player.getLocation().toVector()).toVector());
+                    .subtract(player.getLocation().toVector()).toVector());
                 throwWeaponTask.centeredThrow();
                 throwWeaponTask.runTaskTimer(FNAmplifications.getInstance(), 0L, 1L);
             }, 1L);

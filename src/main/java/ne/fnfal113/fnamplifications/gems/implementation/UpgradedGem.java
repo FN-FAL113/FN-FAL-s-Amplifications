@@ -3,6 +3,7 @@ package ne.fnfal113.fnamplifications.gems.implementation;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -39,7 +40,7 @@ public class UpgradedGem extends Gem {
             // pdc tier value is then divided to the chance of the gem based from the config or instance value
             if(currentGemTier - 1 == gemTier) { // ex. current gem tier II = 3 - 1 == 2 then the gem to bind tier 3 = 2.
                 getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
-                if (lore != null) { // update item gem lore
+                if(lore != null) { // update item gem lore
                     for (int i = 0; i < lore.size(); i++) {
                         if(lore.get(i).contains(Utils.colorTranslator(getSlimefunGemItem().getItemName().substring(0, getSlimefunGemItem().getItemName().lastIndexOf(" ") + 2)))){
                             lore.set(i, ChatColor.RED + "◬ " + slimefunGemItem.getItemMeta().getDisplayName());
@@ -54,10 +55,11 @@ public class UpgradedGem extends Gem {
                 }
             } else {
                 getPlayer().playSound(getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 1.0F, 1.0F);
-                getPlayer().sendMessage(Utils.colorTranslator("&eGem tier not compatible! upgrades must be in order (1-2-3-4)!"));
+                
+                Utils.sendMessage("Gem tier not compatible! upgrades must be in order from levels 1 > 2 > 3 > 4)!", getPlayer());
             }
         } else {
-            getPlayer().sendMessage(Utils.colorTranslator("&eYou do not have a similar gem that can be upgraded!"));
+            Utils.sendMessage("You do not have a similar gem that can be upgraded!", getPlayer());
         }
     }
 

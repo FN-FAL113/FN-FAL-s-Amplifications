@@ -6,9 +6,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -48,7 +50,7 @@ public class FnAssemblyStation extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = PaperLib.getBlockState(dispBlock, false).getState();
 
-        if (state instanceof Dispenser) {
+        if(state instanceof Dispenser) {
             Dispenser disp = (Dispenser) state;
             Inventory inv = disp.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
@@ -65,7 +67,7 @@ public class FnAssemblyStation extends MultiBlockMachine {
                 }
             }
 
-            if (inv.isEmpty()) {
+            if(inv.isEmpty()) {
                 Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
             } else {
                 Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
@@ -74,7 +76,7 @@ public class FnAssemblyStation extends MultiBlockMachine {
     }
 
     private boolean canCraft(Inventory inv, ItemStack[] recipe) {
-        for (int j = 0; j < inv.getContents().length; j++) {
+        for(int j = 0; j < inv.getContents().length; j++) {
             if (!SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
                 return false;
             }
@@ -87,7 +89,7 @@ public class FnAssemblyStation extends MultiBlockMachine {
         Inventory fakeInv = createVirtualInventory(inv);
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
-        if (outputInv != null) {
+        if(outputInv != null) {
             craftItem(inv, recipe, p, b);
 
             outputInv.addItem(output);
@@ -95,13 +97,15 @@ public class FnAssemblyStation extends MultiBlockMachine {
             craftItem(inv, recipe, p, b);
 
             dispenser.getWorld().dropItem(b.getLocation(), output);
+            
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-            p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
+            
+            Utils.sendMessage("Crafted item has been dropped instead", p);
         }
     }
 
     public void craftItem(Inventory inv, ItemStack[] recipe, Player p, Block b){
-        for (int j = 0; j < 9; j++) {
+        for(int j = 0; j < 9; j++) {
             ItemStack item = inv.getContents()[j];
 
             if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
@@ -113,15 +117,15 @@ public class FnAssemblyStation extends MultiBlockMachine {
         p.getWorld().playEffect(b.getLocation(), Effect.SMOKE, 1);
     }
 
-    protected @Nonnull
-    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+    protected @Nonnull Inventory createVirtualInventory(@Nonnull Inventory inv) {
         Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
 
-        for (int j = 0; j < inv.getContents().length; j++) {
+        for(int j = 0; j < inv.getContents().length; j++) {
             ItemStack stack = inv.getContents()[j];
 
             if (stack != null) {
                 stack = stack.clone();
+
                 ItemUtils.consumeItem(stack, true);
             }
 

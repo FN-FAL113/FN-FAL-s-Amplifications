@@ -6,11 +6,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.implementation.Gem;
 import ne.fnfal113.fnamplifications.gems.implementation.GemKeysEnum;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -41,6 +43,7 @@ public abstract class AbstractGem extends SlimefunItem {
 
             Utils.setGemTierLore(this.getItem(), this.getId(),
                 "chance", "%", "&e", "%", 4, "gem-settings");
+            
             this.chance = FNAmplifications.getInstance().getConfigManager().getCustomConfig("gem-settings").getInt(this.getId() + "." + "chance");
         } else {
             setConfigWorldSettings();
@@ -86,8 +89,8 @@ public abstract class AbstractGem extends SlimefunItem {
      * @param player the player who owns the gem
      * @param gemName the name of the gem
      */
-    public void sendGemMessage(Player player, String gemName){
-        player.sendMessage(Utils.colorTranslator("&6" + gemName + " has taken effect!"));
+    public void sendGemMessage(Player player, String gemName) {
+        Utils.sendMessage(gemName + " has taken effect!", player);
     }
 
     /**
@@ -97,10 +100,10 @@ public abstract class AbstractGem extends SlimefunItem {
      */
     public boolean hasPermissionToThrow(Player player) {
         return Slimefun.getProtectionManager().hasPermission(
-                Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
+            Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.INTERACT_BLOCK);
     }
 
-    public void bindGem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, Player player){
+    public void bindGem(SlimefunItem slimefunGemItem, ItemStack itemStackToSocket, Player player) {
         new Gem(slimefunGemItem, itemStackToSocket, player).startSocket();
     }
 

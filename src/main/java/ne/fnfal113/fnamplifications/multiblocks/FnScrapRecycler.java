@@ -53,12 +53,12 @@ public class FnScrapRecycler extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = PaperLib.getBlockState(dispBlock, false).getState();
 
-        if (state instanceof Dispenser) {
+        if(state instanceof Dispenser) {
             Dispenser disp = (Dispenser) state;
             Inventory inv = disp.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
-            for (int i = 0; i < inputs.size(); i++) {
+            for(int i = 0; i < inputs.size(); i++) {
                 if (canCraft(inv, inputs.get(i))) {
                     ItemStack output = RecipeType.getRecipeOutputList(this, inputs.get(i)).clone();
 
@@ -70,7 +70,7 @@ public class FnScrapRecycler extends MultiBlockMachine {
                 }
             }
 
-            if (inv.isEmpty()) {
+            if(inv.isEmpty()) {
                 Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
             } else {
                 Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
@@ -79,7 +79,7 @@ public class FnScrapRecycler extends MultiBlockMachine {
     }
 
     private boolean canCraft(Inventory inv, ItemStack[] recipe) {
-        for (int j = 0; j < inv.getContents().length; j++) {
+        for(int j = 0; j < inv.getContents().length; j++) {
             if (!SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
                 return false;
             }
@@ -92,8 +92,8 @@ public class FnScrapRecycler extends MultiBlockMachine {
         Inventory fakeInv = createVirtualInventory(inv);
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
-        if (outputInv != null) {
-            for (int j = 0; j < 9; j++) {
+        if(outputInv != null) {
+            for(int j = 0; j < 9; j++) {
                 ItemStack item = inv.getContents()[j];
 
                 if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
@@ -109,14 +109,13 @@ public class FnScrapRecycler extends MultiBlockMachine {
         }
     }
 
-    protected @Nonnull
-    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+    protected @Nonnull Inventory createVirtualInventory(@Nonnull Inventory inv) {
         Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
 
-        for (int j = 0; j < inv.getContents().length; j++) {
+        for(int j = 0; j < inv.getContents().length; j++) {
             ItemStack stack = inv.getContents()[j];
 
-            if (stack != null) {
+            if(stack != null) {
                 stack = stack.clone();
                 ItemUtils.consumeItem(stack, true);
             }

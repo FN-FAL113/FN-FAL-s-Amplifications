@@ -52,9 +52,11 @@ public class AirStriderTask extends BukkitRunnable {
 
                 if (newBlock.getType() == Material.AIR) {
                     blockList.add(newBlock);
+                    
                     newBlock.setType(Material.BARRIER);
+
                     blockMap.put(getPlayer().getUniqueId(), blockList);
-                }// check if relative block below along its relative axis the player is air
+                }// check if relative block below the player is air
             }
         }
         

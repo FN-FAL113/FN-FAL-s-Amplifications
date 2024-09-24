@@ -4,9 +4,11 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedEnchantment;
+
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -58,23 +60,19 @@ public class MysteryStick extends AbstractStick {
 
     @Override
     public void onSwing(EntityDamageByEntityEvent event) {
-        if(!(event.getDamager() instanceof Player)) {
-            return;
-        }
+        if(!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != getMaterial()) {
-            return;
-        }
+        if(item.getType() != getMaterial()) return;
 
         if(getStickTask().onSwing(item, player, event.getDamage(), 20, 1)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
             
             victim.addPotionEffect(new PotionEffect(getRandomPotionEffectType(), 80, 0, false, false, false));
             
-            player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
+            Utils.sendMessage("Mystery effects was applied to your enemy", player);
         }
     }
 

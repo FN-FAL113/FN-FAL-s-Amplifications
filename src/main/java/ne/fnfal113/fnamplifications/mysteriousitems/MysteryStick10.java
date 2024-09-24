@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedEnchantment;
+
 import ne.fnfal113.fnamplifications.mysteriousitems.abstracts.AbstractStick;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -65,16 +66,12 @@ public class MysteryStick10 extends AbstractStick {
 
     @Override
     public void onSwing(EntityDamageByEntityEvent event) {
-        if(!(event.getDamager() instanceof Player)) {
-            return;
-        }
+        if(!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
         ItemStack item = player.getInventory().getItemInMainHand();
 
-        if(item.getType() != getMaterial()) {
-            return;
-        } // if item material is not a weapon, don't continue further
+        if(item.getType() != getMaterial()) return; // if item material is not a weapon, don't continue further
 
         if(getStickTask().onSwing(item, player, event.getDamage(), 28, 4)) {
             LivingEntity victim = (LivingEntity) event.getEntity();
@@ -92,7 +89,7 @@ public class MysteryStick10 extends AbstractStick {
                 player.sendMessage(ChatColor.RED + "Make sure your hearts are not full for Lifesteal to proc!");
             }
 
-            player.sendMessage(Utils.colorTranslator("&cMystery effects was applied to your enemy"));
+            Utils.sendMessage("Mystery effects was applied to your enemy", player);
         }
     }
 

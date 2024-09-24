@@ -1,18 +1,15 @@
 package ne.fnfal113.fnamplifications.quivers.implementations;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.compatibility.VersionedEnchantmentPlus;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.SpectralArrow;
-import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -37,8 +34,8 @@ public class QuiverTask {
         return SlimefunItem.getByItem(itemStack);
     }
 
-    public int getArrows(PersistentDataContainer quiverPdc, NamespacedKey key) {
-        return quiverPdc.getOrDefault(key, PersistentDataType.INTEGER, 0);
+    public int getArrows(ItemMeta meta) {
+        return meta.getPersistentDataContainer().getOrDefault(getQuiver().getStoredArrowsKey(), PersistentDataType.INTEGER, 0);
     }
 
     public boolean isQuiver(@Nullable SlimefunItem sfItem) {
@@ -49,41 +46,10 @@ public class QuiverTask {
      *
      * @param quiverItemStack the quiver itemstack
      * @param meta the meta of the quiver
-     */
-    public void changeState(ItemStack quiverItemStack, ItemMeta meta) {     
-        PersistentDataContainer quiverPdc = meta.getPersistentDataContainer();
-
-        int arrowCount = getArrows(quiverPdc, getQuiver().getStoredArrowsKey());
-
-        if(arrowCount <= 0) {
-            return;
-        }
-
-        if(quiverItemStack.getType() == Material.LEATHER) {
-            meta.getPersistentDataContainer().set(getQuiver().getStateKey(), PersistentDataType.STRING, "opened");
-            
-            quiverItemStack.setType(getQuiver().getArrowType().getType());
-            
-            Utils.setLoreByPdc(quiverItemStack, meta, "Open", "State: ", "&e", "&f", "");
-        } else {
-            meta.getPersistentDataContainer().set(getQuiver().getStateKey(), PersistentDataType.STRING, "closed");
-            
-            quiverItemStack.setType(Material.LEATHER);
-            
-            Utils.setLoreByPdc(quiverItemStack, meta, "Closed", "State: ", "&e", "&f", "");
-        }
-    }
-
-    /**
-     *
-     * @param quiverItemStack the quiver itemstack
-     * @param meta the meta of the quiver
      * @param player the player who owns the quiver
      */
     public void withdrawArrows(ItemStack quiverItemStack, ItemMeta meta, Player player) {
-        PersistentDataContainer quiverPdc = meta.getPersistentDataContainer();
-
-        int currentStoredArrowCount = getArrows(quiverPdc, getQuiver().getStoredArrowsKey()); 
+        int currentStoredArrowCount = getArrows(meta); 
         
         if(currentStoredArrowCount <= 0) {
             return;
@@ -98,7 +64,7 @@ public class QuiverTask {
 
             meta.getPersistentDataContainer().set(getQuiver().getStateKey(), PersistentDataType.STRING, "closed");
             
-            player.sendMessage(ChatColor.GOLD + getQuiver().getItemName() + " has been emptied! No more arrows stored");
+            Utils.sendMessage(getQuiver().getItemName() + " has been emptied! No more arrows stored", player);
             
             Utils.setLoreByPdc(quiverItemStack, meta, "Closed (empty)", "State: ", "&e", "&f", "");
         }
@@ -113,7 +79,7 @@ public class QuiverTask {
         
         PersistentDataContainer quiverPdc = meta.getPersistentDataContainer();
         
-        int currentStoredArrowCount = getArrows(quiverPdc, getQuiver().getStoredArrowsKey());
+        int currentStoredArrowCount = getArrows(meta);
 
         if(arrowItemStack.getType() != getQuiver().getArrowType().getType()) {
             return;
@@ -124,7 +90,7 @@ public class QuiverTask {
         } // prevent quiver in a open state (arrow type) from being deposited 
         
         if(quiverItemStack.getAmount() != 1) {
-            player.sendMessage(Utils.colorTranslator("&eCannot use quiver! Unstack the quivers first before using"));
+            Utils.sendMessage("Cannot use quiver! Unstack the quivers first before using", player);
             
             return;
         }
@@ -142,51 +108,40 @@ public class QuiverTask {
             
             } // pdc to make quiver unique and unstackable
 
-            quiverItemStack.setType(getQuiver().getArrowType().getType());
+            //quiverItemStack.setType(getQuiver().getArrowType().getType());
             arrowItemStack.setAmount(arrowItemStack.getAmount() - 1);
             
-            Utils.setLoreByPdc(quiverItemStack, meta, String.valueOf(newStoredArrowCount), "Arrows: " ,"&e", "&f", " left");
+            Utils.setLoreByPdc(quiverItemStack, meta, String.valueOf(newStoredArrowCount), "Arrows: ", "&e", "&f", " left");
             Utils.setLoreByPdc(quiverItemStack, meta, "Open", "State: ", "&e", "&f", "");
         } else {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', getQuiver().getItemName() + " is full! Cannot deposit arrows"));
+            Utils.sendMessage(getQuiver().getItemName() + " is full! Cannot deposit arrows", player);
         }
-
     }
 
-    public void bowShoot(EntityShootBowEvent event, ItemStack quiverItemStack, boolean isNormalArrow) {
-        Player player = (Player) event.getEntity();
-
-        // broken on 1.20.6, arrows are consumed and paper recommends to update to 1.21.1 instead lol rip
-        event.setCancelled(true); 
-        
-        // emulate bow shoot due to event cancellation
-        float bowForce = event.getForce();
-
-        if(quiverItemStack.getType() == Material.ARROW) {
-            Arrow arrow = player.launchProjectile(Arrow.class);
-
-            arrow.setVelocity(arrow.getVelocity().multiply(bowForce));
-        } else if(quiverItemStack.getType() == Material.SPECTRAL_ARROW) {
-            SpectralArrow spectralArrow = player.launchProjectile(SpectralArrow.class);
-
-            spectralArrow.setVelocity(spectralArrow.getVelocity().multiply(bowForce));
-        }
-
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_SHOOT, 1.0F, 1.0F);
-        player.updateInventory();
+    public void bowShoot(PlayerInteractEvent event, ItemStack quiverItemStack, Material itemInMainHandType) {
+        Player player = (Player) event.getPlayer();
 
         ItemMeta meta = quiverItemStack.getItemMeta();
-        ItemMeta bowMeta = player.getInventory().getItemInMainHand().getItemMeta();
+        // when player equips bow on both hands, main hand bow is prioritized
+        ItemMeta bowMeta = itemInMainHandType == Material.BOW || itemInMainHandType == Material.CROSSBOW ? 
+            player.getInventory().getItemInMainHand().getItemMeta() : player.getInventory().getItemInOffHand().getItemMeta();
 
-        if(meta == null || bowMeta == null) {
-            return;
-        }
+        if(meta == null || bowMeta == null) return;
 
         PersistentDataContainer quiverPdc = meta.getPersistentDataContainer();
         
-        int currentStoredArrowCount = getArrows(quiverPdc, getQuiver().getStoredArrowsKey());
-        int newStoredArrowCount = isNormalArrow && bowMeta.hasEnchant(VersionedEnchantmentPlus.INFINITY) ?
+        boolean hasInfinity = bowMeta.hasEnchant(VersionedEnchantmentPlus.INFINITY);
+        int currentStoredArrowCount = getArrows(meta);
+        int newStoredArrowCount = quiver.getArrowType().getType() == Material.ARROW && hasInfinity ?
             currentStoredArrowCount : currentStoredArrowCount - 1;
+
+        // if bow has infinity, then quiver has no use on this scenario
+        // player can draw an arrow manually instead to prevent stacking
+        if(quiver.getArrowType().getType() == Material.ARROW && !hasInfinity) {
+            player.getInventory().addItem(new ItemStack(Material.ARROW));
+        } else if(quiver.getArrowType().getType() == Material.SPECTRAL_ARROW && !hasInfinity) {
+            player.getInventory().addItem(new ItemStack(Material.SPECTRAL_ARROW));
+        }
 
         if(newStoredArrowCount >= 0) { // update quiver lore and pdc
             quiverPdc.set(getQuiver().getStoredArrowsKey(), PersistentDataType.INTEGER, newStoredArrowCount);
@@ -194,11 +149,9 @@ public class QuiverTask {
             Utils.setLoreByPdc(quiverItemStack, meta, String.valueOf(newStoredArrowCount), "Arrows: ", "&e", "&f", " left");
 
             if(newStoredArrowCount == 0) {              
-                quiverItemStack.setType(Material.LEATHER);
-
                 meta.getPersistentDataContainer().set(getQuiver().getStateKey(), PersistentDataType.STRING, "closed");
 
-                player.sendMessage(ChatColor.GOLD + getQuiver().getItemName() + " has been emptied! No more arrows stored");
+                Utils.sendMessage(getQuiver().getItemName() + " has been emptied! No more arrows stored", player);
                 
                 Utils.setLoreByPdc(quiverItemStack, meta, "Closed (empty)", "State: ", "&e", "&f", "");
             }

@@ -31,7 +31,7 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -39,7 +39,7 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on helmet only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on helmet only", player);
         }
     }
 

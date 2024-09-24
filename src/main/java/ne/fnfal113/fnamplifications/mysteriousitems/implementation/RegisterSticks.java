@@ -3,15 +3,17 @@ package ne.fnfal113.fnamplifications.mysteriousitems.implementation;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.multiblocks.FnMysteryStickAltar;
 import ne.fnfal113.fnamplifications.mysteriousitems.*;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class RegisterSticks {
 
-    public static void setup(SlimefunAddon instance){
+    public static void setup(SlimefunAddon instance) {
         new MysteryStick(FNAmpItems.MYSTERY_STICKS, FNAmpItems.FN_STICK, FnMysteryStickAltar.RECIPE_TYPE, new ItemStack[]{
                 new SlimefunItemStack(SlimefunItems.MAGIC_LUMP_1, 8), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 6), new SlimefunItemStack(SlimefunItems.ENDER_LUMP_1, 8),
                 SlimefunItems.BLANK_RUNE, new ItemStack(Material.STICK), SlimefunItems.BLANK_RUNE,

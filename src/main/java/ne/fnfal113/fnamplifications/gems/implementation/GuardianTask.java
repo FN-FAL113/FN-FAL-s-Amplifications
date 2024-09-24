@@ -37,7 +37,7 @@ public class GuardianTask extends BukkitRunnable {
             Vector finalVec;
 
             // since get direction returns a normalized vector, its x and z components can be used to
-            // position the guardian at right side of the player, the two components value can vary from 
+            // position the guardian at right side of the player, the two component values can vary from 
             // which direction the player is facing
             if(getPlayer().getFacing() == BlockFace.EAST || getPlayer().getFacing() == BlockFace.WEST) {
                 finalVec = vec.clone().setX(vec.getZ()).setZ(vec.getX()).setY(0.8);

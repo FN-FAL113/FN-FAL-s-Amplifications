@@ -1,6 +1,7 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
@@ -79,7 +80,9 @@ public class ReturnWeaponTask extends BukkitRunnable {
         // drop the item if the distance between player and throwable is 150 blocks away
         if(distanceBetween(asLocation, pLocation) > 150) {
             Location dropLoc = dropItem(asLocation);
-            getPlayer().sendMessage(Utils.colorTranslator("&cWeapon has not been returned because you're too far!"));
+
+            Utils.sendMessage("Weapon has not been returned because you're too far!", getPlayer());
+
             getPlayer().sendMessage(Utils.colorTranslator("&cit was dropped at: &e" +
                     "x: " + (int) dropLoc.getX() + ", " +
                     "y: " + (int) dropLoc.getY() + ", " +
@@ -89,14 +92,16 @@ public class ReturnWeaponTask extends BukkitRunnable {
         }
 
         if(distanceBetween(asLocation, pLocation) < 0.5) {
-            if(getPlayer().getInventory().firstEmpty() == -1){
-                getPlayer().sendMessage(Utils.colorTranslator("&eInventory full! dropped the item instead"));
+            if(getPlayer().getInventory().firstEmpty() == -1) {
+                Utils.sendMessage("Inventory full! dropped the item instead", getPlayer());
+                
                 dropItem(pLocation);
             } else {
                 getPlayer().getInventory().addItem(getItemStack().clone());
             }
 
             getPlayer().playSound(getPlayer().getLocation(), Sound.ENTITY_ITEM_PICKUP, 1.0F, 1.0F);
+            
             stopTask();
         }
     }

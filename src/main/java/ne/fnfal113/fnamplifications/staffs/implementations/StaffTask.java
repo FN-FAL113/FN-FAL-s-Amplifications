@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications.staffs.implementations;
 
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -39,7 +40,9 @@ public class StaffTask {
             Utils.setLoreByPdc(item, meta, String.valueOf(decrement), "Uses: ", "&e", "", " left");
         } else { // destroy the staff when it reached the max uses
             player.getInventory().setItemInMainHand(null);
-            player.sendMessage(Utils.colorTranslator(meta.getDisplayName() + " &d&lhas reached max uses!"));
+            
+            Utils.sendMessage(meta.getDisplayName() + " &d&lhas reached max uses!", player);
+            
             player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1 ,1);
         }
 

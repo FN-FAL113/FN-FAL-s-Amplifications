@@ -7,7 +7,9 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.tools.implementation.ThrowableItemTask;
@@ -56,13 +58,13 @@ public class ThrowableTorch extends SlimefunItem {
         super(itemGroup, item, recipeType, recipe);
     }
 
-    public void onClick(Player player, ItemStack itemInMainHand){
-        if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.BREAK_BLOCK)){
+    public void onClick(Player player, ItemStack itemInMainHand) {
+        if(!Slimefun.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(player.getUniqueId()), player.getLocation(), Interaction.BREAK_BLOCK)) {
             return;
         }
 
         Vector vector = player.getLocation().add(player.getLocation().getDirection().multiply(9).normalize())
-                .subtract(player.getLocation().toVector()).toVector();
+            .subtract(player.getLocation().toVector()).toVector();
 
         ThrowableItemTask throwableItemTask = new ThrowableItemTask(player, itemInMainHand, vector, torchConsumer());
 

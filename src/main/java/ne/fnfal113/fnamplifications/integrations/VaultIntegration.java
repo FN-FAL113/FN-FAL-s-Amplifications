@@ -1,7 +1,9 @@
 package ne.fnfal113.fnamplifications.integrations;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.Optional;
@@ -17,7 +19,7 @@ public class VaultIntegration {
     public VaultIntegration(SlimefunAddon addon) {
         this.slimefunAddon = addon;
 
-        if(!setupEconomy()){
+        if(!setupEconomy()) {
             getSlimefunAddon().getLogger().info("Vault API not detected! Loot Gem will not be registered.");
         } else {
             getSlimefunAddon().getLogger().info("Vault API detected! Loot Gem will be registered.");
@@ -25,9 +27,10 @@ public class VaultIntegration {
 
     }
 
-    public boolean setupEconomy(){
+    public boolean setupEconomy() {
         if(!getSlimefunAddon().getJavaPlugin().getServer().getPluginManager().isPluginEnabled("Vault")) {
             this.isVaultInstalled = false;
+
             return false;
         }
 
@@ -42,6 +45,7 @@ public class VaultIntegration {
             }
         } catch (NoClassDefFoundError e) {
             this.isVaultInstalled = false;
+            
             return false;
         }
 

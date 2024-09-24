@@ -4,11 +4,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -23,7 +25,7 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler, GemUpgr
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -31,23 +33,17 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler, GemUpgr
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords and axes only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on swords and axes only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof Player)) return;
         
-        if(!(event.getDamager() instanceof Player)) {
-            return;
-        }
+        if(!(event.getDamager() instanceof Player)) return;
 
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
         Player victim = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
@@ -80,12 +76,13 @@ public class DisarmorGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
     }
 
-    public void moveArmorToInventory(int slot, Player victim, Player damager, ItemStack armor){
+    public void moveArmorToInventory(int slot, Player victim, Player damager, ItemStack armor) {
         if (slot != -1) {
             victim.getInventory().setItem(slot, armor.clone());
         } else {
             victim.getWorld().dropItem(victim.getLocation(), armor.clone());
         }
+        
         sendGemMessage(damager, this.getItemName());
     }
 

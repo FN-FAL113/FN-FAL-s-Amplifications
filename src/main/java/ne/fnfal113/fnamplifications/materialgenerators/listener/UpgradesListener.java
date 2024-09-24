@@ -44,6 +44,7 @@ public class UpgradesListener implements Listener {
 
         if(sfItem instanceof AbstractUpgrades) {
             AbstractUpgrades upgrader = (AbstractUpgrades) sfItem;
+            
            if(upgrader.upgradeMaterialGenerator(block, player, matGen)) {
                itemStack.setAmount(itemStack.getAmount() - 1);
 

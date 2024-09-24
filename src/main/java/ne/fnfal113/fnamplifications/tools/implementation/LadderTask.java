@@ -1,8 +1,10 @@
 package ne.fnfal113.fnamplifications.tools.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import ne.fnfal113.fnamplifications.FNAmplifications;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,20 +32,19 @@ public class LadderTask {
     public void doPlaceTask(PlayerInteractEvent event, Block clickedBlock, BlockFace blockFace) {
         AtomicReference<BlockData> ladderData = new AtomicReference<>();
 
-        if(clickedBlock.getType() == Material.AIR) {
-            return;
-        }
+        if(clickedBlock.getType() == Material.AIR) return;
 
         // We get the placed ladder block data for later use when
         // adding the other ladders to set their block data (rotation, etc)
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () ->
-                ladderData.set(clickedBlock.getRelative(blockFace).getBlockData()), 3L);
+            ladderData.set(clickedBlock.getRelative(blockFace).getBlockData())
+        , 3L);
 
         AtomicInteger i = new AtomicInteger(0);
         AtomicBoolean shouldPlaceAbove = new AtomicBoolean(true);
         AtomicBoolean shouldPlaceBelow = new AtomicBoolean(true);
 
-        Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task ->{
+        Bukkit.getScheduler().runTaskTimer(FNAmplifications.getInstance(), task -> {
             Block relativeBottom = clickedBlock.getRelative(0, i.get(), 0);
             Block relativeUp = clickedBlock.getRelative(0, Math.abs(i.get()), 0);
             
@@ -72,6 +73,7 @@ public class LadderTask {
 
                         event.getPlayer().getWorld().playSound(event.getPlayer().getLocation(), Sound.BLOCK_LADDER_PLACE, 1.0F, 1.0F);
                     }
+
                     if(isBottomPlaceable && shouldPlaceBelow.get()) {
                         relativeBottom.getRelative(blockFace).setBlockData(ladderData.get());
                         
@@ -92,23 +94,27 @@ public class LadderTask {
         }, 0L, 10L);
     }
 
-    public void doBreakTask(BlockBreakEvent event, Block sfBlock, SlimefunItem sfItem){
+    public void doBreakTask(BlockBreakEvent event, Block sfBlock, SlimefunItem sfItem) {
         Player player = event.getPlayer();
-        int emptySlot = player.getInventory().firstEmpty();
+        
         boolean skipRelativeAboveLadder = false;
         boolean skipRelativeBottomLadder = false;
 
-        // remove any ladder between (up/bottom) the auto ladder block
+        // remove any ladder relative (above/below) the auto ladder block
         for (int i = 0; i >= -8; i--) {
-            if(i != 0) { // skip the sfBlock
+            // skip sfBlock
+            if(i != 0) {
                 if (!skipRelativeBottomLadder && sfBlock.getRelative(0, i, 0).getType() == Material.LADDER) {
                     sfBlock.getRelative(0, i, 0).setType(Material.AIR);
-                } else { // skip any other relative blocks when this is fired
+                } else {
+                     // skip any other relative blocks when this is fired
                     skipRelativeBottomLadder = true;
                 }
+
                 if (!skipRelativeAboveLadder && sfBlock.getRelative(0, Math.abs(i), 0).getType() == Material.LADDER) {
                     sfBlock.getRelative(0, Math.abs(i), 0).setType(Material.AIR);
-                } else { // skip any other relative blocks when this is fired
+                } else { 
+                    // skip any other relative blocks when this is fired
                     skipRelativeAboveLadder = true;
                 }
             }
@@ -118,12 +124,13 @@ public class LadderTask {
         BlockStorage.clearBlockInfo(sfBlock);
         sfBlock.setType(Material.AIR);
 
-        if(emptySlot == -1){
+        if(player.getInventory().firstEmpty() == -1) {
             player.getWorld().dropItemNaturally(player.getLocation(), sfItem.getItem().clone());
+            
             return;
         }
-        player.getInventory().addItem(sfItem.getItem().clone());
 
+        player.getInventory().addItem(sfItem.getItem().clone());
     }
 
 }

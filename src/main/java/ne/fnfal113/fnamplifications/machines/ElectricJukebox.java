@@ -18,6 +18,7 @@ import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+
 import ne.fnfal113.fnamplifications.machines.abstracts.AbstractJukeBox;
 import ne.fnfal113.fnamplifications.machines.implementation.DiscDurationsEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -154,11 +155,9 @@ public class ElectricJukebox extends AbstractJukeBox {
     }
 
     public boolean isJukeboxPowered(Block b, Player p) {
-        if(getCharge(b.getLocation()) > 0){
-            return true;
-        }
+        if(getCharge(b.getLocation()) > 0) return true;
 
-        p.sendMessage(Utils.colorTranslator("&eJukebox is not powered, needs power supply."));
+        Utils.sendMessage("Jukebox is not powered, needs power supply.", p);
         
         return false;
     }
@@ -174,7 +173,7 @@ public class ElectricJukebox extends AbstractJukeBox {
             @Override
             public boolean canOpen(@Nonnull Block block, @Nonnull Player player) {
                 return ElectricJukebox.this.canUse(player, false)
-                        && Slimefun.getProtectionManager().hasPermission(player, block.getLocation(), Interaction.INTERACT_BLOCK);
+                    && Slimefun.getProtectionManager().hasPermission(player, block.getLocation(), Interaction.INTERACT_BLOCK);
             }
 
             @Override
@@ -380,7 +379,7 @@ public class ElectricJukebox extends AbstractJukeBox {
 
         // is jukebox toggle on
         if(!cache.isOn && player != null) { 
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -396,7 +395,7 @@ public class ElectricJukebox extends AbstractJukeBox {
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
 
         if(!cache.isOn && player != null) {
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -412,7 +411,7 @@ public class ElectricJukebox extends AbstractJukeBox {
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
 
         if(!cache.isOn) { 
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -431,7 +430,7 @@ public class ElectricJukebox extends AbstractJukeBox {
             return; 
         } 
 
-        player.sendMessage(Utils.colorTranslator("&dCurrent slot has no music disc"));
+        Utils.sendMessage("Current slot has no music disc", player);
     }
 
     @Override

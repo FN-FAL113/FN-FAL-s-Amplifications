@@ -23,7 +23,7 @@ public class DisarmGem extends AbstractGem implements OnDamageHandler, GemUpgrad
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.AXES.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -31,35 +31,29 @@ public class DisarmGem extends AbstractGem implements OnDamageHandler, GemUpgrad
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords and axes only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on swords and axes only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof Player)) return;
         
-        if(!(event.getDamager() instanceof Player)) {
-            return;
-        }
+        if(!(event.getDamager() instanceof Player)) return;
 
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
         Player victim = (Player) event.getEntity();
         Player damager = (Player) event.getDamager();
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
-            if(victim.getInventory().getItemInMainHand().getType() != Material.AIR){
+            if(victim.getInventory().getItemInMainHand().getType() != Material.AIR) {
                 ItemStack itemInMainHand = victim.getInventory().getItemInMainHand();
                 int slot = victim.getInventory().firstEmpty(); // get first empty slot from left to right
 
                 victim.getInventory().setItemInMainHand(null);
                 
-                if (slot != -1) {
+                if(slot != -1) {
                     victim.getInventory().setItem(slot, itemInMainHand.clone());
                 } else {
                     victim.getWorld().dropItem(victim.getLocation(), itemInMainHand.clone());

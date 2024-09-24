@@ -21,12 +21,11 @@ public enum TargetReasonEnum {
         this.targetReasons = targetReasons;
     }
 
-    public boolean isTagged(EntityTargetEvent.TargetReason targetReason){
-        for(EntityTargetEvent.TargetReason reason : getTargetReasons()){
-            if(reason == targetReason){
-                return true;
-            }
+    public boolean isTagged(EntityTargetEvent.TargetReason targetReason) {
+        for(EntityTargetEvent.TargetReason reason : getTargetReasons()) {
+            if(reason == targetReason) return true;
         }
+        
         return false;
     }
 

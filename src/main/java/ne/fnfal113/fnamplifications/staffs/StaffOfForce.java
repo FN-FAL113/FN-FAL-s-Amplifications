@@ -5,10 +5,12 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.staffs.implementations.AreaOfEffectStaffTask;
 import ne.fnfal113.fnamplifications.utils.Keys;
-import org.bukkit.ChatColor;
+import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -25,18 +27,16 @@ public class StaffOfForce extends AbstractStaff {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public void onClick(PlayerInteractEvent event){
+    public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        
         ItemStack item = player.getInventory().getItemInMainHand();
+        
         Block block = event.getPlayer().getTargetBlockExact(50);
 
-        if(block == null || item.getType() == Material.AIR){
-            return;
-        }
+        if(block == null || item.getType() == Material.AIR) return;
 
-        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
-            return;
-        }
+        if(!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) return;
 
         ItemMeta meta = item.getItemMeta();
 
@@ -46,14 +46,17 @@ public class StaffOfForce extends AbstractStaff {
 
         if(!player.isSneaking()) {
             AreaOfEffectStaffTask cloudStaff = new AreaOfEffectStaffTask(player, block, "FN_FORCE", 2.85F, 160, particle, null);
+            
             cloudStaff.spawnCloud();
-            player.sendMessage(ChatColor.GREEN + "You spawned a cloud effect with forward force");
+            
+            Utils.sendMessage("You spawned a cloud effect with forward force", player);
         } else {
             AreaOfEffectStaffTask cloudStaff = new AreaOfEffectStaffTask(player, block, "FN_BACKWARD_FORCE", 2.85F, 160, Particle.END_ROD, null);
+            
             cloudStaff.spawnCloud();
-            player.sendMessage(ChatColor.RED  + "You spawned a cloud effect with backward force");
-        }
 
+            Utils.sendMessage("You spawned a cloud effect with backward force", player);
+        }
     }
 
 }

@@ -1,8 +1,10 @@
 package ne.fnfal113.fnamplifications.mysteriousitems.implementation;
 
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
