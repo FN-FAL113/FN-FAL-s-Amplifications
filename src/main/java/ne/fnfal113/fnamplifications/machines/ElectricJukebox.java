@@ -1,5 +1,6 @@
 package ne.fnfal113.fnamplifications.machines;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -11,15 +12,13 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
+
 import ne.fnfal113.fnamplifications.machines.abstracts.AbstractJukeBox;
 import ne.fnfal113.fnamplifications.machines.implementation.DiscDurationsEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
@@ -27,7 +26,6 @@ import ne.fnfal113.fnamplifications.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.Jukebox;
 import org.bukkit.enchantments.Enchantment;
@@ -49,23 +47,16 @@ import java.util.Objects;
 
 public class ElectricJukebox extends AbstractJukeBox {
 
-    @Getter
-    @Setter
     private boolean newMusic = false;
 
-    @Getter
     private final int lowerBound;
     
-    @Getter
     private final int upperBound;
     
-    @Getter
     private final int secondLowerBound;
     
-    @Getter
     private final int secondUpperBound;
 
-    @Getter
     private final boolean secondBound;
 
     private final Map<Location, Integer> durationMap = new HashMap<>();
@@ -164,11 +155,9 @@ public class ElectricJukebox extends AbstractJukeBox {
     }
 
     public boolean isJukeboxPowered(Block b, Player p) {
-        if(getCharge(b.getLocation()) > 0){
-            return true;
-        }
+        if(getCharge(b.getLocation()) > 0) return true;
 
-        p.sendMessage(Utils.colorTranslator("&eJukebox is not powered, needs power supply."));
+        Utils.sendMessage("Jukebox is not powered, needs power supply.", p);
         
         return false;
     }
@@ -184,7 +173,7 @@ public class ElectricJukebox extends AbstractJukeBox {
             @Override
             public boolean canOpen(@Nonnull Block block, @Nonnull Player player) {
                 return ElectricJukebox.this.canUse(player, false)
-                        && Slimefun.getProtectionManager().hasPermission(player, block.getLocation(), Interaction.INTERACT_BLOCK);
+                    && Slimefun.getProtectionManager().hasPermission(player, block.getLocation(), Interaction.INTERACT_BLOCK);
             }
 
             @Override
@@ -390,7 +379,7 @@ public class ElectricJukebox extends AbstractJukeBox {
 
         // is jukebox toggle on
         if(!cache.isOn && player != null) { 
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -406,7 +395,7 @@ public class ElectricJukebox extends AbstractJukeBox {
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
 
         if(!cache.isOn && player != null) {
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -422,7 +411,7 @@ public class ElectricJukebox extends AbstractJukeBox {
         Jukebox jukebox = (Jukebox) menu.getBlock().getState();
 
         if(!cache.isOn) { 
-            player.sendMessage(Utils.colorTranslator("&eJukebox is turned off, please turn it on"));
+            Utils.sendMessage("Jukebox is turned off, please turn it on", player);
 
             return;
         }
@@ -441,7 +430,7 @@ public class ElectricJukebox extends AbstractJukeBox {
             return; 
         } 
 
-        player.sendMessage(Utils.colorTranslator("&dCurrent slot has no music disc"));
+        Utils.sendMessage("Current slot has no music disc", player);
     }
 
     @Override
@@ -567,7 +556,7 @@ public class ElectricJukebox extends AbstractJukeBox {
     }
 
     @Override
-    public void unselectCurrentSlot(BlockMenu menu){
+    public void unselectCurrentSlot(BlockMenu menu) {
         JukeboxCache cache = cacheMap.get(menu.getLocation());
 
         if(menu.getItemInSlot(cache.currentSlot) != null && menu.getItemInSlot(cache.currentSlot).getType() == Material.PINK_STAINED_GLASS_PANE) {
@@ -578,26 +567,29 @@ public class ElectricJukebox extends AbstractJukeBox {
     }
 
     @Override
-    @SuppressWarnings("ConstantConditions")
-    public void selectDisc(BlockMenu menu){
+    public void selectDisc(BlockMenu menu) {
         JukeboxCache cache = cacheMap.get(menu.getLocation());
         ItemStack disc = cache.itemStack != null ? cache.itemStack : menu.getItemInSlot(cache.currentSlot);
-        
+
         if(disc == null) {
             return;
         }
 
         ItemMeta meta = disc.getItemMeta();
 
-        meta.addEnchant(Enchantment.BINDING_CURSE, 0, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_20_5)) {
+            meta.setEnchantmentGlintOverride(true);
+        }
+
         disc.setItemMeta(meta);
+
         menu.reload();
     }
 
     @Override
-    public void unselectDisc(BlockMenu menu){
+    public void unselectDisc(BlockMenu menu) {
         JukeboxCache cache = cacheMap.get(menu.getLocation());
         ItemStack disc = cache.itemStack != null ? cache.itemStack : menu.getItemInSlot(cache.currentSlot);
         
@@ -609,24 +601,68 @@ public class ElectricJukebox extends AbstractJukeBox {
 
         meta.removeEnchant(Enchantment.BINDING_CURSE);
 
+        if(Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_20_5)) {
+            meta.setEnchantmentGlintOverride(false);
+        }
+
         disc.setItemMeta(meta);
         menu.reload();
     }
 
     @Override
-    public boolean slotContainsMusicDisc(BlockMenu menu, int arithmetic){
+    public boolean slotContainsMusicDisc(BlockMenu menu, int arithmetic) {
         JukeboxCache cache = cacheMap.get(menu.getLocation());
         int slot = cache.currentSlot + arithmetic;
         
         return menu.getItemInSlot(slot) != null && menu.getItemInSlot(slot).getType() != Material.AIR
-            && Tag.ITEMS_MUSIC_DISCS.isTagged(menu.getItemInSlot(slot).getType());
+            && menu.getItemInSlot(slot).getType().name().startsWith("MUSIC_DISC");
+    }
+
+    public boolean isNewMusic() {
+        return newMusic;
+    }
+
+    public void setNewMusic(boolean newMusic) {
+        this.newMusic = newMusic;
+    }
+
+    
+    public int getLowerBound() {
+        return lowerBound;
+    }
+
+    public int getUpperBound() {
+        return upperBound;
+    }
+
+    public int getSecondLowerBound() {
+        return secondLowerBound;
+    }
+
+    public int getSecondUpperBound() {
+        return secondUpperBound;
+    }
+
+    public boolean isSecondBound() {
+        return secondBound;
+    }
+
+    public Map<Location, Integer> getDurationMap() {
+        return durationMap;
+    }
+
+    public Map<Location, JukeboxCache> getCacheMap() {
+        return cacheMap;
     }
 
     // inner class for caching
     public static class JukeboxCache {
         public boolean isOn;
+
         public boolean isPlaying;
+
         public int currentSlot;
+
         public ItemStack itemStack;
 
         public JukeboxCache(boolean isOn, boolean isPlaying, int currentSlot, @Nullable ItemStack itemStack) {

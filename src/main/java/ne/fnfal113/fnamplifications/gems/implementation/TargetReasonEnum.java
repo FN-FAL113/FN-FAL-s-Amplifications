@@ -1,11 +1,10 @@
 package ne.fnfal113.fnamplifications.gems.implementation;
 
-import lombok.Getter;
 import org.bukkit.event.entity.EntityTargetEvent;
 
 /**
- * Enum that contains the needed target reasons for the guardian
- * to work properly
+ * Enum that contains the needed target reasons 
+ * for the guardian to work properly
  */
 public enum TargetReasonEnum {
 
@@ -16,20 +15,22 @@ public enum TargetReasonEnum {
     ZOMBIE_TARGET(EntityTargetEvent.TargetReason.values())
     ;
 
-    @Getter
     private final EntityTargetEvent.TargetReason[] targetReasons;
 
-    TargetReasonEnum(EntityTargetEvent.TargetReason... targetReasons){
+    TargetReasonEnum(EntityTargetEvent.TargetReason... targetReasons) {
         this.targetReasons = targetReasons;
     }
 
-    public boolean isTagged(EntityTargetEvent.TargetReason targetReason){
-        for(EntityTargetEvent.TargetReason reason : getTargetReasons()){
-            if(reason == targetReason){
-                return true;
-            }
+    public boolean isTagged(EntityTargetEvent.TargetReason targetReason) {
+        for(EntityTargetEvent.TargetReason reason : getTargetReasons()) {
+            if(reason == targetReason) return true;
         }
+        
         return false;
+    }
+
+    public EntityTargetEvent.TargetReason[] getTargetReasons() {
+        return targetReasons;
     }
 
 }

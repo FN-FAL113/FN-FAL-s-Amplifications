@@ -1,9 +1,5 @@
 package ne.fnfal113.fnamplifications.staffs.implementations;
 
-import lombok.Getter;
-import lombok.Setter;
-import ne.fnfal113.fnamplifications.FNAmplifications;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,26 +14,17 @@ import java.util.UUID;
 
 public class AirStriderTask extends BukkitRunnable {
 
-    @Getter
     private final Map<UUID, List<Block>> blockMap = new HashMap<>();
 
-    @Getter
     private final Map<UUID, Location> playerLocationMap = new HashMap<>();
 
-    @Getter
     private final Player player;
 
-    @Getter
-    @Setter
     private boolean isDone = false;
-
-    public AirStriderTask(Player player){
-        this.player = player;
-    }
 
     @Override
     public void run() {
-        if(!player.isOnline()){
+        if(!player.isOnline()) {
             return;
         }
         
@@ -65,9 +52,11 @@ public class AirStriderTask extends BukkitRunnable {
 
                 if (newBlock.getType() == Material.AIR) {
                     blockList.add(newBlock);
+                    
                     newBlock.setType(Material.BARRIER);
+
                     blockMap.put(getPlayer().getUniqueId(), blockList);
-                }// check if relative block below along its relative axis the player is air
+                }// check if relative block below the player is air
             }
         }
         
@@ -84,6 +73,30 @@ public class AirStriderTask extends BukkitRunnable {
             this.cancel();
         }
 
+    }
+
+    public Map<UUID, List<Block>> getBlockMap() {
+        return blockMap;
+    }
+
+    public Map<UUID, Location> getPlayerLocationMap() {
+        return playerLocationMap;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public AirStriderTask(Player player) {
+        this.player = player;
+    }
+
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
 }

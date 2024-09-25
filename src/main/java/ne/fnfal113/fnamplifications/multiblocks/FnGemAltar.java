@@ -6,9 +6,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -49,12 +51,12 @@ public class FnGemAltar extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = PaperLib.getBlockState(dispBlock, false).getState();
 
-        if (state instanceof Dispenser) {
+        if(state instanceof Dispenser) {
             Dispenser disp = (Dispenser) state;
             Inventory inv = disp.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
-            for (int i = 0; i < inputs.size(); i++) {
+            for(int i = 0; i < inputs.size(); i++) {
                 if (canCraft(inv, inputs.get(i))) {
                     ItemStack output = RecipeType.getRecipeOutputList(this, inputs.get(i)).clone();
 
@@ -66,7 +68,7 @@ public class FnGemAltar extends MultiBlockMachine {
                 }
             }
 
-            if (inv.isEmpty()) {
+            if(inv.isEmpty()) {
                 Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
             } else {
                 Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
@@ -89,30 +91,32 @@ public class FnGemAltar extends MultiBlockMachine {
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
         craftItem(inv, recipe, b);
-        if (outputInv != null) {
+        if(outputInv != null) {
             outputInv.addItem(output);
         } else {
             dispenser.getWorld().dropItem(b.getLocation(), output);
 
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-            p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
+
+            Utils.sendMessage("Crafted item has been dropped instead", p);
         }
 
-        if(output.getItemMeta().hasDisplayName()){
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted " + output.getItemMeta().getDisplayName() + "!"));
+        if(output.getItemMeta().hasDisplayName()) {
+            Utils.sendMessage("Successfully crafted " + output.getItemMeta().getDisplayName() + "!", p);
         } else{
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted item!"));
+            Utils.sendMessage("Successfully crafted item!", p);
         }
     }
 
-    public void craftItem(Inventory inv, ItemStack[] recipe, Block b){
-        for (int j = 0; j < 9; j++) {
+    public void craftItem(Inventory inv, ItemStack[] recipe, Block b) {
+        for(int j = 0; j < 9; j++) {
             ItemStack item = inv.getContents()[j];
 
-            if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
+            if(item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
                 ItemUtils.consumeItem(item, recipe[j].getAmount(),true);
             }
         }
+
         Bukkit.getScheduler().runTaskLater(FNAmplifications.getInstance(), () -> {
             b.getWorld().playEffect(b.getLocation().add(0.5, 0.7, 0.5), Effect.SMOKE, 1);
             b.getWorld().spawnParticle(Particle.CLOUD, b.getLocation().add(0.3, 0.4, 0.45), 2, 0.1, 0.1, 0.1, 0.1);
@@ -139,14 +143,13 @@ public class FnGemAltar extends MultiBlockMachine {
         }, 30);
     }
 
-    protected @Nonnull
-    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+    protected @Nonnull Inventory createVirtualInventory(@Nonnull Inventory inv) {
         Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
 
-        for (int j = 0; j < inv.getContents().length; j++) {
+        for(int j = 0; j < inv.getContents().length; j++) {
             ItemStack stack = inv.getContents()[j];
 
-            if (stack != null) {
+            if(stack != null) {
                 stack = stack.clone();
                 ItemUtils.consumeItem(stack, true);
             }

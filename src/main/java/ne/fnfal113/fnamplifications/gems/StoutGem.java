@@ -4,11 +4,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnItemDamageHandler;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
@@ -31,15 +33,13 @@ public class StoutGem extends AbstractGem implements OnItemDamageHandler, GemUpg
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on armors only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on armors only", player);
         }
     }
 
     @Override
     public void onDurabilityChange(PlayerItemDamageEvent event) {
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
         if(ThreadLocalRandom.current().nextInt(100) < getChance()/ getTier(event.getItem(), this.getId())) {
             event.setCancelled(true);

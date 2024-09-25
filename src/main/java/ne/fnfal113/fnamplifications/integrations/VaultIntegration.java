@@ -1,25 +1,25 @@
 package ne.fnfal113.fnamplifications.integrations;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
-import lombok.Getter;
+
 import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.Optional;
 
 public class VaultIntegration {
 
-    @Getter
     private final SlimefunAddon slimefunAddon;
-    @Getter
+
     private boolean isVaultInstalled;
-    @Getter
+
     private Economy economy = null;
 
-    public VaultIntegration(SlimefunAddon addon){
+    public VaultIntegration(SlimefunAddon addon) {
         this.slimefunAddon = addon;
 
-        if(!setupEconomy()){
+        if(!setupEconomy()) {
             getSlimefunAddon().getLogger().info("Vault API not detected! Loot Gem will not be registered.");
         } else {
             getSlimefunAddon().getLogger().info("Vault API detected! Loot Gem will be registered.");
@@ -27,9 +27,10 @@ public class VaultIntegration {
 
     }
 
-    public boolean setupEconomy(){
-        if(!getSlimefunAddon().getJavaPlugin().getServer().getPluginManager().isPluginEnabled("Vault")){
+    public boolean setupEconomy() {
+        if(!getSlimefunAddon().getJavaPlugin().getServer().getPluginManager().isPluginEnabled("Vault")) {
             this.isVaultInstalled = false;
+
             return false;
         }
 
@@ -42,14 +43,27 @@ public class VaultIntegration {
                 this.isVaultInstalled = true;
                 return true;
             }
-        } catch (NoClassDefFoundError e){
+        } catch (NoClassDefFoundError e) {
             this.isVaultInstalled = false;
+            
             return false;
         }
 
         this.isVaultInstalled = false;
+        
         return false;
     }
 
+    public SlimefunAddon getSlimefunAddon() {
+        return slimefunAddon;
+    }
+
+    public boolean isVaultInstalled() {
+        return isVaultInstalled;
+    }
+
+    public Economy getEconomy() {
+        return economy;
+    }
 
 }

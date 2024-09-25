@@ -42,14 +42,15 @@ public class ShockwaveTest implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
     
-        if(!player.hasPermission("fnshockwave.test")){
-            player.sendMessage("You have no permission to execute this command!");
+        if(!player.hasPermission("fnshockwave.test")) {
+            Utils.sendMessage("You have no permission to execute this command!", player);
+
             return false;
         }
 
         if(args.length == 0){
             shockwave(player);
-        } else if (args[0].equals("repeat")){
+        } else if (args[0].equals("repeat")) {
             Long cd = playerCooldownMap.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
             int duration = !args[1].isBlank() ? Integer.parseInt(args[1]) : 60;
             
@@ -67,11 +68,12 @@ public class ShockwaveTest implements CommandExecutor {
         return true;
     }
 
-    public void shockwave(Player player){
+    public void shockwave(Player player) {
         if(Utils.cooldownHelper(playerCooldownMap.getOrDefault(player.getUniqueId(), 15L)) < 5) {
             Long cd = Utils.cooldownHelper(playerCooldownMap.get(player.getUniqueId()));
 
             player.sendMessage(Utils.colorTranslator("&dShockwave gem in cooldown for " + (5 - cd) + " seconds!"));
+            
             return;
         } else {
             playerCooldownMap.put(player.getUniqueId(), System.currentTimeMillis());

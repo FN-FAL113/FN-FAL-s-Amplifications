@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.OnRightClickHandler;
@@ -11,6 +12,7 @@ import ne.fnfal113.fnamplifications.gems.implementation.ThrowWeaponTask;
 import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,25 +32,27 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
         if (WeaponArmorEnum.SWORDS.isTagged(itemStackToSocket.getType())) {
             bindGem(slimefunGemItem, itemStackToSocket, player);
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on swords only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on swords only", player);
         }
     }
 
     @Override
-    public void onRightClick(Player player){
-        if(player.isSneaking()){
+    public void onRightClick(Player player) {
+        if(player.isSneaking()) return;
+
+        // check if player has permission to build on the current location
+        if(!hasPermissionToThrow(player)) {
+            Utils.sendMessage("You don't have the permission to throw here! (Needs block interaction flag enabled)", player);
+            
             return;
-        }
-        if(!hasPermissionToThrow(player)){
-            player.sendMessage(Utils.colorTranslator("&eYou don't have the permission to throw here! (Needs block interaction flag enabled)"));
-            return;
-        } // check if player has permission to build on the current location
+        } 
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
         ItemMeta meta = itemStack.getItemMeta();
+
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        try{
+        try {
             String pdcValue = pdc.getOrDefault(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "false");
             Vector vector = player.getLocation().add(player.getLocation().getDirection().multiply(9).normalize())
                     .subtract(player.getLocation().toVector()).toVector();
@@ -63,7 +67,7 @@ public class TriSwordGem extends AbstractGem implements OnRightClickHandler {
             armorStand.setLeftArmPose(Utils.setLeftArmAngle(armorStand, 0 + pitch, 12, 0));
 
             throwWeaponTask.runTaskTimer(FNAmplifications.getInstance(), 0L, 1L);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             pdc.set(Keys.RETURN_WEAPON_KEY, PersistentDataType.STRING, "true");
             itemStack.setItemMeta(meta);
 

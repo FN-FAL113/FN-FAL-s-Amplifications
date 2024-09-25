@@ -6,9 +6,11 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -49,16 +51,16 @@ public class FnMagicAltar extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = PaperLib.getBlockState(dispBlock, false).getState();
 
-        if (state instanceof Dispenser) {
+        if(state instanceof Dispenser) {
             Dispenser disp = (Dispenser) state;
             Inventory inv = disp.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
-            for (int i = 0; i < inputs.size(); i++) {
-                if (canCraft(inv, inputs.get(i))) {
+            for(int i = 0; i < inputs.size(); i++) {
+                if(canCraft(inv, inputs.get(i))) {
                     ItemStack output = RecipeType.getRecipeOutputList(this, inputs.get(i)).clone();
 
-                    if (SlimefunUtils.canPlayerUseItem(p, output, true)) {
+                    if(SlimefunUtils.canPlayerUseItem(p, output, true)) {
                         craft(dispBlock, p, b, inv, inputs.get(i), output);
                     }
 
@@ -66,7 +68,7 @@ public class FnMagicAltar extends MultiBlockMachine {
                 }
             }
 
-            if (inv.isEmpty()) {
+            if(inv.isEmpty()) {
                 Slimefun.getLocalization().sendMessage(p, "machines.inventory-empty", true);
             } else {
                 Slimefun.getLocalization().sendMessage(p, "machines.pattern-not-found", true);
@@ -75,8 +77,8 @@ public class FnMagicAltar extends MultiBlockMachine {
     }
 
     private boolean canCraft(Inventory inv, ItemStack[] recipe) {
-        for (int j = 0; j < inv.getContents().length; j++) {
-            if (!SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
+        for(int j = 0; j < inv.getContents().length; j++) {
+            if(!SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
                 return false;
             }
         }
@@ -88,7 +90,7 @@ public class FnMagicAltar extends MultiBlockMachine {
         Inventory fakeInv = createVirtualInventory(inv);
         Inventory outputInv = findOutputInventory(output, dispenser, inv, fakeInv);
 
-        if (outputInv != null) {
+        if(outputInv != null) {
             craftItem(inv, recipe, b);
 
             outputInv.addItem(output);
@@ -97,18 +99,19 @@ public class FnMagicAltar extends MultiBlockMachine {
 
             dispenser.getWorld().dropItem(b.getLocation(), output);
             Slimefun.getLocalization().sendMessage(p, "machines.full-inventory", true);
-            p.sendMessage(Utils.colorTranslator("&dCrafted item has been dropped instead"));
+
+            Utils.sendMessage("Crafted item has been dropped instead", p);
         }
 
-        if(output.getItemMeta().hasDisplayName()){
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted " + output.getItemMeta().getDisplayName() + "!"));
+        if(output.getItemMeta().hasDisplayName()) {
+            Utils.sendMessage("Successfully crafted " + output.getItemMeta().getDisplayName() + "!", p);
         } else{
-            p.sendMessage(Utils.colorTranslator("&dSuccessfully crafted item!"));
+            Utils.sendMessage("Successfully crafted item!", p);
         }
     }
 
-    public void craftItem(Inventory inv, ItemStack[] recipe, Block b){
-        for (int j = 0; j < 9; j++) {
+    public void craftItem(Inventory inv, ItemStack[] recipe, Block b) {
+        for(int j = 0; j < 9; j++) {
             ItemStack item = inv.getContents()[j];
 
             if (item != null && item.getType() != Material.AIR && SlimefunUtils.isItemSimilar(inv.getContents()[j], recipe[j], true)) {
@@ -143,8 +146,7 @@ public class FnMagicAltar extends MultiBlockMachine {
         }, 30);
     }
 
-    protected @Nonnull
-    Inventory createVirtualInventory(@Nonnull Inventory inv) {
+    protected @Nonnull Inventory createVirtualInventory(@Nonnull Inventory inv) {
         Inventory fakeInv = Bukkit.createInventory(null, 9, "Fake Inventory");
 
         for (int j = 0; j < inv.getContents().length; j++) {

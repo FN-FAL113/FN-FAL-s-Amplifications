@@ -4,13 +4,14 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -37,12 +38,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpgrade {
 
-    @Getter
     private final List<Double> cosine = new ArrayList<>();
-    @Getter
+
     private final List<Double> sine = new ArrayList<>();
 
-    @Getter
     private final Map<UUID, Long> playerCooldownMap = new HashMap<>();
 
     public ShockwaveGem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -56,7 +55,7 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.CHESTPLATE.isTagged(itemStackToSocket.getType()) ||
                 WeaponArmorEnum.LEGGINGS.isTagged(itemStackToSocket.getType()) || WeaponArmorEnum.BOOTS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
@@ -65,23 +64,17 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on armors only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on armors only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof Player)) return;
 
-        if(!(event.getDamager() instanceof LivingEntity)) {
-            return;
-        }
+        if(!(event.getDamager() instanceof LivingEntity)) return;
 
         Player player = (Player) event.getEntity();
         LivingEntity livingEntity = (LivingEntity) event.getDamager();
@@ -89,12 +82,12 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         int tier = getTier(itemStack, this.getId());
         double amount = 3.5D * (5 - tier); // damage multiplier per tier
 
-        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier){
+        if(ThreadLocalRandom.current().nextInt(100) < getChance() / tier) {
              // cooldown check
             if(Utils.cooldownHelper(getPlayerCooldownMap().getOrDefault(player.getUniqueId(), 15L)) < 5) {
                 Long cd = Utils.cooldownHelper(getPlayerCooldownMap().get(player.getUniqueId()));
 
-                player.sendMessage(Utils.colorTranslator("&dShockwave gem in cooldown for " + (5 - cd) + " seconds!"));
+                Utils.sendMessage("Shockwave gem in cooldown for " + (5 - cd) + " seconds!", livingEntity);
                 
                 return;
             } else {
@@ -138,14 +131,27 @@ public class ShockwaveGem extends AbstractGem implements OnDamageHandler, GemUpg
         }
     }
 
-    public void spawnJumpingBlock(Block blockOnGround, double height){
+    public void spawnJumpingBlock(Block blockOnGround, double height) {
         Location loc = blockOnGround.getRelative(BlockFace.UP).getLocation();
+        
         FallingBlock block = blockOnGround.getWorld().spawnFallingBlock(loc, blockOnGround.getBlockData());
         
         block.setDropItem(false);
         block.setVelocity(new Vector(0, height, 0));
         // this metadata gets check on entity block change event, since falling blocks are converted to placed blocks on land
         block.setMetadata("shockwave_gem", new FixedMetadataValue(FNAmplifications.getInstance(), "ghost_block"));
+    }
+
+    public List<Double> getCosine() {
+        return cosine;
+    }
+
+    public List<Double> getSine() {
+        return sine;
+    }
+
+    public Map<UUID, Long> getPlayerCooldownMap() {
+        return playerCooldownMap;
     }
 
 }

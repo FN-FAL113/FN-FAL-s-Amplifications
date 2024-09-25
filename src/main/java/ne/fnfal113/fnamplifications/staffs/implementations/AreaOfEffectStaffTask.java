@@ -1,6 +1,5 @@
 package ne.fnfal113.fnamplifications.staffs.implementations;
 
-import lombok.Getter;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -15,22 +14,21 @@ import javax.annotation.Nullable;
 
 public class AreaOfEffectStaffTask {
 
-    @Getter
     private final Player player;
-    @Getter
+
     private final Block targetBlock;
-    @Getter
+
     private final String cloudName;
-    @Getter
+
     private final float radius;
-    @Getter
+
     private final int durationInTicks;
-    @Getter
+
     private final Particle particle;
-    @Getter
+
     private final NamespacedKey storageKey;
 
-    public AreaOfEffectStaffTask(Player player, Block targetBlock, String cloudName, float radius, int durationInTicks, Particle particle, @Nullable NamespacedKey key){
+    public AreaOfEffectStaffTask(Player player, Block targetBlock, String cloudName, float radius, int durationInTicks, Particle particle, @Nullable NamespacedKey key) {
         this.player = player;
         this.targetBlock = targetBlock;
         this.cloudName = cloudName;
@@ -40,18 +38,48 @@ public class AreaOfEffectStaffTask {
         this.storageKey = key;
     }
 
-    public void spawnCloud(){
+    public void spawnCloud() {
         AreaEffectCloud effectCloud = (AreaEffectCloud) getPlayer().getWorld().spawnEntity(getTargetBlock().getLocation().add(0.5, 1, 0.5), EntityType.AREA_EFFECT_CLOUD);
+        
         effectCloud.setParticle(getParticle());
         effectCloud.setDuration(getDurationInTicks());
         effectCloud.setRadius(getRadius());
         effectCloud.setCustomName(getCloudName());
         effectCloud.setCustomNameVisible(false);
         effectCloud.setReapplicationDelay(0);
-        if(getStorageKey() != null){
+
+        if(getStorageKey() != null) {
             effectCloud.getPersistentDataContainer().set(getStorageKey(), PersistentDataType.STRING, player.getName());
         }
-        effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0 , 0, false, false, false), true);
 
+        effectCloud.addCustomEffect(new PotionEffect(PotionEffectType.GLOWING, 0 , 0, false, false, false), true);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Block getTargetBlock() {
+        return targetBlock;
+    }
+
+    public String getCloudName() {
+        return cloudName;
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public int getDurationInTicks() {
+        return durationInTicks;
+    }
+
+    public Particle getParticle() {
+        return particle;
+    }
+
+    public NamespacedKey getStorageKey() {
+        return storageKey;
     }
 }

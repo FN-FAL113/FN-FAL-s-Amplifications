@@ -1,11 +1,11 @@
 package ne.fnfal113.fnamplifications.gems.listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGemUnbinder;
 import ne.fnfal113.fnamplifications.gems.implementation.GemUnbinderTask;
 import ne.fnfal113.fnamplifications.utils.Utils;
+import ne.fnfal113.fnamplifications.utils.compatibility.VersionedClass;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,15 +23,16 @@ import java.util.UUID;
 
 public class GemUnbinderListener implements Listener {
 
-    @Getter
     private final Map<UUID, Integer> unbindChanceMap = new HashMap<>();
 
     /**
      * On gem item to unbind click, player selects a gem to unbind from the available gems inventory UI
      */
     @EventHandler
-    public void onClick(InventoryClickEvent event){
-        if(event.getView().getTitle().equals(Utils.colorTranslator("&cSelect a gem to unbind"))){
+    public void onClick(InventoryClickEvent event) {
+        String title = VersionedClass.invoke(event.getView(), "getTitle").toString();
+
+        if(title.equals(Utils.colorTranslator("&cSelect a gem to unbind"))) {
             if(event.getClickedInventory() != null && event.getClickedInventory().getHolder() instanceof Player) {
                 event.setCancelled(true);
 
@@ -56,10 +57,8 @@ public class GemUnbinderListener implements Listener {
      * On gem unbinder item right click, if conditions are sufficed then show available gems to unbind inventory UI 
      */
     @EventHandler
-    public void onRightClick(PlayerInteractEvent event){
-        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
+    public void onRightClick(PlayerInteractEvent event) {
+        if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
         Player player = event.getPlayer();
         SlimefunItem slimefunItem = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
@@ -69,7 +68,7 @@ public class GemUnbinderListener implements Listener {
             player.updateInventory(); // refresh player inventory to prevent visual bugs
 
             if(player.getInventory().getItemInOffHand().getType() == Material.AIR) {
-                player.sendMessage(Utils.colorTranslator("&cYou have no item in your offhand that contain bounded gems!"));
+                Utils.sendMessage("You have no item in your offhand that contain bounded gems!", player);
                 
                 return;
             }
@@ -79,6 +78,10 @@ public class GemUnbinderListener implements Listener {
             new GemUnbinderTask(player, player.getInventory().getItemInOffHand()).showAvailableGemsUI();
         }
 
+    }
+
+    public Map<UUID, Integer> getUnbindChanceMap() {
+        return unbindChanceMap;
     }
 
 }

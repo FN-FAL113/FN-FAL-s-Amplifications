@@ -4,8 +4,9 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
+
 import ne.fnfal113.fnamplifications.quivers.implementations.QuiverTask;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,22 +17,16 @@ import org.bukkit.inventory.ItemStack;
  */
 public abstract class AbstractQuiver extends SlimefunItem {
 
-    @Getter
     private final NamespacedKey storedArrowsKey;
     
-    @Getter
     private final NamespacedKey randomIdKey;
     
-    @Getter
     private final NamespacedKey stateKey;
     
-    @Getter
     private final int quiverSize;
     
-    @Getter
     private final ItemStack arrowType;
 
-    @Getter
     private final QuiverTask quiverTask;
 
     public AbstractQuiver(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe,
@@ -44,6 +39,30 @@ public abstract class AbstractQuiver extends SlimefunItem {
         this.quiverSize = quiverSize;
         this.arrowType = arrowType;
         this.quiverTask = new QuiverTask(this);
+    }
+
+    public NamespacedKey getStoredArrowsKey() {
+        return storedArrowsKey;
+    }
+
+    public NamespacedKey getRandomIdKey() {
+        return randomIdKey;
+    }
+
+    public NamespacedKey getStateKey() {
+        return stateKey;
+    }
+
+    public int getQuiverSize() {
+        return quiverSize;
+    }
+
+    public ItemStack getArrowType() {
+        return arrowType;
+    }
+
+    public QuiverTask getQuiverTask() {
+        return quiverTask;
     }
 
 }

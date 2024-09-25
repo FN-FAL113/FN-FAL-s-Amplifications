@@ -3,8 +3,10 @@ package ne.fnfal113.fnamplifications.staffs;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.staffs.abstracts.AbstractStaff;
 import ne.fnfal113.fnamplifications.utils.Keys;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -20,15 +22,18 @@ public class StaffOfExplosion extends AbstractStaff {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public void onClick(PlayerInteractEvent event){
+    public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        
         ItemStack item = player.getInventory().getItemInMainHand();
+        
         Block block = event.getPlayer().getTargetBlockExact(50);
 
-        if(block == null || item.getType() == Material.AIR){
+        if(block == null || item.getType() == Material.AIR) {
             return;
         }
-        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
+
+        if(!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, player.getLocation())) {
             return;
         }
 

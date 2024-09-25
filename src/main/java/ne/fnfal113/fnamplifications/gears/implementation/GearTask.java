@@ -1,9 +1,10 @@
 package ne.fnfal113.fnamplifications.gears.implementation;
 
 import com.google.common.base.Strings;
-import lombok.Getter;
+
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
@@ -18,28 +19,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-// To DO: Method Documentation
-@SuppressWarnings("ConstantConditions")
 public class GearTask {
 
-    @Getter
     private final NamespacedKey storageKey;
-    @Getter
+
     private final NamespacedKey storageKey2;
-    @Getter
+
     private final NamespacedKey storageKey3;
-    @Getter
+
     private final int startingProgress;
-    @Getter
+
     private final int incrementProgress;
-    @Getter
+
     private final int maxLevel;
-    @Getter
+
     private final ItemStack itemStack;
 
     private final List<UUID> uuidList = new ArrayList<>();
 
-    public GearTask(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, ItemStack item, int startingProgress, int incrementProgress, int maxLevel){
+    public GearTask(NamespacedKey key1, NamespacedKey key2, NamespacedKey key3, ItemStack item, int startingProgress, int incrementProgress, int maxLevel) {
         this.storageKey = key1;
         this.storageKey2 = key2;
         this.storageKey3 = key3;
@@ -50,7 +48,7 @@ public class GearTask {
     }
 
     public String getProgressBar(int current, int max, int totalBars, char symbol, ChatColor completedColor,
-                                 ChatColor notCompletedColor) {
+        ChatColor notCompletedColor) {
         float percent = (float) current / max; // divide the current progress to the max value to get the percent
         int progressBars = (int) (totalBars * percent); // multiply the percent value to total progress bars to get current bar amount
 
@@ -60,7 +58,7 @@ public class GearTask {
                 + Strings.repeat("" + notCompletedColor + symbol, totalBars - progressBars);
     }
 
-    public boolean onHit(EntityDamageByEntityEvent event, Player p, ItemStack item){
+    public boolean onHit(EntityDamageByEntityEvent event, Player p, ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer progress = meta.getPersistentDataContainer();
 
@@ -71,9 +69,11 @@ public class GearTask {
 
         if(isMaxLevel(armorLevel)){
             if(!uuidList.contains(p.getUniqueId())) {
-                p.sendMessage(Utils.colorTranslator(meta.getDisplayName() + "&c has reached max level!"));
+                Utils.sendMessage(meta.getDisplayName() + " has reached max level!", p);
+
                 uuidList.add(p.getUniqueId());
             }
+
             return false;
         }
 
@@ -92,12 +92,12 @@ public class GearTask {
         return false;
     }
 
-    public void updateArmour(int armorLevel, int xpAmountIncremented, int maxXpReq, ItemStack item, ItemMeta meta, List<String> lore){
+    public void updateArmour(int armorLevel, int xpAmountIncremented, int maxXpReq, ItemStack item, ItemMeta meta, List<String> lore) {
         lore.set(7, Utils.colorTranslator("&eLevel: ") + armorLevel);
         lore.set(8, Utils.colorTranslator("&eProgress:"));
         lore.set(9, Utils.colorTranslator("&7[&r" + getProgressBar(xpAmountIncremented, maxXpReq, 10, '■', ChatColor.YELLOW, ChatColor.GRAY) + "&7]"));
 
-        if(WeaponArmorEnum.CHESTPLATE.isTagged(getItemStack().getType()) && armorLevel == 30 && xpAmountIncremented == 1){
+        if(WeaponArmorEnum.CHESTPLATE.isTagged(getItemStack().getType()) && armorLevel == 30 && xpAmountIncremented == 1) {
             lore.add(10,"");
             lore.add(11, ChatColor.RED + "◬◬◬◬◬◬| " + ChatColor.LIGHT_PURPLE + ""
                     + ChatColor.BOLD + "Effects " + ChatColor.GOLD + "|◬◬◬◬◬◬");
@@ -108,9 +108,10 @@ public class GearTask {
         item.setItemMeta(meta);
     }
 
-    public boolean levelUpArmour(int armorLevel, int xpAmountIncremented, int maxXpReq, ItemStack item, ItemMeta meta, PersistentDataContainer progress, List<String> lore, Player p){
-        if(isMaxLevel(armorLevel)){
-            p.sendMessage(Utils.colorTranslator(meta.getDisplayName() + "&c has reached max level!"));
+    public boolean levelUpArmour(int armorLevel, int xpAmountIncremented, int maxXpReq, ItemStack item, ItemMeta meta, PersistentDataContainer progress, List<String> lore, Player p) {
+        if(isMaxLevel(armorLevel)) {
+            Utils.sendMessage(meta.getDisplayName() + " has reached max level!", p);
+
             return false;
         }
 
@@ -135,13 +136,42 @@ public class GearTask {
         return true;
     }
 
-    public boolean isMaxLevel(int armorLevel){
+    public boolean isMaxLevel(int armorLevel) {
         return armorLevel >= getMaxLevel();
     }
 
     public void sendLevelUpMessage(Player p){
-        p.sendMessage(Utils.colorTranslator("&c&l[FNAmpli&b&lfications]> " + getItemStack().getItemMeta().getDisplayName()  + " leveled up!"));
+        Utils.sendMessage(getItemStack().getItemMeta().getDisplayName()  + " leveled up!", p);
+
         p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1 , 1);
+    }
+
+    public NamespacedKey getStorageKey() {
+        return storageKey;
+    }
+
+    public NamespacedKey getStorageKey2() {
+        return storageKey2;
+    }
+
+    public NamespacedKey getStorageKey3() {
+        return storageKey3;
+    }
+
+    public int getStartingProgress() {
+        return startingProgress;
+    }
+
+    public int getIncrementProgress() {
+        return incrementProgress;
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    public ItemStack getItemStack() {
+        return itemStack;
     }
 
 }

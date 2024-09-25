@@ -4,11 +4,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -34,23 +36,17 @@ public class ArmorImpairGem extends AbstractGem implements OnDamageHandler, GemU
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on axes and swords only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on axes and swords only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(!(event.getEntity() instanceof LivingEntity)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof LivingEntity)) return;
         
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
-        if(event.getEntity().isInvulnerable()) {
-            return;
-        }
+        if(event.getEntity().isInvulnerable()) return;
 
         LivingEntity livingEntity = (LivingEntity) event.getEntity();
         ItemStack[] armorContents = livingEntity.getEquipment().getArmorContents();

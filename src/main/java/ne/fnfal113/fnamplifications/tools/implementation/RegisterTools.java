@@ -2,6 +2,7 @@ package ne.fnfal113.fnamplifications.tools.implementation;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import ne.fnfal113.fnamplifications.items.FNAmpItems;
 import ne.fnfal113.fnamplifications.multiblocks.FnAssemblyStation;
@@ -11,12 +12,13 @@ import ne.fnfal113.fnamplifications.tools.FnHoeAutoPlant;
 import ne.fnfal113.fnamplifications.tools.BlockRotator;
 import ne.fnfal113.fnamplifications.tools.OrientPearl;
 import ne.fnfal113.fnamplifications.tools.ThrowableTorch;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class RegisterTools {
 
-    public static void setup(SlimefunAddon instance){
+    public static void setup(SlimefunAddon instance) {
         new FnHoe(FNAmpItems.FN_MISC, FNAmpItems.FN_HOE_5X5, FnAssemblyStation.RECIPE_TYPE, new ItemStack[]{
                 SlimefunItems.COMMON_TALISMAN, new SlimefunItemStack(SlimefunItems.CARBON, 3), SlimefunItems.COMMON_TALISMAN,
                 new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 4), new ItemStack(Material.DIAMOND_HOE), new SlimefunItemStack(SlimefunItems.EARTH_RUNE, 2),
@@ -52,7 +54,6 @@ public class RegisterTools {
                 new ItemStack(Material.BLAZE_POWDER), new ItemStack(Material.TORCH, 1), new ItemStack(Material.BLAZE_POWDER),
                 null, new ItemStack(Material.BLAZE_POWDER), null})
                 .register(instance);
-
     }
 
 }

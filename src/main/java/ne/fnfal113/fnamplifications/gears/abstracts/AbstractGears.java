@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import lombok.Getter;
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.config.ConfigManager;
 import ne.fnfal113.fnamplifications.gears.implementation.GearTask;
@@ -25,26 +24,24 @@ import java.util.UUID;
 
 public abstract class AbstractGears extends SlimefunItem {
 
-    @Getter
     private final NamespacedKey defaultUsageKey;
-    @Getter
+
     private final NamespacedKey defaultUsageKey2;
-    @Getter
+
     private final NamespacedKey defaultUsageKey3;
-    @Getter
+
     private final int startingProgress;
-    @Getter
+
     private final int incrementingProgress;
-    @Getter
+
     private final int maxLevel;
-    @Getter
+
     private final int maxAttributes;
-    @Getter
+
     private final EquipmentSlot equipmentSlot;
-    @Getter
+
     private final GearTask gearTask;
 
-    @Getter
     private final ConfigManager configManager = FNAmplifications.getInstance().getConfigManager();
 
     public AbstractGears(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe,
@@ -226,6 +223,46 @@ public abstract class AbstractGears extends SlimefunItem {
     @Override
     public boolean isUseableInWorkbench() {
         return false;
+    }
+
+    public NamespacedKey getDefaultUsageKey() {
+        return defaultUsageKey;
+    }
+
+    public NamespacedKey getDefaultUsageKey2() {
+        return defaultUsageKey2;
+    }
+
+    public NamespacedKey getDefaultUsageKey3() {
+        return defaultUsageKey3;
+    }
+
+    public int getStartingProgress() {
+        return startingProgress;
+    }
+
+    public int getIncrementingProgress() {
+        return incrementingProgress;
+    }
+
+    public int getMaxLevel() {
+        return maxLevel;
+    }
+
+    public int getMaxAttributes() {
+        return maxAttributes;
+    }
+
+    public EquipmentSlot getEquipmentSlot() {
+        return equipmentSlot;
+    }
+
+    public GearTask getGearTask() {
+        return gearTask;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
     }
 
 }

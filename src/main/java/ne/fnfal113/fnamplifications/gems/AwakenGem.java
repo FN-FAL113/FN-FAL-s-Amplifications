@@ -4,12 +4,15 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnPlayerDeathHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -28,7 +31,7 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.HELMET.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -36,7 +39,7 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on helmet only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on helmet only", player);
         }
     }
 
@@ -65,7 +68,7 @@ public class AwakenGem extends AbstractGem implements OnPlayerDeathHandler, GemU
                     particleLoc.setX(loc.getX() + Math.cos(d) * 2);
                     particleLoc.setZ(loc.getZ() + Math.sin(d) * 2);
                     
-                    player.getWorld().spawnParticle(Particle.REDSTONE, particleLoc, 2,
+                    player.getWorld().spawnParticle(VersionedParticle.DUST, particleLoc, 2,
                             new Particle.DustOptions(Color.fromRGB(r, g, b), 2));
                 }
             }, 2L);

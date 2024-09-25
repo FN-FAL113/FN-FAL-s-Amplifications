@@ -4,14 +4,16 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.utils.compatibility.VersionedParticle;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -28,7 +30,7 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
     }
 
     @Override
-    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket){
+    public void onDrag(Player player, SlimefunItem slimefunGemItem, ItemStack gemItem, ItemStack itemStackToSocket) {
         if (WeaponArmorEnum.BOOTS.isTagged(itemStackToSocket.getType())) {
             if(isUpgradeGem(gemItem, this.getId())) {
                 upgradeGem(slimefunGemItem, itemStackToSocket, gemItem, player);
@@ -36,19 +38,15 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on boots only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on boots only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(event.isCancelled()) {
-            return;
-        }
+        if(event.isCancelled()) return;
 
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof Player)) return;
 
         Player victim = (Player) event.getEntity();
 
@@ -68,7 +66,7 @@ public class SmokeCriminalGem extends AbstractGem implements OnDamageHandler, Ge
                             double z = Math.sin(a) * 0.65;
                             double y = a / 25;
                             
-                            victim.getWorld().spawnParticle(Particle.SMOKE_NORMAL, victim.getLocation().clone().add(x, y, z), 0);
+                            victim.getWorld().spawnParticle(VersionedParticle.SMOKE, victim.getLocation().clone().add(x, y, z), 0);
                         }
 
                         if(i.get() == 10 || victim.isDead() || !victim.isValid()) {

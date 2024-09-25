@@ -4,11 +4,13 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
 import ne.fnfal113.fnamplifications.gems.abstracts.AbstractGem;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.gems.handlers.OnDamageHandler;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -31,31 +33,27 @@ public class ThornAwayGem extends AbstractGem implements OnDamageHandler, GemUpg
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplate only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on chestplate only", player);
         }
     }
 
     @Override
     public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
-        if(event.isCancelled()) {
-            return;
-        }
-        
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(event.isCancelled()) return;
+
+        if(!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
 
-        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS) {
-            return;
-        } // if damage cause is not thorns, don't continue
+        // if damage cause is not thorns, don't continue
+        if(event.getCause() != EntityDamageEvent.DamageCause.THORNS) return;
 
+        // cancel any thorn damage
         if(ThreadLocalRandom.current().nextInt(100) < getChance() / getTier(itemStack, this.getId())) {
             event.setCancelled(true);
             
             sendGemMessage(player, this.getItemName());
-        } // cancel any thorn damage
+        } 
     }
 
 }

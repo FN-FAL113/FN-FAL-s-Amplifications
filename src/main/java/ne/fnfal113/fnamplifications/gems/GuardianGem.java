@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+
 import ne.fnfal113.fnamplifications.FNAmplifications;
 import ne.fnfal113.fnamplifications.gems.events.GuardianSpawnEvent;
 import ne.fnfal113.fnamplifications.gems.handlers.GemUpgrade;
@@ -13,6 +14,7 @@ import ne.fnfal113.fnamplifications.utils.Keys;
 import ne.fnfal113.fnamplifications.gems.implementation.GuardianTask;
 import ne.fnfal113.fnamplifications.utils.WeaponArmorEnum;
 import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Flying;
@@ -49,19 +51,15 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
                 bindGem(slimefunGemItem, itemStackToSocket, player);
             }
         } else {
-            player.sendMessage(Utils.colorTranslator("&eInvalid item to socket! Gem works on chestplate only"));
+            Utils.sendMessage("Invalid item to socket! Gem works on chestplate only", player);
         }
     }
 
     @Override
-    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack){
-        if(event.isCancelled()) {
-            return;
-        }
+    public void onDamage(EntityDamageByEntityEvent event, ItemStack itemStack) {
+        if(event.isCancelled()) return;
 
-        if(!(event.getEntity() instanceof Player)) {
-            return;
-        }
+        if(!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
 
@@ -83,8 +81,9 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
                 GuardianSpawnEvent guardianSpawnEvent = new GuardianSpawnEvent(player, guardianTask.getZombie(), event.getDamager());
                 Bukkit.getPluginManager().callEvent(guardianSpawnEvent);
 
-                if(guardianSpawnEvent.isCancelled()){
+                if(guardianSpawnEvent.isCancelled()) {
                     guardianSpawnEvent.getZombieGuardian().remove();
+
                     return;
                 }
 
@@ -96,18 +95,17 @@ public class GuardianGem extends AbstractGem implements OnDamageHandler, GemUpgr
         } else {
             Zombie zombie = entityUUIDMap.get(player.getUniqueId());
 
-            if(zombie.getTarget() != null && !zombie.getTarget().isDead()){
+            if(zombie.getTarget() != null && !zombie.getTarget().isDead()) {
                 return;
             } // don't change target if the current target is not yet dead
 
             boolean isDamagerLivingEntity = event.getDamager() instanceof LivingEntity;
 
-            if(isDamagerLivingEntity &&
-                    event.getDamager().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)){
+            // if the damager has a guardian, attack the owner of the guardian instead
+            if(isDamagerLivingEntity && event.getDamager().getPersistentDataContainer().has(Keys.GUARDIAN_KEY, PersistentDataType.STRING)) {
                 zombie.setTarget(Bukkit.getPlayer(event.getDamager().getPersistentDataContainer().get(Keys.GUARDIAN_KEY, PersistentDataType.STRING)));
-            } // if the damager has a guardian, attack the owner of the guardian instead
-            else {
-                if(event.getDamager() instanceof Projectile){
+            } else {
+                if(event.getDamager() instanceof Projectile) {
                     if(((Projectile) event.getDamager()).getShooter() instanceof LivingEntity) {
                         zombie.setTarget((LivingEntity) ((Projectile) event.getDamager()).getShooter());
                     }

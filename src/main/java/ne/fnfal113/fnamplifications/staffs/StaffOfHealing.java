@@ -22,17 +22,16 @@ public class StaffOfHealing extends AbstractStaff {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public void onClick(PlayerInteractEvent event){
+    public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        
         ItemStack item = player.getInventory().getItemInMainHand();
+        
         Block block = event.getPlayer().getTargetBlockExact(50);
 
-        if(block == null || item.getType() == Material.AIR){
-            return;
-        }
-        if (!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, block.getLocation())) {
-            return;
-        }
+        if(block == null || item.getType() == Material.AIR) return;
+
+        if(!hasPermissionToCast(item.getItemMeta().getDisplayName(), player, block.getLocation())) return;
 
         ItemMeta meta = item.getItemMeta();
 
@@ -40,7 +39,6 @@ public class StaffOfHealing extends AbstractStaff {
 
         AreaOfEffectStaffTask cloudStaff = new AreaOfEffectStaffTask(player, block, "FN_HEALING", 2.85F, 160, Particle.HEART, Keys.createKey("cloudfn"));
         cloudStaff.spawnCloud();
-
     }
 
 }

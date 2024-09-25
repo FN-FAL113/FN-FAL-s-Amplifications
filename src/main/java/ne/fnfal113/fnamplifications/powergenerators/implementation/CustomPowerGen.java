@@ -1,21 +1,10 @@
 package ne.fnfal113.fnamplifications.powergenerators.implementation;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Nonnull;
-
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
-import io.github.thebusybiscuit.slimefun4.core.attributes.HologramOwner;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
-
-import lombok.SneakyThrows;
-
-import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
-
-import ne.fnfal113.fnamplifications.FNAmplifications;
-import ne.fnfal113.fnamplifications.utils.Utils;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -23,26 +12,31 @@ import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
-import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
-import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
-
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetProvider;
+import io.github.thebusybiscuit.slimefun4.core.attributes.HologramOwner;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
+import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
+
+import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
+
+import ne.fnfal113.fnamplifications.FNAmplifications;
+import ne.fnfal113.fnamplifications.utils.Utils;
 
 public class CustomPowerGen extends SlimefunItem implements HologramOwner, EnergyNetProvider {
 
     private final Map<Location, Boolean> HOLO_CACHE = new HashMap<>();
 
-    @SneakyThrows
     public CustomPowerGen(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, int dayRate, int nightRate, int output, int storage) {
         super(itemGroup, item, recipeType, recipe);
 
@@ -82,11 +76,15 @@ public class CustomPowerGen extends SlimefunItem implements HologramOwner, Energ
         itemStack.setItemMeta(meta);
     }
 
-    public void setConfigValues(int dayRate, int nightRate, int output, int storage) throws IOException {
-        FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "dayrate", dayRate, "power-xpansion-settings");
+    public void setConfigValues(int dayRate, int nightRate, int output, int storage) {
+        try {
+            FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "dayrate", dayRate, "power-xpansion-settings");
         FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "nightrate", nightRate, "power-xpansion-settings");
         FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "output", output, "power-xpansion-settings");
         FNAmplifications.getInstance().getConfigManager().initializeConfig(this.getId(), "storage", storage, "power-xpansion-settings");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Nonnull

@@ -1,7 +1,10 @@
 package ne.fnfal113.fnamplifications.quivers.listener;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+
 import ne.fnfal113.fnamplifications.quivers.abstracts.AbstractQuiver;
+import ne.fnfal113.fnamplifications.utils.Utils;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,28 +29,39 @@ public class QuiverListener implements Listener {
 
         boolean rightClickAction = (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK);
         boolean leftClickAction = (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK);
+        boolean bowEquipped = itemInMainHand.getType() == Material.BOW || itemInMainHand.getType() == Material.CROSSBOW || 
+            itemInOffHand.getType() == Material.BOW || itemInOffHand.getType() == Material.CROSSBOW;
 
-        if(rightClickAction) {
-            // crossbow consumes the quiver when state is open (arrow type), change type to leather right away
-            if (itemInMainHand.getType() == Material.CROSSBOW) {
+        // event might run twice and draw two arrows when both hands are equipped with bow
+        if(rightClickAction && bowEquipped) {
                 for (int i = 0; i < playerInvLength; i++) {
                     ItemStack itemStack = player.getInventory().getItem(i);
                     SlimefunItem sfItem = SlimefunItem.getByItem(itemStack);
+                    
+                    if(!(sfItem instanceof AbstractQuiver)) continue;
 
-                    if(sfItem instanceof AbstractQuiver && itemStack.getType() == ((AbstractQuiver) sfItem).getArrowType().getType()) {
-                        AbstractQuiver abstractQuiver = (AbstractQuiver) sfItem;
+                    AbstractQuiver abstractQuiver = (AbstractQuiver) sfItem;
 
-                        abstractQuiver.getQuiverTask().changeState(itemStack, itemStack.getItemMeta());
+                    if(abstractQuiver.getQuiverTask().getArrows(itemStack.getItemMeta()) == 0) continue;
+
+                    if(player.getInventory().firstEmpty() == -1) {
+                        Utils.sendMessage("Inventory full! Cannot draw arrow from quiver.", player);
+                        
+                        break;
                     }
-                }
+
+                    abstractQuiver.getQuiverTask().bowShoot(event, itemStack, itemInMainHand.getType());
+
+                    break;
             } 
 
+            return;
+        }
+
+        // depositing arrows requires no bows equipped
+        if(rightClickAction && !bowEquipped) {
             // deposit arrows if arrow equipped in main-hand
             if(itemInMainHand.getType() == Material.ARROW || itemInMainHand.getType() == Material.SPECTRAL_ARROW) {
-                if(itemInOffHand.getType() == Material.BOW || itemInOffHand.getType() == Material.CROSSBOW) {
-                    return;
-                } // prevent arrows being deposited when shooting bow in off-hand
-
                 for (int i = 0; i < playerInvLength; i++) {
                     // retrieve the first quiver item in player inventory then deposit arrows equipped in main-hand
                     ItemStack itemStack = player.getInventory().getItem(i);
@@ -67,14 +81,11 @@ public class QuiverListener implements Listener {
             // withdraw arrows or change quiver state if quiver equipped in main-hand
             SlimefunItem sfItem = SlimefunItem.getByItem(itemInMainHand);
 
-            if(sfItem instanceof AbstractQuiver) {
+            if(sfItem instanceof AbstractQuiver && player.isSneaking()) {
                 AbstractQuiver abstractQuiver = (AbstractQuiver) sfItem;
 
-                if(player.isSneaking()) {
-                    abstractQuiver.getQuiverTask().withdrawArrows(itemInMainHand, itemInMainHand.getItemMeta(), event.getPlayer());
-                } else {
-                    abstractQuiver.getQuiverTask().changeState(itemInMainHand, itemInMainHand.getItemMeta());
-                }
+
+                abstractQuiver.getQuiverTask().withdrawArrows(itemInMainHand, itemInMainHand.getItemMeta(), event.getPlayer());
             }
 
         }
@@ -121,7 +132,7 @@ public class QuiverListener implements Listener {
         SlimefunItem sfItem = SlimefunItem.getByItem(quiverItemStack);
 
         if(sfItem instanceof AbstractQuiver) {
-            ((AbstractQuiver) sfItem).getQuiverTask().bowShoot(event, quiverItemStack, quiverItemStack.getType() == Material.ARROW);
+            //((AbstractQuiver) sfItem).getQuiverTask().bowShoot(event, quiverItemStack, quiverItemStack.getType() == Material.ARROW);
         }
 
     }
