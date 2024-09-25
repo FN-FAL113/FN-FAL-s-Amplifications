@@ -11,7 +11,7 @@ A slimefun addon that adds different types of items and more content for your se
 More awaits ingame for the players to try and craft for themselves. It pars with InfinityXpansion and LiteXpansion level of difficulty in terms
 of crafting. Come and explore FN's Amplifications! 
 
-Addon supports 1.16.x, 1.17.x, 1.18.x, 1.19.x, and 1.20.x minecraft versions
+Addon supports 1.17.x, 1.18.x, 1.19.x, 1.20.x and 1.21.x minecraft versions
 
 ## :bulb: Features
 - **PowerXpansion** - 12 new power generators with holograms (toggle-able) which integrates with LiteXpansion's items as recipes!
@@ -60,7 +60,7 @@ You can change them if you think they need balancing or for several reasons
 
 ## 💖 Support the Project/Dev
 I develop stuff for free with dedication and hard work. Sharing this project with fellow minecraft gamers/server owners or giving it a star is a huge sign of appreciation!</br>
-a donation button (currently using parent's paypal due to my pending account requirements).<br/>
+Donations are welcome but not required. 💖<br/>
 <a href="https://www.paypal.com/paypalme/ameliaOrbeta" target=_blank>
   <img src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" width="40%" />
 </a>
