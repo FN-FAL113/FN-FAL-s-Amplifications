@@ -48,6 +48,8 @@ jobs:
             javaVersion: '20'
           - mcVersion: '1.20.6'
             javaVersion: '21'
+          - mcVersion: '1.21.1'
+            javaVersion: '22'
     
     steps:        
       - uses: FN-FAL113/minecraft-plugin-runtime-test@v1.1.2
