@@ -118,6 +118,9 @@ public class QuiverTask {
         }
     }
 
+    // 1.20.6 broke previous quiver functionality due to arrows being consume on event cancel,
+    // https://github.com/PaperMC/Paper/pull/9949, fixes this but it not yet merged if ever it gets
+    // merged then I might revert back old functionality without needed an extra space for arrows on bow shoot.
     public void bowShoot(PlayerInteractEvent event, ItemStack quiverItemStack, Material itemInMainHandType) {
         Player player = (Player) event.getPlayer();
 

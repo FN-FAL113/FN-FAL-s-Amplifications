@@ -52,25 +52,28 @@ public class ImpostorGem extends AbstractGem implements OnDamageHandler, GemUpgr
 
         if(ThreadLocalRandom.current().nextInt(100) < (getChance() / getTier(itemStack, this.getId())) &&
             event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
-            double nX;
-            double nZ;
-            float nang = player.getLocation().getYaw() + 90;
+                double nX;
+                double nZ;
+                float yow = damager.getLocation().getYaw();
+                
+                float angleDeg = yow < 0 ? 180 + yow : yow + 180;
 
-            if(nang < 0) nang += 360;
+                // Yaw in-game has an offset degree of -90, so adding 90 degrees translates properly to degrees
+                // minecraft, why make this sht confusing, so 0 yaw is east but shows south in-game
+                // might be mc and spigot api not having an aligned coordinate system 
+                nX = Math.cos(Math.toRadians(angleDeg + 90));
+                nZ = Math.sin(Math.toRadians(angleDeg + 90));
 
-            nX = Math.cos(Math.toRadians(nang));
-            nZ = Math.sin(Math.toRadians(nang));
+                Location newDamagerLoc = new Location(
+                    damager.getWorld(), 
+                    damager.getLocation().getX() + (nX),
+                    damager.getLocation().getY(), 
+                    damager.getLocation().getZ() + (nZ),
+                    damager.getLocation().getYaw(),
+                    damager.getLocation().getPitch()
+                );
 
-            Location newDamagerLoc = new Location(
-                player.getWorld(), 
-                damager.getLocation().getX() - nX,
-                damager.getLocation().getY(), 
-                damager.getLocation().getZ() - nZ,
-                damager.getLocation().getYaw(),
-                damager.getLocation().getPitch()
-            );
-            
-            player.teleport(newDamagerLoc);
+                player.teleport(newDamagerLoc.clone());
             
             sendGemMessage(player, this.getItemName());
         } // teleport behind the attacker
