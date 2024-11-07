@@ -61,7 +61,7 @@ You can change them if you think they need balancing or for several reasons
 ## 💖 Support the Project/Dev
 I develop stuff for free with dedication and hard work. Sharing this project with fellow minecraft gamers/server owners or giving it a star is a huge sign of appreciation!</br>
 Donations are welcome but not required. 💖<br/>
-<a href="https://www.paypal.com/paypalme/ameliaOrbeta" target=_blank>
+<a href="https://www.paypal.com/paypalme/fnfal113" target=_blank>
   <img src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate with PayPal" width="40%" />
 </a>
 
